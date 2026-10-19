@@ -38,3 +38,29 @@ Formato: ID · fecha · objetivo · procedimiento · resultado · conclusión (n
 - **Conclusión:** la app original no es ejecutable en el Mac de destino (A). Plantillas de escritura y elementos
   leídos: D (recursos de la app). Estructura de los ficheros que generó CherryPicker: B. Tres formas de bank select en
   uso: ninguna, por banco y por preset.
+
+## EXP-002 · 2026-10-19 · Dónde lee Digital Performer 11.36 los `.midnam`
+
+- **Herramienta:** `ls`, `find`, `cmp`, `plutil`, `strings` (solo lectura; no se ha copiado ni cambiado nada).
+- **Procedimiento:** inventario de `/Library/Audio/MIDI Devices`, `/Library/Audio/MIDI Patch Names` y sus equivalentes
+  en `~/Library`; comparar los ficheros instalados con `reference/midnam_usuario/`; buscar en DP 11.36 las cadenas
+  del formato.
+- **Captura:** `captures/exp002/carpetas_dp.txt`
+- **Resultado:**
+  - `/Library/Audio/MIDI Devices/MOTU/` (carpeta del usuario, 2026-10-19): 341 `.midnam` y 58 `.middev`, organizados
+    como `.middev` por fabricante (sueltos o dentro de su carpeta, p. ej. `Lexicon/Lexicon.middev`) y
+    `<Fabricante>/<Modelo>.midnam`. `MOTU/` tiene permisos `drwxrwxrwx`: se puede escribir sin administrador.
+  - Los 6 ficheros del usuario están instalados ahí y son **idénticos** a los de `reference/`: `TC Electronic/M3000`,
+    `Lexicon/LXP-15`, `Lexicon/LXP-15 II`, `Lexicon/PCM-81`, `Lexicon/PCM-91`, `Digitech/DSP-128 Plus`.
+  - Hay además `TC Electronic/M3000.midnam copia` (distinto del actual) y **ninguna** `.middev` de TC Electronic;
+    `Lexicon.middev` no incluye LXP-15 II.
+  - `~/Library/Audio/MIDI Devices` no existe. `/Library/Audio/MIDI Patch Names/Avid/` (286 `.midnam`) es de Pro Tools.
+  - DP 11.36 (`com.motu.DigitalPerformer`, x86_64 + arm64): `MidiSystem.framework` contiene el DOCTYPE
+    `MIDINameDocument 1.0`, la DTD de midi.org y los elementos `CustomDeviceMode`, `StandardDeviceMode`,
+    `ChannelNameSet`, `UsesPatchNameList`, `PatchMIDICommands`, `NoteNameList`, `ControlNameList`,
+    `UsesControlNameList`, `ExtendingDeviceNames`, y las extensiones `midnam`/`middev`. La ruta no aparece como
+    cadena literal.
+- **Conclusión:** DP 11.36 lee de `/Library/Audio/MIDI Devices/MOTU/<Fabricante>/` (usuario, que los usa a diario, +
+  ficheros instalados idénticos; D por las cadenas de DP). DP entiende `UsesControlNameList` (DTD 1.0), que
+  CherryPicker 3.0 no lee: las listas de controles deberán escribirse en forma 1.0. Pendiente (A): si DP necesita
+  `.middev` para un modelo, si lee `* copia` y si hay que reiniciarlo tras instalar.

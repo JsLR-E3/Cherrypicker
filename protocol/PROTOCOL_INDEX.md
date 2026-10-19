@@ -8,5 +8,5 @@ Estados: CONFIRMED · PARTIAL · OBSERVED · UNKNOWN · DISCARDED. Niveles de ev
 | Estructura midnam que escribe CherryPicker (modos, canales, bancos, listas) | OBSERVED | EXP-001 (B ejemplos + D `CPXMLStrings.plist`); `protocol/observed/midnam_cherrypicker.md` | — |
 | Bank select: ninguno, por banco o por preset (`PatchMIDICommands`) | OBSERVED | EXP-001 (B) | — |
 | Listas de controles con nombre (`ControlNameList`) | UNKNOWN | — | — |
-| Dónde y cómo lee DP 11.36 los `.midnam` | HYPOTHESIS | `protocol/hypotheses/dp_carpeta_midnam.md` (T-008) | — |
+| Dónde y cómo lee DP 11.36 los `.midnam` | OBSERVED: `/Library/Audio/MIDI Devices/MOTU/<Fabricante>/` | EXP-002 (usuario + D); `protocol/observed/dp_carpeta_midnam.md` | — |
 | Audición por CoreMIDI | UNKNOWN | — | — |

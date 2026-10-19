@@ -1,0 +1,126 @@
+# EXP-002 2026-10-19 23:21 — carpetas de nombres MIDI (solo lectura)
+== /Library/Audio/MIDI Devices
+ficheros: 410, midnam: 341, middev: 58
+== ~/Library/Audio/MIDI Devices
+(no existe)
+== /Library/Audio/MIDI Patch Names
+ficheros: 286, midnam: 286, middev: 0
+== ~/Library/Audio/MIDI Patch Names
+(no existe)
+== permisos
+drwxr-xr-x   5 root  wheel   160 Sep  2 19:00 /Library/Audio/MIDI Devices
+drwxrwxrwx@ 64 root  wheel  2048 Oct 18 20:28 /Library/Audio/MIDI Devices/MOTU
+drwxrwxr-x   7 root  wheel   224 Oct 18 20:28 /Library/Audio/MIDI Devices/MOTU/Digitech
+drwxrwxr-x  17 root  wheel   544 Oct 18 20:28 /Library/Audio/MIDI Devices/MOTU/Lexicon
+drwxr-xr-x   5 jslr  wheel   160 Sep 27  2025 /Library/Audio/MIDI Devices/MOTU/TC Electronic
+== estructura MOTU/: .middev sueltos y carpetas por fabricante
+  360 Systems.middev
+  ADA Signal Processors.middev
+  ART
+  Access
+  Adams-Smith.middev
+  Akai.middev
+  Alesis
+  Behringer
+  Behringer.middev
+  Bitheadz
+  Brother.middev
+  Buchla.middev
+  Casio.middev
+  Clavia
+  ClickStreamMachine.middev
+  CueLine.middev
+  Default Names.midnam
+  Digitech
+  E-mu Systems
+  Ensoniq
+  Eventide.middev
+  Fatar.middev
+  Fender.middev
+  Fostex.middev
+  General MIDI.midnam
+  JL Cooper.middev
+  Johnson
+  Kat.middev
+  Kawai
+  Korg
+  Kurzweil
+  Lake Butler.middev
+  Lexicon
+  Line 6
+  Linn
+  Linn.middev
+  Mackie.middev
+  Marion Systems.middev
+  Mark of the Unicorn.middev
+  Morning Star
+  Niche.middev
+  Novation
+  Oberheim
+  Peavey.middev
+  Quasimidi
+  Radikal Technologies.middev
+  Rane.middev
+  Rocktron
+  Roland
+  Sequential.middev
+  Sony.middev
+  TC Electronic
+  Tascam
+  Tech 21.middev
+  Uptown.middev
+  Vestax.middev
+  Viscount
+  Voce Music.middev
+  Waldorf
+  Yamaha
+  Zoom.middev
+== ficheros del usuario instalados (comparados con reference/midnam_usuario)
+  MOTU/TC Electronic/M3000.midnam: idéntico, modificado 2025-09-27
+  MOTU/Lexicon/LXP-15 II.midnam: idéntico, modificado 2022-08-10
+  MOTU/Lexicon/LXP-15.midnam: idéntico, modificado 2022-08-10
+  MOTU/Digitech/DSP-128 Plus.midnam: idéntico, modificado 2020-10-25
+  MOTU/Lexicon/PCM-91.midnam: idéntico, modificado 2026-09-30
+  MOTU/Lexicon/PCM-81.midnam: idéntico, modificado 2026-09-30
+  MOTU/TC Electronic/M3000.midnam copia: existe, distinto de M3000.midnam
+== .middev con los modelos (Lexicon/Lexicon.middev)
+Model="LXP-1" Model="LXP-5" Model="LXP-15" Model="MPX-1" Model="MPX-500" Model="PCM-70" Model="PCM-80" Model="PCM-81" Model="PCM-90" Model="PCM-91" Model="Reflex" Model="300" Model="480L" 
+== TC Electronic: .middev
+0
+== DP 11.36
+  "CFBundleIdentifier" => "com.motu.DigitalPerformer"
+  "CFBundleShortVersionString" => "11.36"
+arquitecturas: x86_64 arm64 
+== cadenas midnam en MidiSystem.framework
+  -//MIDI Manufacturers Association//DTD MIDINameDocument 1.0//EN
+  .midnam
+  ChannelNameSet
+  ChannelNameSetAssign
+  ChannelNameSetAssignments
+  ControlNameList
+  CustomDeviceMode
+  DeviceModeDisable
+  DeviceModeEnable
+  ExtendingDeviceNames
+  MIDIDeviceTypes
+  MIDINameDocument
+  MIDINameDocuments
+  N10MIDISystem12NoteNameListE
+  N10MIDISystem16NoteNameListBaseE
+  N10MIDISystem19DefaultNoteNameListE
+  NoteNameList
+  PatchMIDICommands
+  PatchNameList
+  StandardDeviceMode
+  SupportsStandardDeviceMode
+  UsesControlNameList
+  UsesNoteNameList
+  UsesPatchNameList
+  UsesValueNameList
+  ValueNameList
+  currentChannelNameSets
+  currentDeviceMode
+  http://www.midi.org/dtds/MIDINameDocument10.dtd
+  middev
+  midnam
+  patchNameList
