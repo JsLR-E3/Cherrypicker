@@ -1,0 +1,26 @@
+# EXP-001 2026-10-19 23:13 — macOS 15.7.9 arm64
+$ lipo -info
+CherryPicker are: ppc7400 i386 
+$ ejecutar el binario directamente
+(eval):4: bad CPU type in executable: reference/app_3.0/CherryPicker.app/Contents/MacOS/CherryPicker
+código de salida: 127
+$ arch -x86_64 (Rosetta)
+arch: posix_spawnp: reference/app_3.0/CherryPicker.app/Contents/MacOS/CherryPicker: Bad CPU type in executable
+código de salida: 1
+$ arch -i386
+arch: Unknown architecture: i386
+código de salida: 1
+$ Rosetta instalada
+oahd en ejecución (sí)
+$ frameworks enlazados que faltan en este sistema
+presente(caché dyld): /System/Library/Frameworks/Cocoa.framework/Versions/A/Cocoa
+presente(caché dyld): /System/Library/Frameworks/CoreMIDI.framework/Versions/A/CoreMIDI
+presente(caché dyld): /System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox
+presente(caché dyld): /System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices
+presente(caché dyld): /System/Library/Frameworks/Message.framework/Versions/B/Message
+(no comprobado: /usr/lib/libgcc_s.1.dylib vive en la caché dyld, sin versión i386)
+(no comprobado: /usr/lib/libSystem.B.dylib vive en la caché dyld, sin versión i386)
+(no comprobado: /usr/lib/libobjc.A.dylib vive en la caché dyld, sin versión i386)
+presente(caché dyld): /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
+presente(caché dyld): /System/Library/Frameworks/AppKit.framework/Versions/C/AppKit
+presente(caché dyld): /System/Library/Frameworks/Foundation.framework/Versions/C/Foundation

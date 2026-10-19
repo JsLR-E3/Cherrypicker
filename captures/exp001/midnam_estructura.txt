@@ -1,0 +1,157 @@
+# EXP-001 estudio estático de los .midnam del usuario (solo recuentos y estructura, sin nombres de presets)
+== DSP-128 Plus.midnam
+bien formado: sí
+DTD: DTD MIDINameDocument 1.0
+Author: CherryPicker
+fin de línea: LF
+sangría: 178 líneas con tabulador
+elementos:
+  128 <Patch
+  16 <ChannelNameSetAssign
+  16 <AvailableChannel
+  1 <UsesPatchNameList
+  1 <PatchNameList
+  1 <PatchBank
+  1 <Model
+  1 <MasterDeviceNames
+  1 <Manufacturer
+  1 <MIDINameDocument
+  1 <CustomDeviceMode
+  1 <ChannelNameSetAssignments
+  1 <ChannelNameSet
+  1 <AvailableForChannels
+  1 <Author
+Patch con ProgramChange=: 128
+formato de Number (primeros 3): Number="  1" Number="  2" Number="  3" 
+bank select distintos (CC0,CC32): 1 bancos, 1 combinaciones distintas; bancos sin bank select: 1
+== LXP-15 II.midnam
+bien formado: sí
+DTD: DTD MIDINameDocument 1.0
+Author: CherryPicker
+fin de línea: LF
+sangría: 183 líneas con tabulador
+elementos:
+  128 <Patch
+  16 <ChannelNameSetAssign
+  16 <AvailableChannel
+  2 <UsesPatchNameList
+  2 <PatchNameList
+  2 <PatchBank
+  1 <Model
+  1 <MasterDeviceNames
+  1 <Manufacturer
+  1 <MIDINameDocument
+  1 <CustomDeviceMode
+  1 <ChannelNameSetAssignments
+  1 <ChannelNameSet
+  1 <AvailableForChannels
+  1 <Author
+Patch con ProgramChange=: 128
+formato de Number (primeros 3): Number="065" Number="066" Number="067" 
+bank select distintos (CC0,CC32): 2 bancos, 1 combinaciones distintas; bancos sin bank select: 2
+== LXP-15.midnam
+bien formado: sí
+DTD: DTD MIDINameDocument 1.0
+Author: CherryPicker
+fin de línea: LF
+sangría: 198 líneas con tabulador
+elementos:
+  128 <Patch
+  16 <ChannelNameSetAssign
+  16 <AvailableChannel
+  5 <UsesPatchNameList
+  5 <PatchNameList
+  5 <PatchBank
+  1 <Model
+  1 <MasterDeviceNames
+  1 <Manufacturer
+  1 <MIDINameDocument
+  1 <CustomDeviceMode
+  1 <ChannelNameSetAssignments
+  1 <ChannelNameSet
+  1 <AvailableForChannels
+  1 <Author
+Patch con ProgramChange=: 128
+formato de Number (primeros 3): Number="118" Number="119" Number="120" 
+bank select distintos (CC0,CC32): 5 bancos, 1 combinaciones distintas; bancos sin bank select: 5
+== M3000.midnam
+bien formado: sí
+DTD: DTD MIDINameDocument 1.0
+Author: CherryPicker
+fin de línea: LF
+sangría: 2289 líneas con tabulador
+elementos:
+  1112 <Patch
+  350 <ControlChange
+  155 <ProgramChange
+  155 <PatchMIDICommands
+  32 <AvailableChannel
+  23 <UsesPatchNameList
+  23 <PatchNameList
+  23 <PatchBank
+  20 <MIDICommands
+  3 <ChannelNameSetAssign
+  2 <ChannelNameSet
+  2 <AvailableForChannels
+  1 <Model
+  1 <MasterDeviceNames
+  1 <Manufacturer
+  1 <MIDINameDocument
+  1 <CustomDeviceMode
+  1 <ChannelNameSetAssignments
+  1 <Author
+Patch con ProgramChange=: 957
+formato de Number (primeros 3): Number="400" Number="401" Number="402" 
+bank select distintos (CC0,CC32): 23 bancos, 7 combinaciones distintas; bancos sin bank select: 3
+== PCM-81.midnam
+bien formado: sí
+DTD: DTD MIDINameDocument 0.7
+Author: Mark of the Unicorn - converted from FreeMIDI
+fin de línea: LF
+sangría: 1071 líneas con tabulador
+elementos:
+  900 <Patch
+  18 <PatchNameList
+  18 <PatchBank
+  18 <MIDICommands
+  18 <ControlChange
+  16 <ChannelNameSetAssign
+  16 <AvailableChannel
+  1 <Model
+  1 <MasterDeviceNames
+  1 <Manufacturer
+  1 <MIDINameDocument
+  1 <CustomDeviceMode
+  1 <ChannelNameSetAssignments
+  1 <ChannelNameSet
+  1 <AvailableForChannels
+  1 <Author
+Patch con ProgramChange=: 900
+formato de Number (primeros 3): Number="0" Number="1" Number="2" 
+bank select distintos (CC0,CC32): 18 bancos, 18 combinaciones distintas; bancos sin bank select: 0
+== PCM-91.midnam
+bien formado: sí
+DTD: DTD MIDINameDocument 0.7
+Author: Mark of the Unicorn - converted from FreeMIDI
+fin de línea: LF
+sangría: 957 líneas con tabulador
+elementos:
+  800 <Patch
+  16 <PatchNameList
+  16 <PatchBank
+  16 <MIDICommands
+  16 <ControlChange
+  16 <ChannelNameSetAssign
+  16 <AvailableChannel
+  1 <Model
+  1 <MasterDeviceNames
+  1 <Manufacturer
+  1 <MIDINameDocument
+  1 <CustomDeviceMode
+  1 <ChannelNameSetAssignments
+  1 <ChannelNameSet
+  1 <AvailableForChannels
+  1 <Author
+Patch con ProgramChange=: 800
+formato de Number (primeros 3): Number="0" Number="1" Number="2" 
+bank select distintos (CC0,CC32): 16 bancos, 16 combinaciones distintas; bancos sin bank select: 0

@@ -5,7 +5,7 @@
 | Equipo | Detalle |
 |---|---|
 | Cherrypicker | Programa, no aparato: editor de ficheros de nombres de patches y bancos MIDI. Versión 3.0 (2009), autor Rob Martin (alterSpective). DonationWare. Bundle `com.alterSpective.cherrypicker26` |
-| Binario | Mach-O universal ppc_7400 + i386; Cocoa/Objective-C. Enlaza Cocoa, CoreMIDI, AudioToolbox, CoreServices y **Message.framework** (eliminado en macOS modernos). Sin x86_64/arm64: **no arranca desde macOS 10.15** |
+| Binario | Mach-O universal ppc_7400 + i386; Cocoa/Objective-C. Enlaza Cocoa, CoreMIDI, AudioToolbox, CoreServices y Message.framework (todos siguen en macOS 15, pero no en i386). Sin x86_64/arm64: **no arranca desde macOS 10.15** (EXP-001) |
 | Mac de destino | macOS 15.7.9 (este Mac). Programas que usarán los ficheros: por confirmar con el usuario (T-005) |
 | Sistema histórico | Snow Leopard (10.6) con Rosetta; README 2.7 pide OS X 10.3 o superior. Fuente de nivel B si se dispone de una máquina o VM |
 
