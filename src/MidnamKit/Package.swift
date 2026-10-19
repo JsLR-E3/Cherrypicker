@@ -10,6 +10,7 @@ let package = Package(
 	],
 	targets: [
 		.target(name: "MidnamKit"),
+		.executableTarget(name: "midnam-prueba", dependencies: ["MidnamKit"]),
 		.testTarget(name: "MidnamKitTests", dependencies: ["MidnamKit"]),
 	]
 )

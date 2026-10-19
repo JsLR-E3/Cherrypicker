@@ -120,3 +120,19 @@ Formato: ID · fecha · objetivo · procedimiento · resultado · conclusión (n
 - **Conclusión:** lo que escribe MidnamKit se valida automáticamente contra la DTD 1.0 en cada `swift test` (D).
   Decisión pendiente para la app: escribir en los ficheros nuevos el DOCTYPE con la URL de midi.org (validable) en vez
   del `""` de CherryPicker; DP acepta ambos según EXP-002 (por confirmar con un fichero nuevo).
+
+## EXP-006 · 2026-10-19 · Fichero nuevo de MidnamKit en DP 11.36 (T-012) — EN CURSO
+
+- **Herramienta:** `swift run midnam-prueba <salida> [versión]` (genera el fichero), `tools/validar_midnam.sh`;
+  instalación con permiso del usuario en `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/` (carpeta nueva).
+  Deshacer: borrar esa carpeta.
+- **Fichero:** `captures/exp006/CP Prueba fichero.midnam` (versión 1, válido contra la DTD 1.0). Nombres distintos a
+  propósito para saber cuál muestra DP: fichero «CP Prueba fichero», `Manufacturer` «Cherrypicker», `Model`
+  «CP Prueba modelo», modo «CP Prueba modo». Contenido: DOCTYPE con la URL de midi.org; 4 bancos: A (CC0=0), B (CC0=1),
+  «CP Agrupacion sin BS» (sin bank select) y «CP BS por preset» (`PatchMIDICommands` CC0=2 + PC); etiquetas `A01`…;
+  `UsesControlNameList` «CP Controles» con CC7, CC12, CC13.
+- **Preguntas:** (1) ¿Aparece y se puede elegir? (2) ¿Qué nombre sale en *Manufacturer*, *Model* y *Master Names*?
+  (3) ¿Salen los 4 bancos en orden y los presets con su etiqueta? (4) ¿Se ven los nombres de controles en algún sitio
+  (lista de controladores, lane de automatización)? (5) Recarga: con la versión 2 (nombres con « v2») instalada encima,
+  ¿cambia sin reiniciar DP, al volver a elegirla, o solo al reiniciar?
+- **Resultado:** pendiente de la prueba del usuario.

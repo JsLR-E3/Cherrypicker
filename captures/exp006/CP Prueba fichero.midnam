@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MIDINameDocument PUBLIC "-//MIDI Manufacturers Association//DTD MIDINameDocument 1.0//EN" "http://www.midi.org/dtds/MIDINameDocument10.dtd">
+
+<MIDINameDocument>
+	<Author>Cherrypicker (MidnamKit) - prueba T-012 versión 1</Author>
+	<MasterDeviceNames>
+		<Manufacturer>Cherrypicker</Manufacturer>
+		<Model>CP Prueba modelo</Model>
+		<CustomDeviceMode Name="CP Prueba modo" >
+			<ChannelNameSetAssignments>
+				<ChannelNameSetAssign Channel="1" NameSet="CP Juego" />
+				<ChannelNameSetAssign Channel="2" NameSet="CP Juego" />
+				<ChannelNameSetAssign Channel="3" NameSet="CP Juego" />
+				<ChannelNameSetAssign Channel="4" NameSet="CP Juego" />
+				<ChannelNameSetAssign Channel="5" NameSet="CP Juego" />
+				<ChannelNameSetAssign Channel="6" NameSet="CP Juego" />
+				<ChannelNameSetAssign Channel="7" NameSet="CP Juego" />
+				<ChannelNameSetAssign Channel="8" NameSet="CP Juego" />
+				<ChannelNameSetAssign Channel="9" NameSet="CP Juego" />
+				<ChannelNameSetAssign Channel="10" NameSet="CP Juego" />
+				<ChannelNameSetAssign Channel="11" NameSet="CP Juego" />
+				<ChannelNameSetAssign Channel="12" NameSet="CP Juego" />
+				<ChannelNameSetAssign Channel="13" NameSet="CP Juego" />
+				<ChannelNameSetAssign Channel="14" NameSet="CP Juego" />
+				<ChannelNameSetAssign Channel="15" NameSet="CP Juego" />
+				<ChannelNameSetAssign Channel="16" NameSet="CP Juego" />
+			</ChannelNameSetAssignments>
+		</CustomDeviceMode>
+		<ChannelNameSet Name="CP Juego" >
+			<AvailableForChannels>
+				<AvailableChannel Channel="1" Available="true" />
+				<AvailableChannel Channel="2" Available="true" />
+				<AvailableChannel Channel="3" Available="true" />
+				<AvailableChannel Channel="4" Available="true" />
+				<AvailableChannel Channel="5" Available="true" />
+				<AvailableChannel Channel="6" Available="true" />
+				<AvailableChannel Channel="7" Available="true" />
+				<AvailableChannel Channel="8" Available="true" />
+				<AvailableChannel Channel="9" Available="true" />
+				<AvailableChannel Channel="10" Available="true" />
+				<AvailableChannel Channel="11" Available="true" />
+				<AvailableChannel Channel="12" Available="true" />
+				<AvailableChannel Channel="13" Available="true" />
+				<AvailableChannel Channel="14" Available="true" />
+				<AvailableChannel Channel="15" Available="true" />
+				<AvailableChannel Channel="16" Available="true" />
+			</AvailableForChannels>
+			<UsesControlNameList Name="CP Controles" />
+			<PatchBank Name="CP Banco A (CC0=0)" >
+				<MIDICommands>
+					<ControlChange Control="0" Value="0" />
+					<ControlChange Control="32" Value="0" />
+				</MIDICommands>
+				<UsesPatchNameList Name="CP Lista A" />
+			</PatchBank>
+			<PatchBank Name="CP Banco B (CC0=1)" >
+				<MIDICommands>
+					<ControlChange Control="0" Value="1" />
+					<ControlChange Control="32" Value="0" />
+				</MIDICommands>
+				<UsesPatchNameList Name="CP Lista B" />
+			</PatchBank>
+			<PatchBank Name="CP Agrupacion sin BS" >
+				<UsesPatchNameList Name="CP Lista C" />
+			</PatchBank>
+			<PatchBank Name="CP BS por preset" >
+				<UsesPatchNameList Name="CP Lista D" />
+			</PatchBank>
+		</ChannelNameSet>
+		<PatchNameList Name="CP Lista A" >
+			<Patch Number="A01" Name="A preset 1" ProgramChange="0" />
+			<Patch Number="A02" Name="A preset 2" ProgramChange="1" />
+			<Patch Number="A03" Name="A preset 3" ProgramChange="2" />
+			<Patch Number="A04" Name="A preset 4" ProgramChange="3" />
+			<Patch Number="A05" Name="A preset 5" ProgramChange="4" />
+			<Patch Number="A06" Name="A preset 6" ProgramChange="5" />
+			<Patch Number="A07" Name="A preset 7" ProgramChange="6" />
+			<Patch Number="A08" Name="A preset 8" ProgramChange="7" />
+			<Patch Number="A09" Name="A preset 9" ProgramChange="8" />
+			<Patch Number="A10" Name="A preset 10" ProgramChange="9" />
+		</PatchNameList>
+		<PatchNameList Name="CP Lista B" >
+			<Patch Number="B01" Name="B preset 1" ProgramChange="0" />
+			<Patch Number="B02" Name="B preset 2" ProgramChange="1" />
+			<Patch Number="B03" Name="B preset 3" ProgramChange="2" />
+			<Patch Number="B04" Name="B preset 4" ProgramChange="3" />
+			<Patch Number="B05" Name="B preset 5" ProgramChange="4" />
+			<Patch Number="B06" Name="B preset 6" ProgramChange="5" />
+			<Patch Number="B07" Name="B preset 7" ProgramChange="6" />
+			<Patch Number="B08" Name="B preset 8" ProgramChange="7" />
+			<Patch Number="B09" Name="B preset 9" ProgramChange="8" />
+			<Patch Number="B10" Name="B preset 10" ProgramChange="9" />
+		</PatchNameList>
+		<PatchNameList Name="CP Lista C" >
+			<Patch Number="C21" Name="C preset 21" ProgramChange="20" />
+			<Patch Number="C22" Name="C preset 22" ProgramChange="21" />
+			<Patch Number="C23" Name="C preset 23" ProgramChange="22" />
+			<Patch Number="C24" Name="C preset 24" ProgramChange="23" />
+			<Patch Number="C25" Name="C preset 25" ProgramChange="24" />
+		</PatchNameList>
+		<PatchNameList Name="CP Lista D" >
+			<Patch Number="D01" Name="D preset 1" >
+				<PatchMIDICommands>
+					<ControlChange Control="0" Value="2" />
+					<ControlChange Control="32" Value="0" />
+					<ProgramChange Number="0" />
+				</PatchMIDICommands>
+			</Patch>
+			<Patch Number="D02" Name="D preset 2" >
+				<PatchMIDICommands>
+					<ControlChange Control="0" Value="2" />
+					<ControlChange Control="32" Value="0" />
+					<ProgramChange Number="1" />
+				</PatchMIDICommands>
+			</Patch>
+			<Patch Number="D03" Name="D preset 3" >
+				<PatchMIDICommands>
+					<ControlChange Control="0" Value="2" />
+					<ControlChange Control="32" Value="0" />
+					<ProgramChange Number="2" />
+				</PatchMIDICommands>
+			</Patch>
+			<Patch Number="D04" Name="D preset 4" >
+				<PatchMIDICommands>
+					<ControlChange Control="0" Value="2" />
+					<ControlChange Control="32" Value="0" />
+					<ProgramChange Number="3" />
+				</PatchMIDICommands>
+			</Patch>
+			<Patch Number="D05" Name="D preset 5" >
+				<PatchMIDICommands>
+					<ControlChange Control="0" Value="2" />
+					<ControlChange Control="32" Value="0" />
+					<ProgramChange Number="4" />
+				</PatchMIDICommands>
+			</Patch>
+		</PatchNameList>
+		<ControlNameList Name="CP Controles" >
+			<Control Type="7bit" Number="7" Name="CP Mezcla (CC7)" />
+			<Control Type="7bit" Number="12" Name="CP Tiempo (CC12)" />
+			<Control Type="7bit" Number="13" Name="CP Feedback (CC13)" />
+		</ControlNameList>
+	</MasterDeviceNames>
+</MIDINameDocument>
