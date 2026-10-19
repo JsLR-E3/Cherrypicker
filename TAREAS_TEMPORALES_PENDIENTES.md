@@ -38,7 +38,7 @@ Antes de modificar código:
 - EXP-005: validación contra la DTD 1.0 con `tools/validar_midnam.sh` (catálogo local, sin red); los 6 ejemplos son válidos y `swift test` valida lo que escribe MidnamKit. El DOCTYPE `""` de CherryPicker no es validable tal cual.
 - EXP-004: DTD 1.0 descargada (Wayback) a `reference/dtd/`; todo lo observado es válido; modelo ampliado (controles en línea, por preset, `Control` sin `Type`). Reglas para crear ficheros en `protocol/confirmed/midnam_formato_escritura.md`.
 - EXP-003: `src/MidnamKit` lee y reescribe los 6 ejemplos byte a byte (árbol y modelo tipado); formato confirmado en `protocol/confirmed/`.
-- EXP-002: DP 11.36 lee de `/Library/Audio/MIDI Devices/MOTU/<Fabricante>/` (los 6 ficheros del usuario están ahí, idénticos). DP conoce DTD 1.0 con `UsesControlNameList`. En DP se asigna en *Bundles → MIDI Device Properties → Patches → Master Names*; no hace falta `.middev`; DP muestra los `PatchBank` por nombre y en orden. Abierto: recarga sin reiniciar y qué nombre usa *Master Names*.
+- EXP-002: DP 11.36 lee de `/Library/Audio/MIDI Devices/MOTU/<Fabricante>/` (los 6 ficheros del usuario están ahí, idénticos). DP conoce DTD 1.0 con `UsesControlNameList`. En DP se asigna en *Bundles → MIDI Device Properties → Patches → Master Names*; no hace falta `.middev`; DP muestra los `PatchBank` por nombre y en orden. **Un modelo nuevo necesita también `.middev`** (EXP-006): DP saca *Manufacturer*/*Model* de los `.middev`. Abierto: recarga sin reiniciar y qué nombre usa *Master Names*.
 
 ## TAREAS
 
@@ -53,7 +53,7 @@ Antes de modificar código:
 | T-007 | Fase 1: especificación del formato midnam en `protocol/` (DTD + ejemplos) y paquete Swift de lectura/escritura con test de ida y vuelta | COMPLETADA 2026-10-19 (EXP-003) |
 | T-009 | Descargar la DTD MIDINameDocument 1.0 (con permiso) a `reference/` y contrastar `protocol/confirmed/midnam_formato_escritura.md` y el modelo | COMPLETADA 2026-10-19 (EXP-004) |
 | T-011 | Test de validación con `xmllint --dtdvalid` de los ficheros que escriba MidnamKit (necesita `MIDIEvents10.dtd`, descarga con permiso) | COMPLETADA 2026-10-19 (EXP-005) |
-| T-012 | EXP con el usuario: instalar en `MOTU/<Fabricante>/` (con permiso) un `.midnam` nuevo de MidnamKit y comprobar en DP 11.36 que lo acepta con el DOCTYPE de midi.org, qué nombre muestra *Master Names* y si recarga sin reiniciar | EN PROGRESO (EXP-006: fichero instalado, falta la prueba en DP) |
+| T-012 | EXP con el usuario: instalar en `MOTU/<Fabricante>/` (con permiso) un `.midnam` nuevo de MidnamKit y comprobar en DP 11.36 que lo acepta con el DOCTYPE de midi.org, qué nombre muestra *Master Names* y si recarga sin reiniciar | EN PROGRESO (EXP-006: `.midnam` + `.middev` instalados en `MOTU/Cherrypicker/`; falta la prueba tras reiniciar DP) |
 | T-010 | Fase 3: diseño de la app a partir de las ventanas de CherryPicker (nibs, manual, capturas) en `docs/2x`, para acordar con el usuario antes de programar | PENDIENTE |
 | T-008 | Fase 2: EXP — localizar dónde lee DP 11.36 los `.midnam` y comprobarlo con un ejemplo del usuario | COMPLETADA 2026-10-19 (EXP-002) |
 

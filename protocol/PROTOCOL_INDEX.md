@@ -11,4 +11,5 @@ Estados: CONFIRMED · PARTIAL · OBSERVED · UNKNOWN · DISCARDED. Niveles de ev
 | Bank select: ninguno, por banco o por preset (`PatchMIDICommands`) | OBSERVED | EXP-001 (B) | `PatchBank.Item.midiCommands`, `Patch.Item.patchMIDICommands` |
 | Listas de controles con nombre (`ControlNameList`) | PARTIAL: DP conoce `UsesControlNameList` (EXP-002); sin ejemplos | — | `ControlNameList`, `Control` (sin probar en DP) |
 | Dónde y cómo lee DP 11.36 los `.midnam` | OBSERVED: `/Library/Audio/MIDI Devices/MOTU/<Fabricante>/` | EXP-002 (usuario + D); `protocol/observed/dp_carpeta_midnam.md` | — |
+| `.middev` necesario para que un fabricante/modelo nuevo aparezca en DP | OBSERVED (falta confirmar tras reiniciar DP) | EXP-006 | — |
 | Audición por CoreMIDI | UNKNOWN | — | — |

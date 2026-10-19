@@ -135,4 +135,14 @@ Formato: ID · fecha · objetivo · procedimiento · resultado · conclusión (n
   (3) ¿Salen los 4 bancos en orden y los presets con su etiqueta? (4) ¿Se ven los nombres de controles en algún sitio
   (lista de controladores, lane de automatización)? (5) Recarga: con la versión 2 (nombres con « v2») instalada encima,
   ¿cambia sin reiniciar DP, al volver a elegirla, o solo al reiniciar?
-- **Resultado:** pendiente de la prueba del usuario.
+- **Resultado parcial 1 (usuario, 2026-10-19):** para asignar nombres a un dispositivo externo nuevo hay que elegir
+  *Manufacturer* y *Model*, que deben coincidir con el fichero; «Cherrypicker / CP Prueba modelo» **no aparece**.
+  Causa observada: esos desplegables salen de los `.middev` (MIDIDeviceTypes), no de los `.midnam`. El M3000 se
+  puede elegir porque `Digidesign Device List.middev` (raíz de `MIDI Devices/`) declara `TC Electronic / M3000`
+  (y `Lexicon / LXP-15`); ningún `.middev` declaraba el modelo de prueba. Corrige EXP-002: el `.middev` **sí** hace
+  falta para un modelo nuevo. Coherente con CherryPicker, que tenía editor de `.middev` (`MiddevEditor.nib`,
+  `CPmiddevRead.plist`, `CP_middevMfgFolders`).
+- **Corrección:** añadido `MOTU/Cherrypicker/Cherrypicker.middev` (MIDIDeviceTypes 0.3, formato de los de MOTU) con
+  `Manufacturer="Cherrypicker" Model="CP Prueba modelo"`, efecto, recibe Program Change y Bank Select MSB/LSB. Copia en
+  `captures/exp006/`. DP estaba abierto: hay que reiniciarlo para que lea el `.middev`.
+- **Resultado:** pendiente de la prueba tras reiniciar DP.

@@ -10,7 +10,9 @@ DP 11.36 (`MidiSystem.framework`) conoce DTD 1.0, incluidos `UsesControlNameList
 1. El dispositivo se crea en Configuración de Audio MIDI (nombre, fabricante, modelo) y se conecta a un puerto.
 2. En DP, *Bundles → MIDI Devices → MIDI Device Properties → Patches*: **Port** y **Master Names** (el `.midnam`).
 3. DP lista los `PatchBank` del fichero por su nombre y en su orden, con **Override** por banco (`Default`).
-4. No hace falta `.middev` (M3000 y LXP-15 II no están en ninguno y funcionan).
+4. ~~No hace falta `.middev`~~ **Corregido en EXP-006:** *Manufacturer* y *Model* del dispositivo salen de los
+   `.middev`; el M3000 está en `Digidesign Device List.middev`. Un modelo nuevo necesita su `.middev` además del
+   `.midnam`. La app tendrá que crear o actualizar ambos.
 
 ## Pendiente (A, con permiso del usuario)
 
