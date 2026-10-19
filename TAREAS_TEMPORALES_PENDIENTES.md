@@ -34,7 +34,7 @@ Antes de modificar código:
 - Material archivado en `reference/` e inventariado en `docs/01` (T-003): app 3.0 (ppc+i386, no arranca en macOS ≥10.15), app 2.62 extraída del dmg de Wayback, manual web original (sin 20 imágenes), 6 `.midnam` privados del usuario. `CherryMangler.dmg` truncado, irrecuperable.
 - Alcance decidido (T-005, `docs/14`): app nativa parecida a CherryPicker para crear `.midnam` desde cero para **DP 11.36**, con bancos agrupados por nombre, bank select por banco, controles con nombre y audición por CoreMIDI. Fases 1–6 en `docs/14`.
 - EXP-001: la app 3.0 no arranca en macOS 15.7.9 arm64 (ppc/i386). Plantillas de escritura en `CPXMLStrings.plist`; estructura observada en `protocol/observed/midnam_cherrypicker.md`: `Patch Number` es etiqueta, bank select en tres formas (ninguna, por banco, por preset). 
-- EXP-002: DP 11.36 lee de `/Library/Audio/MIDI Devices/MOTU/<Fabricante>/` (los 6 ficheros del usuario están ahí, idénticos). DP conoce DTD 1.0 con `UsesControlNameList`. Quedan 3 preguntas para el usuario en `protocol/observed/dp_carpeta_midnam.md`.
+- EXP-002: DP 11.36 lee de `/Library/Audio/MIDI Devices/MOTU/<Fabricante>/` (los 6 ficheros del usuario están ahí, idénticos). DP conoce DTD 1.0 con `UsesControlNameList`. En DP se asigna en *Bundles → MIDI Device Properties → Patches → Master Names*; no hace falta `.middev`; DP muestra los `PatchBank` por nombre y en orden. Abierto: recarga sin reiniciar y qué nombre usa *Master Names*.
 
 ## TAREAS
 
@@ -47,9 +47,9 @@ Antes de modificar código:
 | T-005 | Definir el alcance con el usuario: qué funciones se usan, con qué programas (DP, Logic, Pro Tools…) y qué se quiere recuperar (`docs/14`) | COMPLETADA 2026-10-19 |
 | T-006 | Adaptar `CLAUDE.md` y `docs/11` de «aparato» a «programa» (formatos de fichero en vez de protocolo de hardware) | COMPLETADA 2026-10-19 |
 | T-007 | Fase 1: especificación del formato midnam en `protocol/` (DTD + ejemplos) y paquete Swift de lectura/escritura con test de ida y vuelta | PENDIENTE |
-| T-008 | Fase 2: EXP — localizar dónde lee DP 11.36 los `.midnam` y comprobarlo con un ejemplo del usuario | COMPLETADA 2026-10-19 (EXP-002; 3 dudas abiertas) |
+| T-008 | Fase 2: EXP — localizar dónde lee DP 11.36 los `.midnam` y comprobarlo con un ejemplo del usuario | COMPLETADA 2026-10-19 (EXP-002) |
 
 ## SIGUIENTE PASO EXACTO (retomar en sesión nueva)
 
 1. T-007: especificación en `protocol/` a partir de la DTD 1.0 (descargarla requiere permiso) y de lo observado; paquete Swift con test de ida y vuelta sobre copias de los ejemplos (los ejemplos no se versionan).
-2. Resolver con el usuario las 3 dudas de `protocol/observed/dp_carpeta_midnam.md`.
+2. Cuando haya un fichero generado por la app: EXP con el usuario para la recarga en DP y el nombre de *Master Names* (ver `protocol/observed/dp_carpeta_midnam.md`).

@@ -64,3 +64,13 @@ Formato: ID · fecha · objetivo · procedimiento · resultado · conclusión (n
   ficheros instalados idénticos; D por las cadenas de DP). DP entiende `UsesControlNameList` (DTD 1.0), que
   CherryPicker 3.0 no lee: las listas de controles deberán escribirse en forma 1.0. Pendiente (A): si DP necesita
   `.middev` para un modelo, si lee `* copia` y si hay que reiniciarlo tras instalar.
+- **Respuestas del usuario (2026-10-19) y captura** `captures/exp002/dp_bundles_midi_device_properties.png`:
+  1. Los modelos sin `.middev` funcionan: en DP, *Bundles → MIDI Devices*, cada dispositivo (creado antes en
+     Configuración de Audio MIDI, p. ej. M3000 con fabricante TC Electronic) tiene *MIDI Device Properties → Patches*
+     con **Port** y **Master Names**, donde se elige el `.midnam` (`M3000`). DP muestra entonces la lista de bancos
+     del fichero en su orden (`Top 20`, `Halls`, `Rooms`, `Plates`, `Gated Reverb`…) con una columna **Override**
+     (`Default`) por banco. Ya hay dispositivos A/B por puerto para LXP-15 y LXP-15 II.
+  2. `M3000.midnam copia` es un resto de pruebas del usuario.
+  3. No recuerda si DP recarga solo; cree que hay que volver a elegirlo en *MIDI Device Properties*. Por probar.
+- **Conclusión ampliada:** el `.middev` no es necesario para usar un `.midnam` (usuario + captura: A). Los nombres de
+  `PatchBank` son lo que el usuario ve en DP, en el orden del fichero (A).
