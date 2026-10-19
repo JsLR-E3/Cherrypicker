@@ -1,0 +1,32 @@
+# macOS
+.DS_Store
+
+# Xcode
+DerivedData/
+build/
+xcuserdata/
+*.xcuserstate
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# Binarios compilados de herramientas
+tools/bin/
+
+# Temporales
+*.tmp
+*.log
+
+# Material de terceros (drivers, manuales, programas, firmware, código de otros): no se versiona.
+# Ver reference/README.md
+reference/*
+!reference/README.md
+
+# Bandejas de entrada: se archivan en su carpeta definitiva antes de versionar
+incoming/
+captures/incoming/
+
+# Ajustes locales de Claude Code (personales) y copias de trabajo
+.claude/settings.local.json
+.claude/worktrees/
