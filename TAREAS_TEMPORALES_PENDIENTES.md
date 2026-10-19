@@ -55,11 +55,14 @@ Antes de modificar código:
 | T-009 | Descargar la DTD MIDINameDocument 1.0 (con permiso) a `reference/` y contrastar `protocol/confirmed/midnam_formato_escritura.md` y el modelo | COMPLETADA 2026-10-19 (EXP-004) |
 | T-011 | Test de validación con `xmllint --dtdvalid` de los ficheros que escriba MidnamKit (necesita `MIDIEvents10.dtd`, descarga con permiso) | COMPLETADA 2026-10-19 (EXP-005) |
 | T-012 | EXP con el usuario: instalar en `MOTU/<Fabricante>/` (con permiso) un `.midnam` nuevo de MidnamKit y comprobar en DP 11.36 que lo acepta con el DOCTYPE de midi.org, qué nombre muestra *Master Names* y si recarga sin reiniciar | COMPLETADA 2026-10-20 (EXP-006; ficheros de prueba retirados; queda mirar «Other Controller…») |
+| T-013 | Migrar el proyecto a la plantilla nueva (commit e8adc09 de `PLANTILLA Recuperacion`): `.claude/` (skills /inicio y /cierre, scripts, agente), `docs/10`, `12`, `15`, nuevo `00_MASTER_INDEX`, nuevo formato de `CLAUDE.md` y TAREAS, sin perder reglas, historial ni decisiones. Referencia: `nuevo_proyecto.sh --programa` en una carpeta temporal y comparar | PENDIENTE (usuario, 2026-10-20: lo primero de la próxima sesión) |
 | T-010 | Fase 3: diseño de la app a partir de las ventanas de CherryPicker (nibs, manual, capturas) en `docs/2x`, para acordar con el usuario antes de programar | PENDIENTE |
 | T-008 | Fase 2: EXP — localizar dónde lee DP 11.36 los `.midnam` y comprobarlo con un ejemplo del usuario | COMPLETADA 2026-10-19 (EXP-002) |
 
 ## SIGUIENTE PASO EXACTO (retomar en sesión nueva)
 
+0. **T-013 primero** (usuario, 2026-10-20): migrar a la plantilla nueva; después `.claude/scripts/comprobar.py` y
+   `swift test`, commit y push del usuario.
 1. **T-010:** analizar las ventanas de CherryPicker (25 nibs en `reference/app_3.0/…/Resources`, manual
    `reference/web_alterspective/cherrypicker/docs/introC.html`, capturas) y escribir el diseño de la app en `docs/2x`
    para acordarlo con el usuario antes de programar. Tener en cuenta EXP-006: lista y banco con el mismo nombre,
