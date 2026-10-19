@@ -1,7 +1,7 @@
 # TAREAS TEMPORALES PENDIENTES — Cherrypicker
 
 > Fichero de continuidad de trabajo: estado actual, pendientes y reglas. Una sesión nueva debería poder continuar leyendo solo esto.
-> Actualizado: 2026-10-19, T-011/EXP-005. Proyecto en `/Volumes/E3 M4/Proyectos IA/Cherrypicker`. La historia está en los EXP de docs/13.
+> Actualizado: 2026-10-20, T-012/EXP-006. Proyecto en `/Volumes/E3 M4/Proyectos IA/Cherrypicker`. La historia está en los EXP de docs/13.
 
 ## REGLA DE CONTINUIDAD
 
@@ -35,6 +35,7 @@ Antes de modificar código:
 - Material archivado en `reference/` e inventariado en `docs/01` (T-003): app 3.0 (ppc+i386, no arranca en macOS ≥10.15), app 2.62 extraída del dmg de Wayback, manual web original (sin 20 imágenes), 6 `.midnam` privados del usuario. `CherryMangler.dmg` truncado, irrecuperable.
 - Alcance decidido (T-005, `docs/14`): app nativa parecida a CherryPicker para crear `.midnam` desde cero para **DP 11.36**, con bancos agrupados por nombre, bank select por banco, controles con nombre y audición por CoreMIDI. Fases 1–6 en `docs/14`.
 - EXP-001: la app 3.0 no arranca en macOS 15.7.9 arm64 (ppc/i386). Plantillas de escritura en `CPXMLStrings.plist`; estructura observada en `protocol/observed/midnam_cherrypicker.md`: `Patch Number` es etiqueta, bank select en tres formas (ninguna, por banco, por preset). 
+- EXP-006: DP 11.36 acepta ficheros nuevos de MidnamKit. *Master Names* = nombre de fichero; menú de presets = nombre de la `PatchNameList` + «Number Name» (lista y banco deben llamarse igual); modelo nuevo necesita `.middev`; DP no recarga solo: volver a elegir en *Master Names*. Controles con nombre: no salen en el menú de la pista.
 - EXP-005: validación contra la DTD 1.0 con `tools/validar_midnam.sh` (catálogo local, sin red); los 6 ejemplos son válidos y `swift test` valida lo que escribe MidnamKit. El DOCTYPE `""` de CherryPicker no es validable tal cual.
 - EXP-004: DTD 1.0 descargada (Wayback) a `reference/dtd/`; todo lo observado es válido; modelo ampliado (controles en línea, por preset, `Control` sin `Type`). Reglas para crear ficheros en `protocol/confirmed/midnam_formato_escritura.md`.
 - EXP-003: `src/MidnamKit` lee y reescribe los 6 ejemplos byte a byte (árbol y modelo tipado); formato confirmado en `protocol/confirmed/`.
@@ -53,7 +54,7 @@ Antes de modificar código:
 | T-007 | Fase 1: especificación del formato midnam en `protocol/` (DTD + ejemplos) y paquete Swift de lectura/escritura con test de ida y vuelta | COMPLETADA 2026-10-19 (EXP-003) |
 | T-009 | Descargar la DTD MIDINameDocument 1.0 (con permiso) a `reference/` y contrastar `protocol/confirmed/midnam_formato_escritura.md` y el modelo | COMPLETADA 2026-10-19 (EXP-004) |
 | T-011 | Test de validación con `xmllint --dtdvalid` de los ficheros que escriba MidnamKit (necesita `MIDIEvents10.dtd`, descarga con permiso) | COMPLETADA 2026-10-19 (EXP-005) |
-| T-012 | EXP con el usuario: instalar en `MOTU/<Fabricante>/` (con permiso) un `.midnam` nuevo de MidnamKit y comprobar en DP 11.36 que lo acepta con el DOCTYPE de midi.org, qué nombre muestra *Master Names* y si recarga sin reiniciar | EN PROGRESO (EXP-006: `.midnam` + `.middev` instalados en `MOTU/Cherrypicker/`; DP acepta el fichero y el DOCTYPE; *Master Names* = nombre de fichero; menú de presets = nombre de la lista + «Number Name»; controles con nombre no salen en el menú de la pista; faltan «Other Controller…» y recarga v2) |
+| T-012 | EXP con el usuario: instalar en `MOTU/<Fabricante>/` (con permiso) un `.midnam` nuevo de MidnamKit y comprobar en DP 11.36 que lo acepta con el DOCTYPE de midi.org, qué nombre muestra *Master Names* y si recarga sin reiniciar | COMPLETADA 2026-10-20 (EXP-006; queda «Other Controller…» y retirar los ficheros de prueba de `MOTU/Cherrypicker/` cuando el usuario diga) |
 | T-010 | Fase 3: diseño de la app a partir de las ventanas de CherryPicker (nibs, manual, capturas) en `docs/2x`, para acordar con el usuario antes de programar | PENDIENTE |
 | T-008 | Fase 2: EXP — localizar dónde lee DP 11.36 los `.midnam` y comprobarlo con un ejemplo del usuario | COMPLETADA 2026-10-19 (EXP-002) |
 

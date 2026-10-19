@@ -121,7 +121,7 @@ Formato: ID · fecha · objetivo · procedimiento · resultado · conclusión (n
   Decisión pendiente para la app: escribir en los ficheros nuevos el DOCTYPE con la URL de midi.org (validable) en vez
   del `""` de CherryPicker; DP acepta ambos según EXP-002 (por confirmar con un fichero nuevo).
 
-## EXP-006 · 2026-10-19 · Fichero nuevo de MidnamKit en DP 11.36 (T-012) — EN CURSO
+## EXP-006 · 2026-10-19 · Fichero nuevo de MidnamKit en DP 11.36 (T-012)
 
 - **Herramienta:** `swift run midnam-prueba <salida> [versión]` (genera el fichero), `tools/validar_midnam.sh`;
   instalación con permiso del usuario en `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/` (carpeta nueva).
@@ -166,5 +166,11 @@ Formato: ID · fecha · objetivo · procedimiento · resultado · conclusión (n
 - **Recarga:** 2026-10-20 00:03:55, con DP abierto, instalada la versión 2 encima de la 1 (comprobado antes que la
   instalada era la 1 sin cambios). Copia en `captures/exp006/CP Prueba fichero v2.midnam`. Cambian los nombres de
   banco y de preset (sufijo « v2»); los nombres de las listas («CP Lista A»…) y del fichero no cambian.
-- **Pendiente:** qué ve el usuario (sin hacer nada / tras volver a elegir *Master Names* / tras reiniciar DP) y
-  «Other Controller…».
+- **Resultado de la recarga (usuario):** sin hacer nada, la pista sigue mostrando la versión 1 (DP **no** vigila el
+  fichero). Al elegir otro fichero en *Master Names* y volver a «CP Prueba fichero», DP **carga la versión 2** sin
+  reiniciar (A).
+- **Conclusión:** DP 11.36 acepta ficheros nuevos de MidnamKit (DOCTYPE de midi.org incluido); *Master Names* = nombre
+  de fichero; menú de presets = nombre de la `PatchNameList` + «Number Name»; un modelo nuevo necesita `.middev` para
+  salir en la lista de Audio MIDI; tras guardar, basta con volver a elegir el fichero en *Master Names*. Queda
+  «Other Controller…» para los controles con nombre.
+- **Estado:** COMPLETADO salvo «Other Controller…». Ficheros de prueba aún instalados en `MOTU/Cherrypicker/`.

@@ -26,8 +26,11 @@ DP 11.36 (`MidiSystem.framework`) conoce DTD 1.0, incluidos `UsesControlNameList
   mismo nombre.
 - Menú de controladores de la pista: no usa `ControlNameList` (nombres estándar de DP).
 
+- Recarga: DP no detecta solo un fichero cambiado; se recarga al volver a elegirlo en *Master Names* (sin
+  reiniciar). La app debe recordarlo al guardar sobre un fichero instalado.
+
 ## Pendiente (A, con permiso del usuario)
 
-- ¿Recarga DP un `.midnam` cambiado sin reiniciar, o hay que volver a elegirlo en *Master Names*?
-- ¿Qué nombre muestra *Master Names*: `Model` del fichero, nombre de fichero o `CustomDeviceMode`?
 - `M3000.midnam copia` (resto de pruebas): ¿lo lee DP? Retirarlo lo decide el usuario.
+- ¿Usa DP las `ControlNameList` en «Other Controller…» o en otro sitio?
+- ¿Basta escribir a mano fabricante y modelo en Audio MIDI sin `.middev`? (recuerdo del usuario)
