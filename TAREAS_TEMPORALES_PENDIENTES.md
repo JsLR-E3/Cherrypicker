@@ -54,11 +54,15 @@ Antes de modificar código:
 | T-007 | Fase 1: especificación del formato midnam en `protocol/` (DTD + ejemplos) y paquete Swift de lectura/escritura con test de ida y vuelta | COMPLETADA 2026-10-19 (EXP-003) |
 | T-009 | Descargar la DTD MIDINameDocument 1.0 (con permiso) a `reference/` y contrastar `protocol/confirmed/midnam_formato_escritura.md` y el modelo | COMPLETADA 2026-10-19 (EXP-004) |
 | T-011 | Test de validación con `xmllint --dtdvalid` de los ficheros que escriba MidnamKit (necesita `MIDIEvents10.dtd`, descarga con permiso) | COMPLETADA 2026-10-19 (EXP-005) |
-| T-012 | EXP con el usuario: instalar en `MOTU/<Fabricante>/` (con permiso) un `.midnam` nuevo de MidnamKit y comprobar en DP 11.36 que lo acepta con el DOCTYPE de midi.org, qué nombre muestra *Master Names* y si recarga sin reiniciar | COMPLETADA 2026-10-20 (EXP-006; queda «Other Controller…» y retirar los ficheros de prueba de `MOTU/Cherrypicker/` cuando el usuario diga) |
+| T-012 | EXP con el usuario: instalar en `MOTU/<Fabricante>/` (con permiso) un `.midnam` nuevo de MidnamKit y comprobar en DP 11.36 que lo acepta con el DOCTYPE de midi.org, qué nombre muestra *Master Names* y si recarga sin reiniciar | COMPLETADA 2026-10-20 (EXP-006; ficheros de prueba retirados; queda mirar «Other Controller…») |
 | T-010 | Fase 3: diseño de la app a partir de las ventanas de CherryPicker (nibs, manual, capturas) en `docs/2x`, para acordar con el usuario antes de programar | PENDIENTE |
 | T-008 | Fase 2: EXP — localizar dónde lee DP 11.36 los `.midnam` y comprobarlo con un ejemplo del usuario | COMPLETADA 2026-10-19 (EXP-002) |
 
 ## SIGUIENTE PASO EXACTO (retomar en sesión nueva)
 
-1. T-010 (análisis de las ventanas de CherryPicker → diseño de la app). Tests: `cd src/MidnamKit && swift test`.
-2. Cuando haya un fichero generado por la app: EXP con el usuario para la recarga en DP y el nombre de *Master Names* (ver `protocol/observed/dp_carpeta_midnam.md`).
+1. **T-010:** analizar las ventanas de CherryPicker (25 nibs en `reference/app_3.0/…/Resources`, manual
+   `reference/web_alterspective/cherrypicker/docs/introC.html`, capturas) y escribir el diseño de la app en `docs/2x`
+   para acordarlo con el usuario antes de programar. Tener en cuenta EXP-006: lista y banco con el mismo nombre,
+   *Master Names* = nombre de fichero, crear también `.middev`, avisar de volver a elegir en *Master Names* tras guardar.
+2. Pendiente menor con el usuario: «Other Controller…» de DP (¿usa `ControlNameList`?).
+3. Tests: `cd src/MidnamKit && swift test` (12 tests; valida contra la DTD con `tools/validar_midnam.sh`).

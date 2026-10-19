@@ -173,4 +173,6 @@ Formato: ID · fecha · objetivo · procedimiento · resultado · conclusión (n
   de fichero; menú de presets = nombre de la `PatchNameList` + «Number Name»; un modelo nuevo necesita `.middev` para
   salir en la lista de Audio MIDI; tras guardar, basta con volver a elegir el fichero en *Master Names*. Queda
   «Other Controller…» para los controles con nombre.
-- **Estado:** COMPLETADO salvo «Other Controller…». Ficheros de prueba aún instalados en `MOTU/Cherrypicker/`.
+- **Estado:** COMPLETADO salvo «Other Controller…». 2026-10-20: a petición del usuario, `MOTU/Cherrypicker/` retirada
+  de `/Library/Audio/MIDI Devices/` (movida a la Papelera como «Cherrypicker (prueba T-012)»); copias idénticas en
+  `captures/exp006/`. El dispositivo «CP Prueba modelo» de Audio MIDI/DP lo borra el usuario si quiere.
