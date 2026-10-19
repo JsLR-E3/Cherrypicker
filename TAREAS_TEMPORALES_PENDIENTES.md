@@ -1,7 +1,7 @@
 # TAREAS TEMPORALES PENDIENTES — Cherrypicker
 
 > Fichero de continuidad de trabajo: estado actual, pendientes y reglas. Una sesión nueva debería poder continuar leyendo solo esto.
-> Actualizado: 2026-10-19, T-003 (material archivado e inventariado). Proyecto en `/Volumes/E3 M4/Proyectos IA/Cherrypicker`. La historia está en los EXP de docs/13.
+> Actualizado: 2026-10-19, T-005 (alcance cerrado con el usuario). Proyecto en `/Volumes/E3 M4/Proyectos IA/Cherrypicker`. La historia está en los EXP de docs/13.
 
 ## REGLA DE CONTINUIDAD
 
@@ -33,6 +33,7 @@ Antes de modificar código:
 ## ESTADO ACTUAL (2026-10-19)
 
 - Material archivado en `reference/` e inventariado en `docs/01` (T-003): app 3.0 (ppc+i386, no arranca en macOS ≥10.15), app 2.62 extraída del dmg de Wayback, manual web original (sin 20 imágenes), 6 `.midnam` privados del usuario. `CherryMangler.dmg` truncado, irrecuperable.
+- Alcance decidido (T-005, `docs/14`): app nativa parecida a CherryPicker para crear `.midnam` desde cero para **DP 11.36**, con bancos agrupados por nombre, bank select por banco, controles con nombre y audición por CoreMIDI. Fases 1–6 en `docs/14`.
 - Sin experimentos todavía.
 
 ## TAREAS
@@ -43,10 +44,12 @@ Antes de modificar código:
 | T-002 | Repo GitHub privado y remoto configurado (lo crea el usuario): `JsLR-E3/Cherrypicker` | COMPLETADA 2026-10-19 |
 | T-003 | Archivar `incoming/` en `reference/` con su estructura e inventariarlo en `docs/01` y `reference/README.md` | COMPLETADA 2026-10-19 |
 | T-004 | EXP-001: intentar abrir la app 3.0 en este Mac (macOS 15.7.9) y registrar el fallo; estudio estático de recursos y del formato midnam con los ejemplos | PENDIENTE |
-| T-005 | Definir el alcance con el usuario: qué funciones se usan, con qué programas (DP, Logic, Pro Tools…) y qué se quiere recuperar (`docs/14`) | PENDIENTE |
+| T-005 | Definir el alcance con el usuario: qué funciones se usan, con qué programas (DP, Logic, Pro Tools…) y qué se quiere recuperar (`docs/14`) | COMPLETADA 2026-10-19 |
 | T-006 | Adaptar `CLAUDE.md` y `docs/11` de «aparato» a «programa» (formatos de fichero en vez de protocolo de hardware) | PENDIENTE |
+| T-007 | Fase 1: especificación del formato midnam en `protocol/` (DTD + ejemplos) y paquete Swift de lectura/escritura con test de ida y vuelta | PENDIENTE |
+| T-008 | Fase 2: EXP — localizar dónde lee DP 11.36 los `.midnam` y comprobarlo con un ejemplo del usuario | PENDIENTE |
 
 ## SIGUIENTE PASO EXACTO (retomar en sesión nueva)
 
-1. Primer commit subido (T-002).
-2. T-005 con el usuario; T-006 y T-004 a continuación.
+1. T-006 (adaptar reglas y método a programa) y T-004 (intento de arranque + estudio estático).
+2. T-007 (formato y modelo) y T-008 (DP 11.36) pueden avanzar en paralelo.

@@ -27,12 +27,22 @@ modo que un banco es una agrupación por nombre y no un banco físico del aparat
 | Listas de controles con nombre (`ControlNameList`) | CherryPicker (`CPControllerList`) | — | **Sí** |
 | Abrir y editar los `.midnam` existentes sin pérdidas | CherryPicker | — | **Sí** |
 | Que DP lea el fichero y muestre los bancos agrupados | DP | Por comprobar con la versión actual de DP | **Sí** (criterio de éxito) |
-| Audición, Sibelius, Cubase/FreeMIDI/OMS, Gigastudio, notas (drum maps) | CherryPicker | — | Por decidir |
+| Audición: enviar Bank Select + Program Change al módulo desde la lista para probar antes de exportar | CherryPicker (CoreMIDI) | — | **Sí** (usuario, 2026-10-19) |
+| Sibelius, Cubase/FreeMIDI/OMS, Gigastudio, notas (drum maps) | CherryPicker | — | No por ahora |
+
+Decisiones (usuario, 2026-10-19): DAW de destino **Digital Performer 11.36**; editor como **app nativa de macOS parecida
+a CherryPicker** (misma organización y nombres; las mejoras se proponen antes).
 
 ## Fases
 
 | Fase | Objetivo | Viabilidad | Riesgo principal | Estado |
 |---|---|---|---|---|
-| 1 | — | — | — | — |
+| 1 | Modelo de datos midnam + lectura/escritura sin pérdidas (paquete Swift con tests) | Alta: XML documentado (DTD 0.7/1.0 MMA) y 6 ejemplos reales | Elementos poco usados que se pierdan al reescribir | PENDIENTE |
+| 2 | Dónde y cómo lee DP 11.36 los `.midnam`; prueba con un ejemplo del usuario | Alta | Ruta o caché propia de DP sin documentar | PENDIENTE |
+| 3 | App: documento, modos/canales, bancos con bank select por banco, listas de presets, pegar listas con delimitador, arrastrar entre bancos | Alta | Volumen de UI; partir de las ventanas de CherryPicker (nibs y manual) | PENDIENTE |
+| 4 | Audición por CoreMIDI (Bank Select + Program Change al destino elegido) | Alta | Enviar a un aparato real: solo con permiso; solo mensajes de selección, nunca SysEx | PENDIENTE |
+| 5 | Listas de controles con nombre (`ControlNameList`) | Alta | Cómo las muestra DP | PENDIENTE |
+| 6 | Exportar/instalar en la carpeta que lee DP y validar en DP 11.36 | Alta | — | PENDIENTE |
 
-Restricciones globales: —
+Restricciones globales: Mac de destino Apple Silicon (arm64) con macOS 15.7.9; la app original no puede ejecutarse aquí,
+así que su comportamiento se toma del manual, las notas de versión, los recursos y los ficheros que generó.
