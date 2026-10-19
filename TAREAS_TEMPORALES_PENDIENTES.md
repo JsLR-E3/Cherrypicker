@@ -40,7 +40,7 @@ Antes de modificar código:
 | ID | Tarea | Estado |
 |---|---|---|
 | T-001 | Estructura del proyecto desde la plantilla, git local | COMPLETADA 2026-10-19 |
-| T-002 | Repo GitHub privado y remoto configurado (lo crea el usuario) | PENDIENTE |
+| T-002 | Repo GitHub privado y remoto configurado (lo crea el usuario): `JsLR-E3/Cherrypicker` | COMPLETADA 2026-10-19 |
 | T-003 | Archivar `incoming/` en `reference/` con su estructura e inventariarlo en `docs/01` y `reference/README.md` | COMPLETADA 2026-10-19 |
 | T-004 | EXP-001: intentar abrir la app 3.0 en este Mac (macOS 15.7.9) y registrar el fallo; estudio estático de recursos y del formato midnam con los ejemplos | PENDIENTE |
 | T-005 | Definir el alcance con el usuario: qué funciones se usan, con qué programas (DP, Logic, Pro Tools…) y qué se quiere recuperar (`docs/14`) | PENDIENTE |
@@ -48,5 +48,5 @@ Antes de modificar código:
 
 ## SIGUIENTE PASO EXACTO (retomar en sesión nueva)
 
-1. T-002 (el usuario crea el repo privado) y primer commit.
+1. Primer commit subido (T-002).
 2. T-005 con el usuario; T-006 y T-004 a continuación.
