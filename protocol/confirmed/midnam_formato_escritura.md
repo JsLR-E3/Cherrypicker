@@ -57,6 +57,7 @@ Consecuencias para la app:
 
 ## Pendiente
 
-- Validación automática con `xmllint --dtdvalid`: la DTD incluye `MIDIEvents10.dtd` (define `ControlChange`,
-  `ProgramChange`…), que no está descargada. Requiere permiso.
+- Validación: `tools/validar_midnam.sh fichero.midnam…` (EXP-005). Los 6 ejemplos son válidos. El DOCTYPE de
+  CherryPicker (sistema `""`) no permite validar tal cual; el script usa el canónico en una copia.
+- Decidir con el usuario el DOCTYPE de los ficheros nuevos: `""` (como CherryPicker) o la URL de midi.org.
 - `NoteNameList`, `StandardDeviceMode`, `SysEx` y `Values` se conservan sin tipo (fuera del alcance actual).

@@ -10,6 +10,7 @@ no se sube a GitHub. Lo que llega a `incoming/` se archiva aquí (T-003) conserv
 | `extracted/CherryPicker262/` | Contenido del dmg 2.62 (montado solo lectura): app 2.62 + `2.62 Release Notes.rtf` | De `CherryPicker262.dmg`, 2026-10-19 |
 | `midnam_usuario/` | **PRIVADO.** 6 ficheros `.midnam` del usuario: DSP-128 Plus, LXP-15, LXP-15 II, M3000 (hechos con CherryPicker), PCM-81 y PCM-91 (convertidos de FreeMIDI por MOTU). Muestras de prueba; nunca se publican ni se copian a `tests/` sin permiso | Usuario, incoming 2026-10-19 |
 
+| `dtd/MIDIEvents10.dtd` | DTD MIDIEvents 1.0 de la MMA (incluida por la anterior), 6363 bytes. Copia de Wayback (captura 2003-08-22) | web.archive.org, descargado 2026-10-19 con permiso |
 | `dtd/MIDINameDocument10.dtd` | DTD MIDINameDocument 1.0 de la MMA (19-01-2003), 4498 bytes, CRLF. midi.org da 404; copia de Wayback (captura 2003-08-22) | web.archive.org, descargado 2026-10-19 con permiso |
 
 `CherryMangler.dmg` está **truncado** en Wayback (130 789 de 211 823 bytes originales): no monta ni se puede reconstruir.

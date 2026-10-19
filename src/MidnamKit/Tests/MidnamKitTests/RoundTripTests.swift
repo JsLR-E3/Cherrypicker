@@ -63,7 +63,15 @@ final class SyntheticTests: XCTestCase {
 		<MasterDeviceNames>
 			<Manufacturer>Fabricante</Manufacturer>
 			<Model>FX-2</Model>
+			<CustomDeviceMode Name="Mode 1" >
+				<ChannelNameSetAssignments>
+					<ChannelNameSetAssign Channel="1" NameSet="Name Set 1" />
+				</ChannelNameSetAssignments>
+			</CustomDeviceMode>
 			<ChannelNameSet Name="Name Set 1" >
+				<AvailableForChannels>
+					<AvailableChannel Channel="1" Available="true" />
+				</AvailableForChannels>
 				<PatchBank Name="P0 Halls" >
 					<MIDICommands>
 						<ControlChange Control="32" Value="0" />

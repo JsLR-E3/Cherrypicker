@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!-- Catálogo XML: resuelve las DTD de la MMA a las copias locales de reference/dtd (sin red). -->
+<!DOCTYPE catalog PUBLIC "-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN" "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" xml:base="../reference/dtd/">
+	<public publicId="-//MIDI Manufacturers Association//DTD MIDINameDocument 1.0//EN" uri="MIDINameDocument10.dtd"/>
+	<public publicId="-//MIDI Manufacturers Association//DTD MIDIEvents 1.0//EN" uri="MIDIEvents10.dtd"/>
+	<system systemId="http://www.midi.org/dtds/MIDINameDocument10.dtd" uri="MIDINameDocument10.dtd"/>
+	<system systemId="http://www.midi.org/dtds/MIDIEvents10.dtd" uri="MIDIEvents10.dtd"/>
+</catalog>

@@ -101,3 +101,22 @@ Formato: ID · fecha · objetivo · procedimiento · resultado · conclusión (n
   9 tests, 0 fallos, los 6 ejemplos siguen idénticos.
 - **Conclusión:** reglas de la DTD en `protocol/confirmed/midnam_formato_escritura.md` (D + B). La validación
   automática necesita `MIDIEvents10.dtd`, que la DTD incluye y no está descargada.
+
+## EXP-005 · 2026-10-19 · Validación con xmllint contra la DTD 1.0 (T-011)
+
+- **Herramienta:** `tools/validar_midnam.sh` (nuevo) + `tools/midnam_catalog.xml` (catálogo XML que resuelve las DTD
+  de la MMA a `reference/dtd/`, sin red); `xmllint --valid --nonet` (libxml 2.9.13). Trabaja sobre copias temporales.
+- **Procedimiento:** descarga con permiso de `MIDIEvents10.dtd` (incluida por la DTD 1.0; define `ControlChange`,
+  `ProgramChange`…) desde Wayback, captura 2003-08-22, 6363 bytes = `x-archive-orig-content-length`. Validar los 6
+  ejemplos, un fichero inválido a propósito y lo que escribe MidnamKit (tests `DTDValidationTests`).
+- **Resultado:**
+  - El DOCTYPE de CherryPicker (`PUBLIC "…1.0//EN" ""`) **no sirve para validar**: el identificador de sistema vacío
+    hace que el validador cargue el propio documento como DTD («Content error in the external subset»). El de MOTU
+    apunta a la DTD 0.7 de sonosphere.com. El script sustituye el DOCTYPE por el canónico de la 1.0 en la copia.
+  - Los 6 ejemplos son **válidos** según la DTD 1.0. Un `ChannelNameSet` sin `PatchBank` se rechaza con el mensaje
+    de la DTD.
+  - El test detectó que la muestra sintética de estilo MOTU de los tests estaba incompleta (sin `CustomDeviceMode` ni
+    `AvailableForChannels`); corregida. 11 tests, 0 fallos.
+- **Conclusión:** lo que escribe MidnamKit se valida automáticamente contra la DTD 1.0 en cada `swift test` (D).
+  Decisión pendiente para la app: escribir en los ficheros nuevos el DOCTYPE con la URL de midi.org (validable) en vez
+  del `""` de CherryPicker; DP acepta ambos según EXP-002 (por confirmar con un fichero nuevo).
