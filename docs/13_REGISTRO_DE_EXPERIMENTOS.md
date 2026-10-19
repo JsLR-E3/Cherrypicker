@@ -163,4 +163,8 @@ Formato: ID · fecha · objetivo · procedimiento · resultado · conclusión (n
   - Menú de controladores de la pista: nombres estándar (1 modulation, 2 breath, 7 volume, 64 Sustain…); **no
     aparecen** «CP Mezcla/Tiempo/Feedback» ni CC12/CC13. DP 11.36 no usa `ControlNameList` en ese menú (A); falta
     mirar «Other Controller…».
-- **Pendiente:** «Other Controller…» y prueba de recarga (versión 2).
+- **Recarga:** 2026-10-20 00:03:55, con DP abierto, instalada la versión 2 encima de la 1 (comprobado antes que la
+  instalada era la 1 sin cambios). Copia en `captures/exp006/CP Prueba fichero v2.midnam`. Cambian los nombres de
+  banco y de preset (sufijo « v2»); los nombres de las listas («CP Lista A»…) y del fichero no cambian.
+- **Pendiente:** qué ve el usuario (sin hacer nada / tras volver a elegir *Master Names* / tras reiniciar DP) y
+  «Other Controller…».
