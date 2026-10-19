@@ -21,6 +21,11 @@ DP 11.36 (`MidiSystem.framework`) conoce DTD 1.0, incluidos `UsesControlNameList
 - *Manufacturer*/*Model* se eligen en Configuración de Audio MIDI; la lista sale de los `.middev`. Con `.middev` el
   modelo aparece en la lista; a mano también funcionaría (usuario, por confirmar).
 
+- Menú de presets de la pista: submenú = nombre de la **`PatchNameList`**; preset = «`Number` `Name`». El nombre del
+  `PatchBank` solo se ve en *MIDI Device Properties*. Regla para la app (como CherryPicker): lista y banco con el
+  mismo nombre.
+- Menú de controladores de la pista: no usa `ControlNameList` (nombres estándar de DP).
+
 ## Pendiente (A, con permiso del usuario)
 
 - ¿Recarga DP un `.midnam` cambiado sin reiniciar, o hay que volver a elegirlo en *Master Names*?

@@ -155,4 +155,12 @@ Formato: ID · fecha · objetivo · procedimiento · resultado · conclusión (n
   - El usuario recuerda haber escrito a mano fabricante y modelo de un aparato que no estaba en la lista y poder
     asignarle nombres igualmente: el `.middev` sería una comodidad (aparecer en la lista), no un requisito. Por
     confirmar.
-- **Pendiente:** menú de presets en una pista (etiquetas `A01`…), nombres de controles y prueba de recarga (versión 2).
+- **Resultado parcial 3 (capturas `captures/exp006/dp_menu_presets.png`, `dp_menu_controladores.png`):**
+  - Menú de presets de una pista: un submenú por banco, pero **con el nombre de la `PatchNameList`** («CP Lista A»…),
+    no el del `PatchBank` («CP Banco A (CC0=0)», que solo sale en *MIDI Device Properties*). Cada preset se muestra
+    como **«`Number` `Name`»** («B01 B preset 1») (A). En los ficheros de CherryPicker del usuario el nombre de cada
+    lista es siempre igual al de su banco (M3000 23/23, LXP-15 5/5, LXP-15 II 2/2), por eso en DP coinciden.
+  - Menú de controladores de la pista: nombres estándar (1 modulation, 2 breath, 7 volume, 64 Sustain…); **no
+    aparecen** «CP Mezcla/Tiempo/Feedback» ni CC12/CC13. DP 11.36 no usa `ControlNameList` en ese menú (A); falta
+    mirar «Other Controller…».
+- **Pendiente:** «Other Controller…» y prueba de recarga (versión 2).

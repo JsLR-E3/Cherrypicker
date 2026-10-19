@@ -9,8 +9,8 @@ Estados: CONFIRMED · PARTIAL · OBSERVED · UNKNOWN · DISCARDED. Niveles de ev
 | Formato exacto de escritura (sangría, escapes, prólogo) | CONFIRMED | EXP-003 (B reproducido byte a byte + D); `protocol/confirmed/midnam_formato_escritura.md` | `src/MidnamKit`, `swift test` |
 | Reglas de la DTD 1.0 (orden de hijos, obligatorios, valores por defecto) | CONFIRMED | EXP-004 (D DTD + B ejemplos) | `Model.swift`; `tools/validar_midnam.sh`; `DTDValidationTests` (EXP-005) |
 | Bank select: ninguno, por banco o por preset (`PatchMIDICommands`) | OBSERVED | EXP-001 (B) | `PatchBank.Item.midiCommands`, `Patch.Item.patchMIDICommands` |
-| Listas de controles con nombre (`ControlNameList`) | PARTIAL: DP conoce `UsesControlNameList` (EXP-002); sin ejemplos | — | `ControlNameList`, `Control` (sin probar en DP) |
+| Listas de controles con nombre (`ControlNameList`) | PARTIAL: DP conoce `UsesControlNameList` (EXP-002) pero no la usa en el menú de controladores de la pista (EXP-006); falta «Other Controller…» | EXP-006 (A) | `ControlNameList`, `Control` |
 | Dónde y cómo lee DP 11.36 los `.midnam` | OBSERVED: `/Library/Audio/MIDI Devices/MOTU/<Fabricante>/` | EXP-002 (usuario + D); `protocol/observed/dp_carpeta_midnam.md` | — |
 | `.middev` para que un fabricante/modelo nuevo salga en la lista de Audio MIDI | CONFIRMED (a mano también funcionaría: por confirmar) | EXP-006 (A) | — |
-| DP acepta el DOCTYPE de midi.org; *Master Names* = nombre de fichero | CONFIRMED | EXP-006 (A) | `MidnamFile.newFileProlog` |
+| DP acepta el DOCTYPE de midi.org; *Master Names* = nombre de fichero; menú de presets = nombre de `PatchNameList` + «Number Name» | CONFIRMED | EXP-006 (A) | `MidnamFile.newFileProlog` |
 | Audición por CoreMIDI | UNKNOWN | — | — |
