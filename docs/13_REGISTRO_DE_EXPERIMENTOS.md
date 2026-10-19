@@ -74,3 +74,16 @@ Formato: ID · fecha · objetivo · procedimiento · resultado · conclusión (n
   3. No recuerda si DP recarga solo; cree que hay que volver a elegirlo en *MIDI Device Properties*. Por probar.
 - **Conclusión ampliada:** el `.middev` no es necesario para usar un `.midnam` (usuario + captura: A). Los nombres de
   `PatchBank` son lo que el usuario ve en DP, en el orden del fichero (A).
+
+## EXP-003 · 2026-10-19 · Ida y vuelta sin pérdidas de los .midnam con MidnamKit (T-007)
+
+- **Herramienta:** `src/MidnamKit` (`swift test`); lee **copias** de `reference/midnam_usuario/` en un directorio
+  temporal, nunca los originales.
+- **Procedimiento:** para cada ejemplo, leer → reescribir desde el árbol y desde el modelo tipado → comparar byte a
+  byte con el original; contar elementos sin tipo y presets tipados. Tests sintéticos para estilo CherryPicker y MOTU,
+  elemento desconocido, atributo extra, orden no canónico, documento nuevo y errores.
+- **Resultado:** 8 tests, 0 fallos; compilación limpia sin avisos. Los 6 ejemplos salen **idénticos** desde el árbol
+  y desde el modelo, con 0 elementos sin tipo. Presets: DSP-128 Plus 128, LXP-15 128, LXP-15 II 128, M3000 1112,
+  PCM-81 900, PCM-91 800.
+- **Conclusión:** formato de escritura de CherryPicker y de MOTU confirmado (B reproducido + D):
+  `protocol/confirmed/midnam_formato_escritura.md`.

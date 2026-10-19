@@ -6,4 +6,4 @@ Core Audio) que solo hablan con el helper; una app para el usuario; un canal de 
 
 | Componente | Proceso | Habla con | Ficheros |
 |---|---|---|---|
-| — | — | — | — |
+| MidnamKit | Biblioteca (paquete Swift) | Ficheros `.midnam` | `src/MidnamKit/` — árbol XML propio (`XMLReader`/`XMLWriter`, orden y estilo conservados) y modelo tipado (`Model.swift`) |
