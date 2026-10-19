@@ -185,6 +185,7 @@ public struct ChannelNameSet: Equatable, Sendable {
 	public enum Item: Equatable, Sendable {
 		case availableForChannels([AvailableChannel])
 		case usesControlNameList(String)
+		case controlNameList(ControlNameList)
 		case usesNoteNameList(String)
 		case patchBank(PatchBank)
 		case other(XMLElement)
@@ -210,6 +211,7 @@ public struct ChannelNameSet: Equatable, Sendable {
 				if list.count == ks.count { return .availableForChannels(list) }
 			}
 			if let n = usesName(c, "UsesControlNameList") { return .usesControlNameList(n) }
+			if let l = ControlNameList(element: c) { return .controlNameList(l) }
 			if let n = usesName(c, "UsesNoteNameList") { return .usesNoteNameList(n) }
 			if let b = PatchBank(element: c) { return .patchBank(b) }
 			return .other(c)
@@ -222,6 +224,7 @@ public struct ChannelNameSet: Equatable, Sendable {
 			case .availableForChannels(let l):
 				return .element(XMLElement("AvailableForChannels", children: l.map { .element($0.element) }))
 			case .usesControlNameList(let n): return .element(usesElement("UsesControlNameList", n))
+			case .controlNameList(let l): return .element(l.element)
 			case .usesNoteNameList(let n): return .element(usesElement("UsesNoteNameList", n))
 			case .patchBank(let b): return .element(b.element)
 			case .other(let o): return .element(o)
@@ -375,6 +378,7 @@ public struct Patch: Equatable, Sendable {
 		/// Bank select y Program Change propios del preset (M3000, EXP-001).
 		case patchMIDICommands([MIDICommand])
 		case usesNoteNameList(String)
+		case usesControlNameList(String)
 		case other(XMLElement)
 	}
 
@@ -402,6 +406,7 @@ public struct Patch: Equatable, Sendable {
 		items = kids.map { c in
 			if let l = midiCommands(c, "PatchMIDICommands") { return .patchMIDICommands(l) }
 			if let n = usesName(c, "UsesNoteNameList") { return .usesNoteNameList(n) }
+			if let n = usesName(c, "UsesControlNameList") { return .usesControlNameList(n) }
 			return .other(c)
 		}
 	}
@@ -412,6 +417,7 @@ public struct Patch: Equatable, Sendable {
 			switch $0 {
 			case .patchMIDICommands(let l): return .element(XMLElement("PatchMIDICommands", children: l.map { .element($0.element) }))
 			case .usesNoteNameList(let n): return .element(usesElement("UsesNoteNameList", n))
+			case .usesControlNameList(let n): return .element(usesElement("UsesControlNameList", n))
 			case .other(let o): return .element(o)
 			}
 		})
@@ -451,15 +457,16 @@ public struct ControlNameList: Equatable, Sendable {
 	}
 }
 
-/// Control con nombre. Los hijos (valores con nombre, DTD 1.0) se conservan sin interpretar por ahora.
+/// Control con nombre. `type`: 7bit (por defecto si falta), 14bit, RPN o NRPN.
+/// Los hijos (`Values` con su `ValueNameList`, DTD 1.0) se conservan sin interpretar por ahora.
 public struct Control: Equatable, Sendable {
-	public var type: String
+	public var type: String?
 	public var number: String
 	public var name: String
 	public var children: [XMLNode] = []
 	public var extraAttributes: [XMLAttribute] = []
 
-	public init(type: String = "7bit", number: String, name: String) {
+	public init(type: String? = "7bit", number: String, name: String) {
 		self.type = type
 		self.number = number
 		self.name = name
@@ -467,8 +474,8 @@ public struct Control: Equatable, Sendable {
 
 	init?(element e: XMLElement) {
 		guard e.name == "Control", let (v, extra) = split(e, ["Type", "Number", "Name"]),
-		      let t = v[0], let num = v[1], let n = v[2] else { return nil }
-		type = t
+		      let num = v[1], let n = v[2] else { return nil }
+		type = v[0]
 		number = num
 		name = n
 		children = e.children

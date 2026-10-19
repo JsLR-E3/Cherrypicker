@@ -137,6 +137,27 @@ final class SyntheticTests: XCTestCase {
 		XCTAssertTrue(XMLWriter.write(x).contains("<Patch Number=\"1\" Name=\"A&apos;B\" ProgramChange=\"0\" />"))
 	}
 
+	/// Formas de la DTD 1.0 que no aparecen en los ejemplos: controles en línea en el juego de canales,
+	/// controles por preset, Control sin Type y con Values.
+	func testFormasDTD10() throws {
+		let text = Self.cherryPicker
+			.replacingOccurrences(of: "\t\t\t<UsesControlNameList Name=\"Controles\" />\n",
+			                      with: "\t\t\t<ControlNameList Name=\"Locales\" >\n\t\t\t\t<Control Number=\"1\" Name=\"Mod\" >\n\t\t\t\t\t<Values Min=\"0\" Max=\"127\" />\n\t\t\t\t</Control>\n\t\t\t</ControlNameList>\n")
+			.replacingOccurrences(of: "\t\t\t<Patch Number=\"1\" Name=\"Uno\" ProgramChange=\"0\" />",
+			                      with: "\t\t\t<Patch Number=\"1\" Name=\"Uno\" ProgramChange=\"0\" >\n\t\t\t\t<UsesControlNameList Name=\"Controles\" />\n\t\t\t</Patch>")
+		XCTAssertNotEqual(text, Self.cherryPicker)
+		let f = try MidnamFile(text: text)
+		XCTAssertEqual(f.text(), text)
+		XCTAssertEqual(otherCount(f.document), 0)
+		let m = try XCTUnwrap(f.document.masterDeviceNames.first)
+		guard case .controlNameList(let l) = m.channelNameSets[0].items[1], case .control(let c) = l.items[0] else {
+			return XCTFail("ControlNameList en línea sin tipo")
+		}
+		XCTAssertNil(c.type)
+		XCTAssertEqual(c.children.count, 1)
+		XCTAssertEqual(m.patchNameLists[1].patches[0].items, [.usesControlNameList("Controles")])
+	}
+
 	func testErrores() {
 		XCTAssertThrowsError(try MidnamFile(text: "<MIDIDeviceTypes></MIDIDeviceTypes>"))
 		XCTAssertThrowsError(try MidnamFile(text: "<MIDINameDocument><Author>x</Autor></MIDINameDocument>"))
@@ -206,6 +227,7 @@ func otherCount(_ d: MIDINameDocument) -> Int {
 								case .usesPatchNameList: break
 								}
 							}
+						case .controlNameList(let l): n += l.items.filter { if case .other = $0 { return true } else { return false } }.count
 						default: break
 						}
 					}
@@ -228,7 +250,7 @@ func otherCount(_ l: PatchNameList) -> Int {
 				switch pi {
 				case .other: return k + 1
 				case .patchMIDICommands(let c): return k + c.filter { if case .other = $0 { return true } else { return false } }.count
-				case .usesNoteNameList: return k
+				case .usesNoteNameList, .usesControlNameList: return k
 				}
 			}
 		}

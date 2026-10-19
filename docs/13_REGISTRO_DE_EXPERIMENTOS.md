@@ -87,3 +87,17 @@ Formato: ID · fecha · objetivo · procedimiento · resultado · conclusión (n
   PCM-81 900, PCM-91 800.
 - **Conclusión:** formato de escritura de CherryPicker y de MOTU confirmado (B reproducido + D):
   `protocol/confirmed/midnam_formato_escritura.md`.
+
+## EXP-004 · 2026-10-19 · Contraste con la DTD MIDINameDocument 1.0 (T-009)
+
+- **Herramienta:** `curl` (descarga con permiso del usuario), lectura de la DTD, `swift test`.
+- **Procedimiento:** midi.org ya no sirve `dtds/MIDINameDocument10.dtd` (404); se descarga la captura de Wayback del
+  2003-08-22 (`id_`), 4498 bytes, igual a `x-archive-orig-content-length`, fechada en la propia DTD el 19-01-2003.
+  Se guarda en `reference/dtd/` y se compara elemento a elemento con lo observado y con el modelo.
+- **Resultado:** todo lo observado en los ejemplos es válido según la DTD. `Patch Number` es CDATA (etiqueta libre),
+  `ProgramChange` opcional, `PatchBank Name` opcional, `ROM` por defecto false, `Available` por defecto true.
+  Formas que el modelo no tipaba y la DTD permite: `ControlNameList` en línea en `ChannelNameSet`,
+  `UsesControlNameList` por preset y `Control` sin `Type` (7bit por defecto). Añadidas a `Model.swift` con un test;
+  9 tests, 0 fallos, los 6 ejemplos siguen idénticos.
+- **Conclusión:** reglas de la DTD en `protocol/confirmed/midnam_formato_escritura.md` (D + B). La validación
+  automática necesita `MIDIEvents10.dtd`, que la DTD incluye y no está descargada.

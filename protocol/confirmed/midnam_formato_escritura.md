@@ -28,8 +28,35 @@ EXP-003. Reproducido byte a byte por `src/MidnamKit` en los 6 ejemplos del usuar
   en su sitio, y los atributos no previstos en `extraAttributes`.
 - Los ficheros nuevos se escriben con el estilo de CherryPicker.
 
+## Reglas de la DTD 1.0 que debe cumplir la app al crear ficheros (EXP-004)
+
+Fuente: `reference/dtd/MIDINameDocument10.dtd` (MMA, 19-01-2003; copia de Wayback de midi.org, 4498 bytes, igual a
+su `Content-Length` original). Coinciden con todo lo observado en los ejemplos (D + B → CONFIRMED).
+
+| Elemento | Hijos, en este orden | Atributos |
+|---|---|---|
+| `MIDINameDocument` | `Author`, luego `MasterDeviceNames`+ (o `ExtendingDeviceNames`+ o `StandardDeviceMode`+) | — |
+| `MasterDeviceNames` | `Manufacturer`, `Model`+ · `CustomDeviceMode`+ (o `SupportsStandardDeviceMode`) · `ChannelNameSet`* · listas con nombre (`PatchNameList`, `NoteNameList`, `ControlNameList`, `ValueNameList`) en cualquier orden | — |
+| `CustomDeviceMode` | `DeviceModeEnable`?, `DeviceModeDisable`?, `ChannelNameSetAssignments`, listas* | `Name` obligatorio |
+| `ChannelNameSetAssign` | — | `Channel`, `NameSet` obligatorios |
+| `ChannelNameSet` | `AvailableForChannels`, (`NoteNameList`\|`UsesNoteNameList`)?, (`ControlNameList`\|`UsesControlNameList`)?, `PatchBank`+ | `Name` obligatorio |
+| `AvailableChannel` | — | `Channel` obligatorio; `Available` true/false, por defecto true |
+| `PatchBank` | `MIDICommands`?, `UsesPatchNameList` **o** `PatchNameList` | `Name` opcional; `ROM` true/false, por defecto false |
+| `PatchNameList` | `Patch`* | `Name` opcional (en línea, sin nombre) |
+| `Patch` | `PatchMIDICommands`?, `ChannelNameSetAssignments`?, notas?, controles? | `Number` y `Name` obligatorios (`Number` es CDATA: etiqueta libre); `ProgramChange` opcional |
+| `ControlNameList` | `Control`+ | `Name` opcional |
+| `Control` | `Values`? (con `ValueNameList` o `UsesValueNameList`) | `Type` 7bit/14bit/RPN/NRPN, por defecto 7bit; `Number`, `Name` obligatorios |
+| `MIDICommands` | `MIDIDelay`, mensajes de canal (MIDIEvents 1.0) o `SysEx`, uno o más | — |
+| `PatchMIDICommands` | `MIDIDelay` o mensajes de canal, uno o más (sin SysEx) | — |
+
+Consecuencias para la app:
+- Un `ChannelNameSet` necesita al menos un `PatchBank`; un `MasterDeviceNames`, al menos un modo.
+- En el juego de canales, las notas van antes que los controles, y ambos antes de los bancos.
+- Las listas de controles pueden ir por juego de canales **o por preset** (`Patch` → `UsesControlNameList`).
+- `MIDICommands` y `PatchMIDICommands` no pueden quedar vacíos: un banco sin bank select no lleva el elemento.
+
 ## Pendiente
 
-- Contrastar con la DTD 1.0 de la MMA (descarga pendiente de permiso del usuario): orden de hijos válido, atributos
-  obligatorios y forma de `Control` con valores con nombre.
-- `NoteNameList`, `StandardDeviceMode`, `SysEx` se conservan sin tipo (fuera del alcance actual).
+- Validación automática con `xmllint --dtdvalid`: la DTD incluye `MIDIEvents10.dtd` (define `ControlChange`,
+  `ProgramChange`…), que no está descargada. Requiere permiso.
+- `NoteNameList`, `StandardDeviceMode`, `SysEx` y `Values` se conservan sin tipo (fuera del alcance actual).

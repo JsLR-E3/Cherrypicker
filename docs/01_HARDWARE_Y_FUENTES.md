@@ -37,4 +37,5 @@ Recursos en `.nib` compilados (keyedobjects) para 25 ventanas y hojas.
 | `reference/extracted/CherryPicker262/` | Versión 2.62 y sus notas de versión (cambios 2.6–2.62) |
 | `reference/web_alterspective/` | Manual original (`docs/introC.html`: filtros, edición y acciones de bancos y patchlists) y capturas; 20 imágenes perdidas en Wayback |
 | `reference/midnam_usuario/` | Ejemplos reales del usuario (privados) para validar lectura/escritura sin pérdidas |
-| Externas (no descargadas) | DTD MIDINameDocument (sonosphere.com), digicake.com/midnam: enlazadas desde la web original |
+| `reference/dtd/` | DTD MIDINameDocument 1.0 de la MMA (EXP-004) |
+| Externas (no descargadas) | `MIDIEvents10.dtd` y `MIDIDeviceTypes10.dtd` (en Wayback, midi.org/dtds), digicake.com/midnam |
