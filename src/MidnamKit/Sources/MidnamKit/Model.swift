@@ -544,9 +544,21 @@ public struct MidnamFile: Equatable, Sendable {
 	public var xml: XMLDocumentFile
 	public var document: MIDINameDocument
 
+	/// Prólogo de los ficheros nuevos: DOCTYPE 1.0 con la URL de midi.org, validable (usuario, 2026-10-19, EXP-005).
+	/// CherryPicker escribía `""` como identificador de sistema; los ficheros abiertos conservan el suyo.
+	public static let newFileProlog = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+		+ "<!DOCTYPE MIDINameDocument PUBLIC \"-//MIDI Manufacturers Association//DTD MIDINameDocument 1.0//EN\" "
+		+ "\"http://www.midi.org/dtds/MIDINameDocument10.dtd\">\n\n"
+
 	public init(text: String) throws {
 		xml = try XMLReader.parse(text)
 		document = try MIDINameDocument(element: xml.root)
+	}
+
+	/// Documento nuevo: prólogo canónico y estilo de escritura de CherryPicker.
+	public init(document: MIDINameDocument) {
+		self.document = document
+		xml = XMLDocumentFile(prolog: Self.newFileProlog, root: document.element, epilog: "\n", style: .cherryPicker)
 	}
 
 	/// Texto con el estilo del fichero de origen (o el de CherryPicker si es nuevo).

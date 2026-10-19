@@ -44,6 +44,22 @@ final class DTDValidationTests: XCTestCase {
 		XCTAssertEqual(r.status, 0, r.output)
 	}
 
+	/// Documento creado desde cero con el modelo (mínimo válido: modo, juego de canales, banco, lista).
+	func testDocumentoNuevoEsValido() throws {
+		let list = PatchNameList(name: "Halls", items: [.patch(Patch(number: "1", name: "Sala", programChange: "0"))])
+		let bank = PatchBank(name: "Halls", items: [.midiCommands([.controlChange(control: "0", value: "1")]),
+		                                             .usesPatchNameList("Halls")])
+		let set = ChannelNameSet(name: "Presets", items: [
+			.availableForChannels([AvailableChannel(channel: "1", available: true)]), .patchBank(bank)])
+		let mode = CustomDeviceMode(name: "Mode 1", items: [
+			.channelNameSetAssignments([ChannelNameSetAssign(channel: "1", nameSet: "Presets")])])
+		let m = MasterDeviceNames(items: [.manufacturer("Fabricante"), .model("FX-1"), .customDeviceMode(mode),
+		                                  .channelNameSet(set), .patchNameList(list)])
+		let doc = MIDINameDocument(items: [.author("Cherrypicker"), .masterDeviceNames(m)])
+		let r = try validate(["nuevo.midnam": MidnamFile(document: doc).text()])
+		XCTAssertEqual(r.status, 0, r.output)
+	}
+
 	func testDetectaFicheroInvalido() throws {
 		// ChannelNameSet sin PatchBank: la DTD exige al menos uno
 		let bad = SyntheticTests.cherryPicker.replacingOccurrences(

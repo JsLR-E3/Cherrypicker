@@ -141,8 +141,12 @@ final class SyntheticTests: XCTestCase {
 		let list = PatchNameList(name: "L", items: [.patch(patch)])
 		let m = MasterDeviceNames(items: [.manufacturer("F"), .model("M"), .patchNameList(list)])
 		let doc = MIDINameDocument(items: [.author("CherryPicker"), .masterDeviceNames(m)])
-		let x = XMLDocumentFile(prolog: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n", root: doc.element)
-		XCTAssertTrue(XMLWriter.write(x).contains("<Patch Number=\"1\" Name=\"A&apos;B\" ProgramChange=\"0\" />"))
+		let text = MidnamFile(document: doc).text()
+		XCTAssertTrue(text.contains("<Patch Number=\"1\" Name=\"A&apos;B\" ProgramChange=\"0\" />"))
+		XCTAssertTrue(text.hasPrefix(MidnamFile.newFileProlog + "<MIDINameDocument>\n\t<Author>"))
+		XCTAssertTrue(MidnamFile.newFileProlog.contains("\"http://www.midi.org/dtds/MIDINameDocument10.dtd\">\n\n"))
+		XCTAssertTrue(text.hasSuffix("</MIDINameDocument>\n"))
+		XCTAssertEqual(try MidnamFile(text: text).text(), text)
 	}
 
 	/// Formas de la DTD 1.0 que no aparecen en los ejemplos: controles en línea en el juego de canales,

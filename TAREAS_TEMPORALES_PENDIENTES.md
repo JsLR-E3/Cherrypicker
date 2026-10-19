@@ -25,6 +25,7 @@ Antes de modificar código:
 - El push lo hace el usuario. Instalar o descargar software requiere permiso.
 - **Software original como base:** al reproducir apps o paneles del fabricante, partir de su organización y nombres; las mejoras se proponen y se acuerdan antes.
 - **CPU:** tras cada cambio relevante de lo que corre en segundo plano, medirla (`top`) y anotarla en el EXP.
+- **DOCTYPE de los ficheros nuevos:** el de la 1.0 con la URL de midi.org, validable; los ficheros abiertos conservan el suyo (usuario, 2026-10-19). Pendiente de confirmar en DP (T-012).
 - **Sistema de prueba:** no actualizar macOS ni DP 11.36 sin comprobar antes que el flujo sigue funcionando.
 - **Los `.midnam` de `reference/midnam_usuario/` son privados** (usuario, 2026-10-19): no se versionan ni se publican; para tests en el repo se usan copias anonimizadas o ficheros propios, previa consulta.
 <!-- Reglas propias del proyecto: añadir aquí, con «(usuario, AAAA-MM-DD)» si las decide el usuario. -->
@@ -52,6 +53,7 @@ Antes de modificar código:
 | T-007 | Fase 1: especificación del formato midnam en `protocol/` (DTD + ejemplos) y paquete Swift de lectura/escritura con test de ida y vuelta | COMPLETADA 2026-10-19 (EXP-003) |
 | T-009 | Descargar la DTD MIDINameDocument 1.0 (con permiso) a `reference/` y contrastar `protocol/confirmed/midnam_formato_escritura.md` y el modelo | COMPLETADA 2026-10-19 (EXP-004) |
 | T-011 | Test de validación con `xmllint --dtdvalid` de los ficheros que escriba MidnamKit (necesita `MIDIEvents10.dtd`, descarga con permiso) | COMPLETADA 2026-10-19 (EXP-005) |
+| T-012 | EXP con el usuario: instalar en `MOTU/<Fabricante>/` (con permiso) un `.midnam` nuevo de MidnamKit y comprobar en DP 11.36 que lo acepta con el DOCTYPE de midi.org, qué nombre muestra *Master Names* y si recarga sin reiniciar | PENDIENTE |
 | T-010 | Fase 3: diseño de la app a partir de las ventanas de CherryPicker (nibs, manual, capturas) en `docs/2x`, para acordar con el usuario antes de programar | PENDIENTE |
 | T-008 | Fase 2: EXP — localizar dónde lee DP 11.36 los `.midnam` y comprobarlo con un ejemplo del usuario | COMPLETADA 2026-10-19 (EXP-002) |
 
