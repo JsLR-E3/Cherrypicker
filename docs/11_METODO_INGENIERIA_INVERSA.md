@@ -1,6 +1,7 @@
 # 11 — MÉTODO DE INGENIERÍA INVERSA
 
-Heredado de los proyectos Emagic Unitor8 y TASCAM FW-1884 (plantilla común).
+Heredado de los proyectos Emagic Unitor8 y TASCAM FW-1884 (plantilla común), adaptado a un **programa**: aquí se
+estudian los ficheros que CherryPicker lee y escribe (`.midnam`) y cómo los usa Digital Performer 11.36.
 
 > **Observar → comprobar → documentar → implementar.**
 > No: suponer → implementar → considerar confirmado porque funciona.
@@ -9,10 +10,10 @@ Heredado de los proyectos Emagic Unitor8 y TASCAM FW-1884 (plantilla común).
 
 | Nivel | Fuente |
 |---|---|
-| A | Observado con el hardware real en este proyecto (captura reproducible) |
-| B | Comportamiento del driver o programa original observado en ejecución (sistema histórico) |
-| C | Código abierto de terceros contrastado (p. ej. drivers de Linux) |
-| D | Documentación del fabricante o análisis estático de binarios |
+| A | Observado en este proyecto con el destino real: DP 11.36 leyendo el fichero, o el módulo respondiendo a la audición (captura reproducible) |
+| B | Programa original en ejecución (sistema histórico o VM) **o ficheros generados por él** (los `.midnam` del usuario con `<Author>CherryPicker`) |
+| C | Código abierto de terceros contrastado (otros lectores/editores de midnam) |
+| D | Documentación: especificación y DTD MIDINameDocument (MMA), manual y notas de CherryPicker, documentación MIDI de cada módulo; análisis estático del binario y sus recursos |
 
 Un dato es **CONFIRMED** solo con nivel A o B, o con C+D coincidentes. El resto es OBSERVED / HYPOTHESIS.
 
@@ -23,13 +24,15 @@ CONFIRMED · PARTIAL · OBSERVED · UNKNOWN · DISCARDED
 Cada área del protocolo vive en `protocol/<estado>/` cuando necesita más de una línea del índice. Lo descartado se
 conserva con el motivo: evita volver a probarlo.
 
-## Reglas para el hardware
+## Reglas para ficheros y aparatos
 
-- Lecturas de identificación (descriptores, versiones, registros de identificación): permitidas.
-- Escrituras (registros, SysEx que cambie la memoria del aparato, volcados): solo lo documentado por el software
-  original o por código abierto contrastado, y con permiso del usuario. Antes de cambiar la memoria del aparato, hacer
-  copia de lo que contiene si el protocolo lo permite.
-- **Nunca** actualizadores de firmware.
+- Ficheros del usuario: solo lectura. Las pruebas de escritura se hacen sobre copias y se comparan con el original
+  (ida y vuelta sin pérdidas: mismo contenido semántico; las diferencias de formato se documentan).
+- DP: copiar un fichero a la carpeta de la que lee DP, o tocar sus preferencias, solo con permiso del usuario y
+  dejando constancia de cómo deshacerlo.
+- Audición: solo Bank Select (CC0/CC32) y Program Change al destino que elija el usuario, con su permiso. **Nunca**
+  SysEx, volcados ni mensajes que cambien la memoria del módulo.
+- La app original no se ejecuta en este Mac (ppc/i386); no se instala Rosetta ni emuladores sin permiso.
 - Cada prueba se registra en `13_REGISTRO_DE_EXPERIMENTOS.md` con fecha, herramienta, entrada y resultado.
 
 ## Flujo de un experimento
@@ -43,8 +46,8 @@ conserva con el motivo: evita volver a probarlo.
 
 | Para | Herramienta |
 |---|---|
-| USB | `system_profiler SPUSBDataType`, `ioreg -p IOUSB -l -w0`, descriptores con IOUSBHost |
-| FireWire | `ioreg -c IOFireWireDevice`, IOFireWireLib |
-| MIDI | Configuración de Audio MIDI, utilidades propias con CoreMIDI en `tools/` |
+| XML midnam | `xmllint` (validación contra la DTD), `plutil`, scripts propios en `tools/` |
+| MIDI | Configuración de Audio MIDI, utilidades propias con CoreMIDI en `tools/` (monitor, envío de PC/Bank Select) |
+| Recursos de la app | `plutil -p`, nibs compilados con `plutil`/`ibtool` si está disponible, `textutil` para `.rtf` |
 | Binarios originales | `otool`, `nm`, `strings`, Ghidra en modo headless con scripts en `tools/ghidra/` |
 | Paquetes antiguos | `pkgutil --expand`, `hdiutil` (sin instalar: solo extraer en `reference/extracted/`) |

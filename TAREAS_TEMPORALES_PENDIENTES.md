@@ -19,16 +19,15 @@ Antes de modificar código:
 ## REGLAS DEL PROYECTO
 
 - **El repo manda:** nada se da por resuelto por conjetura. Método en `docs/11_METODO_INGENIERIA_INVERSA.md`; estados en `protocol/PROTOCOL_INDEX.md`.
-- **Pruebas con hardware solo con permiso del usuario.** Las lecturas de identificación son inocuas; **cualquier escritura en el aparato requiere permiso explícito** y debe estar respaldada por el software original o por código abierto contrastado.
-- **Nunca** usar actualizadores de firmware ni escribir en direcciones o mensajes sin identificar.
+- **Ficheros del usuario solo lectura;** las escrituras se prueban sobre copias. Copiar a las carpetas de DP solo con permiso.
+- **Audición con permiso del usuario:** solo Bank Select y Program Change; nunca SysEx ni volcados al módulo.
 - Material de terceros en `reference/`, **no versionado**. No usar `git add -A` sin revisar.
 - El push lo hace el usuario. Instalar o descargar software requiere permiso.
 - **Software original como base:** al reproducir apps o paneles del fabricante, partir de su organización y nombres; las mejoras se proponen y se acuerdan antes.
 - **CPU:** tras cada cambio relevante de lo que corre en segundo plano, medirla (`top`) y anotarla en el EXP.
-- **Sistema de prueba:** no actualizar macOS sin comprobar antes que el aparato seguirá funcionando.
+- **Sistema de prueba:** no actualizar macOS ni DP 11.36 sin comprobar antes que el flujo sigue funcionando.
 - **Los `.midnam` de `reference/midnam_usuario/` son privados** (usuario, 2026-10-19): no se versionan ni se publican; para tests en el repo se usan copias anonimizadas o ficheros propios, previa consulta.
-- Cherrypicker es un programa, no un aparato: las reglas de escritura en hardware aplican solo si se llega a enviar MIDI/SysEx a un equipo real (audición de patches).
-<!-- Reglas propias del aparato: añadir aquí, con «(usuario, AAAA-MM-DD)» si las decide el usuario. -->
+<!-- Reglas propias del proyecto: añadir aquí, con «(usuario, AAAA-MM-DD)» si las decide el usuario. -->
 
 ## ESTADO ACTUAL (2026-10-19)
 
@@ -45,7 +44,7 @@ Antes de modificar código:
 | T-003 | Archivar `incoming/` en `reference/` con su estructura e inventariarlo en `docs/01` y `reference/README.md` | COMPLETADA 2026-10-19 |
 | T-004 | EXP-001: intentar abrir la app 3.0 en este Mac (macOS 15.7.9) y registrar el fallo; estudio estático de recursos y del formato midnam con los ejemplos | PENDIENTE |
 | T-005 | Definir el alcance con el usuario: qué funciones se usan, con qué programas (DP, Logic, Pro Tools…) y qué se quiere recuperar (`docs/14`) | COMPLETADA 2026-10-19 |
-| T-006 | Adaptar `CLAUDE.md` y `docs/11` de «aparato» a «programa» (formatos de fichero en vez de protocolo de hardware) | PENDIENTE |
+| T-006 | Adaptar `CLAUDE.md` y `docs/11` de «aparato» a «programa» (formatos de fichero en vez de protocolo de hardware) | COMPLETADA 2026-10-19 |
 | T-007 | Fase 1: especificación del formato midnam en `protocol/` (DTD + ejemplos) y paquete Swift de lectura/escritura con test de ida y vuelta | PENDIENTE |
 | T-008 | Fase 2: EXP — localizar dónde lee DP 11.36 los `.midnam` y comprobarlo con un ejemplo del usuario | PENDIENTE |
 
