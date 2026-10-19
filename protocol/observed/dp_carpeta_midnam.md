@@ -14,6 +14,13 @@ DP 11.36 (`MidiSystem.framework`) conoce DTD 1.0, incluidos `UsesControlNameList
    `.middev`; el M3000 está en `Digidesign Device List.middev`. Un modelo nuevo necesita su `.middev` además del
    `.midnam`. La app tendrá que crear o actualizar ambos.
 
+## Confirmado en EXP-006 (A)
+
+- DP 11.36 acepta ficheros nuevos de MidnamKit con el DOCTYPE de midi.org.
+- *Master Names* = **nombre del fichero** sin extensión. La app debe proponer el nombre de fichero pensando en eso.
+- *Manufacturer*/*Model* se eligen en Configuración de Audio MIDI; la lista sale de los `.middev`. Con `.middev` el
+  modelo aparece en la lista; a mano también funcionaría (usuario, por confirmar).
+
 ## Pendiente (A, con permiso del usuario)
 
 - ¿Recarga DP un `.midnam` cambiado sin reiniciar, o hay que volver a elegirlo en *Master Names*?

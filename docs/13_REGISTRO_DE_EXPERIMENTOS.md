@@ -145,4 +145,14 @@ Formato: ID · fecha · objetivo · procedimiento · resultado · conclusión (n
 - **Corrección:** añadido `MOTU/Cherrypicker/Cherrypicker.middev` (MIDIDeviceTypes 0.3, formato de los de MOTU) con
   `Manufacturer="Cherrypicker" Model="CP Prueba modelo"`, efecto, recibe Program Change y Bank Select MSB/LSB. Copia en
   `captures/exp006/`. DP estaba abierto: hay que reiniciarlo para que lea el `.middev`.
-- **Resultado:** pendiente de la prueba tras reiniciar DP.
+- **Resultado parcial 2 (usuario + captura `captures/exp006/dp_master_names_prueba.png`):**
+  - Con el `.middev`, en Configuración de Audio MIDI se elige fabricante «Cherrypicker» y modelo «CP Prueba modelo» y
+    el dispositivo aparece en DP sin problema (A).
+  - DP **acepta el fichero nuevo con el DOCTYPE de midi.org** (A).
+  - *Master Names* muestra **«CP Prueba fichero»: el nombre del fichero** sin `.midnam`, no `Model` ni el modo (A).
+  - *Patches* lista los 4 bancos por su nombre y en el orden del fichero, incluidos el banco sin bank select y el de
+    bank select por preset (A).
+  - El usuario recuerda haber escrito a mano fabricante y modelo de un aparato que no estaba en la lista y poder
+    asignarle nombres igualmente: el `.middev` sería una comodidad (aparecer en la lista), no un requisito. Por
+    confirmar.
+- **Pendiente:** menú de presets en una pista (etiquetas `A01`…), nombres de controles y prueba de recarga (versión 2).
