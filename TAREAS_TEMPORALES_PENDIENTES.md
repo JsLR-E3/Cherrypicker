@@ -1,71 +1,65 @@
 # TAREAS TEMPORALES PENDIENTES — Cherrypicker
 
-> Fichero de continuidad de trabajo: estado actual, pendientes y reglas. Una sesión nueva debería poder continuar leyendo solo esto.
-> Actualizado: 2026-10-20, T-012/EXP-006. Proyecto en `/Volumes/E3 M4/Proyectos IA/Cherrypicker`. La historia está en los EXP de docs/13.
+> Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
+> Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
+> no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
+> Actualizado: 2026-10-20 · local · T-013: migración a la plantilla nueva en la rama `migracion-plantilla` (sin subir ni integrar).
 
-## REGLA DE CONTINUIDAD
+<!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
+     PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
+     Prioridad: A (lo siguiente) · B · C. Una tarea con varios pasos o archivos lleva su ficha en «Fichas». -->
 
-Antes de modificar código:
-0. Si existe una rama de trabajo remoto (ver `docs/remoto/00_INDICE.md`): `git fetch` de esa rama; si trae commits
-   nuevos, comprobar que solo cambian `docs/remoto/`, integrarlos y leer el mensaje más reciente de
-   `docs/remoto/PARA_LOCAL.md` que no esté atendido en `docs/remoto/PARA_REMOTO.md`. (El fetch lo lanza el usuario.)
-1. Leer SOLO este fichero y `git status`/`git diff`.
-2. Leer únicamente los archivos directamente relacionados con la tarea activa.
-3. NO releer conversaciones ni explorar todo el proyecto salvo que una dependencia concreta lo exija.
-4. Una tarea no se marca COMPLETADA hasta que: archivo guardado + compilación/tests pertinentes + resultado registrado aquí.
-5. Si el límite de contexto está próximo, detenerse y actualizar este fichero con `EN PROGRESO`, cambios realizados y siguiente paso exacto. No iniciar una tarea nueva.
-6. No sobrescribir archivos completos sin comprobar antes la versión actual en el repositorio.
+## ESTADO ACTUAL
 
-## REGLAS DEL PROYECTO
+- **Fase 1 hecha** (`docs/14`): `src/MidnamKit` lee y reescribe `.midnam` sin pérdidas y valida contra la DTD 1.0
+  (`swift test`, 12 tests). Alcance en D-001; audición D-002; DOCTYPE D-003; ficheros del usuario privados D-004.
+- La app original 3.0 no arranca en este Mac (ppc/i386, EXP-001); hay 25 nibs, el manual web y los `.plist` de recursos
+  en `reference/` para reproducir su interfaz.
+- **Cómo lee DP 11.36 los `.midnam`** (EXP-002, EXP-006): de `/Library/Audio/MIDI Devices/MOTU/<Fabricante>/`;
+  *Master Names* = nombre de fichero; menú de presets = nombre de la `PatchNameList` + «Number Name» (lista y banco con
+  el mismo nombre); un modelo nuevo necesita `.middev`; DP no recarga solo: volver a elegir en *Master Names*. Los
+  controles con nombre no salen en el menú de controladores de la pista. Estados en `protocol/PROTOCOL_INDEX.md`.
+- Proyecto migrado a la plantilla nueva de Claude Code (T-013) en la rama `migracion-plantilla`: falta que el usuario
+  la suba y decida si se integra en `main`.
 
-- **El repo manda:** nada se da por resuelto por conjetura. Método en `docs/11_METODO_INGENIERIA_INVERSA.md`; estados en `protocol/PROTOCOL_INDEX.md`.
-- **Ficheros del usuario solo lectura;** las escrituras se prueban sobre copias. Copiar a las carpetas de DP solo con permiso.
-- **Audición con permiso del usuario:** solo Bank Select y Program Change; nunca SysEx ni volcados al módulo.
-- Material de terceros en `reference/`, **no versionado**. No usar `git add -A` sin revisar.
-- El push lo hace el usuario. Instalar o descargar software requiere permiso.
-- **Software original como base:** al reproducir apps o paneles del fabricante, partir de su organización y nombres; las mejoras se proponen y se acuerdan antes.
-- **CPU:** tras cada cambio relevante de lo que corre en segundo plano, medirla (`top`) y anotarla en el EXP.
-- **DOCTYPE de los ficheros nuevos:** el de la 1.0 con la URL de midi.org, validable; los ficheros abiertos conservan el suyo (usuario, 2026-10-19). Confirmado en DP (EXP-006).
-- **Sistema de prueba:** no actualizar macOS ni DP 11.36 sin comprobar antes que el flujo sigue funcionando.
-- **Los `.midnam` de `reference/midnam_usuario/` son privados** (usuario, 2026-10-19): no se versionan ni se publican; para tests en el repo se usan copias anonimizadas o ficheros propios, previa consulta.
-<!-- Reglas propias del proyecto: añadir aquí, con «(usuario, AAAA-MM-DD)» si las decide el usuario. -->
+## EN PROGRESO
 
-## ESTADO ACTUAL (2026-10-19)
+- Nada.
 
-- Material archivado en `reference/` e inventariado en `docs/01` (T-003): app 3.0 (ppc+i386, no arranca en macOS ≥10.15), app 2.62 extraída del dmg de Wayback, manual web original (sin 20 imágenes), 6 `.midnam` privados del usuario. `CherryMangler.dmg` truncado, irrecuperable.
-- Alcance decidido (T-005, `docs/14`): app nativa parecida a CherryPicker para crear `.midnam` desde cero para **DP 11.36**, con bancos agrupados por nombre, bank select por banco, controles con nombre y audición por CoreMIDI. Fases 1–6 en `docs/14`.
-- EXP-001: la app 3.0 no arranca en macOS 15.7.9 arm64 (ppc/i386). Plantillas de escritura en `CPXMLStrings.plist`; estructura observada en `protocol/observed/midnam_cherrypicker.md`: `Patch Number` es etiqueta, bank select en tres formas (ninguna, por banco, por preset). 
-- EXP-006: DP 11.36 acepta ficheros nuevos de MidnamKit. *Master Names* = nombre de fichero; menú de presets = nombre de la `PatchNameList` + «Number Name» (lista y banco deben llamarse igual); modelo nuevo necesita `.middev`; DP no recarga solo: volver a elegir en *Master Names*. Controles con nombre: no salen en el menú de la pista.
-- EXP-005: validación contra la DTD 1.0 con `tools/validar_midnam.sh` (catálogo local, sin red); los 6 ejemplos son válidos y `swift test` valida lo que escribe MidnamKit. El DOCTYPE `""` de CherryPicker no es validable tal cual.
-- EXP-004: DTD 1.0 descargada (Wayback) a `reference/dtd/`; todo lo observado es válido; modelo ampliado (controles en línea, por preset, `Control` sin `Type`). Reglas para crear ficheros en `protocol/confirmed/midnam_formato_escritura.md`.
-- EXP-003: `src/MidnamKit` lee y reescribe los 6 ejemplos byte a byte (árbol y modelo tipado); formato confirmado en `protocol/confirmed/`.
-- EXP-002: DP 11.36 lee de `/Library/Audio/MIDI Devices/MOTU/<Fabricante>/` (los 6 ficheros del usuario están ahí, idénticos). DP conoce DTD 1.0 con `UsesControlNameList`. En DP se asigna en *Bundles → MIDI Device Properties → Patches → Master Names*; no hace falta `.middev`; DP muestra los `PatchBank` por nombre y en orden. **Un modelo nuevo necesita también `.middev`** (EXP-006): DP saca *Manufacturer*/*Model* de los `.middev`. Abierto: recarga sin reiniciar y qué nombre usa *Master Names*.
+## PENDIENTE DE VALIDACIÓN LOCAL
+
+Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarlo en el Mac del proyecto.
+
+| Tarea | Qué probar y cómo | Necesita | Rama/commit |
+|---|---|---|---|
+| — | — | — | — |
 
 ## TAREAS
 
-| ID | Tarea | Estado |
-|---|---|---|
-| T-001 | Estructura del proyecto desde la plantilla, git local | COMPLETADA 2026-10-19 |
-| T-002 | Repo GitHub privado y remoto configurado (lo crea el usuario): `JsLR-E3/Cherrypicker` | COMPLETADA 2026-10-19 |
-| T-003 | Archivar `incoming/` en `reference/` con su estructura e inventariarlo en `docs/01` y `reference/README.md` | COMPLETADA 2026-10-19 |
-| T-004 | EXP-001: intentar abrir la app 3.0 en este Mac (macOS 15.7.9) y registrar el fallo; estudio estático de recursos y del formato midnam con los ejemplos | COMPLETADA 2026-10-19 |
-| T-005 | Definir el alcance con el usuario: qué funciones se usan, con qué programas (DP, Logic, Pro Tools…) y qué se quiere recuperar (`docs/14`) | COMPLETADA 2026-10-19 |
-| T-006 | Adaptar `CLAUDE.md` y `docs/11` de «aparato» a «programa» (formatos de fichero en vez de protocolo de hardware) | COMPLETADA 2026-10-19 |
-| T-007 | Fase 1: especificación del formato midnam en `protocol/` (DTD + ejemplos) y paquete Swift de lectura/escritura con test de ida y vuelta | COMPLETADA 2026-10-19 (EXP-003) |
-| T-009 | Descargar la DTD MIDINameDocument 1.0 (con permiso) a `reference/` y contrastar `protocol/confirmed/midnam_formato_escritura.md` y el modelo | COMPLETADA 2026-10-19 (EXP-004) |
-| T-011 | Test de validación con `xmllint --dtdvalid` de los ficheros que escriba MidnamKit (necesita `MIDIEvents10.dtd`, descarga con permiso) | COMPLETADA 2026-10-19 (EXP-005) |
-| T-012 | EXP con el usuario: instalar en `MOTU/<Fabricante>/` (con permiso) un `.midnam` nuevo de MidnamKit y comprobar en DP 11.36 que lo acepta con el DOCTYPE de midi.org, qué nombre muestra *Master Names* y si recarga sin reiniciar | COMPLETADA 2026-10-20 (EXP-006; ficheros de prueba retirados; queda mirar «Other Controller…») |
-| T-013 | Migrar el proyecto a la plantilla nueva (commit e8adc09 de `PLANTILLA Recuperacion`): `.claude/` (skills /inicio y /cierre, scripts, agente), `docs/10`, `12`, `15`, nuevo `00_MASTER_INDEX`, nuevo formato de `CLAUDE.md` y TAREAS, sin perder reglas, historial ni decisiones. Referencia: `nuevo_proyecto.sh --programa` en una carpeta temporal y comparar | PENDIENTE (usuario, 2026-10-20: lo primero de la próxima sesión) |
-| T-010 | Fase 3: diseño de la app a partir de las ventanas de CherryPicker (nibs, manual, capturas) en `docs/2x`, para acordar con el usuario antes de programar | PENDIENTE |
-| T-008 | Fase 2: EXP — localizar dónde lee DP 11.36 los `.midnam` y comprobarlo con un ejemplo del usuario | COMPLETADA 2026-10-19 (EXP-002) |
+| ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
+|---|---|---|---|---|---|
+| T-010 | A | PENDIENTE | Fase 3: diseño de la app a partir de las ventanas de CherryPicker (nibs, manual, capturas) en `docs/2x` | — | Documento de diseño acordado con el usuario antes de programar (D-NNN en `docs/12`) |
+| T-014 | C | PENDIENTE | Mirar con el usuario si «Other Controller…» de DP usa la `ControlNameList` | DP abierto (usuario) | EXP registrado; fila `ControlNameList` de `PROTOCOL_INDEX` actualizada |
 
-## SIGUIENTE PASO EXACTO (retomar en sesión nueva)
+## Fichas
 
-0. **T-013 primero** (usuario, 2026-10-20): migrar a la plantilla nueva; después `.claude/scripts/comprobar.py` y
-   `swift test`, commit y push del usuario.
-1. **T-010:** analizar las ventanas de CherryPicker (25 nibs en `reference/app_3.0/…/Resources`, manual
-   `reference/web_alterspective/cherrypicker/docs/introC.html`, capturas) y escribir el diseño de la app en `docs/2x`
-   para acordarlo con el usuario antes de programar. Tener en cuenta EXP-006: lista y banco con el mismo nombre,
-   *Master Names* = nombre de fichero, crear también `.middev`, avisar de volver a elegir en *Master Names* tras guardar.
-2. Pendiente menor con el usuario: «Other Controller…» de DP (¿usa `ControlNameList`?).
-3. Tests: `cd src/MidnamKit && swift test` (12 tests; valida contra la DTD con `tools/validar_midnam.sh`).
+### T-010 · Diseño de la app (fase 3)
+- **Objetivo:** documento de diseño de las ventanas y flujos de la app nueva, partiendo de la organización y los
+  nombres de CherryPicker (regla 10 de `CLAUDE.md`), para acordarlo con el usuario antes de programar.
+- **Evidencias/referencias:** 25 nibs en `reference/app_3.0/…/Resources`, manual
+  `reference/web_alterspective/cherrypicker/docs/introC.html`, `CPXMLStrings.plist`/`CPXMLRead.plist`, EXP-001, EXP-006,
+  D-001, D-002, `docs/14` (tabla de funciones).
+- **Tener en cuenta (EXP-006):** lista y banco con el mismo nombre; *Master Names* = nombre de fichero; crear también
+  el `.middev`; avisar de volver a elegir en *Master Names* tras guardar.
+- **Aceptación:** `docs/2x_…` con ventanas, controles y flujos; mejoras sobre el original señaladas como propuestas;
+  acuerdo del usuario anotado en `docs/12`.
+- **Siguiente paso ejecutable:** inventario de los nibs (`plutil`/`strings | grep`, o el agente `analista-referencia`)
+  y lectura del manual por secciones.
+
+## SIGUIENTE PASO EXACTO
+
+1. Usuario: subir la rama `migracion-plantilla` (`git push -u origin migracion-plantilla`) y decidir si se integra en
+   `main`.
+2. **T-010:** analizar las ventanas de CherryPicker y escribir el diseño de la app en `docs/2x` para acordarlo con el
+   usuario antes de programar (ficha arriba).
+3. Menor, con el usuario y DP abierto: T-014.

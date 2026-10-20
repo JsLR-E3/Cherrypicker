@@ -1,7 +1,9 @@
 # Trabajo remoto — índice
 
-> Trabajo hecho **fuera del Mac del proyecto** (sin hardware, a veces sin macOS ni compilar).
-> Solo lectura del repositorio y documentos nuevos en esta carpeta. **Ningún archivo existente se modifica.**
+> Trabajo hecho **fuera del Mac del proyecto mientras el Mac sigue trabajando** (modo paralelo de
+> `docs/10_TRABAJO_CON_CLAUDE.md` §2.2; sin hardware, a veces sin macOS ni compilar). En modo secuencial la sesión de la
+> nube trabaja como cualquier otra en su rama y no usa esta carpeta.
+> Solo lectura del repositorio y documentos nuevos en esta carpeta. **Ningún archivo existente se modifica** salvo el buzón `PARA_LOCAL.md`.
 > Rama: `claude/remoto-…` (anotar aquí el nombre y el commit de `main` del que parte).
 > Todo lo de aquí son propuestas: se aplican, se descartan o se prueban en el Mac del proyecto.
 
@@ -15,5 +17,5 @@
 ```
 git fetch origin <rama remota>
 git diff --stat main origin/<rama remota>     # solo debe listar docs/remoto/
-git merge origin/<rama remota>               # estando en main
+git merge --no-ff origin/<rama remota>       # estando en main, con el árbol limpio
 ```

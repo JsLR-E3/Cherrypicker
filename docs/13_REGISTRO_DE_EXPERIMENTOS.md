@@ -1,11 +1,15 @@
 # 13 — REGISTRO DE EXPERIMENTOS
 
-Formato: ID · fecha · objetivo · procedimiento · resultado · conclusión (nivel).
+Formato: ID · fecha · objetivo · procedimiento · resultado · conclusión (nivel). Más antiguos arriba; se busca por
+`grep` (ID o tema) en vez de leer el fichero entero. Un EXP cerrado no se reescribe: si otro lo corrige, se añade al
+antiguo una línea «**Sustituido por EXP-NNN**». El **entorno** (macOS, versión de DP, commit) dice cuándo deja de
+valer un resultado.
 
 <!--
 ## EXP-001 · AAAA-MM-DD · Objetivo en una línea
 
 - **Herramienta:** `tools/…` (solo lectura / escribe en …, con permiso del usuario)
+- **Entorno:** macOS …, DP …, commit `…` (local; las pruebas con DP o con módulos no se hacen en la nube)
 - **Procedimiento:** …
 - **Captura:** `captures/<área>/…`
 - **Resultado:** …

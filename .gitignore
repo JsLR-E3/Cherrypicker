@@ -29,4 +29,5 @@ captures/incoming/
 
 # Ajustes locales de Claude Code (personales) y copias de trabajo
 .claude/settings.local.json
+CLAUDE.local.md
 .claude/worktrees/
