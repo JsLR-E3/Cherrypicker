@@ -145,6 +145,26 @@ final class AddBankSheet: SheetController, NSTextFieldDelegate {
 	}
 }
 
+/// Hoja para elegir el Channel Set de varios bancos (clic en la cabecera «Channel Set»). El manual del original solo
+/// dice que «cae una hoja» con un popup; su aspecto no se ha visto (deducido).
+final class ChannelSetSheet: SheetController {
+	let channelSet = NSPopUpButton()
+	var onCommit: ((_ setIndex: Int) throws -> Void)?
+
+	init(channelSets: [(index: Int, name: String)], selected: Int?) {
+		for s in channelSets {
+			channelSet.addItem(withTitle: s.name)
+			channelSet.lastItem?.tag = s.index
+		}
+		if let selected { channelSet.selectItem(withTag: selected) }
+		super.init(title: "", rows: [[Self.label("Channel Set"), channelSet]], okTitle: "OK")
+	}
+
+	required init?(coder: NSCoder) { fatalError("no se usa con nib") }
+
+	override func commit() throws { try onCommit?(channelSet.selectedTag()) }
+}
+
 /// Hoja «Bank Selects» (BankSelectSheet): valores nuevos y cómo afectan a los patches del banco.
 final class BankSelectSheet: SheetController {
 	let bs0 = SheetController.field("", width: 50)

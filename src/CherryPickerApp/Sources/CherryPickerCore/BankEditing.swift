@@ -187,6 +187,34 @@ public extension MIDINameDocument {
 		return newRef
 	}
 
+	/// Lleva varios bancos (del mismo MasterDeviceNames) al final de otro Channel Set, en el orden de la tabla
+	/// (cambio múltiple desde la cabecera «Channel Set», manual del original). Los que ya están en él no se mueven.
+	mutating func moveBanks(_ refs: [BankRef], toChannelSet target: Int) throws {
+		guard let master = refs.first?.master else { return }
+		guard refs.allSatisfy({ $0.master == master }) else { throw BankEditError.notFound }
+		let moving = refs.filter { $0.set != target }.sorted { ($0.set, $0.item) < ($1.set, $1.item) }
+		if moving.isEmpty { return }
+		try modifyMaster(master) { m in
+			guard m.setAt(target) != nil else { throw BankEditError.notFound }
+			var banks: [PatchBank] = []
+			for r in moving {
+				guard let s = m.setAt(r.set), s.items.indices.contains(r.item), case .patchBank(let b) = s.items[r.item]
+				else { throw BankEditError.notFound }
+				banks.append(b)
+			}
+			for setIndex in Set(moving.map(\.set)) {
+				let items = moving.filter { $0.set == setIndex }.map(\.item)
+				try m.modifySet(setIndex) { s in
+					if s.bankCount - items.count < 1 { throw BankEditError.lastBankInChannelSet(s.name) }
+					for i in items.sorted(by: >) { s.items.remove(at: i) }
+				}
+			}
+			try m.modifySet(target) { s in
+				for b in banks { _ = s.insertBankAtEnd(b) }
+			}
+		}
+	}
+
 	/// Cambia el orden de un banco dentro de su Channel Set: `position` cuenta solo bancos (0 = el primero) y es la
 	/// posición antes de quitarlo, como la de una fila de destino al arrastrar.
 	@discardableResult

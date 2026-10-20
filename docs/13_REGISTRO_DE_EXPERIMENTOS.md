@@ -244,3 +244,18 @@ valer un resultado.
   Zap Dups pide confirmación con un aviso. Import: «Files You Can Import From», «Available Patch Lists», «Type», «#»,
   «Select Destination Bank», «Set midnam folder...».
 - **Estado:** COMPLETADO.
+
+## EXP-010 · 2026-10-20 · Varios Channel Sets y cambio múltiple por cabecera (T-016)
+
+- **Entorno:** macOS 15.7.9, Swift 6.2.4; commit de este EXP.
+- **Fichero propio:** `captures/exp010/Prueba canales.midnam` (escrito para la prueba, estilo CherryPicker):
+  «Melodicos» (canales 1–9 y 11–16) con Pianos 0/0, Cuerdas 0/1, Sintes 1/0; «Bateria» (canal 10) con Kits 2/0 y
+  Kits extra 2/1; 3 presets por banco. `tools/validar_midnam.sh` → VÁLIDO.
+- **Tests:** `swift test` → 20 tests, 0 fallos; `testTwoChannelSetsFile` (se lee, se reescribe idéntico y se mueven
+  dos bancos a «Bateria») y `testMoveSeveralBanks` (varios bancos a la vez; error y sin cambios si un Channel Set
+  quedaría vacío).
+- **App:** abre una copia y muestra los 5 bancos con su Channel Set en el popup (captura en la sesión).
+- **Interfaz nueva (sin probar a mano todavía):** con bancos seleccionados, clic en la cabecera S0/S32 → hoja Bank
+  Selects aplicada a todos; clic en la cabecera Channel Set → hoja con popup de Channel Set (su aspecto en el original
+  no se ha visto: deducido del manual).
+- **Estado:** PARCIAL: falta la prueba interactiva del usuario.

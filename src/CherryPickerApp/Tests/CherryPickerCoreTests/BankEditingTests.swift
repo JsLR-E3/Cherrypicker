@@ -128,6 +128,21 @@ final class BankEditingTests: XCTestCase {
 		XCTAssertEqual(rows()[1].kind, .normal)
 	}
 
+	/// Fichero propio con dos Channel Sets (EXP-010): se lee bien, se reescribe idéntico y se pueden mover bancos.
+	func testTwoChannelSetsFile() throws {
+		let url = URL(fileURLWithPath: #filePath).deletingLastPathComponent()
+			.appendingPathComponent("../../../../captures/exp010/Prueba canales.midnam").standardized
+		let text = try String(contentsOf: url, encoding: .utf8)
+		var f = try MidnamFile(text: text)
+		XCTAssertEqual(f.text(), text)
+		let rows = BankRows.rows(f.document)
+		XCTAssertEqual(rows.map { "\($0.name)@\($0.channelSet)" },
+		               ["Pianos@Melodicos", "Cuerdas@Melodicos", "Sintes@Melodicos", "Kits@Bateria", "Kits extra@Bateria"])
+		XCTAssertEqual(f.document.channelSets(master: rows[0].ref.master).map(\.name), ["Melodicos", "Bateria"])
+		try f.document.moveBanks([rows[1].ref, rows[2].ref], toChannelSet: rows[3].ref.set)
+		XCTAssertEqual(BankRows.rows(f.document).map(\.channelSet), ["Melodicos", "Bateria", "Bateria", "Bateria", "Bateria"])
+	}
+
 	/// Contraste con CherryPicker 3 (EXP-009): `BS base.midnam` y lo que guardó el original con cada opción de la hoja
 	/// Bank Selects en el banco «custom» (B Sel 0 = 5, B Sel 32 = 0). Se reproduce byte a byte.
 	func testBankSelectOptionsMatchOriginal() throws {
@@ -196,6 +211,16 @@ final class BankEditingTests: XCTestCase {
 		XCTAssertEqual(rows().map(\.name), ["Custom", "Tres", "Kits", "Uno"])
 		XCTAssertEqual(rows().last?.channelSet, "Drums")
 		XCTAssertEqual(doc.bank(r)?.name, "Uno")
+	}
+
+	func testMoveSeveralBanks() throws {
+		let drums = ref("Kits").set
+		try doc.moveBanks([ref("Tres"), ref("Uno"), ref("Kits")], toChannelSet: drums)
+		XCTAssertEqual(rows().map { "\($0.name)@\($0.channelSet)" }, ["Custom@Todos", "Kits@Drums", "Uno@Drums", "Tres@Drums"])
+		XCTAssertThrowsError(try doc.moveBanks([ref("Custom")], toChannelSet: drums)) {
+			XCTAssertEqual($0 as? BankEditError, .lastBankInChannelSet("Todos"))
+		}
+		XCTAssertEqual(rows().count, 4, "si falla, no cambia nada")
 	}
 
 	func testReorderBank() throws {

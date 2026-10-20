@@ -1,7 +1,7 @@
 // Pestaña Patch Banks (nib MainWindow, PatchBankVC; docs/20 §3.1): tabla de bancos editable.
 // Doble clic en el nombre para cambiarlo; doble clic en S0/S32 abre la hoja Bank Selects; el Channel Set se elige en
-// su popup; + abre «Add a Single Bank» y − borra los seleccionados; se arrastra para reordenar dentro del Channel Set.
-// Pendiente: botón «P» (lista de patches), cambio múltiple por cabecera, Merge, Import, Find, Zap Dups.
+// su popup; con varios bancos seleccionados, clic en la cabecera S0/S32 o Channel Set los cambia todos (manual); + abre «Add a Single Bank» y − borra los seleccionados; se arrastra para reordenar dentro del Channel Set.
+// Pendiente: botón «P» (lista de patches), Merge, Import, Find, Zap Dups.
 import AppKit
 import CherryPickerCore
 import MidnamKit
@@ -214,13 +214,41 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 
 	// MARK: Hojas
 
-	private func editBankSelects(_ r: BankRow) {
-		guard let w = view.window else { return }
-		let sheet = BankSelectSheet(bankName: r.name, bs0: r.bankSelect0, bs32: r.bankSelect32)
+	private func editBankSelects(_ r: BankRow) { editBankSelects([r]) }
+
+	/// Hoja Bank Selects para uno o varios bancos; muestra los valores del primero.
+	private func editBankSelects(_ banks: [BankRow]) {
+		guard let w = view.window, let first = banks.first else { return }
+		let sheet = BankSelectSheet(bankName: first.name, bs0: first.bankSelect0, bs32: first.bankSelect32)
+		let refs = banks.map(\.ref)
 		sheet.onCommit = { [weak self] bs0, bs32, apply in
-			try self?.document.edit("Bank Selects") { try $0.setBankSelect(r.ref, bs0: bs0, bs32: bs32, apply: apply) }
+			try self?.document.edit("Bank Selects") { doc in
+				for ref in refs { try doc.setBankSelect(ref, bs0: bs0, bs32: bs32, apply: apply) }
+			}
 		}
 		sheet.begin(on: w) { _ in _ = sheet }
+	}
+
+	// Cambio múltiple: clic en la cabecera con bancos seleccionados (manual: «Multiple Bank Edits»).
+	func tableView(_ tableView: NSTableView, didClick tableColumn: NSTableColumn) {
+		let selected = table.selectedRowIndexes.map { rows[$0] }
+		guard !selected.isEmpty else { return }
+		switch tableColumn.identifier.rawValue {
+		case "bs0", "bs32":
+			editBankSelects(selected)
+		case "channels":
+			let master = selected[0].ref.master
+			guard selected.allSatisfy({ $0.ref.master == master }), let w = view.window,
+			      let sets = document.model?.channelSets(master: master) else { return }
+			let sheet = ChannelSetSheet(channelSets: sets, selected: selected[0].ref.set)
+			let refs = selected.map(\.ref)
+			sheet.onCommit = { [weak self] target in
+				try self?.document.edit("Change Channel Set") { try $0.moveBanks(refs, toChannelSet: target) }
+			}
+			sheet.begin(on: w) { _ in _ = sheet }
+		default:
+			break
+		}
 	}
 
 	@objc private func addBank(_ sender: Any?) {
