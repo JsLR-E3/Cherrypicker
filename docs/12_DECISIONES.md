@@ -13,6 +13,21 @@ Lo que es solo una propuesta va en la tarea o en `docs/remoto/`, no aquí.
 - **Estado:** vigente · sustituida por D-…
 -->
 
+## D-007 · 2026-10-20 · Mejoras sobre el original y copyright
+
+- **Decisión:** (1) se puede mejorar CherryPicker o añadir funciones cuando se considere necesario; cada mejora se
+  propone, se acuerda con el usuario y queda marcada [PROPUESTA] en `docs/20`. (2) Pensando en distribuir o compartir
+  la app: el código es propio y se escribe desde cero (no se copian ni se descompilan binarios ni nibs del original;
+  de los nibs y capturas solo se toman la organización y las etiquetas cortas de la interfaz); no se copian el icono,
+  las imágenes, el manual ni textos largos (avisos, ayudas); los recursos con listas (p. ej. categorías de
+  `Categories.plist`) se rehacen, no se copian; nada de `reference/` se distribuye (ya no se versiona); los ficheros de
+  prueba del repositorio son propios. **Antes de compartir la app** hace falta: nombre e icono propios (CherryPicker y
+  su cereza son de Alterspective), revisar los textos cortos tomados de los nibs (tooltips) y confirmar la licencia del
+  repositorio (`LICENSE` es la GPL-3.0 que venía con la plantilla, sin decidir).
+- **Motivo:** indicación del usuario (2026-10-20).
+- **Quién:** usuario; el detalle de las medidas, propuesta de Claude.
+- **Estado:** vigente.
+
 ## D-006 · 2026-10-20 · La app se hace con AppKit (macOS 13 o posterior)
 
 - **Decisión:** app AppKit (NSDocument, NSTableView, hojas), construida en código sin nibs, como paquete Swift

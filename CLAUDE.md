@@ -44,8 +44,11 @@ máquina y no viaja entre el Mac y la nube).
    resultado real.
 9. Instalar o descargar software requiere permiso del usuario. Nada de secretos (tokens, claves, contraseñas) en el
    repositorio ni en los documentos.
-10. **El software original manda en la interfaz:** se reproduce la organización y los nombres de CherryPicker (nibs,
-    manual); las mejoras se proponen y se acuerdan antes de hacerlas.
+10. **El software original es la base de la interfaz:** se reproduce la organización y los nombres de CherryPicker
+    (nibs, manual, capturas). Mejorarlo o añadir funciones es bienvenido (D-007): se propone, se acuerda con el
+    usuario y se marca [PROPUESTA] en `docs/20`. **Copyright** (D-007): código propio, sin copiar binarios, nibs,
+    iconos ni textos largos del original; nada de `reference/` se distribuye; antes de compartir la app, nombre e
+    icono propios.
 11. **CPU:** tras cada cambio relevante de lo que corre en segundo plano, medirla (`top`) y anotarla en el EXP.
 12. **Sistema de prueba:** no actualizar macOS ni DP 11.36 sin comprobar antes que el flujo sigue funcionando. La app
     original (ppc/i386) no arranca en este Mac (EXP-001); no se instalan Rosetta, emuladores ni VMs sin permiso.

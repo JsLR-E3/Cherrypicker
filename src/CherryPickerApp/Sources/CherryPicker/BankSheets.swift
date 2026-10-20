@@ -14,6 +14,7 @@ class SheetController: NSWindowController {
 
 		let box = NSBox()
 		box.title = title
+		if title.isEmpty { box.titlePosition = .noTitle }
 		let grid = NSGridView(views: rows)
 		grid.rowSpacing = 8
 		grid.columnSpacing = 8
@@ -119,11 +120,11 @@ final class AddBankSheet: SheetController, NSTextFieldDelegate {
 		name.toolTip = "Name must be entered and unique"
 		bs0.toolTip = "Bank Select 0 value, or '-' if not used"
 		bs32.toolTip = "Bank Select 32 value, or '-' if not used"
+		// Orden del original (EXP-009): Name; B Sel0 y B Sel32 en una fila; Channel Set.
 		super.init(title: "Add a Single Bank", rows: [
-			[Self.label("Channel Set"), channelSet],
 			[Self.label("Name"), name],
-			[Self.label("B Sel0"), bs0],
-			[Self.label("B Sel32"), bs32],
+			[Self.label("B Sel0"), bs0, Self.label("B Sel32"), bs32],
+			[Self.label("Channel Set"), channelSet],
 		], okTitle: "Add")
 		okButton.toolTip = "Enabled if there is a valid bank name"
 		name.delegate = self
@@ -162,11 +163,10 @@ final class BankSelectSheet: SheetController {
 
 	init(bankName: String, bs0 current0: String, bs32 current32: String) {
 		let buttons = radios.map(\.0)
-		var rows: [[NSView]] = []
+		// Orden del original (EXP-009): valores arriba, opciones debajo; sin título.
+		var rows: [[NSView]] = [[Self.label("B Sel 0"), bs0, Self.label("B Sel 32"), bs32]]
 		for b in buttons { rows.append([b]) }
-		rows.append([Self.label("B Sel 0"), bs0])
-		rows.append([Self.label("B Sel 32"), bs32])
-		super.init(title: bankName, rows: rows, okTitle: "OK")
+		super.init(title: "", rows: rows, okTitle: "OK")
 		for b in buttons {
 			b.target = self
 			b.action = #selector(radioChanged(_:))

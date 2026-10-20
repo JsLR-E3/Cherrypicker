@@ -10,7 +10,7 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 	/// Identificador y cabecera de cada columna, como en el nib; ancho inicial.
 	private static let columns: [(id: String, title: String, width: CGFloat)] = [
 		("open", "P", 24), ("bs0", "S0", 40), ("bs32", "S32", 40),
-		("name", "Patch Bank", 280), ("num", "#", 50), ("channels", "Channel Set", 160),
+		("name", "Patch Bank", 200), ("num", "#", 36), ("channels", "Channel Set", 130),
 	]
 	private static let rowType = NSPasteboard.PasteboardType("local.cherrypicker.bankrow")
 
@@ -31,11 +31,14 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 	override func loadView() {
 		table.usesAlternatingRowBackgroundColors = true
 		table.allowsMultipleSelection = true
-		table.columnAutoresizingStyle = .lastColumnOnlyAutoresizingStyle
+		// Solo «Patch Bank» se estira o encoge con la ventana.
+		table.columnAutoresizingStyle = .uniformColumnAutoresizingStyle
 		for c in Self.columns {
 			let col = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(c.id))
 			col.title = c.title
 			col.width = c.width
+			col.resizingMask = c.id == "name" ? [.autoresizingMask, .userResizingMask] : .userResizingMask
+			if c.id == "name" { col.minWidth = 80 }
 			table.addTableColumn(col)
 		}
 		table.dataSource = self
@@ -58,18 +61,32 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		let buttons = NSStackView(views: [add, removeButton])
 		buttons.spacing = 4
 
+		// Leyenda del original (EXP-009): color del nombre del banco.
+		let legend = NSStackView(views: [(BankKind.normal, "Normal"), (.empty, "Empty"), (.mixed, "Mixed")].map {
+			let l = NSTextField(labelWithString: "• " + $0.1)
+			l.font = .systemFont(ofSize: NSFont.smallSystemFontSize)
+			l.textColor = Self.color($0.0)
+			return l
+		})
+		legend.orientation = .vertical
+		legend.alignment = .leading
+		legend.spacing = 0
+
+		// Como en el original, los botones van encima de la tabla y la leyenda a su derecha.
 		let root = NSView()
-		for v in [scroll, buttons] as [NSView] {
+		for v in [scroll, buttons, legend] as [NSView] {
 			v.translatesAutoresizingMaskIntoConstraints = false
 			root.addSubview(v)
 		}
 		NSLayoutConstraint.activate([
-			scroll.topAnchor.constraint(equalTo: root.topAnchor, constant: 8),
+			legend.topAnchor.constraint(equalTo: root.topAnchor, constant: 6),
+			legend.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -8),
+			buttons.centerYAnchor.constraint(equalTo: legend.centerYAnchor),
+			buttons.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 8),
+			scroll.topAnchor.constraint(equalTo: legend.bottomAnchor, constant: 6),
 			scroll.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 8),
 			scroll.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -8),
-			buttons.topAnchor.constraint(equalTo: scroll.bottomAnchor, constant: 6),
-			buttons.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 8),
-			buttons.bottomAnchor.constraint(equalTo: root.bottomAnchor, constant: -8),
+			scroll.bottomAnchor.constraint(equalTo: root.bottomAnchor, constant: -8),
 		])
 		view = root
 
@@ -117,6 +134,7 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 			field.isBordered = false
 			field.drawsBackground = false
 			field.lineBreakMode = .byTruncatingTail
+			field.textColor = Self.color(r.kind)
 			field.delegate = self
 			field.tag = row
 			return field
@@ -134,6 +152,12 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 			popup.target = self
 			popup.action = #selector(channelSetChanged(_:))
 			return popup
+		case "open":
+			// Botón cuadrado del original; abrirá la lista de patches (siguiente tarea).
+			let b = NSButton(title: "", target: nil, action: nil)
+			b.bezelStyle = .smallSquare
+			b.isEnabled = false
+			return b
 		default:
 			let text: String
 			switch id {
@@ -147,6 +171,14 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 			field.lineBreakMode = .byTruncatingTail
 			if id == "open" { field.textColor = .tertiaryLabelColor }
 			return field
+		}
+	}
+
+	static func color(_ kind: BankKind) -> NSColor {
+		switch kind {
+		case .normal: return .labelColor
+		case .empty: return .systemRed
+		case .mixed: return .systemBlue
 		}
 	}
 

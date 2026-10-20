@@ -120,6 +120,14 @@ final class BankEditingTests: XCTestCase {
 		XCTAssertEqual(patches("Custom")[1], Patch(number: "2", name: "D", programChange: "3"), "forma corta: hereda")
 	}
 
+	func testBankKinds() throws {
+		XCTAssertEqual(rows().map(\.kind), [.normal, .mixed, .normal, .normal])
+		try doc.addBank(name: "Vacio", bs0: "-", bs32: "-", master: ref("Kits").master, set: ref("Kits").set)
+		XCTAssertEqual(rows().first { $0.name == "Vacio" }?.kind, .empty)
+		try doc.setBankSelect(ref("Custom"), bs0: "1", bs32: "0", apply: .allPatches)
+		XCTAssertEqual(rows()[1].kind, .normal)
+	}
+
 	/// Contraste con CherryPicker 3 (EXP-009): `BS base.midnam` y lo que guardó el original con cada opción de la hoja
 	/// Bank Selects en el banco «custom» (B Sel 0 = 5, B Sel 32 = 0). Se reproduce byte a byte.
 	func testBankSelectOptionsMatchOriginal() throws {

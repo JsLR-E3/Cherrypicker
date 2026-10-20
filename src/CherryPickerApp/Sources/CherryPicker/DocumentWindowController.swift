@@ -1,17 +1,18 @@
 // Ventana de documento (nib MainWindow): pestañas en el orden del original, sin Note Lists (D-005),
-// y en el pie el botón «Preview».
+// y arriba a la derecha el botón «Preview» (sin «Save Format» ni «XML Filters...», P1).
 import AppKit
 
 final class DocumentWindowController: NSWindowController {
 	init(document: MidnamDocument) {
-		let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 760, height: 520),
+		// Alta y estrecha, como el original (EXP-009), con anchura para las columnas.
+		let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 560, height: 760),
 		                      styleMask: [.titled, .closable, .miniaturizable, .resizable],
 		                      backing: .buffered, defer: false)
-		window.minSize = NSSize(width: 560, height: 360)
+		window.minSize = NSSize(width: 480, height: 400)
 		super.init(window: window)
 		window.contentViewController = MainTabsViewController(document: document)
 		// Al asignar el controlador la ventana toma el tamaño mínimo de su contenido: se vuelve a fijar.
-		window.setContentSize(NSSize(width: 760, height: 520))
+		window.setContentSize(NSSize(width: 560, height: 760))
 		window.center()
 	}
 
@@ -52,12 +53,12 @@ final class MainTabsViewController: NSViewController {
 			root.addSubview(v)
 		}
 		NSLayoutConstraint.activate([
-			tabs.topAnchor.constraint(equalTo: root.topAnchor, constant: 12),
+			preview.topAnchor.constraint(equalTo: root.topAnchor, constant: 10),
+			preview.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -12),
+			tabs.topAnchor.constraint(equalTo: preview.bottomAnchor, constant: 6),
 			tabs.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 12),
 			tabs.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -12),
-			preview.topAnchor.constraint(equalTo: tabs.bottomAnchor, constant: 8),
-			preview.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -12),
-			preview.bottomAnchor.constraint(equalTo: root.bottomAnchor, constant: -12),
+			tabs.bottomAnchor.constraint(equalTo: root.bottomAnchor, constant: -12),
 		])
 		view = root
 	}

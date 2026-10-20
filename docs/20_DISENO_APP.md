@@ -1,6 +1,6 @@
 # 20 — DISEÑO DE LA APP (fase 3, T-010)
 
-> **Estado: ACORDADO con el usuario el 2026-10-20 (D-005).** Respuestas en §7. Regla 10 de `CLAUDE.md`: se reproduce la organización y los nombres de
+> **Estado: ACORDADO con el usuario el 2026-10-20 (D-005).** Respuestas en §7. Mejoras y copyright: D-007. Regla 10 de `CLAUDE.md`: se reproduce la organización y los nombres de
 > CherryPicker; lo que se aparta del original va marcado **[PROPUESTA]** (P1–P7, aceptadas).
 
 - **Origen:** CherryPicker 3.0 (Alterspective), `reference/app_3.0/CherryPicker.app` (ppc/i386, no arranca: EXP-001):
