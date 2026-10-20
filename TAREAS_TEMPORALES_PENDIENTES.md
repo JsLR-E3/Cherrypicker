@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-20 · local · T-013 integrada en `main` (fast-forward); T-016 completada (bancos editables; DP lo lee, EXP-011). Siguiente: T-018, lista de patches.
+> Actualizado: 2026-10-20 · local (`main`) · Fase 3: diseño acordado, app AppKit con Patch Banks editable que DP lee (T-010, T-015, T-016, T-017).
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -11,18 +11,15 @@
 
 ## ESTADO ACTUAL
 
-- **Fase 3 en marcha:** diseño acordado (`docs/20`, D-005, mejoras y copyright D-007); app AppKit en
-  `src/CherryPickerApp` (D-006) con la pestaña Patch Banks editable; DP lee lo que guarda (EXP-011). App original
-  disponible en Snow Leopard para contrastar (EXP-009). Compilar: `tools/empaquetar_app.sh`.
-- **Fase 1 hecha** (`docs/14`): `src/MidnamKit` lee y reescribe `.midnam` sin pérdidas y valida contra la DTD 1.0
-  (`swift test`, 12 tests). Alcance en D-001; audición D-002; DOCTYPE D-003; ficheros del usuario privados D-004.
-- La app original 3.0 no arranca en este Mac (ppc/i386, EXP-001); hay 25 nibs, el manual web y los `.plist` de recursos
-  en `reference/` para reproducir su interfaz.
-- **Cómo lee DP 11.36 los `.midnam`** (EXP-002, EXP-006): de `/Library/Audio/MIDI Devices/MOTU/<Fabricante>/`;
-  *Master Names* = nombre de fichero; menú de presets = nombre de la `PatchNameList` + «Number Name» (lista y banco con
-  el mismo nombre); un modelo nuevo necesita `.middev`; DP no recarga solo: volver a elegir en *Master Names*. Los
-  controles con nombre no salen en el menú de controladores de la pista. Estados en `protocol/PROTOCOL_INDEX.md`.
-- Proyecto migrado a la plantilla nueva de Claude Code (T-013), integrado en `main` y subido; rama borrada (2026-10-20).
+- **Fase 3 en marcha.** Diseño acordado en `docs/20` (D-005; mejoras y copyright D-007). App AppKit en
+  `src/CherryPickerApp` (D-006): `tools/empaquetar_app.sh` → `build/CherryPicker.app`; `swift test` 20/20. Pestaña
+  Patch Banks editable y guardar; DP 11.36 lee lo guardado y respeta los Channel Sets (EXP-011).
+- **App original disponible** en Snow Leopard (Mac mini del usuario) para contrastar: la hoja Bank Selects se reproduce
+  byte a byte (EXP-009). Ficheros del usuario por `incoming/`.
+- **Instalación de prueba que se deja a propósito** (usuario, 2026-10-20): `/Library/Audio/MIDI Devices/MOTU/
+  Cherrypicker/` (`Prueba canales.midnam` + `.middev` de «CP Canales», EXP-011). Deshacer: borrar esa carpeta.
+- Base: MidnamKit sin pérdidas y validación DTD (fase 1); cómo lee DP los `.midnam` (fase 2, EXP-002/006/011);
+  estados en `protocol/PROTOCOL_INDEX.md`.
 
 ## EN PROGRESO
 
@@ -57,6 +54,8 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 ## SIGUIENTE PASO EXACTO
 
-1. **T-018:** ventana Patch Names (ficha arriba).
-2. Usuario: decidir si se retira ya la instalación de EXP-011 (`/Library/Audio/MIDI Devices/MOTU/Cherrypicker/`).
-3. Menor, con el usuario y DP abierto: T-014.
+1. **T-018:** empezar por `src/CherryPickerApp/Sources/CherryPickerCore/PatchEditing.swift` (añadir, borrar, renombrar,
+   bank select y Ascii por patch, renumerar, pegar texto con delimitador) con tests en `Tests/…/PatchEditingTests.swift`;
+   antes, pedir al usuario la prueba en Snow Leopard de la ficha (numeración al pegar, patch nuevo con y sin «Set Bank
+   Selects to Bank values»).
+2. Menor, con el usuario y DP abierto: T-014.
