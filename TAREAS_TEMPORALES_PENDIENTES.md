@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-20 · local · T-013: migración a la plantilla nueva en la rama `migracion-plantilla` (sin subir ni integrar).
+> Actualizado: 2026-10-20 · local · T-013 integrada en `main` (fast-forward); en curso T-010.
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -19,8 +19,8 @@
   *Master Names* = nombre de fichero; menú de presets = nombre de la `PatchNameList` + «Number Name» (lista y banco con
   el mismo nombre); un modelo nuevo necesita `.middev`; DP no recarga solo: volver a elegir en *Master Names*. Los
   controles con nombre no salen en el menú de controladores de la pista. Estados en `protocol/PROTOCOL_INDEX.md`.
-- Proyecto migrado a la plantilla nueva de Claude Code (T-013) en la rama `migracion-plantilla`: falta que el usuario
-  la suba y decida si se integra en `main`.
+- Proyecto migrado a la plantilla nueva de Claude Code (T-013), integrado en `main` por fast-forward a petición del
+  usuario (2026-10-20); falta el `push` de `main` (usuario).
 
 ## EN PROGRESO
 
@@ -58,8 +58,7 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 ## SIGUIENTE PASO EXACTO
 
-1. Usuario: subir la rama `migracion-plantilla` (`git push -u origin migracion-plantilla`) y decidir si se integra en
-   `main`.
+1. Usuario: `git push origin main` (lleva la migración T-013); la rama `migracion-plantilla` ya se puede borrar.
 2. **T-010:** analizar las ventanas de CherryPicker y escribir el diseño de la app en `docs/2x` para acordarlo con el
    usuario antes de programar (ficha arriba).
 3. Menor, con el usuario y DP abierto: T-014.
