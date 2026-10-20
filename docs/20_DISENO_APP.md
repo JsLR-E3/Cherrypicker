@@ -1,8 +1,7 @@
 # 20 — DISEÑO DE LA APP (fase 3, T-010)
 
-> **Estado: BORRADOR para acordar con el usuario.** Nada de esto se programa hasta que el usuario lo apruebe
-> (se anotará como D-NNN en `docs/12`). Regla 10 de `CLAUDE.md`: se reproduce la organización y los nombres de
-> CherryPicker; lo que se aparta del original va marcado **[PROPUESTA]**.
+> **Estado: ACORDADO con el usuario el 2026-10-20 (D-005).** Respuestas en §7. Regla 10 de `CLAUDE.md`: se reproduce la organización y los nombres de
+> CherryPicker; lo que se aparta del original va marcado **[PROPUESTA]** (P1–P7, aceptadas).
 
 - **Origen:** CherryPicker 3.0 (Alterspective), `reference/app_3.0/CherryPicker.app` (ppc/i386, no arranca: EXP-001):
   25 nibs (`English.lproj/*.nib` y `MergeSheet.nib`), `Localizable.strings`, `.plist` de recursos; manual web
@@ -60,8 +59,8 @@ Editor de «patchfiles» (`.midnam`, y también OMS, FreeMIDI y Cubase) que:
 | Hoja Bank Selects (cómo afectan a los patches) | **Sí** | Bank select por banco |
 | Custom Banks y arrastrar patches entre bancos | **Sí** | Agrupar por categorías en DP |
 | Find y «crear banco con lo encontrado» | **Sí** | Ayuda a montar Custom Banks |
-| Pestaña Categories (categorías GM/E-mu → bancos) | **Sí** [PROPUESTA: confirmar] | Crea de golpe los Custom Banks por categoría |
-| Import desde otros `.midnam` (ImportBrowser) | **Sí** [PROPUESTA: confirmar] | El nib lo muestra como importador de `.midnam`, no de Cubase/OMS |
+| Pestaña Categories (categorías GM/E-mu → bancos) | **Sí** (§7.2) | Crea de golpe los Custom Banks por categoría |
+| Import desde otros `.midnam` (ImportBrowser) | **Sí** (§7.2) | El nib lo muestra como importador de `.midnam`, no de Cubase/OMS |
 | Hoja de comprobación antes de guardar (CPCheckSheet) | **Sí**, con las comprobaciones de DP | Evita ficheros que DP no lee bien |
 | Zap Dups | **Sí** | Pensado para el problema de DP con Custom Banks |
 | Merge | **Sí** (menor) | Barato con el modelo |
@@ -71,7 +70,7 @@ Editor de «patchfiles» (`.midnam`, y también OMS, FreeMIDI y Cubase) que:
 | Device: modos y Channel Sets | **Sí** | Estructura del fichero |
 | Controllers (`ControlNameList`) | **Sí** (fase 5) | DP no los muestra en el menú de pista (EXP-006, T-014) |
 | Audición: Bank Select + Program Change al seleccionar un patch | **Sí** (fase 4) | D-002: solo esos mensajes |
-| Teclado thru y reproductor de ficheros MIDI | **No por ahora** [PROPUESTA: decidir] | No pedido; el thru lo hace DP |
+| Teclado thru y reproductor de ficheros MIDI | **No por ahora** (§7.3) | Se añadirán si hacen falta |
 | Preview del XML | **Sí** | Barato; útil para comprobar |
 | Save Format ProTools/Cubase/FreeMIDI, XML Filters, Zap Custom (C->S) | **No** | Solo DP 11.36 (D-001) |
 | Note Lists (drum maps) | **No por ahora** | D-001 |
@@ -92,9 +91,9 @@ Una por `.midnam` abierto; varias a la vez (se arrastran bancos y patches entre 
 | **MIDI** | Caja «MIDI Connections»: casilla «Enable MIDI» (desactivada por defecto), popup «Device Out». («Controller In», el teclado, solo si se decide el thru, §7.) |
 | **Device** | «Manufacturer:» y «Model:» (solo lectura, ligados al `.middev`); caja «Modes» con tabla y + / −; caja «Channel Sets» con tabla y + / −, «Active Channels», «Audition Ch:» y el aviso «(Add disabled: No free channels in mode)». Sin «MIDI Initialization… / Send Now» (SysEx, regla 4). |
 | **Patch Banks** | Tabla `P` · `S0` · `S32` · `Patch Bank` · `#` · `Channel Set` y leyenda «• Normal / • Mixed / • Empty». Botones + / −, «Merge», «Import», «Find», «Zap Dups». Sin «Bank Initialization / Transmit», «Zap Custom» ni «Sibelius». |
-| **Note Lists** | Solo si se decide incluirla (§7). |
+| **Note Lists** | No por ahora (§7.1): sin pestaña; las listas de notas de un fichero abierto se conservan al guardar. |
 | **Controllers** | Tablas «Control Name Lists» (+ / −) y `Ctl` · `Name`; + crea «Default Control Names». |
-| **Categories** | Tablas «Categories» y «Bank Names» con + / −, «Add To Banks», «Dup» (si se confirma, §7). |
+| **Categories** | Tablas «Categories» y «Bank Names» con + / −, «Add To Banks», «Dup». |
 
 Pie de la ventana: **«Preview»**. Sin popup «Save Format» ni «XML Filters...»: el formato es siempre el de DP (§5).
 
@@ -127,8 +126,7 @@ el bloque «Audition Riff» (§7).
   4) tabla «Name» / «Uses Channels»; 5) «Setup Finished». Sin «Launch AudioMIDI Setup» (DP no lo necesita, EXP-006).
 - **Finder** (FoundWindow): búsqueda en todos los bancos, columnas sin editar, «Add New Bank With Patches»,
   «Remove Duplicates» y −.
-- **Patchlist Importer** (ImportBrowser): «Files You Can Import From» y la asignación de bancos de destino (si se
-  confirma).
+- **Patchlist Importer** (ImportBrowser): «Files You Can Import From» y la asignación de bancos de destino.
 - **Preview**: el XML exacto que se escribirá.
 - **Preferences**: carpeta de `MIDI Devices` (por defecto `/Library/Audio/MIDI Devices`) y «Create new folders inside
   default folder». Sin actualizaciones ni atajos de ProTools/Cubase.
@@ -177,10 +175,10 @@ y no se ha visto la app funcionando. Textos literales entre comillas; columnas c
 | CPCheckSheet, CPMultiModel | hojas al guardar | Sí |
 | SetupWizard | «Device Setup» · CPSetupWizard | Sí |
 | Preview | «Preview» · CPPreview | Sí |
-| ImportBrowser | «Patchlist Importer» · CPImportBrowser (importa de otros `.midnam`) | Por confirmar |
+| ImportBrowser | «Patchlist Importer» · CPImportBrowser (importa de otros `.midnam`) | Sí |
 | CPPatchExport | «Copy Fields To Clipboard» · CPCopySheet | Más adelante |
 | MiddevEditor, CPDuplicates | «Middev Editor», «Duplicate Middev Entries» | No por ahora |
-| NoteWindow | «Note Names» · NoteWindowController | Por confirmar (Note Lists) |
+| NoteWindow | «Note Names» · NoteWindowController | No por ahora (§7.1) |
 | MIDIFileUI | «Audition Files» · RiffPlayerUI | No por ahora |
 | SavePanel | vista del diálogo de guardar (formato y atajos) | No (P1) |
 | CPSibelius, UKFeedbackProvider, AboutPanel, MainMenu | Sibelius, comentarios, Acerca de, menús y Preferencias | Solo About, menús y Preferencias |
@@ -191,11 +189,14 @@ vacío) y las posiciones exactas (están en `NSFrame` y no se han volcado).
 
 ## 7. Preguntas abiertas para el usuario
 
-1. **Note Lists (drum maps):** ¿fuera por ahora, como dice D-001, o los usabas?
-2. **Categories** (crear Custom Banks por categorías GM/E-mu) e **Import** desde otros `.midnam`: ¿entran?
-3. **Audición:** ¿basta con enviar el cambio de programa y tocar desde tu teclado por DP, o quieres también el thru del
-   teclado o el reproductor de ficheros MIDI del original?
-4. **Propuestas P1–P7:** ¿de acuerdo? Especialmente P3 (la app escribe en la carpeta de DP tras confirmar) y P7
-   (interfaz en inglés).
-5. **Tecnología** (se decidirá en `docs/16`, no aquí): SwiftUI con tablas AppKit donde haga falta arrastrar y editar
+1. ~~**Note Lists (drum maps):** ¿fuera por ahora, como dice D-001, o los usabas?~~ **Respondida (usuario,
+   2026-10-20):** fuera por ahora; se implementan si hicieran falta. MidnamKit ya conserva las que traiga un fichero.
+2. ~~**Categories** (crear Custom Banks por categorías GM/E-mu) e **Import** desde otros `.midnam`: ¿entran?~~
+   **Respondida (usuario, 2026-10-20):** sí, entran las dos.
+3. ~~**Audición:** ¿basta con enviar el cambio de programa y tocar desde tu teclado por DP, o quieres también el thru del
+   teclado o el reproductor de ficheros MIDI del original?~~ **Respondida (usuario, 2026-10-20):** de momento solo el
+   cambio de programa (CC0/CC32 + Program Change); thru y reproductor, más adelante si hacen falta.
+4. ~~**Propuestas P1–P7:** ¿de acuerdo? Especialmente P3 (la app escribe en la carpeta de DP tras confirmar) y P7
+   (interfaz en inglés).~~ **Respondida (usuario, 2026-10-20):** sí, las siete.
+5. **Tecnología** (pendiente: se decide en T-015, `docs/16`): SwiftUI con tablas AppKit donde haga falta arrastrar y editar
    celdas; requisito de versión de macOS.

@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-20 · local · T-013 integrada en `main` (fast-forward); T-010: borrador de diseño en `docs/20`, esperando respuestas del usuario.
+> Actualizado: 2026-10-20 · local · T-013 integrada en `main` (fast-forward); T-010 completada (diseño acordado, D-005); siguiente T-015.
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -23,8 +23,7 @@
 
 ## EN PROGRESO
 
-- **T-010:** borrador `docs/20_DISENO_APP.md` escrito (manual + inventario de los 26 nibs). Falta: respuestas del
-  usuario a §7 (Note Lists, Categories/Import, audición, propuestas P1–P7), ajustar el documento y anotar D-NNN.
+- Nada.
 
 ## PENDIENTE DE VALIDACIÓN LOCAL
 
@@ -38,26 +37,20 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
-| T-010 | A | EN PROGRESO | Fase 3: diseño de la app a partir de las ventanas de CherryPicker (nibs, manual, capturas) en `docs/2x` | — | Documento de diseño acordado con el usuario antes de programar (D-NNN en `docs/12`) |
+| T-015 | A | PENDIENTE | Fase 3: tecnología de la app (SwiftUI/AppKit, versión mínima de macOS) en `docs/16` y esqueleto con la ventana de documento | — | Decisión acordada (D-NNN); proyecto que compila, abre un `.midnam` con MidnamKit y muestra la pestaña Patch Banks |
 | T-014 | C | PENDIENTE | Mirar con el usuario si «Other Controller…» de DP usa la `ControlNameList` | DP abierto (usuario) | EXP registrado; fila `ControlNameList` de `PROTOCOL_INDEX` actualizada |
 
 ## Fichas
 
-### T-010 · Diseño de la app (fase 3)
-- **Objetivo:** documento de diseño de las ventanas y flujos de la app nueva, partiendo de la organización y los
-  nombres de CherryPicker (regla 10 de `CLAUDE.md`), para acordarlo con el usuario antes de programar.
-- **Evidencias/referencias:** 25 nibs en `reference/app_3.0/…/Resources`, manual
-  `reference/web_alterspective/cherrypicker/docs/introC.html`, `CPXMLStrings.plist`/`CPXMLRead.plist`, EXP-001, EXP-006,
-  D-001, D-002, `docs/14` (tabla de funciones).
-- **Tener en cuenta (EXP-006):** lista y banco con el mismo nombre; *Master Names* = nombre de fichero; crear también
-  el `.middev`; avisar de volver a elegir en *Master Names* tras guardar.
-- **Aceptación:** `docs/2x_…` con ventanas, controles y flujos; mejoras sobre el original señaladas como propuestas;
-  acuerdo del usuario anotado en `docs/12`.
-- **Siguiente paso ejecutable:** inventario de los nibs (`plutil`/`strings | grep`, o el agente `analista-referencia`)
-  y lectura del manual por secciones.
+### T-015 · Tecnología y esqueleto de la app (fase 3)
+- **Objetivo:** decidir con el usuario la tecnología (SwiftUI con tablas AppKit donde haga falta arrastrar y editar
+  celdas) y la versión mínima de macOS; documentarlo en `docs/16`; crear el proyecto de la app sobre MidnamKit.
+- **Referencias:** `docs/20_DISENO_APP.md` (ventanas, flujos, P1–P7), D-005, `docs/16`, `src/MidnamKit`.
+- **Aceptación:** D-NNN en `docs/12`; la app compila, abre un `.midnam` de ejemplo y muestra la tabla de bancos
+  (`P`, `S0`, `S32`, `Patch Bank`, `#`, `Channel Set`). Lo que necesite Xcode y no se haya ejecutado, PENDIENTE-LOCAL.
+- **Siguiente paso ejecutable:** proponer al usuario las opciones de tecnología con sus pros y contras.
 
 ## SIGUIENTE PASO EXACTO
 
-1. **T-010:** el usuario responde las preguntas de `docs/20_DISENO_APP.md` §7; ajustar el documento y registrar el
-   acuerdo como D-005 en `docs/12`.
+1. **T-015:** proponer al usuario la tecnología de la app (ficha arriba) y, una vez acordada, crear el esqueleto.
 2. Menor, con el usuario y DP abierto: T-014.

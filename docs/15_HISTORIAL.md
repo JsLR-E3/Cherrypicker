@@ -5,7 +5,8 @@ copia. Se consulta por `grep` (p. ej. `grep T-012 docs/15_HISTORIAL.md`), no se 
 
 | ID | Cerrada | Resultado (y cómo se verificó) | Commit · EXP · D |
 |---|---|---|---|
-| T-013 | 2026-10-20 | Proyecto migrado a la plantilla nueva de Claude Code (`CLAUDE.md`, `.claude/`, `docs/10`, `12`, `15`, índice y TAREAS); `comprobar.py` sin errores y `swift test` 12/12 | rama `migracion-plantilla` |
+| T-010 | 2026-10-20 | Diseño de la app acordado (`docs/20`): manual + inventario de los 26 nibs, propuestas P1–P7 aceptadas | este commit · D-005 |
+| T-013 | 2026-10-20 | Proyecto migrado a la plantilla nueva de Claude Code (`CLAUDE.md`, `.claude/`, `docs/10`, `12`, `15`, índice y TAREAS); `comprobar.py` sin errores y `swift test` 12/12 | 030bceb (integrado en `main`) |
 | T-012 | 2026-10-20 | DP 11.36 acepta un `.midnam` nuevo de MidnamKit con el DOCTYPE de midi.org; *Master Names* = nombre de fichero; menú de presets = nombre de `PatchNameList` + «Number Name»; modelo nuevo necesita `.middev`; recarga al volver a elegir en *Master Names*; ficheros de prueba retirados | e07e569, 6c84dd5 · EXP-006 · D-003 |
 | T-011 | 2026-10-19 | Validación con `xmllint --dtdvalid` (catálogo local, `tools/validar_midnam.sh`); los 6 ejemplos y lo que escribe MidnamKit son válidos | dedb2d1 · EXP-005 |
 | T-009 | 2026-10-19 | DTD MIDINameDocument 1.0 descargada (Wayback) a `reference/dtd/`; reglas de escritura contrastadas y modelo ampliado | 0edbbcf · EXP-004 |

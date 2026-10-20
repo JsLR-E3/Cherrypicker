@@ -13,6 +13,20 @@ Lo que es solo una propuesta va en la tarea o en `docs/remoto/`, no aquí.
 - **Estado:** vigente · sustituida por D-…
 -->
 
+## D-005 · 2026-10-20 · Diseño de la app (fase 3): `docs/20_DISENO_APP.md`
+
+- **Decisión:** la app reproduce las ventanas y nombres de CherryPicker descritos en `docs/20` (en inglés). Entran Patch
+  Banks, listas de patches, Custom Banks, Find, Zap Dups, Merge, Categories, Import desde otros `.midnam`, Device (modos
+  y Channel Sets), Controllers, Preview y Device Setup. Quedan fuera por ahora Note Lists, el thru del teclado y el
+  reproductor de ficheros MIDI (se añaden si hacen falta). La audición solo envía CC0/CC32 + Program Change.
+  Se aceptan las propuestas P1–P7 de `docs/20` §5: solo formato DP, `PatchNameList` con el nombre del banco,
+  «Instalar en DP…» con confirmación, comprobación al guardar, sin SysEx, deshacer y textos en inglés.
+- **Motivo:** uso declarado por el usuario; comportamiento de DP 11.36 (EXP-002, EXP-006); regla 10.
+- **Alternativas descartadas:** mantener los formatos ProTools/Cubase/FreeMIDI y los XML Filters (solo hay un destino,
+  D-001).
+- **Quién:** usuario (respuestas a `docs/20` §7, 2026-10-20) sobre la propuesta de Claude.
+- **Estado:** vigente.
+
 ## D-004 · 2026-10-19 · Los `.midnam` del usuario son privados
 
 - **Decisión:** los ficheros de `reference/midnam_usuario/` no se versionan ni se publican; para tests en el repo se
