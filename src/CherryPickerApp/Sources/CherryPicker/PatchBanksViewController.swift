@@ -156,7 +156,10 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		let r = rows[field.tag]
 		let name = field.stringValue
 		if name == r.name { return }
-		edit("Rename Bank") { try $0.renameBank(r.ref, to: name) }
+		// Fuera del fin de edición: el cambio recarga la tabla y no debe hacerlo mientras la celda aún edita.
+		DispatchQueue.main.async { [weak self] in
+			self?.edit("Rename Bank") { try $0.renameBank(r.ref, to: name) }
+		}
 	}
 
 	@objc private func channelSetChanged(_ sender: NSPopUpButton) {
@@ -170,7 +173,11 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		let row = table.clickedRow, col = table.clickedColumn
 		guard rows.indices.contains(row), col >= 0 else { return }
 		let id = table.tableColumns[col].identifier.rawValue
-		if id == "bs0" || id == "bs32" { editBankSelects(rows[row]) }
+		switch id {
+		case "bs0", "bs32": editBankSelects(rows[row])
+		case "name": table.editColumn(col, row: row, with: nil, select: true)
+		default: break
+		}
 	}
 
 	// MARK: Hojas

@@ -23,16 +23,17 @@ class SheetController: NSWindowController {
 			                verticalRange: NSRange(location: i, length: 1))
 			grid.cell(atColumnIndex: 0, rowIndex: i).xPlacement = .leading
 		}
-		box.contentView = grid
+		// La rejilla va dentro de la vista de contenido de la caja (bajo su título), no sobre la caja.
+		let content = NSView()
+		box.contentView = content
 		grid.translatesAutoresizingMaskIntoConstraints = false
-		if let content = box.contentView?.superview {
-			NSLayoutConstraint.activate([
-				grid.leadingAnchor.constraint(equalTo: content.leadingAnchor, constant: 12),
-				grid.trailingAnchor.constraint(equalTo: content.trailingAnchor, constant: -12),
-				grid.topAnchor.constraint(equalTo: content.topAnchor, constant: 8),
-				grid.bottomAnchor.constraint(equalTo: content.bottomAnchor, constant: -12),
-			])
-		}
+		content.addSubview(grid)
+		NSLayoutConstraint.activate([
+			grid.leadingAnchor.constraint(equalTo: content.leadingAnchor, constant: 12),
+			grid.trailingAnchor.constraint(equalTo: content.trailingAnchor, constant: -12),
+			grid.topAnchor.constraint(equalTo: content.topAnchor, constant: 8),
+			grid.bottomAnchor.constraint(equalTo: content.bottomAnchor, constant: -12),
+		])
 
 		let cancel = NSButton(title: "Cancel", target: self, action: #selector(cancel(_:)))
 		cancel.keyEquivalent = "\u{1b}"
