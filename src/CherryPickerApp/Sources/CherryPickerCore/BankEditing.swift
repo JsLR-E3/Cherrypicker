@@ -18,12 +18,14 @@ public struct BankRef: Hashable, Sendable {
 	}
 }
 
-/// Opciones de la hoja Bank Selects (nib BankSelectSheet). Interpretación deducida (docs/20 §3.3): «con bank select»
-/// es un patch con CC0/CC32 propios en `PatchMIDICommands`; el resto hereda el del banco.
+/// Opciones de la hoja Bank Selects (nib BankSelectSheet), contrastadas con CherryPicker 3 (EXP-009): «con bank
+/// select» es un patch con CC0/CC32 propios en `PatchMIDICommands`; «sin», uno cuyo `PatchMIDICommands` solo lleva el
+/// Program Change (así marca el original el «-» de un patch). Los de forma corta (`ProgramChange="n"`) heredan el banco.
 public enum BankSelectApply: Sendable {
-	/// «Apply to all patches»: el banco toma los valores y los patches pierden los suyos (heredan).
+	/// «Apply to all patches»: el banco toma los valores y los patches pierden los suyos (forma corta, heredan).
 	case allPatches
-	/// «Apply ONLY to patches without Bank Selects»: solo cambia el banco.
+	/// «Apply ONLY to patches without Bank Selects»: el banco y los patches «sin» reciben los valores como propios.
+	/// Los de forma corta no se tocan (heredan los nuevos; el original no se ha observado con ellos).
 	case patchesWithoutBankSelects
 	/// «Apply Only to patches with Bank Selects»: cambia el banco y también los patches que tienen los suyos.
 	case patchesWithBankSelects
@@ -110,7 +112,8 @@ public extension MIDINameDocument {
 			let change: (inout Patch) -> Void
 			switch apply {
 			case .allPatches: change = { $0.setOwnBankSelect(bs0: "-", bs32: "-") }
-			case .patchesWithoutBankSelects: return
+			case .patchesWithoutBankSelects:
+				change = { if $0.hasExplicitCommandsWithoutBankSelect { $0.setOwnBankSelect(bs0: v0, bs32: v32) } }
 			case .patchesWithBankSelects:
 				change = { if $0.hasOwnBankSelect { $0.setOwnBankSelect(bs0: v0, bs32: v32) } }
 			}
@@ -341,6 +344,12 @@ extension PatchNameList {
 extension Patch {
 	var hasOwnBankSelect: Bool {
 		for case .patchMIDICommands(let cmds) in items where cmds.contains(where: \.isBankSelect) { return true }
+		return false
+	}
+
+	/// `PatchMIDICommands` sin CC0/CC32: el «-» de un patch en CherryPicker (EXP-009).
+	var hasExplicitCommandsWithoutBankSelect: Bool {
+		for case .patchMIDICommands(let cmds) in items where !cmds.contains(where: \.isBankSelect) { return true }
 		return false
 	}
 

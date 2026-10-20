@@ -81,6 +81,9 @@ Editor de «patchfiles» (`.midnam`, y también OMS, FreeMIDI y Cubase) que:
 ## 3. Ventanas de la app nueva
 
 Mismos nombres y organización que el original (textos literales de los nibs, §6). Se omite lo que queda fuera de §2.
+**Disposición contrastada con capturas del original (EXP-009):** ventana alta y estrecha; arriba de las pestañas,
+«Save Format», «XML Filters...» y «Preview» (en la app nueva solo «Preview», P1); en Patch Banks, botones encima de la
+tabla y leyenda de colores a la derecha (nombre del banco: Normal negro, Empty rojo, Mixed azul).
 
 ### 3.1 Ventana de documento (MainWindow)
 
@@ -95,7 +98,7 @@ Una por `.midnam` abierto; varias a la vez (se arrastran bancos y patches entre 
 | **Controllers** | Tablas «Control Name Lists» (+ / −) y `Ctl` · `Name`; + crea «Default Control Names». |
 | **Categories** | Tablas «Categories» y «Bank Names» con + / −, «Add To Banks», «Dup». |
 
-Pie de la ventana: **«Preview»**. Sin popup «Save Format» ni «XML Filters...»: el formato es siempre el de DP (§5).
+Arriba a la derecha: **«Preview»**. Sin popup «Save Format» ni «XML Filters...»: el formato es siempre el de DP (§5).
 
 ### 3.2 Lista de patches (PatchWindow, «Patch Names»)
 
@@ -119,10 +122,10 @@ el bloque «Audition Riff» (§7).
 | Comprobación (CPCheckSheet) | Al guardar, si hay problemas | «The following potential problems were found», «Cancel and Fix» / «Continue Anyway» |
 | Model (CPMultiModel) | Guardar un fichero con varios `<Model>` | Popup «Model» |
 
-Hoja Bank Selects, **interpretación deducida** (no hay app viva para comprobarlo; T-016): un patch «con Bank
-Selects» es el que lleva CC0/CC32 propios en `PatchMIDICommands`; los demás heredan los del banco. «Apply to all
-patches»: el banco toma los valores y los patches pierden los propios. «…ONLY to patches without…»: solo cambia el
-banco. «…Only to patches with…»: cambia el banco y los CC0/CC32 propios de esos patches. Restricciones de la DTD: no
+Hoja Bank Selects, **contrastada con el original (EXP-009, nivel B)**: las tres opciones ponen los valores al banco.
+«Apply to all patches»: todos los patches pasan a la forma corta (heredan). «…ONLY to patches without…»: los patches
+cuyo `PatchMIDICommands` solo lleva el Program Change (el «-» del original) reciben los valores como propios.
+«…Only to patches with…»: los que tienen CC0/CC32 propios pasan a los nuevos valores. Restricciones de la DTD: no
 se puede borrar ni sacar el último banco de un Channel Set (`PatchBank+`).
 
 ### 3.4 Otras ventanas

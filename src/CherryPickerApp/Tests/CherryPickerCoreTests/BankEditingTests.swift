@@ -111,11 +111,29 @@ final class BankEditingTests: XCTestCase {
 		XCTAssertThrowsError(try BankRef.normalizeBankSelect(""))
 	}
 
-	func testBankSelectWithoutPatchesOnlyChangesBank() throws {
+	func testBankSelectWithoutKeepsPatchesWithOwn() throws {
 		try doc.setBankSelect(ref("Custom"), bs0: "4", bs32: "-", apply: .patchesWithoutBankSelects)
 		let r = rows()[1]
 		XCTAssertEqual([r.bankSelect0, r.bankSelect32], ["4", "-"])
-		XCTAssertTrue(patches("Custom")[0].hasOwnBankSelect)
+		XCTAssertEqual(patches("Custom")[0].items, [.patchMIDICommands([
+			.controlChange(control: "0", value: "2"), .controlChange(control: "32", value: "0"), .programChange(number: "7")])])
+		XCTAssertEqual(patches("Custom")[1], Patch(number: "2", name: "D", programChange: "3"), "forma corta: hereda")
+	}
+
+	/// Contraste con CherryPicker 3 (EXP-009): `BS base.midnam` y lo que guardó el original con cada opción de la hoja
+	/// Bank Selects en el banco «custom» (B Sel 0 = 5, B Sel 32 = 0). Se reproduce byte a byte.
+	func testBankSelectOptionsMatchOriginal() throws {
+		let dir = URL(fileURLWithPath: #filePath).deletingLastPathComponent()
+			.appendingPathComponent("../../../../captures/exp009").standardized
+		func text(_ name: String) throws -> String {
+			try String(contentsOf: dir.appendingPathComponent(name), encoding: .utf8)
+		}
+		for (n, apply) in [(1, BankSelectApply.allPatches), (2, .patchesWithoutBankSelects), (3, .patchesWithBankSelects)] {
+			var f = try MidnamFile(text: try text("BS base.midnam"))
+			let custom = BankRows.rows(f.document).first { $0.name == "custom" }!.ref
+			try f.document.setBankSelect(custom, bs0: "5", bs32: "0", apply: apply)
+			XCTAssertEqual(f.text(), try text("BS opcion\(n).midnam"), "opción \(n)")
+		}
 	}
 
 	func testBankSelectAllRemovesPatchLevel() throws {

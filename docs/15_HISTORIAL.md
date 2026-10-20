@@ -5,6 +5,7 @@ copia. Se consulta por `grep` (p. ej. `grep T-012 docs/15_HISTORIAL.md`), no se 
 
 | ID | Cerrada | Resultado (y cómo se verificó) | Commit · EXP · D |
 |---|---|---|---|
+| T-017 | 2026-10-20 | Hoja Bank Selects contrastada con CherryPicker 3 en Snow Leopard: la opción 2 estaba mal deducida y se corrige; las tres reproducen el original byte a byte | este commit · EXP-009 |
 | T-015 | 2026-10-20 | App AppKit decidida (D-006) y esqueleto en `src/CherryPickerApp`: abre un `.midnam` y muestra Patch Banks; `swift test` 1/1 y prueba abriendo el fichero de EXP-006 | este commit · EXP-007 · D-006 |
 | T-010 | 2026-10-20 | Diseño de la app acordado (`docs/20`): manual + inventario de los 26 nibs, propuestas P1–P7 aceptadas | 0916426 · D-005 |
 | T-013 | 2026-10-20 | Proyecto migrado a la plantilla nueva de Claude Code (`CLAUDE.md`, `.claude/`, `docs/10`, `12`, `15`, índice y TAREAS); `comprobar.py` sin errores y `swift test` 12/12 | 030bceb (integrado en `main`) |

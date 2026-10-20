@@ -214,3 +214,33 @@ valer un resultado.
   y CC0 del banco A de 0 a 5. Nada más cambia (orden, sangría, resto de bancos y presets).
 - **No probado:** popup de Channel Set con varios juegos (el fichero solo tiene uno), DP.
 - **Estado:** COMPLETADO (salvo lo no probado).
+
+## EXP-009 · 2026-10-20 · Hoja Bank Selects y ventanas en CherryPicker 3 original (T-017)
+
+- **Entorno:** CherryPicker 3 en Snow Leopard, Mac mini antiguo del usuario; prueba hecha por el usuario siguiendo el
+  procedimiento de la sesión. Análisis aquí: `diff`, `swift test` (commit de este EXP).
+- **Ficheros:** `captures/exp009/` (sintéticos, fabricante «360 Systems», modelo «MIDIBass», presets sin nombre):
+  `BS base.midnam` con banco «normal» (CC0=1, CC32=0, presets en forma corta) y banco «custom» sin bank select, con dos
+  presets con CC0/CC32 propios y uno sin (`PatchMIDICommands` con solo `ProgramChange`); `BS opcion1/2/3.midnam`: la
+  hoja Bank Selects sobre «custom» con B Sel 0 = 5, B Sel 32 = 0 y cada opción. Capturas (19, se ven carpetas del
+  usuario): `reference/capturas_snow_leopard/` (no versionado).
+- **Resultado (B):**
+  - Las tres opciones ponen `MIDICommands` CC0=5/CC32=0 al banco.
+  - «Apply to all patches»: todos los presets pasan a la forma corta `ProgramChange="n"`, también el que no tenía bank
+    select.
+  - «Apply ONLY to patches without Bank Selects»: el preset con solo Program Change recibe CC0=5/CC32=0 propios; los
+    que tenían los suyos no cambian. (Lo deducido en T-016 era «solo cambia el banco»: **corregido**.)
+  - «Apply Only to patches with Bank Selects»: los presets con CC propios pasan a 5/0; el otro no cambia.
+  - Un preset con «-» en un banco sin bank select se escribe como `PatchMIDICommands` con solo `ProgramChange`.
+  - Nada más cambia en el fichero. Sin observar: la opción 2 con presets en forma corta.
+- **Contraste:** `BankEditingTests.testBankSelectOptionsMatchOriginal` carga `BS base.midnam`, aplica cada opción con
+  `setBankSelect` y reproduce byte a byte los tres ficheros del original (17 tests, 0 fallos).
+- **Interfaz (capturas, B):** ventana de documento alta y estrecha; arriba «Save Format», «XML Filters...» y «Preview»;
+  en Patch Banks los botones van **encima** de la tabla (+ − Merge Sibelius Zap Dups Zap Custom Import Find) con la
+  leyenda a la derecha (• Normal negro, • Empty rojo, • Mixed azul: color del nombre del banco; «custom» sale en azul);
+  debajo, «Bank Initialization» y «Transmit». La columna P es un botón cuadrado. Add a Single Bank: Name; «B Sel0» y
+  «B Sel32» en una fila; Channel Set. Bank Selects: «B Sel 0» y «B Sel 32» arriba con Cancel/OK a la derecha y las tres
+  opciones debajo. El asistente se llama «New Device Setup Assistant». La ventana de búsqueda se titula «CPPatch Finder».
+  Zap Dups pide confirmación con un aviso. Import: «Files You Can Import From», «Available Patch Lists», «Type», «#»,
+  «Select Destination Bank», «Set midnam folder...».
+- **Estado:** COMPLETADO.
