@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MIDINameDocument PUBLIC "-//MIDI Manufacturers Association//DTD MIDINameDocument 1.0//EN" "http://www.midi.org/dtds/MIDINameDocument10.dtd">
+
+<MIDINameDocument>
+	<Author>Cherrypicker (fichero de prueba T-016)</Author>
+	<MasterDeviceNames>
+		<Manufacturer>Cherrypicker</Manufacturer>
+		<Model>CP Canales</Model>
+		<CustomDeviceMode Name="Mode 1" >
+			<ChannelNameSetAssignments>
+				<ChannelNameSetAssign Channel="1" NameSet="Melodicos" />
+				<ChannelNameSetAssign Channel="2" NameSet="Melodicos" />
+				<ChannelNameSetAssign Channel="3" NameSet="Melodicos" />
+				<ChannelNameSetAssign Channel="4" NameSet="Melodicos" />
+				<ChannelNameSetAssign Channel="5" NameSet="Melodicos" />
+				<ChannelNameSetAssign Channel="6" NameSet="Melodicos" />
+				<ChannelNameSetAssign Channel="7" NameSet="Melodicos" />
+				<ChannelNameSetAssign Channel="8" NameSet="Melodicos" />
+				<ChannelNameSetAssign Channel="9" NameSet="Melodicos" />
+				<ChannelNameSetAssign Channel="10" NameSet="Bateria" />
+				<ChannelNameSetAssign Channel="11" NameSet="Melodicos" />
+				<ChannelNameSetAssign Channel="12" NameSet="Melodicos" />
+				<ChannelNameSetAssign Channel="13" NameSet="Melodicos" />
+				<ChannelNameSetAssign Channel="14" NameSet="Melodicos" />
+				<ChannelNameSetAssign Channel="15" NameSet="Melodicos" />
+				<ChannelNameSetAssign Channel="16" NameSet="Melodicos" />
+			</ChannelNameSetAssignments>
+		</CustomDeviceMode>
+		<ChannelNameSet Name="Melodicos" >
+			<AvailableForChannels>
+				<AvailableChannel Channel="1" Available="true" />
+				<AvailableChannel Channel="2" Available="true" />
+				<AvailableChannel Channel="3" Available="true" />
+				<AvailableChannel Channel="4" Available="true" />
+				<AvailableChannel Channel="5" Available="true" />
+				<AvailableChannel Channel="6" Available="true" />
+				<AvailableChannel Channel="7" Available="true" />
+				<AvailableChannel Channel="8" Available="true" />
+				<AvailableChannel Channel="9" Available="true" />
+				<AvailableChannel Channel="10" Available="false" />
+				<AvailableChannel Channel="11" Available="true" />
+				<AvailableChannel Channel="12" Available="true" />
+				<AvailableChannel Channel="13" Available="true" />
+				<AvailableChannel Channel="14" Available="true" />
+				<AvailableChannel Channel="15" Available="true" />
+				<AvailableChannel Channel="16" Available="true" />
+			</AvailableForChannels>
+			<PatchBank Name="Kits" >
+				<MIDICommands>
+					<ControlChange Control="0" Value="2" />
+					<ControlChange Control="32" Value="0" />
+				</MIDICommands>
+				<UsesPatchNameList Name="Kits" />
+			</PatchBank>
+		</ChannelNameSet>
+		<ChannelNameSet Name="Bateria" >
+			<AvailableForChannels>
+				<AvailableChannel Channel="1" Available="false" />
+				<AvailableChannel Channel="2" Available="false" />
+				<AvailableChannel Channel="3" Available="false" />
+				<AvailableChannel Channel="4" Available="false" />
+				<AvailableChannel Channel="5" Available="false" />
+				<AvailableChannel Channel="6" Available="false" />
+				<AvailableChannel Channel="7" Available="false" />
+				<AvailableChannel Channel="8" Available="false" />
+				<AvailableChannel Channel="9" Available="false" />
+				<AvailableChannel Channel="10" Available="true" />
+				<AvailableChannel Channel="11" Available="false" />
+				<AvailableChannel Channel="12" Available="false" />
+				<AvailableChannel Channel="13" Available="false" />
+				<AvailableChannel Channel="14" Available="false" />
+				<AvailableChannel Channel="15" Available="false" />
+				<AvailableChannel Channel="16" Available="false" />
+			</AvailableForChannels>
+			<PatchBank Name="Kits extra" >
+				<MIDICommands>
+					<ControlChange Control="0" Value="2" />
+					<ControlChange Control="32" Value="1" />
+				</MIDICommands>
+				<UsesPatchNameList Name="Kits extra" />
+			</PatchBank>
+			<PatchBank Name="Pianos CP" >
+				<MIDICommands>
+					<ControlChange Control="0" Value="4" />
+					<ControlChange Control="32" Value="0" />
+				</MIDICommands>
+				<UsesPatchNameList Name="Pianos CP" />
+			</PatchBank>
+			<PatchBank Name="Cuerdas" >
+				<MIDICommands>
+					<ControlChange Control="0" Value="5" />
+					<ControlChange Control="32" Value="0" />
+				</MIDICommands>
+				<UsesPatchNameList Name="Cuerdas" />
+			</PatchBank>
+			<PatchBank Name="Sintes" >
+				<MIDICommands>
+					<ControlChange Control="0" Value="1" />
+					<ControlChange Control="32" Value="0" />
+				</MIDICommands>
+				<UsesPatchNameList Name="Sintes" />
+			</PatchBank>
+		</ChannelNameSet>
+		<PatchNameList Name="Pianos CP" >
+			<Patch Number="001" Name="Pianos 1" ProgramChange="0" />
+			<Patch Number="002" Name="Pianos 2" ProgramChange="1" />
+			<Patch Number="003" Name="Pianos 3" ProgramChange="2" />
+		</PatchNameList>
+		<PatchNameList Name="Cuerdas" >
+			<Patch Number="001" Name="Cuerdas 1" ProgramChange="0" />
+			<Patch Number="002" Name="Cuerdas 2" ProgramChange="1" />
+			<Patch Number="003" Name="Cuerdas 3" ProgramChange="2" />
+		</PatchNameList>
+		<PatchNameList Name="Sintes" >
+			<Patch Number="001" Name="Sintes 1" ProgramChange="0" />
+			<Patch Number="002" Name="Sintes 2" ProgramChange="1" />
+			<Patch Number="003" Name="Sintes 3" ProgramChange="2" />
+		</PatchNameList>
+		<PatchNameList Name="Kits" >
+			<Patch Number="001" Name="Kits 1" ProgramChange="0" />
+			<Patch Number="002" Name="Kits 2" ProgramChange="1" />
+			<Patch Number="003" Name="Kits 3" ProgramChange="2" />
+		</PatchNameList>
+		<PatchNameList Name="Kits extra" >
+			<Patch Number="001" Name="Kits extra 1" ProgramChange="0" />
+			<Patch Number="002" Name="Kits extra 2" ProgramChange="1" />
+			<Patch Number="003" Name="Kits extra 3" ProgramChange="2" />
+		</PatchNameList>
+	</MasterDeviceNames>
+</MIDINameDocument>

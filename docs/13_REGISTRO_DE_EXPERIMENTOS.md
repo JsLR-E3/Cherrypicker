@@ -264,3 +264,18 @@ valer un resultado.
   (popup y cabeceras). Al cambiar de Channel Set el banco pasa al final del grupo de destino: **el original hace lo
   mismo** (usuario, Snow Leopard).
 - **Estado:** COMPLETADO.
+
+## EXP-011 · 2026-10-20 · Fichero editado con la app, en DP 11.36 (T-016)
+
+- **Entorno:** macOS 15.7.9, DP 11.36 abierto; app en el commit bdf93f5.
+- **Fichero:** copia de `captures/exp010/Prueba canales.midnam` editada y guardada **por el usuario con la app**
+  (renombrar, Bank Selects, cambiar Channel Set): `captures/exp011/Prueba canales.midnam`, `tools/validar_midnam.sh` →
+  VÁLIDO. Resultado: «Melodicos» (canales 1–9, 11–16) con Kits 2/0; «Bateria» (canal 10) con Kits extra 2/1,
+  Pianos CP 4/0 (lista renombrada con el banco), Cuerdas 5/0 y Sintes 1/0. `.middev` para `Cherrypicker / CP Canales`:
+  `captures/exp011/Cherrypicker.middev` (el de EXP-006 con otro modelo).
+- **Instalación (permiso del usuario, 2026-10-20):** carpeta nueva `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/` con
+  los dos ficheros (`cmp` idéntico). **Deshacer:** borrar esa carpeta (o moverla a la Papelera).
+- **Preguntas:** (1) ¿Aparece «CP Canales» tras reiniciar DP? (2) ¿*Master Names* muestra «Prueba canales»? (3) ¿Salen
+  los bancos con los nombres editados y en el orden del fichero? (4) ¿Los bancos dependen del canal (canal 10: los de
+  «Bateria»; otros: «Kits»)?
+- **Estado:** EN CURSO.
