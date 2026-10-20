@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-20 · local · T-013 integrada en `main` (fast-forward); T-016: prueba interactiva superada salvo guardar (EXP-008); T-017 espera ficheros del usuario.
+> Actualizado: 2026-10-20 · local · T-013 integrada en `main` (fast-forward); T-016: edición y guardado comprobados (EXP-008); T-017 espera ficheros del usuario.
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -57,11 +57,13 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
   interfaz: nombre editable, doble clic en S0/S32 → hoja Bank Selects, popup Channel Set, + (Add a Single Bank) / −,
   arrastrar, deshacer (copia del modelo por edición). Compila; la app abre y muestra la pestaña.
 - **Prueba interactiva (EXP-008):** todo funciona tras dos arreglos (e738d6d).
-- **Falta:** guardar desde la app y validar lo guardado; ver en DP (PENDIENTE-LOCAL); cambio múltiple por cabecera
+- **Guardado:** válido contra la DTD y solo con los cambios hechos (EXP-008).
+- **Falta:** ver en DP (PENDIENTE-LOCAL); cambio múltiple por cabecera
   (hojas Bank Selects y Channel Set con varios bancos); ajustar la hoja Bank Selects según T-017.
 
 ## SIGUIENTE PASO EXACTO
 
-1. **T-016:** el usuario guarda un cambio en la copia abierta (⌘S) → validar contra la DTD y cerrar EXP-008.
+1. **T-016:** cambio múltiple por cabecera (hojas Bank Selects y Channel Set con varios bancos seleccionados) y
+   un fichero de prueba con varios Channel Sets para el popup; después, ver en DP con el usuario.
 2. **T-017:** cuando el usuario avise, analizar sus ficheros de `incoming/` (opciones de Bank Selects en la app original).
 3. Menor, con el usuario y DP abierto: T-014.

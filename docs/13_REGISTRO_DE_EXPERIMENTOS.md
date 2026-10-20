@@ -209,6 +209,8 @@ valer un resultado.
   Dos fallos, corregidos en e738d6d y comprobados de nuevo por el usuario: el título de la caja de las hojas tapaba la
   primera fila; el doble clic en el nombre solo funcionaba la primera vez (la tabla se recargaba durante el fin de
   edición).
-- **No probado:** guardar desde la app (la copia sigue idéntica al original), popup de Channel Set con varios juegos
-  (el fichero solo tiene uno), DP.
-- **Estado:** PARCIAL: falta guardar y validar lo guardado.
+- **Guardar (usuario, ⌘S):** `tools/validar_midnam.sh` → VÁLIDO. `diff` con el original: solo los dos bancos
+  renombrados («CP Banco Aa…», «CP Banco Ba…»), con su `UsesPatchNameList` y su `PatchNameList` renombradas igual (P2),
+  y CC0 del banco A de 0 a 5. Nada más cambia (orden, sangría, resto de bancos y presets).
+- **No probado:** popup de Channel Set con varios juegos (el fichero solo tiene uno), DP.
+- **Estado:** COMPLETADO (salvo lo no probado).
