@@ -30,6 +30,7 @@ entero). Si falta información, buscarla primero aquí y en `docs/13`, `protocol
 | `14_ROADMAP.md` | Alcance, fases, riesgos y viabilidad |
 | `15_HISTORIAL.md` | Tareas cerradas, una línea cada una |
 | `16_ARQUITECTURA.md` | Arquitectura de componentes |
+| `20_DISENO_APP.md` | Diseño de la app a partir de CherryPicker: ventanas, flujos, propuestas e inventario de nibs (T-010, borrador) |
 | `30_MANUAL_USUARIO.md` | Manual de usuario (borrador) |
 | `plantillas/` | Formatos de documentos recurrentes (auditoría, análisis de un componente original) |
 | `remoto/` | Buzones y propuestas de sesiones en paralelo fuera del Mac (índice en `remoto/00_INDICE.md`) |
