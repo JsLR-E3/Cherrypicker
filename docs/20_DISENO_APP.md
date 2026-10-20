@@ -119,6 +119,12 @@ el bloque «Audition Riff» (§7).
 | Comprobación (CPCheckSheet) | Al guardar, si hay problemas | «The following potential problems were found», «Cancel and Fix» / «Continue Anyway» |
 | Model (CPMultiModel) | Guardar un fichero con varios `<Model>` | Popup «Model» |
 
+Hoja Bank Selects, **interpretación deducida** (no hay app viva para comprobarlo; T-016): un patch «con Bank
+Selects» es el que lleva CC0/CC32 propios en `PatchMIDICommands`; los demás heredan los del banco. «Apply to all
+patches»: el banco toma los valores y los patches pierden los propios. «…ONLY to patches without…»: solo cambia el
+banco. «…Only to patches with…»: cambia el banco y los CC0/CC32 propios de esos patches. Restricciones de la DTD: no
+se puede borrar ni sacar el último banco de un Channel Set (`PatchBank+`).
+
 ### 3.4 Otras ventanas
 
 - **Device Setup** (SetupWizard), con File ▸ New: 1) «Manufacturer:» / «Model:» con autocompletado desde los `.middev`;

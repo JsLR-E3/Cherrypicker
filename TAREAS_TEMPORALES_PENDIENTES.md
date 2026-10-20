@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-20 · local · T-013 integrada en `main` (fast-forward); T-015 completada (app AppKit, D-006; esqueleto abre un `.midnam`, EXP-007).
+> Actualizado: 2026-10-20 · local · T-013 integrada en `main` (fast-forward); T-016 implementada (Patch Banks editable); falta la prueba interactiva con el usuario.
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -39,7 +39,7 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
-| T-016 | A | PENDIENTE | Fase 3: pestaña Patch Banks editable (nombre, S0/S32 con la hoja Bank Selects, Channel Set, + / −, reordenar, deshacer) y Save | — | Se edita y se guarda un fichero de prueba; lo guardado valida contra la DTD y DP lo lee (EXP) |
+| T-016 | A | IMPLEMENTADA | Fase 3: pestaña Patch Banks editable (nombre, S0/S32 con la hoja Bank Selects, Channel Set, + / −, reordenar, deshacer) y Save | — | Se edita y se guarda un fichero de prueba; lo guardado valida contra la DTD y DP lo lee (EXP) |
 | T-014 | C | PENDIENTE | Mirar con el usuario si «Other Controller…» de DP usa la `ControlNameList` | DP abierto (usuario) | EXP registrado; fila `ControlNameList` de `PROTOCOL_INDEX` actualizada |
 
 ## Fichas
@@ -51,9 +51,14 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 - **Referencias:** `docs/20` §3, D-005, D-006, `src/CherryPickerApp`, EXP-007; nibs BankSheet y BankSelectSheet.
 - **Aceptación:** tests de la lógica en CherryPickerCore; prueba con un fichero propio (nunca uno del usuario sin
   copia): editar, guardar, `tools/validar_midnam.sh` sin errores; comprobación en DP, PENDIENTE-LOCAL con el usuario.
-- **Siguiente paso ejecutable:** operaciones de edición de bancos en MidnamKit/CherryPickerCore con sus tests.
+- **Hecho (2026-10-20):** `CherryPickerCore/BankEditing.swift` (renombrar con su lista, Bank Selects, añadir, borrar,
+  mover de Channel Set, reordenar; restricciones de la DTD) con 15 tests, uno de ellos valida contra la DTD lo editado;
+  interfaz: nombre editable, doble clic en S0/S32 → hoja Bank Selects, popup Channel Set, + (Add a Single Bank) / −,
+  arrastrar, deshacer (copia del modelo por edición). Compila; la app abre y muestra la pestaña.
+- **Falta:** prueba interactiva (usuario) sobre una copia → EXP-008; luego DP (PENDIENTE-LOCAL); cambio múltiple por
+  cabecera (hojas Bank Selects y Channel Set con varios bancos).
 
 ## SIGUIENTE PASO EXACTO
 
-1. **T-016:** Patch Banks editable y Save (ficha arriba).
+1. **T-016:** prueba interactiva con el usuario sobre una copia (editar, deshacer, guardar, validar) → EXP-008.
 2. Menor, con el usuario y DP abierto: T-014.

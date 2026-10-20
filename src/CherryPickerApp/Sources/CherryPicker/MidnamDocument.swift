@@ -33,6 +33,24 @@ final class MidnamDocument: NSDocument {
 		return Data(XMLWriter.write(f).utf8)
 	}
 
+	static let modelDidChange = Notification.Name("MidnamDocumentModelDidChange")
+
+	/// Aplica un cambio al modelo con deshacer (copia del modelo anterior; el modelo es un valor). Si `change` lanza un
+	/// error, el documento no cambia.
+	func edit(_ actionName: String, _ change: (inout MIDINameDocument) throws -> Void) throws {
+		guard var m = model else { return }
+		try change(&m)
+		replaceModel(with: m, actionName: actionName)
+	}
+
+	private func replaceModel(with new: MIDINameDocument, actionName: String) {
+		guard let old = model, old != new else { return }
+		model = new
+		undoManager?.registerUndo(withTarget: self) { $0.replaceModel(with: old, actionName: actionName) }
+		undoManager?.setActionName(actionName)
+		NotificationCenter.default.post(name: Self.modelDidChange, object: self)
+	}
+
 	/// Texto exacto que se escribiría al guardar (ventana Preview).
 	func previewText() -> String {
 		(try? data(ofType: Self.typeName)).map { String(decoding: $0, as: UTF8.self) } ?? ""

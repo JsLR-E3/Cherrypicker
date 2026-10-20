@@ -3,6 +3,7 @@
 import MidnamKit
 
 public struct BankRow: Equatable, Sendable {
+	public var ref: BankRef
 	/// Valor de CC0 del banco, o «-» si el banco no lo lleva (banco solo de agrupación).
 	public var bankSelect0: String
 	/// Valor de CC32 del banco, o «-».
@@ -12,7 +13,8 @@ public struct BankRow: Equatable, Sendable {
 	public var patchCount: Int?
 	public var channelSet: String
 
-	public init(bankSelect0: String, bankSelect32: String, name: String, patchCount: Int?, channelSet: String) {
+	public init(ref: BankRef, bankSelect0: String, bankSelect32: String, name: String, patchCount: Int?, channelSet: String) {
+		self.ref = ref
 		self.bankSelect0 = bankSelect0
 		self.bankSelect32 = bankSelect32
 		self.name = name
@@ -25,21 +27,24 @@ public enum BankRows {
 	/// Bancos de todos los ChannelNameSet del documento, en el orden del fichero.
 	public static func rows(_ doc: MIDINameDocument) -> [BankRow] {
 		var out: [BankRow] = []
-		for master in doc.masterDeviceNames {
+		for (mi, item) in doc.items.enumerated() {
+			guard case .masterDeviceNames(let master) = item else { continue }
 			var lists: [String: PatchNameList] = [:]
 			for l in master.patchNameLists {
 				if let n = l.name, lists[n] == nil { lists[n] = l }
 			}
-			for set in master.channelNameSets {
-				for case .patchBank(let bank) in set.items {
-					out.append(row(bank, channelSet: set.name, lists: lists))
+			for (si, setItem) in master.items.enumerated() {
+				guard case .channelNameSet(let set) = setItem else { continue }
+				for (bi, bankItem) in set.items.enumerated() {
+					guard case .patchBank(let bank) = bankItem else { continue }
+					out.append(row(bank, ref: BankRef(master: mi, set: si, item: bi), channelSet: set.name, lists: lists))
 				}
 			}
 		}
 		return out
 	}
 
-	static func row(_ bank: PatchBank, channelSet: String, lists: [String: PatchNameList]) -> BankRow {
+	static func row(_ bank: PatchBank, ref: BankRef, channelSet: String, lists: [String: PatchNameList]) -> BankRow {
 		var bs0 = "-", bs32 = "-"
 		var count: Int?
 		for item in bank.items {
@@ -56,7 +61,7 @@ public enum BankRows {
 				break
 			}
 		}
-		return BankRow(bankSelect0: bs0, bankSelect32: bs32, name: bank.name, patchCount: count, channelSet: channelSet)
+		return BankRow(ref: ref, bankSelect0: bs0, bankSelect32: bs32, name: bank.name, patchCount: count, channelSet: channelSet)
 	}
 
 	static func patchCount(_ list: PatchNameList) -> Int {

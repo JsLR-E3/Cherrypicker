@@ -52,11 +52,14 @@ final class BankRowsTests: XCTestCase {
 	func testRows() throws {
 		let file = try XMLReader.parse(Self.midnam)
 		let doc = try MIDINameDocument(element: file.root)
-		XCTAssertEqual(BankRows.rows(doc), [
-			BankRow(bankSelect0: "1", bankSelect32: "5", name: "Uno", patchCount: 2, channelSet: "Todos"),
-			BankRow(bankSelect0: "-", bankSelect32: "-", name: "Agrupacion", patchCount: nil, channelSet: "Todos"),
-			BankRow(bankSelect0: "0", bankSelect32: "-", name: "En linea", patchCount: 1, channelSet: "Todos"),
-			BankRow(bankSelect0: "-", bankSelect32: "-", name: "Kits", patchCount: 2, channelSet: "Drums"),
+		XCTAssertEqual(BankRows.rows(doc).map { $0.ref }, [
+			BankRef(master: 0, set: 2, item: 1), BankRef(master: 0, set: 2, item: 2), BankRef(master: 0, set: 2, item: 3),
+			BankRef(master: 0, set: 3, item: 1),
 		])
+		XCTAssertEqual(BankRows.rows(doc).map { [$0.bankSelect0, $0.bankSelect32, $0.name, $0.channelSet] }, [
+			["1", "5", "Uno", "Todos"], ["-", "-", "Agrupacion", "Todos"], ["0", "-", "En linea", "Todos"],
+			["-", "-", "Kits", "Drums"],
+		])
+		XCTAssertEqual(BankRows.rows(doc).map { $0.patchCount }, [2, nil, 1, 2])
 	}
 }

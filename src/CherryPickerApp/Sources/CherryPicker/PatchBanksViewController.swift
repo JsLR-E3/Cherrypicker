@@ -1,17 +1,23 @@
-// Pestaña Patch Banks (nib MainWindow, PatchBankVC): tabla de bancos. De momento solo lectura;
-// botones (+ / −, Merge, Import, Find, Zap Dups), edición y el botón «P» llegan en las tareas siguientes.
+// Pestaña Patch Banks (nib MainWindow, PatchBankVC; docs/20 §3.1): tabla de bancos editable.
+// Doble clic en el nombre para cambiarlo; doble clic en S0/S32 abre la hoja Bank Selects; el Channel Set se elige en
+// su popup; + abre «Add a Single Bank» y − borra los seleccionados; se arrastra para reordenar dentro del Channel Set.
+// Pendiente: botón «P» (lista de patches), cambio múltiple por cabecera, Merge, Import, Find, Zap Dups.
 import AppKit
 import CherryPickerCore
+import MidnamKit
 
-final class PatchBanksViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+final class PatchBanksViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
 	/// Identificador y cabecera de cada columna, como en el nib; ancho inicial.
 	private static let columns: [(id: String, title: String, width: CGFloat)] = [
 		("open", "P", 24), ("bs0", "S0", 40), ("bs32", "S32", 40),
 		("name", "Patch Bank", 280), ("num", "#", 50), ("channels", "Channel Set", 160),
 	]
+	private static let rowType = NSPasteboard.PasteboardType("local.cherrypicker.bankrow")
 
 	private let document: MidnamDocument
 	private var rows: [BankRow] = []
+	private let table = NSTableView()
+	private let removeButton = NSButton()
 
 	init(document: MidnamDocument) {
 		self.document = document
@@ -20,10 +26,9 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 
 	required init?(coder: NSCoder) { fatalError("no se usa con nib") }
 
-	override func loadView() {
-		rows = document.model.map(BankRows.rows) ?? []
+	deinit { NotificationCenter.default.removeObserver(self) }
 
-		let table = NSTableView()
+	override func loadView() {
 		table.usesAlternatingRowBackgroundColors = true
 		table.allowsMultipleSelection = true
 		table.columnAutoresizingStyle = .lastColumnOnlyAutoresizingStyle
@@ -35,32 +40,212 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		}
 		table.dataSource = self
 		table.delegate = self
+		table.target = self
+		table.doubleAction = #selector(doubleClick(_:))
+		table.registerForDraggedTypes([Self.rowType])
+		table.setDraggingSourceOperationMask(.move, forLocal: true)
 
 		let scroll = NSScrollView()
 		scroll.documentView = table
 		scroll.hasVerticalScroller = true
 		scroll.borderType = .bezelBorder
-		view = scroll
+
+		let add = NSButton(image: NSImage(named: NSImage.addTemplateName)!, target: self, action: #selector(addBank(_:)))
+		removeButton.image = NSImage(named: NSImage.removeTemplateName)
+		removeButton.bezelStyle = add.bezelStyle
+		removeButton.target = self
+		removeButton.action = #selector(removeBanks(_:))
+		let buttons = NSStackView(views: [add, removeButton])
+		buttons.spacing = 4
+
+		let root = NSView()
+		for v in [scroll, buttons] as [NSView] {
+			v.translatesAutoresizingMaskIntoConstraints = false
+			root.addSubview(v)
+		}
+		NSLayoutConstraint.activate([
+			scroll.topAnchor.constraint(equalTo: root.topAnchor, constant: 8),
+			scroll.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 8),
+			scroll.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -8),
+			buttons.topAnchor.constraint(equalTo: scroll.bottomAnchor, constant: 6),
+			buttons.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 8),
+			buttons.bottomAnchor.constraint(equalTo: root.bottomAnchor, constant: -8),
+		])
+		view = root
+
+		NotificationCenter.default.addObserver(self, selector: #selector(modelDidChange(_:)),
+		                                       name: MidnamDocument.modelDidChange, object: document)
+		reload()
 	}
+
+	private func reload() {
+		rows = document.model.map(BankRows.rows) ?? []
+		table.reloadData()
+		updateButtons()
+	}
+
+	@objc private func modelDidChange(_ n: Notification) {
+		let selected = Set(table.selectedRowIndexes.compactMap { rows.indices.contains($0) ? rows[$0].name : nil })
+		reload()
+		table.selectRowIndexes(IndexSet(rows.indices.filter { selected.contains(rows[$0].name) }), byExtendingSelection: false)
+	}
+
+	private func updateButtons() { removeButton.isEnabled = !table.selectedRowIndexes.isEmpty }
+
+	func tableViewSelectionDidChange(_ notification: Notification) { updateButtons() }
+
+	/// Aplica un cambio; si falla, lo explica en una hoja y la tabla vuelve a mostrar el modelo.
+	private func edit(_ actionName: String, _ change: (inout MIDINameDocument) throws -> Void) {
+		do {
+			try document.edit(actionName, change)
+		} catch {
+			reload()
+			if let w = view.window { NSAlert(error: error).beginSheetModal(for: w) }
+		}
+	}
+
+	// MARK: Celdas
 
 	func numberOfRows(in tableView: NSTableView) -> Int { rows.count }
 
 	func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
 		guard let id = tableColumn?.identifier.rawValue else { return nil }
 		let r = rows[row]
-		let text: String
 		switch id {
-		case "open": text = "P"
-		case "bs0": text = r.bankSelect0
-		case "bs32": text = r.bankSelect32
-		case "name": text = r.name
-		case "num": text = r.patchCount.map(String.init) ?? "?"
-		case "channels": text = r.channelSet
-		default: text = ""
+		case "name":
+			let field = NSTextField(string: r.name)
+			field.isBordered = false
+			field.drawsBackground = false
+			field.lineBreakMode = .byTruncatingTail
+			field.delegate = self
+			field.tag = row
+			return field
+		case "channels":
+			let sets = document.model?.channelSets(master: r.ref.master) ?? []
+			let popup = NSPopUpButton()
+			popup.isBordered = false
+			popup.controlSize = .small
+			for s in sets {
+				popup.addItem(withTitle: s.name)
+				popup.lastItem?.tag = s.index
+			}
+			popup.selectItem(withTag: r.ref.set)
+			popup.tag = row
+			popup.target = self
+			popup.action = #selector(channelSetChanged(_:))
+			return popup
+		default:
+			let text: String
+			switch id {
+			case "open": text = "P"
+			case "bs0": text = r.bankSelect0
+			case "bs32": text = r.bankSelect32
+			case "num": text = r.patchCount.map(String.init) ?? "?"
+			default: text = ""
+			}
+			let field = NSTextField(labelWithString: text)
+			field.lineBreakMode = .byTruncatingTail
+			if id == "open" { field.textColor = .tertiaryLabelColor }
+			return field
 		}
-		let field = NSTextField(labelWithString: text)
-		field.lineBreakMode = .byTruncatingTail
-		if id == "open" { field.textColor = .tertiaryLabelColor }
-		return field
+	}
+
+	// Nombre: se aplica al terminar de editar la celda.
+	func controlTextDidEndEditing(_ obj: Notification) {
+		guard let field = obj.object as? NSTextField, rows.indices.contains(field.tag) else { return }
+		let r = rows[field.tag]
+		let name = field.stringValue
+		if name == r.name { return }
+		edit("Rename Bank") { try $0.renameBank(r.ref, to: name) }
+	}
+
+	@objc private func channelSetChanged(_ sender: NSPopUpButton) {
+		guard rows.indices.contains(sender.tag) else { return }
+		let r = rows[sender.tag]
+		let target = sender.selectedTag()
+		edit("Change Channel Set") { try $0.moveBank(r.ref, toChannelSet: target) }
+	}
+
+	@objc private func doubleClick(_ sender: Any?) {
+		let row = table.clickedRow, col = table.clickedColumn
+		guard rows.indices.contains(row), col >= 0 else { return }
+		let id = table.tableColumns[col].identifier.rawValue
+		if id == "bs0" || id == "bs32" { editBankSelects(rows[row]) }
+	}
+
+	// MARK: Hojas
+
+	private func editBankSelects(_ r: BankRow) {
+		guard let w = view.window else { return }
+		let sheet = BankSelectSheet(bankName: r.name, bs0: r.bankSelect0, bs32: r.bankSelect32)
+		sheet.onCommit = { [weak self] bs0, bs32, apply in
+			try self?.document.edit("Bank Selects") { try $0.setBankSelect(r.ref, bs0: bs0, bs32: bs32, apply: apply) }
+		}
+		sheet.begin(on: w) { _ in _ = sheet }
+	}
+
+	@objc private func addBank(_ sender: Any?) {
+		guard let w = view.window, let model = document.model else { return }
+		// El banco nuevo va al MasterDeviceNames y Channel Set de la fila seleccionada, o al primero.
+		let selected = table.selectedRow >= 0 ? rows[table.selectedRow].ref : rows.first?.ref
+		guard let master = selected?.master ?? model.items.indices.first(where: {
+			if case .masterDeviceNames = model.items[$0] { return true }; return false
+		}) else { return }
+		let sets = model.channelSets(master: master)
+		guard !sets.isEmpty else { return }
+		let sheet = AddBankSheet(channelSets: sets, selectedSet: selected?.set) { [weak self] name in
+			self?.document.model?.isBankNameAvailable(name, master: master) ?? false
+		}
+		sheet.onCommit = { [weak self] set, name, bs0, bs32 in
+			try self?.document.edit("Add Bank") {
+				try $0.addBank(name: name, bs0: bs0, bs32: bs32, master: master, set: set)
+			}
+		}
+		sheet.begin(on: w) { _ in _ = sheet }
+	}
+
+	@objc private func removeBanks(_ sender: Any?) {
+		let refs = table.selectedRowIndexes.map { rows[$0].ref }
+		guard !refs.isEmpty else { return }
+		edit(refs.count == 1 ? "Delete Bank" : "Delete Banks") { try $0.deleteBanks(refs) }
+	}
+
+	// MARK: Arrastrar para reordenar (dentro de su Channel Set, como el original)
+
+	func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
+		let item = NSPasteboardItem()
+		item.setString(String(row), forType: Self.rowType)
+		return item
+	}
+
+	private func draggedRow(_ info: NSDraggingInfo) -> Int? {
+		guard (info.draggingSource as? NSTableView) === table,
+		      let items = info.draggingPasteboard.pasteboardItems, items.count == 1,
+		      let s = items[0].string(forType: Self.rowType), let row = Int(s), rows.indices.contains(row) else { return nil }
+		return row
+	}
+
+	/// Posición de destino contada entre los bancos del mismo Channel Set; nil si la fila cae en otro.
+	private func targetPosition(from row: Int, to dropRow: Int) -> Int? {
+		let ref = rows[row].ref
+		let same = rows.indices.filter { rows[$0].ref.master == ref.master && rows[$0].ref.set == ref.set }
+		guard let first = same.first, let last = same.last, (first...last + 1).contains(dropRow) else { return nil }
+		return dropRow - first
+	}
+
+	func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int,
+	               proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+		guard dropOperation == .above, let from = draggedRow(info), targetPosition(from: from, to: row) != nil else {
+			return []
+		}
+		return .move
+	}
+
+	func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int,
+	               dropOperation: NSTableView.DropOperation) -> Bool {
+		guard let from = draggedRow(info), let position = targetPosition(from: from, to: row) else { return false }
+		let ref = rows[from].ref
+		edit("Move Bank") { try $0.reorderBank(ref, toPosition: position) }
+		return true
 	}
 }
