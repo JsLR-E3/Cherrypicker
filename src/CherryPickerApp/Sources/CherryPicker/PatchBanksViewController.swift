@@ -31,6 +31,8 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 	override func loadView() {
 		table.usesAlternatingRowBackgroundColors = true
 		table.allowsMultipleSelection = true
+		// Si no, el clic en la cabecera selecciona la columna y quita la selección de filas (cambio múltiple, EXP-010).
+		table.allowsColumnSelection = false
 		// Solo «Patch Bank» se estira o encoge con la ventana.
 		table.columnAutoresizingStyle = .uniformColumnAutoresizingStyle
 		for c in Self.columns {
@@ -196,9 +198,13 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 
 	@objc private func channelSetChanged(_ sender: NSPopUpButton) {
 		guard rows.indices.contains(sender.tag) else { return }
-		let r = rows[sender.tag]
 		let target = sender.selectedTag()
-		edit("Change Channel Set") { try $0.moveBank(r.ref, toChannelSet: target) }
+		// [PROPUESTA] Si la fila forma parte de una selección múltiple, cambian todas las seleccionadas.
+		let selected = table.selectedRowIndexes
+		let indices = selected.contains(sender.tag) && selected.count > 1 ? Array(selected) : [sender.tag]
+		let refs = indices.map { rows[$0].ref }
+		guard refs.allSatisfy({ $0.master == refs[0].master }) else { return }
+		edit("Change Channel Set") { try $0.moveBanks(refs, toChannelSet: target) }
 	}
 
 	@objc private func doubleClick(_ sender: Any?) {

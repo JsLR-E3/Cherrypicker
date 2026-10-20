@@ -258,4 +258,9 @@ valer un resultado.
 - **Interfaz nueva (sin probar a mano todavía):** con bancos seleccionados, clic en la cabecera S0/S32 → hoja Bank
   Selects aplicada a todos; clic en la cabecera Channel Set → hoja con popup de Channel Set (su aspecto en el original
   no se ha visto: deducido del manual).
-- **Estado:** PARCIAL: falta la prueba interactiva del usuario.
+- **Prueba a mano (usuario, sobre una copia):** al principio el cambio múltiple solo cambiaba un banco: el clic en la
+  cabecera seleccionaba la columna y quitaba la selección de filas; corregido con `allowsColumnSelection = false`.
+  Añadido P8 (popup de una fila seleccionada cambia todas las seleccionadas). Tras el arreglo, cambian todos a la vez
+  (popup y cabeceras). Al cambiar de Channel Set el banco pasa al final del grupo de destino: **el original hace lo
+  mismo** (usuario, Snow Leopard).
+- **Estado:** COMPLETADO.

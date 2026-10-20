@@ -168,6 +168,7 @@ se puede borrar ni sacar el último banco de un Channel Set (`PatchBank+`).
 | P5 | Audición solo con CC0/CC32 + Program Change; «Enable MIDI» desactivado al abrir; sin SysEx en ningún sitio | D-002 y regla 4 |
 | P6 | Deshacer/rehacer (⌘Z) en todas las ediciones | Estándar de macOS; el original no lo tenía en el menú Edit |
 | P7 | Textos de la interfaz en inglés, como el original, con los mismos nombres | Regla 10; a confirmar (§7) |
+| P8 | Con varios bancos seleccionados, cambiar el popup de Channel Set de uno los cambia todos (además de la cabecera del original) | Más directo; aceptada por el usuario al probarla (EXP-010) |
 
 ## 6. Inventario de los nibs
 
