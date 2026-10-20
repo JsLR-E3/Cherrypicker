@@ -13,6 +13,19 @@ Lo que es solo una propuesta va en la tarea o en `docs/remoto/`, no aquí.
 - **Estado:** vigente · sustituida por D-…
 -->
 
+## D-006 · 2026-10-20 · La app se hace con AppKit (macOS 13 o posterior)
+
+- **Decisión:** app AppKit (NSDocument, NSTableView, hojas), construida en código sin nibs, como paquete Swift
+  (`src/CherryPickerApp`) que depende de MidnamKit; `tools/empaquetar_app.sh` monta `build/CherryPicker.app` con firma
+  ad hoc. Versión mínima: macOS 13, igual que MidnamKit.
+- **Motivo:** el original es AppKit (sus 26 nibs), así que las ventanas se traducen casi una a una (regla 10); las
+  tablas de AppKit resuelven edición de celdas, arrastrar entre ventanas, clic en cabecera y deshacer, que en SwiftUI
+  dan problemas. Sin proyecto Xcode: se compila y se prueba con `swift build`/`swift test` también desde la terminal.
+- **Alternativas descartadas:** SwiftUI (tablas insuficientes para lo que pide `docs/20`); mezcla SwiftUI + AppKit
+  (dos tecnologías y un puente que mantener).
+- **Quién:** usuario, sobre la recomendación de Claude (2026-10-20); el empaquetado sin Xcode, propuesta de Claude.
+- **Estado:** vigente.
+
 ## D-005 · 2026-10-20 · Diseño de la app (fase 3): `docs/20_DISENO_APP.md`
 
 - **Decisión:** la app reproduce las ventanas y nombres de CherryPicker descritos en `docs/20` (en inglés). Entran Patch

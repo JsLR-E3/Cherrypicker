@@ -180,3 +180,18 @@ valer un resultado.
 - **Estado:** COMPLETADO salvo «Other Controller…». 2026-10-20: a petición del usuario, `MOTU/Cherrypicker/` retirada
   de `/Library/Audio/MIDI Devices/` (movida a la Papelera como «Cherrypicker (prueba T-012)»); copias idénticas en
   `captures/exp006/`. El dispositivo «CP Prueba modelo» de Audio MIDI/DP lo borra el usuario si quiere.
+
+## EXP-007 · 2026-10-20 · Esqueleto de la app AppKit abre un `.midnam` (T-015)
+
+- **Entorno:** macOS 15.7.9 (24G830), Xcode 26.3, Swift 6.2.4, commit de este EXP.
+- **Comandos:** `cd src/CherryPickerApp && swift test` → 1 test, 0 fallos. `tools/empaquetar_app.sh` → compila sin
+  avisos y monta `build/CherryPicker.app`. `open -a build/CherryPicker.app "captures/exp006/CP Prueba fichero.midnam"`.
+- **Observado:** `mdls` da a los `.midnam` el tipo `com.apple.traditional-mac-plain-text` (no hay un tipo propio en el
+  sistema); por eso la app los reconoce por extensión (`MidnamDocumentController`). La app arranca, abre el fichero y
+  muestra la ventana con las pestañas MIDI / Device / Patch Banks / Controllers / Categories y la tabla P · S0 · S32 ·
+  Patch Bank · # · Channel Set con los 4 bancos: A 0/0 10, B 1/0 10, «CP Agrupacion sin BS» -/- 5, «CP BS por preset»
+  -/- 5, todos en «CP Juego». Recuentos contrastados con `awk` sobre el fichero (10, 10, 5, 5). Captura de la ventana
+  (solo esa ventana): `captures/exp007/ventana_patch_banks.png`. Primer intento: la ventana salía a 560×360 (tamaño
+  mínimo del contenido); corregido fijando el tamaño tras asignar el contenido.
+- **No probado:** guardar (no se editó nada; la ida y vuelta la cubren los tests de MidnamKit), Preview, el panel Open.
+- **Estado:** COMPLETADO.

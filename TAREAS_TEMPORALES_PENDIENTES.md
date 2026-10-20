@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-20 · local · T-013 integrada en `main` (fast-forward); T-010 completada (diseño acordado, D-005); siguiente T-015.
+> Actualizado: 2026-10-20 · local · T-013 integrada en `main` (fast-forward); T-015 completada (app AppKit, D-006; esqueleto abre un `.midnam`, EXP-007).
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -11,6 +11,8 @@
 
 ## ESTADO ACTUAL
 
+- **Fase 3 en marcha:** diseño acordado (`docs/20`, D-005); app AppKit en `src/CherryPickerApp` (D-006) que abre un
+  `.midnam` y muestra la tabla de bancos (EXP-007). Compilar: `tools/empaquetar_app.sh`.
 - **Fase 1 hecha** (`docs/14`): `src/MidnamKit` lee y reescribe `.midnam` sin pérdidas y valida contra la DTD 1.0
   (`swift test`, 12 tests). Alcance en D-001; audición D-002; DOCTYPE D-003; ficheros del usuario privados D-004.
 - La app original 3.0 no arranca en este Mac (ppc/i386, EXP-001); hay 25 nibs, el manual web y los `.plist` de recursos
@@ -37,20 +39,21 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
-| T-015 | A | PENDIENTE | Fase 3: tecnología de la app (SwiftUI/AppKit, versión mínima de macOS) en `docs/16` y esqueleto con la ventana de documento | — | Decisión acordada (D-NNN); proyecto que compila, abre un `.midnam` con MidnamKit y muestra la pestaña Patch Banks |
+| T-016 | A | PENDIENTE | Fase 3: pestaña Patch Banks editable (nombre, S0/S32 con la hoja Bank Selects, Channel Set, + / −, reordenar, deshacer) y Save | — | Se edita y se guarda un fichero de prueba; lo guardado valida contra la DTD y DP lo lee (EXP) |
 | T-014 | C | PENDIENTE | Mirar con el usuario si «Other Controller…» de DP usa la `ControlNameList` | DP abierto (usuario) | EXP registrado; fila `ControlNameList` de `PROTOCOL_INDEX` actualizada |
 
 ## Fichas
 
-### T-015 · Tecnología y esqueleto de la app (fase 3)
-- **Objetivo:** decidir con el usuario la tecnología (SwiftUI con tablas AppKit donde haga falta arrastrar y editar
-  celdas) y la versión mínima de macOS; documentarlo en `docs/16`; crear el proyecto de la app sobre MidnamKit.
-- **Referencias:** `docs/20_DISENO_APP.md` (ventanas, flujos, P1–P7), D-005, `docs/16`, `src/MidnamKit`.
-- **Aceptación:** D-NNN en `docs/12`; la app compila, abre un `.midnam` de ejemplo y muestra la tabla de bancos
-  (`P`, `S0`, `S32`, `Patch Bank`, `#`, `Channel Set`). Lo que necesite Xcode y no se haya ejecutado, PENDIENTE-LOCAL.
-- **Siguiente paso ejecutable:** proponer al usuario las opciones de tecnología con sus pros y contras.
+### T-016 · Patch Banks editable (fase 3)
+- **Objetivo:** editar bancos como en el original (docs/20 §3.1 y §3.3): doble clic en nombre (único) y S0/S32,
+  hoja Bank Selects, popup de Channel Set (y cambio múltiple por cabecera), + (hoja Add a Single Bank) / −, arrastrar
+  para reordenar dentro del Channel Set, deshacer; guardar.
+- **Referencias:** `docs/20` §3, D-005, D-006, `src/CherryPickerApp`, EXP-007; nibs BankSheet y BankSelectSheet.
+- **Aceptación:** tests de la lógica en CherryPickerCore; prueba con un fichero propio (nunca uno del usuario sin
+  copia): editar, guardar, `tools/validar_midnam.sh` sin errores; comprobación en DP, PENDIENTE-LOCAL con el usuario.
+- **Siguiente paso ejecutable:** operaciones de edición de bancos en MidnamKit/CherryPickerCore con sus tests.
 
 ## SIGUIENTE PASO EXACTO
 
-1. **T-015:** proponer al usuario la tecnología de la app (ficha arriba) y, una vez acordada, crear el esqueleto.
+1. **T-016:** Patch Banks editable y Save (ficha arriba).
 2. Menor, con el usuario y DP abierto: T-014.

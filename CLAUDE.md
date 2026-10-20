@@ -54,6 +54,8 @@ máquina y no viaja entre el Mac y la nube).
 
 ## Compilar y probar
 
+- **App** (AppKit, D-006): `cd src/CherryPickerApp && swift test`; `tools/empaquetar_app.sh` monta
+  `build/CherryPicker.app` (no versionado).
 - **MidnamKit** (lectura/escritura de `.midnam`): `cd src/MidnamKit && swift test` (12 tests: ida y vuelta byte a byte
   de los ejemplos y validación contra la DTD de lo que escribe).
 - **Validar un `.midnam` contra la DTD 1.0:** `tools/validar_midnam.sh fichero.midnam…` (sin red; necesita
