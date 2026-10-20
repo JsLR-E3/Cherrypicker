@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-20 · local · T-013 integrada en `main` (fast-forward); T-016 implementada (Patch Banks editable); falta la prueba interactiva con el usuario.
+> Actualizado: 2026-10-20 · local · T-013 integrada en `main` (fast-forward); T-016: prueba interactiva superada salvo guardar (EXP-008); T-017 espera ficheros del usuario.
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -40,6 +40,7 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
 | T-016 | A | IMPLEMENTADA | Fase 3: pestaña Patch Banks editable (nombre, S0/S32 con la hoja Bank Selects, Channel Set, + / −, reordenar, deshacer) y Save | — | Se edita y se guarda un fichero de prueba; lo guardado valida contra la DTD y DP lo lee (EXP) |
+| T-017 | A | BLOQUEADA (espera ficheros del usuario en `incoming/`) | Contrastar con CherryPicker 3 en Snow Leopard lo deducido de la hoja Bank Selects (`docs/20` §3.3) | Ficheros del usuario | EXP con el XML de cada opción comparado; `docs/20` y `BankEditing.swift` corregidos si difiere |
 | T-014 | C | PENDIENTE | Mirar con el usuario si «Other Controller…» de DP usa la `ControlNameList` | DP abierto (usuario) | EXP registrado; fila `ControlNameList` de `PROTOCOL_INDEX` actualizada |
 
 ## Fichas
@@ -55,10 +56,12 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
   mover de Channel Set, reordenar; restricciones de la DTD) con 15 tests, uno de ellos valida contra la DTD lo editado;
   interfaz: nombre editable, doble clic en S0/S32 → hoja Bank Selects, popup Channel Set, + (Add a Single Bank) / −,
   arrastrar, deshacer (copia del modelo por edición). Compila; la app abre y muestra la pestaña.
-- **Falta:** prueba interactiva (usuario) sobre una copia → EXP-008; luego DP (PENDIENTE-LOCAL); cambio múltiple por
-  cabecera (hojas Bank Selects y Channel Set con varios bancos).
+- **Prueba interactiva (EXP-008):** todo funciona tras dos arreglos (e738d6d).
+- **Falta:** guardar desde la app y validar lo guardado; ver en DP (PENDIENTE-LOCAL); cambio múltiple por cabecera
+  (hojas Bank Selects y Channel Set con varios bancos); ajustar la hoja Bank Selects según T-017.
 
 ## SIGUIENTE PASO EXACTO
 
-1. **T-016:** prueba interactiva con el usuario sobre una copia (editar, deshacer, guardar, validar) → EXP-008.
-2. Menor, con el usuario y DP abierto: T-014.
+1. **T-016:** el usuario guarda un cambio en la copia abierta (⌘S) → validar contra la DTD y cerrar EXP-008.
+2. **T-017:** cuando el usuario avise, analizar sus ficheros de `incoming/` (opciones de Bank Selects en la app original).
+3. Menor, con el usuario y DP abierto: T-014.

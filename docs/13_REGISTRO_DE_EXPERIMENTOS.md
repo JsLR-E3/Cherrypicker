@@ -195,3 +195,20 @@ valer un resultado.
   mínimo del contenido); corregido fijando el tamaño tras asignar el contenido.
 - **No probado:** guardar (no se editó nada; la ida y vuelta la cubren los tests de MidnamKit), Preview, el panel Open.
 - **Estado:** COMPLETADO.
+
+## EXP-008 · 2026-10-20 · Pestaña Patch Banks editable, prueba interactiva (T-016)
+
+- **Entorno:** macOS 15.7.9, Swift 6.2.4; commits ad79cdc y e738d6d. Fichero: copia de
+  `captures/exp006/CP Prueba fichero.midnam` en el scratchpad (`Prueba T-016.midnam`).
+- **Comandos:** `cd src/CherryPickerApp && swift test` → 16 tests, 0 fallos (incluye validación DTD de un fichero
+  editado con varias operaciones). `tools/empaquetar_app.sh`; la app abierta con la copia.
+- **Compilación:** Swift 6.2.4 en `-c release` se cae («Owned function parameter without lifetime ending uses»,
+  `CopyPropagation`) al convertir `[[NSButton]]` en `[[NSView]]` con `+` dentro de un `init` de subclase; se evita
+  construyendo el array `[[NSView]]` explícitamente (`BankSheets.swift`).
+- **Resultado (usuario):** renombrar, hoja Bank Selects, + / −, arrastrar, deshacer/rehacer y Preview funcionan.
+  Dos fallos, corregidos en e738d6d y comprobados de nuevo por el usuario: el título de la caja de las hojas tapaba la
+  primera fila; el doble clic en el nombre solo funcionaba la primera vez (la tabla se recargaba durante el fin de
+  edición).
+- **No probado:** guardar desde la app (la copia sigue idéntica al original), popup de Channel Set con varios juegos
+  (el fichero solo tiene uno), DP.
+- **Estado:** PARCIAL: falta guardar y validar lo guardado.
