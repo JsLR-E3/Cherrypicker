@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-20 · local · T-013 integrada en `main` (fast-forward); T-016: edición de bancos completa y probada (EXP-008/009/010); falta verla en DP.
+> Actualizado: 2026-10-20 · local · T-013 integrada en `main` (fast-forward); T-016 completada (bancos editables; DP lo lee, EXP-011). Siguiente: T-018, lista de patches.
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -11,8 +11,9 @@
 
 ## ESTADO ACTUAL
 
-- **Fase 3 en marcha:** diseño acordado (`docs/20`, D-005); app AppKit en `src/CherryPickerApp` (D-006) que abre un
-  `.midnam` y muestra la tabla de bancos (EXP-007). Compilar: `tools/empaquetar_app.sh`.
+- **Fase 3 en marcha:** diseño acordado (`docs/20`, D-005, mejoras y copyright D-007); app AppKit en
+  `src/CherryPickerApp` (D-006) con la pestaña Patch Banks editable; DP lee lo que guarda (EXP-011). App original
+  disponible en Snow Leopard para contrastar (EXP-009). Compilar: `tools/empaquetar_app.sh`.
 - **Fase 1 hecha** (`docs/14`): `src/MidnamKit` lee y reescribe `.midnam` sin pérdidas y valida contra la DTD 1.0
   (`swift test`, 12 tests). Alcance en D-001; audición D-002; DOCTYPE D-003; ficheros del usuario privados D-004.
 - La app original 3.0 no arranca en este Mac (ppc/i386, EXP-001); hay 25 nibs, el manual web y los `.plist` de recursos
@@ -39,28 +40,23 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
-| T-016 | A | IMPLEMENTADA | Fase 3: pestaña Patch Banks editable (nombre, S0/S32 con la hoja Bank Selects, Channel Set, + / −, reordenar, deshacer) y Save | — | Se edita y se guarda un fichero de prueba; lo guardado valida contra la DTD y DP lo lee (EXP) |
+| T-018 | A | PENDIENTE | Fase 3: ventana «Patch Names» (botón P): tabla B0 · B32 · # · Patch Name · Ascii editable, + / −, Renumber, pegar lista con delimitador (hoja New Patches), arrastrar entre listas, Find | — | Tests de la lógica; contraste con el original en Snow Leopard donde haya dudas; prueba a mano |
 | T-014 | C | PENDIENTE | Mirar con el usuario si «Other Controller…» de DP usa la `ControlNameList` | DP abierto (usuario) | EXP registrado; fila `ControlNameList` de `PROTOCOL_INDEX` actualizada |
 
 ## Fichas
 
-### T-016 · Patch Banks editable (fase 3)
-- **Objetivo:** editar bancos como en el original (docs/20 §3.1 y §3.3): doble clic en nombre (único) y S0/S32,
-  hoja Bank Selects, popup de Channel Set (y cambio múltiple por cabecera), + (hoja Add a Single Bank) / −, arrastrar
-  para reordenar dentro del Channel Set, deshacer; guardar.
-- **Referencias:** `docs/20` §3, D-005, D-006, `src/CherryPickerApp`, EXP-007; nibs BankSheet y BankSelectSheet.
-- **Aceptación:** tests de la lógica en CherryPickerCore; prueba con un fichero propio (nunca uno del usuario sin
-  copia): editar, guardar, `tools/validar_midnam.sh` sin errores; comprobación en DP, PENDIENTE-LOCAL con el usuario.
-- **Hecho (2026-10-20):** `CherryPickerCore/BankEditing.swift` (renombrar con su lista, Bank Selects, añadir, borrar,
-  mover de Channel Set, reordenar; restricciones de la DTD) con 15 tests, uno de ellos valida contra la DTD lo editado;
-  interfaz: nombre editable, doble clic en S0/S32 → hoja Bank Selects, popup Channel Set, + (Add a Single Bank) / −,
-  arrastrar, deshacer (copia del modelo por edición). Compila; la app abre y muestra la pestaña.
-- **Prueba interactiva (EXP-008):** todo funciona tras dos arreglos (e738d6d).
-- **Guardado:** válido contra la DTD y solo con los cambios hechos (EXP-008).
-- **Hecho después:** disposición según las capturas (EXP-009) y cambio múltiple por cabecera (EXP-010, tests).
-- **Falta:** ver en DP un fichero editado (PENDIENTE-LOCAL: permiso para instalar en la carpeta de DP).
+### T-018 · Ventana Patch Names (fase 3)
+- **Objetivo:** la lista de patches de un banco como en el original (nib PatchWindow, captura 5 de EXP-009): `B0`,
+  `B32`, `#`, `Patch Name`, `Ascii` editables; + (hoja New Patches: Start At, Start Ascii, Quantity, «Set Bank Selects
+  to Bank values», Patch Delimiter) / −; Renumber; pegar o soltar texto con delimitador; arrastrar dentro y entre
+  listas; Find y Count. Sin Audition Riff (D-005) ni Copy... (más adelante).
+- **Referencias:** `docs/20` §3.2–3.3, EXP-009 (forma de escribir el bank select por patch), `BankEditing.swift`.
+- **Dudas para el original (Snow Leopard):** cómo numera al pegar; qué escribe un patch nuevo con y sin «Set Bank
+  Selects to Bank values» en un banco con y sin bank select.
+- **Siguiente paso ejecutable:** operaciones de patches en CherryPickerCore con tests.
 
 ## SIGUIENTE PASO EXACTO
 
-1. **T-016:** con permiso del usuario y DP abierto, instalar un fichero editado con la app y comprobarlo en DP.
-2. Menor, con el usuario y DP abierto: T-014.
+1. **T-018:** ventana Patch Names (ficha arriba).
+2. Usuario: decidir si se retira ya la instalación de EXP-011 (`/Library/Audio/MIDI Devices/MOTU/Cherrypicker/`).
+3. Menor, con el usuario y DP abierto: T-014.

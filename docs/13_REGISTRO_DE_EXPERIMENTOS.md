@@ -278,4 +278,12 @@ valer un resultado.
 - **Preguntas:** (1) ¿Aparece «CP Canales» tras reiniciar DP? (2) ¿*Master Names* muestra «Prueba canales»? (3) ¿Salen
   los bancos con los nombres editados y en el orden del fichero? (4) ¿Los bancos dependen del canal (canal 10: los de
   «Bateria»; otros: «Kits»)?
-- **Estado:** EN CURSO.
+- **Resultado (usuario, capturas `captures/exp011/dp_*.png`, A):**
+  1. Tras reiniciar DP, el dispositivo «CP Canales» (Cherrypicker / CP Canales) se crea y DP lo muestra.
+  2. *MIDI Device Properties ▸ Patches*: *Master Names* «Prueba canales»; lista los 5 bancos (Kits, Kits extra,
+     Pianos CP, Cuerdas, Sintes) con «Override: Default».
+  3. Pista en el **canal 10**: menú con los 4 bancos de «Bateria» en el orden del fichero (Kits extra, Pianos CP,
+     Cuerdas, Sintes), con los nombres editados; cada uno abre «Number Name» (`001 Kits extra 1`…).
+  4. Pista en el **canal 1**: solo los presets de «Kits», **sin submenú de banco** (un solo banco en ese Channel Set).
+  **DP respeta los Channel Sets por canal** y lee sin problemas lo que escribe la app.
+- **Estado:** COMPLETADO. Instalación sin retirar todavía (ver «Deshacer»).

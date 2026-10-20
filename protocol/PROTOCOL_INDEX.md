@@ -13,4 +13,6 @@ Estados: CONFIRMED · PARTIAL · OBSERVED · UNKNOWN · DISCARDED. Niveles de ev
 | Dónde y cómo lee DP 11.36 los `.midnam` | OBSERVED: `/Library/Audio/MIDI Devices/MOTU/<Fabricante>/` | EXP-002 (usuario + D); `protocol/observed/dp_carpeta_midnam.md` | — |
 | `.middev` para que un fabricante/modelo nuevo salga en la lista de Audio MIDI | CONFIRMED (a mano también funcionaría: por confirmar) | EXP-006 (A) | — |
 | DP acepta el DOCTYPE de midi.org; *Master Names* = nombre de fichero; menú de presets = nombre de `PatchNameList` + «Number Name»; recarga al volver a elegir en *Master Names* | CONFIRMED | EXP-006 (A) | `MidnamFile.newFileProlog` |
+| Hoja Bank Selects del original: qué hace cada opción con los patches | CONFIRMED | EXP-009 (B, reproducido byte a byte) | `BankEditing.swift`, `testBankSelectOptionsMatchOriginal` |
+| DP 11.36 lee lo que escribe la app; bancos por canal según `ChannelNameSet`; un solo banco en el juego = presets sin submenú | CONFIRMED | EXP-011 (A) | `src/CherryPickerApp` |
 | Audición por CoreMIDI | UNKNOWN | — | — |
