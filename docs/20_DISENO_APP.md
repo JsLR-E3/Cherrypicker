@@ -117,7 +117,7 @@ el bloque «Audition Riff» (§7).
 | Channel Set de varios bancos | Clic en la cabecera «Channel Set» | Popup de Channel Set (deducido del manual) |
 | New Channel Set (AddChSet) | + en Channel Sets | «Name», «Channels» (`1-9, 11-16`), «Free:» |
 | Reassign Banks To (ReassignCS) | − en un Channel Set con bancos | Popup del Channel Set de destino |
-| New Patches (CPAddPatchSheet) | + en la lista, o pegar/soltar texto | «Start At:», «Start Ascii», «Quantity», «Set Bank Selects to Bank values», «Patch Delimiter» = End of line / Comma / Quote / Tab |
+| New Patches (CPAddPatchSheet) | + en la lista, o pegar/soltar texto | «Start At:», «Start Ascii», «Quantity», «Set Bank Selects to Bank values», «Patch Delimiter» = End of line / Comma / Quote / Tab ; por defecto Start At 0, Start Ascii 001; se inserta en la posición seleccionada (EXP-012); casilla según P9 |
 | Renumber Patches (CPRenumberSheet) | Renumber | «MIDI starts at:», «Display starts at:», «All» / «Selection» |
 | Comprobación (CPCheckSheet) | Al guardar, si hay problemas | «The following potential problems were found», «Cancel and Fix» / «Continue Anyway» |
 | Model (CPMultiModel) | Guardar un fichero con varios `<Model>` | Popup «Model» |
@@ -169,6 +169,7 @@ se puede borrar ni sacar el último banco de un Channel Set (`PatchBank+`).
 | P6 | Deshacer/rehacer (⌘Z) en todas las ediciones | Estándar de macOS; el original no lo tenía en el menú Edit |
 | P7 | Textos de la interfaz en inglés, como el original, con los mismos nombres | Regla 10; a confirmar (§7) |
 | P8 | Con varios bancos seleccionados, cambiar el popup de Channel Set de uno los cambia todos (además de la cabecera del original) | Más directo; aceptada por el usuario al probarla (EXP-010) |
+| P9 | «Set Bank Selects to Bank values» igual con + que al pegar: marcada (o banco sin bank select), los patches nuevos heredan del banco (forma corta); sin marcar en un banco con bank select, «-» (solo Program Change). El banco conserva su bank select aunque algún patch lleve otro (no pasa a «-»). Al arrastrar a otra lista, cada patch sigue sonando con el mismo bank select | El original es incoherente (EXP-012: 5/0 propios con y sin la casilla en +; «-» o 1/1 fijo al pegar); aceptada por el usuario (2026-10-21) |
 
 ## 6. Inventario de los nibs
 

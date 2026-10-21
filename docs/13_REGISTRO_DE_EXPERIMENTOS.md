@@ -287,3 +287,38 @@ valer un resultado.
   4. Pista en el **canal 1**: solo los presets de «Kits», **sin submenú de banco** (un solo banco en ese Channel Set).
   **DP respeta los Channel Sets por canal** y lee sin problemas lo que escribe la app.
 - **Estado:** COMPLETADO. Instalación sin retirar todavía (ver «Deshacer»).
+
+## EXP-012 · 2026-10-21 · Patches nuevos y pegados en CherryPicker 3 original (T-018)
+
+- **Entorno:** CherryPicker 3 en Snow Leopard, Mac mini antiguo del usuario; prueba hecha por el usuario. Análisis
+  aquí: `grep` de los ficheros guardados, `tools/validar_midnam.sh`.
+- **Ficheros:** `captures/exp012/` (sintéticos, presets sin nombre o «uno», «dos», «tres»). `prueba2.midnam`
+  (360 Systems / MIDIBass): banco «sin bank sel» y banco «con bank sel0=0 sel32=0» (S0/S32 = `-` en Patch Banks; el
+  0/0 está solo en los patches), 9 patches en cada uno: pegar 3 líneas, + ×3 con la casilla, + ×3 sin ella.
+  `Prueba3.midnam` (documento nuevo, Prueba / Prueba): banco «prueba» creado con la hoja Add a Single Bank con
+  B Sel 0 = 5, B Sel 32 = 0; en su lista, + ×2 con la casilla, + ×2 sin ella, pegar 2 líneas con la casilla, pegar 2
+  líneas sin ella. Capturas: `reference/capturas_snow_leopard/exp012_23…26.tiff` (no versionadas; se ven carpetas del
+  usuario).
+- **Resultado (B):**
+  - Hoja New Patches al pegar: «Start At» 0, «Start Ascii» 001, delimitador End of line / Comma / Quote / Tab. Los
+    patches se insertan en la posición seleccionada.
+  - Cada patch nuevo: `Number` = Ascii (`001`, `002`…, la columna Ascii) y Program Change = Start At + i (la columna
+    `#`). Los de + llevan `Name=""`.
+  - Banco sin bank select (y sin patches con bank select propio): todo en forma corta `ProgramChange="n"`, con o sin la
+    casilla.
+  - «prueba2», banco «con bank sel…» (S0/S32 `-`): con la casilla, CC0/CC32 propios 0/0; sin ella, `-`
+    (`PatchMIDICommands` con solo Program Change). De dónde sale el 0/0 sin bank select de banco: sin aclarar.
+  - «Prueba3», banco con 5/0 de banco: + con y sin la casilla dan 5/0 **propios**; pegar con la casilla da `-`; pegar
+    sin ella da **1/1** (en la primera prueba del usuario también salieron B0 1 · B32 1 al pegar). La casilla no se
+    comporta de forma coherente entre + y pegar.
+  - En cuanto los patches de un banco tienen bank select distintos, el banco pasa a `-` en S0/S32, sale en azul
+    («Mixed») y **se guarda sin `MIDICommands`**: cada patch lleva los suyos.
+  - El original guarda Channel Sets sin `PatchBank` y con el nombre repetido («New Channel Set» ×2): `prueba2.midnam`
+    **no valida** contra la DTD (`PatchBank+`). DOCTYPE con identificador de sistema vacío (`""`).
+  - Al guardar con un fabricante/modelo nuevos («Prueba / Prueba») aparece «New Device Setup Assistant»: crea un
+    `.middev` con valores por defecto (carpeta no vista), ofrece abrir Configuración de Audio MIDI y pregunta «Do all
+    patch banks play on all channels?» (Yes/No). Relacionado con P3.
+- **Conclusión:** el comportamiento de «Set Bank Selects to Bank values» en el original es incoherente; no se
+  reproduce tal cual (regla propia a acordar con el usuario en `docs/20`, T-018). Sí se reproduce: Start At / Start
+  Ascii, delimitadores, inserción en la selección, `Number` = Ascii.
+- **Estado:** COMPLETADO.

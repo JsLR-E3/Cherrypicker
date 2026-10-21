@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-20 · local (`main`) · Fase 3: diseño acordado, app AppKit con Patch Banks editable que DP lee (T-010, T-015, T-016, T-017).
+> Actualizado: 2026-10-21 · local (`main`) · Fase 3: Patch Banks editable que DP lee; lógica de la lista de patches hecha (T-018 en progreso).
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -12,7 +12,7 @@
 ## ESTADO ACTUAL
 
 - **Fase 3 en marcha.** Diseño acordado en `docs/20` (D-005; mejoras y copyright D-007). App AppKit en
-  `src/CherryPickerApp` (D-006): `tools/empaquetar_app.sh` → `build/CherryPicker.app`; `swift test` 20/20. Pestaña
+  `src/CherryPickerApp` (D-006): `tools/empaquetar_app.sh` → `build/CherryPicker.app`; `swift test` 35/35. Pestaña
   Patch Banks editable y guardar; DP 11.36 lee lo guardado y respeta los Channel Sets (EXP-011).
 - **App original disponible** en Snow Leopard (Mac mini del usuario) para contrastar: la hoja Bank Selects se reproduce
   byte a byte (EXP-009). Ficheros del usuario por `incoming/`.
@@ -23,7 +23,9 @@
 
 ## EN PROGRESO
 
-- Nada.
+- **T-018:** hecha y probada la lógica (`CherryPickerCore/PatchEditing.swift`, 15 tests: filas, editar celdas,
+  B0/B32 por patch, + y pegar con delimitador, borrar, Renumber, mover y copiar entre listas, validación DTD).
+  Contraste con el original: EXP-012; regla de la casilla P9 (acordada). Falta la ventana AppKit.
 
 ## PENDIENTE DE VALIDACIÓN LOCAL
 
@@ -37,7 +39,7 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
-| T-018 | A | PENDIENTE | Fase 3: ventana «Patch Names» (botón P): tabla B0 · B32 · # · Patch Name · Ascii editable, + / −, Renumber, pegar lista con delimitador (hoja New Patches), arrastrar entre listas, Find | — | Tests de la lógica; contraste con el original en Snow Leopard donde haya dudas; prueba a mano |
+| T-018 | A | EN PROGRESO | Fase 3: ventana «Patch Names» (botón P): tabla B0 · B32 · # · Patch Name · Ascii editable, + / −, Renumber, pegar lista con delimitador (hoja New Patches), arrastrar entre listas, Find | — | Tests de la lógica; contraste con el original en Snow Leopard donde haya dudas; prueba a mano |
 | T-014 | C | PENDIENTE | Mirar con el usuario si «Other Controller…» de DP usa la `ControlNameList` | DP abierto (usuario) | EXP registrado; fila `ControlNameList` de `PROTOCOL_INDEX` actualizada |
 
 ## Fichas
@@ -50,12 +52,14 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 - **Referencias:** `docs/20` §3.2–3.3, EXP-009 (forma de escribir el bank select por patch), `BankEditing.swift`.
 - **Dudas para el original (Snow Leopard):** cómo numera al pegar; qué escribe un patch nuevo con y sin «Set Bank
   Selects to Bank values» en un banco con y sin bank select.
-- **Siguiente paso ejecutable:** operaciones de patches en CherryPickerCore con tests.
+- **Hecho:** lógica con tests (`PatchEditing.swift`); dudas resueltas en EXP-012 y P9 (`docs/20`). Delimitador
+  Quote: deducido (texto entre comillas), sin contrastar.
+- **Siguiente paso ejecutable:** ventana PatchWindow en AppKit (botón P de Patch Banks) sobre `PatchEditing`, con
+  deshacer (P6); hojas New Patches y Renumber; después prueba a mano y en DP.
 
 ## SIGUIENTE PASO EXACTO
 
-1. **T-018:** empezar por `src/CherryPickerApp/Sources/CherryPickerCore/PatchEditing.swift` (añadir, borrar, renombrar,
-   bank select y Ascii por patch, renumerar, pegar texto con delimitador) con tests en `Tests/…/PatchEditingTests.swift`;
-   antes, pedir al usuario la prueba en Snow Leopard de la ficha (numeración al pegar, patch nuevo con y sin «Set Bank
-   Selects to Bank values»).
+1. **T-018:** ventana «Patch Names» en AppKit (botón P) sobre `CherryPickerCore/PatchEditing.swift`: tabla
+   B0 · B32 · # · Patch Name · Ascii editable, + (hoja New Patches) / −, Renumber (hoja), pegar/soltar texto, arrastrar,
+   Find y Count; ver cómo está hecha la pestaña Patch Banks y seguir su patrón de deshacer.
 2. Menor, con el usuario y DP abierto: T-014.
