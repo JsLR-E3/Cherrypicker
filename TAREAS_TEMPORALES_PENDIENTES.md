@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-21 · local (`main`) · Fase 3: Patch Banks editable que DP lee; lógica de la lista de patches hecha (T-018 en progreso).
+> Actualizado: 2026-10-22 · local (`main`) · T-018: lógica de la lista de patches con tests, EXP-012 y regla P9; falta la ventana.
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -15,7 +15,10 @@
   `src/CherryPickerApp` (D-006): `tools/empaquetar_app.sh` → `build/CherryPicker.app`; `swift test` 35/35. Pestaña
   Patch Banks editable y guardar; DP 11.36 lee lo guardado y respeta los Channel Sets (EXP-011).
 - **App original disponible** en Snow Leopard (Mac mini del usuario) para contrastar: la hoja Bank Selects se reproduce
-  byte a byte (EXP-009). Ficheros del usuario por `incoming/`.
+  byte a byte (EXP-009); patches nuevos y pegados en EXP-012 (su casilla de bank select no se copia: P9). Ficheros del
+  usuario por `incoming/` (los de EXP-012 ya archivados en `captures/exp012/` y `reference/capturas_snow_leopard/`).
+- En el Mac mini, el asistente del original creó un `.middev` para «Prueba / Prueba» (EXP-012): lo borra el usuario
+  cuando quiera.
 - **Instalación de prueba que se deja a propósito** (usuario, 2026-10-20): `/Library/Audio/MIDI Devices/MOTU/
   Cherrypicker/` (`Prueba canales.midnam` + `.middev` de «CP Canales», EXP-011). Deshacer: borrar esa carpeta.
 - Base: MidnamKit sin pérdidas y validación DTD (fase 1); cómo lee DP los `.midnam` (fase 2, EXP-002/006/011);
