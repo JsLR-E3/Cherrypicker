@@ -20,8 +20,8 @@ Abrir un `.midnam` con **File ▸ Open…** o arrastrándolo a la app. La app no
   presets con bank select distinto del banco.
 - **Lista de presets (botón P de un banco):** una ventana por banco con B0 · B32 · # · Patch Name · Ascii, todo
   editable con doble clic (B0/B32 igual al banco = hereda del banco; vacío o `-` en los dos = solo Program Change);
-  al editar, Tab / ⇧Tab pasan a la celda siguiente o anterior (y al siguiente preset) y ↑ / ↓ al preset de arriba o
-  de abajo. Clic en un título de
+  al editar, Tab / ⇧Tab pasan a la celda siguiente o anterior (y al siguiente preset), ↑ / ↓ al preset de arriba o
+  de abajo, y ← / → a la celda de al lado cuando el cursor está al principio o al final del texto. Clic en un título de
   columna ordena la lista (es el orden del menú de DP; otro clic invierte). **+** abre «New Patches» (Start At,
   Start Ascii, Quantity, «Set Bank Selects to Bank values»); los nuevos van delante del seleccionado o al final.
   Pegar (⌘V) o soltar texto abre la misma hoja con un preset por línea, coma, tabulador o entre comillas

@@ -338,5 +338,6 @@ valer un resultado.
   test nuevo, 37/37).
 - **Segunda prueba** (app de `1294be0`): el usuario confirma las tres correcciones («todo parece ok»). Pide que Tab
   no salga de la tabla al final de la fila → P10 (Tab / ⇧Tab saltan de fila, ↑ / ↓ cambian de patch al editar),
-  hecha sin probar en la app.
+  hecha sin probar en la app. Pide también ← / → entre columnas: añadidas a P10 (solo con el cursor en el borde
+  del texto, para no perder el movimiento del cursor dentro de la celda).
 - **Estado:** EN CURSO: falta comprobar P10; después, guardar, validar y abrir en DP.

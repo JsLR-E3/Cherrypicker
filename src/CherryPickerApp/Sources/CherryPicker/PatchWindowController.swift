@@ -291,7 +291,9 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 	}
 
 	/// [PROPUESTA P10] Mientras se edita una celda: Tab y ⇧Tab pasan a la siguiente o la anterior, saltando de fila al
-	/// llegar al final (si no, Tab iba a los botones); ↑ y ↓, a la misma columna del patch de arriba o de abajo.
+	/// llegar al final (si no, Tab iba a los botones); ↑ y ↓, a la misma columna del patch de arriba o de abajo; ← y →,
+	/// a la celda de al lado solo con el cursor en el borde del texto o todo el texto seleccionado (si no, mueven el
+	/// cursor), sin saltar de fila.
 	func control(_ control: NSControl, textView: NSTextView, doCommandBy selector: Selector) -> Bool {
 		guard let field = control as? NSTextField, field !== findField, let id = field.identifier?.rawValue,
 		      let col = table.tableColumns.firstIndex(where: { $0.identifier.rawValue == id }) else { return false }
@@ -306,6 +308,16 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 			if c < 0 { c = table.numberOfColumns - 1; r -= 1 }
 		case #selector(NSResponder.moveUp(_:)): r -= 1
 		case #selector(NSResponder.moveDown(_:)): r += 1
+		case #selector(NSResponder.moveLeft(_:)), #selector(NSResponder.moveRight(_:)):
+			let sel = textView.selectedRange(), length = (textView.string as NSString).length
+			let all = sel.location == 0 && sel.length == length
+			if selector == #selector(NSResponder.moveLeft(_:)) {
+				guard all || (sel.location == 0 && sel.length == 0), c > 0 else { return false }
+				c -= 1
+			} else {
+				guard all || (sel.location == length && sel.length == 0), c < table.numberOfColumns - 1 else { return false }
+				c += 1
+			}
 		default: return false
 		}
 		// En el primer o el último patch, Tab y las flechas hacen lo de siempre.
