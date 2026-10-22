@@ -65,6 +65,6 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 ## SIGUIENTE PASO EXACTO
 
-1. **T-018:** EXP-013 en curso: el usuario comprueba las tres correcciones (pantalla, doble clic, vacío = «-»);
-   después guardar, `tools/validar_midnam.sh` y abrir en DP.
+1. **T-018:** EXP-013 en curso: correcciones confirmadas; falta comprobar P10 (Tab / flechas al editar); después
+   guardar, `tools/validar_midnam.sh` y abrir en DP.
 2. Menor, con el usuario y DP abierto: T-014.

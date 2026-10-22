@@ -290,6 +290,39 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 		table.editColumn(col, row: row, with: nil, select: true)
 	}
 
+	/// [PROPUESTA P10] Mientras se edita una celda: Tab y ⇧Tab pasan a la siguiente o la anterior, saltando de fila al
+	/// llegar al final (si no, Tab iba a los botones); ↑ y ↓, a la misma columna del patch de arriba o de abajo.
+	func control(_ control: NSControl, textView: NSTextView, doCommandBy selector: Selector) -> Bool {
+		guard let field = control as? NSTextField, field !== findField, let id = field.identifier?.rawValue,
+		      let col = table.tableColumns.firstIndex(where: { $0.identifier.rawValue == id }) else { return false }
+		var r = table.row(for: field), c = col
+		guard r >= 0 else { return false }
+		switch selector {
+		case #selector(NSResponder.insertTab(_:)):
+			c += 1
+			if c == table.numberOfColumns { c = 0; r += 1 }
+		case #selector(NSResponder.insertBacktab(_:)):
+			c -= 1
+			if c < 0 { c = table.numberOfColumns - 1; r -= 1 }
+		case #selector(NSResponder.moveUp(_:)): r -= 1
+		case #selector(NSResponder.moveDown(_:)): r += 1
+		default: return false
+		}
+		// En el primer o el último patch, Tab y las flechas hacen lo de siempre.
+		guard rows.indices.contains(r) else { return false }
+		// Terminar la edición encola el cambio (controlTextDidEndEditing); la celda siguiente se edita después.
+		window?.makeFirstResponder(table)
+		DispatchQueue.main.async { [weak self] in self?.startEditing(row: r, column: c) }
+		return true
+	}
+
+	private func startEditing(row: Int, column: Int) {
+		guard rows.indices.contains(row), column < table.numberOfColumns else { return }
+		table.selectRowIndexes([row], byExtendingSelection: false)
+		table.scrollRowToVisible(row)
+		table.editColumn(column, row: row, with: nil, select: true)
+	}
+
 	// Ordenar: clic en la cabecera; otro clic en la misma invierte el orden.
 	func tableView(_ tableView: NSTableView, didClick tableColumn: NSTableColumn) {
 		let id = tableColumn.identifier.rawValue

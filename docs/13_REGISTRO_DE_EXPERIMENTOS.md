@@ -336,4 +336,7 @@ valer un resultado.
 - **Corrección (sin volver a probar en la app):** la ventana se abre a la derecha de la principal, en su pantalla y en
   cascada (o encima si no cabe); doble clic edita la celda; un bank select vacío es «-» (patches y hojas de banco;
   test nuevo, 37/37).
-- **Estado:** EN CURSO: falta que el usuario compruebe las tres correcciones; después, guardar, validar y abrir en DP.
+- **Segunda prueba** (app de `1294be0`): el usuario confirma las tres correcciones («todo parece ok»). Pide que Tab
+  no salga de la tabla al final de la fila → P10 (Tab / ⇧Tab saltan de fila, ↑ / ↓ cambian de patch al editar),
+  hecha sin probar en la app.
+- **Estado:** EN CURSO: falta comprobar P10; después, guardar, validar y abrir en DP.
