@@ -58,6 +58,31 @@ public enum PatchDelimiter: CaseIterable, Sendable {
 	}
 }
 
+/// Columna por la que se ordena la lista (B0 y B32 ordenan por el par CC0, CC32).
+public enum PatchSortKey: Sendable {
+	case bankSelect, program, name, ascii
+
+	/// Texto de cada campo que se compara; números como números y «-» al final.
+	func value(_ p: Patch, bank: (String, String)) -> [String] {
+		switch self {
+		case .bankSelect: return BankRows.effectiveBankSelect(p, bank: bank)
+		case .program: return [p.program ?? "-"]
+		case .name: return [p.name]
+		case .ascii: return [p.number]
+		}
+	}
+
+	static func compare(_ a: [String], _ b: [String]) -> ComparisonResult {
+		for (x, y) in zip(a, b) where x != y {
+			if x == "-" { return .orderedDescending }
+			if y == "-" { return .orderedAscending }
+			let c = x.localizedStandardCompare(y)
+			if c != .orderedSame { return c }
+		}
+		return .orderedSame
+	}
+}
+
 public enum PatchEditError: LocalizedError, Equatable {
 	case notFound
 	case emptyAscii
@@ -216,6 +241,22 @@ public extension MIDINameDocument {
 			moved = at..<(at + block.count)
 		}
 		return moved
+	}
+
+	/// Clic en una cabecera (manual del original: «Patches … can be sorted by clicking on the column headers»): cambia el
+	/// orden de la lista en el fichero, que es el del menú del secuenciador. Orden estable; «-» va al final.
+	mutating func sortPatches(_ ref: BankRef, by key: PatchSortKey, ascending: Bool = true) throws {
+		guard let bank = bank(ref) else { throw BankEditError.notFound }
+		let bs = bank.bankLevelSelect
+		try modifyPatchList(ref) { list in
+			let keyed = list.patches.enumerated().map { i, p in (i, p, key.value(p, bank: bs)) }
+			let sorted = keyed.sorted { a, b in
+				let c = PatchSortKey.compare(a.2, b.2)
+				if c == .orderedSame { return a.0 < b.0 }
+				return ascending ? c == .orderedAscending : c == .orderedDescending
+			}
+			list.replacePatches(sorted.map(\.1))
+		}
 	}
 
 	/// Arrastrar a otra lista (banco `target`): se copian delante de `position` (nil: al final) y, si `move`, se borran

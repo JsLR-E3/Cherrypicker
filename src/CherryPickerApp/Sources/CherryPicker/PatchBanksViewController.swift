@@ -1,7 +1,8 @@
 // Pestaña Patch Banks (nib MainWindow, PatchBankVC; docs/20 §3.1): tabla de bancos editable.
 // Doble clic en el nombre para cambiarlo; doble clic en S0/S32 abre la hoja Bank Selects; el Channel Set se elige en
 // su popup; con varios bancos seleccionados, clic en la cabecera S0/S32 o Channel Set los cambia todos (manual); + abre «Add a Single Bank» y − borra los seleccionados; se arrastra para reordenar dentro del Channel Set.
-// Pendiente: botón «P» (lista de patches), Merge, Import, Find, Zap Dups.
+// «P» abre la lista de patches del banco (PatchWindowController).
+// Pendiente: Merge, Import, Find, Zap Dups.
 import AppKit
 import CherryPickerCore
 import MidnamKit
@@ -155,10 +156,11 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 			popup.action = #selector(channelSetChanged(_:))
 			return popup
 		case "open":
-			// Botón cuadrado del original; abrirá la lista de patches (siguiente tarea).
-			let b = NSButton(title: "", target: nil, action: nil)
+			// Botón cuadrado del original: abre la lista de patches del banco.
+			let b = NSButton(title: "", target: self, action: #selector(openPatches(_:)))
 			b.bezelStyle = .smallSquare
-			b.isEnabled = false
+			b.tag = row
+			b.isEnabled = r.patchCount != nil
 			return b
 		default:
 			let text: String
@@ -205,6 +207,11 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		let refs = indices.map { rows[$0].ref }
 		guard refs.allSatisfy({ $0.master == refs[0].master }) else { return }
 		edit("Change Channel Set") { try $0.moveBanks(refs, toChannelSet: target) }
+	}
+
+	@objc private func openPatches(_ sender: NSButton) {
+		guard rows.indices.contains(sender.tag) else { return }
+		PatchWindowController.show(document: document, bank: rows[sender.tag])
 	}
 
 	@objc private func doubleClick(_ sender: Any?) {

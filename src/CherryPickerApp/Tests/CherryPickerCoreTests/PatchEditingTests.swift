@@ -147,6 +147,20 @@ final class PatchEditingTests: XCTestCase {
 		XCTAssertEqual(rows("Custom").map(\.name), ["C"])
 	}
 
+	/// Ordenar por cabecera reordena la lista del fichero: números como números, «-» al final, estable.
+	func testSort() throws {
+		try doc.addPatches(ref("Custom"), names: ["b", "a"], startAt: 10, startAscii: "10", useBankSelects: true)
+		XCTAssertEqual(cols("Custom"), ["2/0 7 C 1", "-/- 3 D 2", "-/- 10 b 10", "-/- 11 a 11"])
+		try doc.sortPatches(ref("Custom"), by: .program)
+		XCTAssertEqual(rows("Custom").map(\.program), ["3", "7", "10", "11"])
+		try doc.sortPatches(ref("Custom"), by: .name, ascending: false)
+		XCTAssertEqual(rows("Custom").map(\.name), ["D", "C", "b", "a"])
+		try doc.sortPatches(ref("Custom"), by: .ascii)
+		XCTAssertEqual(rows("Custom").map(\.ascii), ["1", "2", "10", "11"])
+		try doc.sortPatches(ref("Custom"), by: .bankSelect)
+		XCTAssertEqual(rows("Custom").map(\.name), ["C", "D", "b", "a"], "2/0 delante de «-», el resto en su orden")
+	}
+
 	/// «Tres» y «Kits» comparten lista: mover entre ellos es reordenar, y los cambios se ven en los dos.
 	func testSharedList() throws {
 		try doc.addPatches(ref("Tres"), names: ["F"], startAt: 1, startAscii: "2", useBankSelects: true)

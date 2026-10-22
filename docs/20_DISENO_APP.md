@@ -103,7 +103,8 @@ Arriba a la derecha: **«Preview»**. Sin popup «Save Format» ni «XML Filters
 ### 3.2 Lista de patches (PatchWindow, «Patch Names»)
 
 Una por banco, desde el botón **P**. Tabla `B0` · `B32` · `#` · `Patch Name` · `Ascii`, editables y ordenables por
-cabecera; arrastrar para reordenar o llevar a otra lista. Campo «Find» y «Count:». Botones «Renumber» y + / −. «Copy...»
+cabecera (reordena la lista del fichero); arrastrar para reordenar o llevar a otra lista (copia). Campo «Find»
+(filtra la tabla por nombre: deducido, el nib solo nombra `findField`/`findPatches`) y «Count:» (filas visibles). Botones «Renumber» y + / −. «Copy...»
 más adelante (§2). Al seleccionar un patch con «Enable MIDI» activo, se envían Bank Select + Program Change (D-002). Sin
 el bloque «Audition Riff» (§7).
 
