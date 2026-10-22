@@ -346,4 +346,12 @@ valer un resultado.
   por el usuario (14 patches): `tools/validar_midnam.sh` → VÁLIDO.
 - **Conclusión:** la ventana Patch Names y P10 funcionan en la app según el usuario; el fichero que escribe es válido.
   Queda abrirlo en DP 11.36.
-- **Estado:** EN CURSO: falta abrir el fichero en DP 11.36.
+- **Instalación para DP** (permiso del usuario, 2026-10-22): `captures/exp013/Prueba patches.midnam` = el fichero
+  guardado con Manufacturer/Model cambiados a `Cherrypicker` / `CP Patches` (solo esas dos etiquetas; VÁLIDO) y
+  `captures/exp013/Cherrypicker.middev` = el de EXP-011 más el modelo «CP Patches», copiados a
+  `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/` (`cmp` idéntico). Bancos «pruebassss» (sin bank select; patches
+  con 5/5, 5/-, 5/0, 1/1, «-» y forma corta) y «pp» (5/5). **Deshacer:** borrar `Prueba patches.midnam` y volver a
+  copiar `captures/exp011/Cherrypicker.middev` (o borrar la carpeta entera, con lo de EXP-011).
+- **Preguntas para DP:** (1) tras reiniciar DP, ¿sale «CP Patches»? (2) ¿*Master Names* muestra «Prueba patches»?
+  (3) ¿Los bancos y la lista de patches salen con los nombres y en el orden del fichero?
+- **Estado:** EN CURSO: falta la prueba en DP 11.36 (usuario).

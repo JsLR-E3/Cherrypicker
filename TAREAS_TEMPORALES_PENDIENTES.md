@@ -20,7 +20,8 @@
 - En el Mac mini, el asistente del original creó un `.middev` para «Prueba / Prueba» (EXP-012): lo borra el usuario
   cuando quiera.
 - **Instalación de prueba que se deja a propósito** (usuario, 2026-10-20): `/Library/Audio/MIDI Devices/MOTU/
-  Cherrypicker/` (`Prueba canales.midnam` + `.middev` de «CP Canales», EXP-011). Deshacer: borrar esa carpeta.
+  Cherrypicker/` (`Prueba canales.midnam` + `.middev` de «CP Canales», EXP-011; `Prueba patches.midnam` + modelo «CP Patches» en el
+  `.middev`, EXP-013). Deshacer: borrar esa carpeta.
 - Base: MidnamKit sin pérdidas y validación DTD (fase 1); cómo lee DP los `.midnam` (fase 2, EXP-002/006/011);
   estados en `protocol/PROTOCOL_INDEX.md`.
 
@@ -65,6 +66,6 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 ## SIGUIENTE PASO EXACTO
 
-1. **T-018:** EXP-013: ventana y P10 confirmadas en la app; fichero guardado VÁLIDO; falta abrirlo
-   en DP 11.36 (instalarlo en la carpeta de DP solo con permiso del usuario) para dar T-018 por COMPLETADA.
+1. **T-018:** EXP-013: ventana y P10 confirmadas en la app; fichero guardado VÁLIDO e instalado en la
+   carpeta de DP como «Cherrypicker / CP Patches»; falta que el usuario lo abra en DP (preguntas en EXP-013).
 2. Menor, con el usuario y DP abierto: T-014.
