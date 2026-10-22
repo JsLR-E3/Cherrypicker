@@ -65,6 +65,6 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 ## SIGUIENTE PASO EXACTO
 
-1. **T-018:** EXP-013 en curso: correcciones y P10 de la lista confirmadas; falta P10 en Patch Banks; después
-   guardar, `tools/validar_midnam.sh` y abrir en DP.
+1. **T-018:** EXP-013: ventana y P10 confirmadas en la app; fichero guardado VÁLIDO; falta abrirlo
+   en DP 11.36 (instalarlo en la carpeta de DP solo con permiso del usuario) para dar T-018 por COMPLETADA.
 2. Menor, con el usuario y DP abierto: T-014.

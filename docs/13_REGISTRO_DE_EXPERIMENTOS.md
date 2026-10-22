@@ -342,4 +342,8 @@ valer un resultado.
   del texto, para no perder el movimiento del cursor dentro de la celda).
 - **Tercera prueba** (app de `341c2b4`): P10 en la lista de patches confirmada por el usuario («mucho más cómodo»).
   Pide lo mismo en Patch Banks: Tab / ↓ y ⇧Tab / ↑ entre nombres de banco (única columna que se escribe), sin probar.
-- **Estado:** EN CURSO: falta comprobar P10 en Patch Banks; después, guardar, validar y abrir en DP.
+- **Cuarta prueba** (app de `53ff646`): P10 en Patch Banks confirmada por el usuario («todo ok»). Fichero guardado
+  por el usuario (14 patches): `tools/validar_midnam.sh` → VÁLIDO.
+- **Conclusión:** la ventana Patch Names y P10 funcionan en la app según el usuario; el fichero que escribe es válido.
+  Queda abrirlo en DP 11.36.
+- **Estado:** EN CURSO: falta abrir el fichero en DP 11.36.
