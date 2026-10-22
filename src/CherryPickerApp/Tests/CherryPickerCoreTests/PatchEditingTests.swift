@@ -147,6 +147,12 @@ final class PatchEditingTests: XCTestCase {
 		XCTAssertEqual(rows("Custom").map(\.name), ["C"])
 	}
 
+	/// Borrar B0 y B32 de un patch en un banco con bank select lo deja en «-» (solo Program Change, EXP-013).
+	func testEmptyBankSelectIsDash() throws {
+		try doc.setPatchBankSelect(ref("Uno"), at: 0, bs0: "", bs32: "")
+		XCTAssertEqual(cols("Uno").first, "-/- 0 A 1")
+	}
+
 	/// Ordenar por cabecera reordena la lista del fichero: números como números, «-» al final, estable.
 	func testSort() throws {
 		try doc.addPatches(ref("Custom"), names: ["b", "a"], startAt: 10, startAscii: "10", useBankSelects: true)

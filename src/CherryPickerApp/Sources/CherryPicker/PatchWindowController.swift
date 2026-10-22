@@ -61,13 +61,32 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 		super.init(window: window)
 		window.delegate = self
 		window.contentView = makeContent()
-		window.cascadeTopLeft(from: NSPoint(x: 40, y: 40))
+		place(window, near: document)
 		NotificationCenter.default.addObserver(self, selector: #selector(modelDidChange(_:)),
 		                                       name: MidnamDocument.modelDidChange, object: document)
 		reload()
 	}
 
 	required init?(coder: NSCoder) { fatalError("no se usa con nib") }
+
+	/// Junto a la ventana principal del documento, en su pantalla, y en cascada con las demás listas abiertas
+	/// (EXP-013: se abría en otra pantalla).
+	private func place(_ window: NSWindow, near document: MidnamDocument) {
+		guard let main = document.windowControllers.first(where: { $0 is DocumentWindowController })?.window else {
+			window.center()
+			return
+		}
+		let open = document.windowControllers.filter { $0 is PatchWindowController }.count
+		let step = CGFloat(open % 10) * 22
+		window.setFrameTopLeftPoint(NSPoint(x: main.frame.maxX + 8 + step, y: main.frame.maxY - step))
+		if let screen = main.screen {
+			window.setFrame(window.constrainFrameRect(window.frame, to: screen), display: false)
+			// Si no cabe a la derecha, encima de la principal, algo desplazada.
+			if window.frame.minX < main.frame.maxX {
+				window.setFrameTopLeftPoint(NSPoint(x: main.frame.minX + 40 + step, y: main.frame.maxY - 40 - step))
+			}
+		}
+	}
 
 	deinit { NotificationCenter.default.removeObserver(self) }
 
@@ -94,6 +113,8 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 		table.dataSource = self
 		table.delegate = self
 		table.onDelete = { [weak self] in self?.removePatches(nil) }
+		table.target = self
+		table.doubleAction = #selector(doubleClick(_:))
 		table.registerForDraggedTypes([Self.rowType, .string])
 		table.setDraggingSourceOperationMask([.move, .copy], forLocal: true)
 		table.setDraggingSourceOperationMask(.copy, forLocal: false)
@@ -260,6 +281,13 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 		}
 		// Fuera del fin de edición: el cambio recarga la tabla y no debe hacerlo mientras la celda aún edita.
 		DispatchQueue.main.async { [weak self] in self?.edit(action, change) }
+	}
+
+	/// Doble clic en una celda: editarla (EXP-013; si no, solo se editaba manteniendo el clic).
+	@objc private func doubleClick(_ sender: Any?) {
+		let row = table.clickedRow, col = table.clickedColumn
+		guard rows.indices.contains(row), col >= 0 else { return }
+		table.editColumn(col, row: row, with: nil, select: true)
 	}
 
 	// Ordenar: clic en la cabecera; otro clic en la misma invierte el orden.

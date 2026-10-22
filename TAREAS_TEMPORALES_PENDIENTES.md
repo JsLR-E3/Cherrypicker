@@ -12,7 +12,7 @@
 ## ESTADO ACTUAL
 
 - **Fase 3 en marcha.** Diseño acordado en `docs/20` (D-005; mejoras y copyright D-007). App AppKit en
-  `src/CherryPickerApp` (D-006): `tools/empaquetar_app.sh` → `build/CherryPicker.app`; `swift test` 36/36. Pestaña
+  `src/CherryPickerApp` (D-006): `tools/empaquetar_app.sh` → `build/CherryPicker.app`; `swift test` 37/37. Pestaña
   Patch Banks editable y guardar; DP 11.36 lee lo guardado y respeta los Channel Sets (EXP-011).
 - **App original disponible** en Snow Leopard (Mac mini del usuario) para contrastar: la hoja Bank Selects se reproduce
   byte a byte (EXP-009); patches nuevos y pegados en EXP-012 (su casilla de bank select no se copia: P9). Ficheros del
@@ -65,6 +65,6 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 ## SIGUIENTE PASO EXACTO
 
-1. **T-018:** prueba a mano de la ventana Patch Names (ficha: lista de comprobación) y registrarla como EXP-013;
-   corregir lo que falle; después, en DP.
+1. **T-018:** EXP-013 en curso: el usuario comprueba las tres correcciones (pantalla, doble clic, vacío = «-»);
+   después guardar, `tools/validar_midnam.sh` y abrir en DP.
 2. Menor, con el usuario y DP abierto: T-014.

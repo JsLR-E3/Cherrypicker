@@ -54,7 +54,8 @@ public extension BankRef {
 	/// Normaliza un valor de bank select: «-» (no se usa) o 0–127.
 	static func normalizeBankSelect(_ text: String) throws -> String {
 		let t = text.trimmingCharacters(in: .whitespaces)
-		if t == "-" { return "-" }
+		// Borrar el valor es dejarlo sin bank select (EXP-013).
+		if t == "-" || t.isEmpty { return "-" }
 		guard let n = Int(t), (0...127).contains(n) else { throw BankEditError.invalidBankSelect(text) }
 		return String(n)
 	}

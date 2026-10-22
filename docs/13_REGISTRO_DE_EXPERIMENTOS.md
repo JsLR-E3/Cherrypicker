@@ -322,3 +322,18 @@ valer un resultado.
   reproduce tal cual (regla propia a acordar con el usuario en `docs/20`, T-018). Sí se reproduce: Start At / Start
   Ascii, delimitadores, inserción en la selección, `Number` = Ascii.
 - **Estado:** COMPLETADO.
+
+## EXP-013 · 2026-10-22 · Prueba a mano de la ventana Patch Names (T-018)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto; `build/CherryPicker.app` del commit `92fad61` (`tools/empaquetar_app.sh`).
+  Fichero: copia de `captures/exp012/Prueba3.midnam` en el scratchpad (sintético). Prueba hecha por el usuario con la
+  lista de la ficha de T-018.
+- **Resultado (A, observado por el usuario):**
+  - La ventana del banco se abría en otra pantalla (se colocaba en coordenadas fijas de la pantalla).
+  - Las celdas solo se editaban manteniendo el clic; el doble clic no editaba.
+  - Al borrar el valor de B0/B32 daba error en vez de quedar «-».
+  - El resto de la lista (+, pegar, −, Renumber, ordenar, Find, arrastrar, deshacer) «parece ok».
+- **Corrección (sin volver a probar en la app):** la ventana se abre a la derecha de la principal, en su pantalla y en
+  cascada (o encima si no cabe); doble clic edita la celda; un bank select vacío es «-» (patches y hojas de banco;
+  test nuevo, 37/37).
+- **Estado:** EN CURSO: falta que el usuario compruebe las tres correcciones; después, guardar, validar y abrir en DP.

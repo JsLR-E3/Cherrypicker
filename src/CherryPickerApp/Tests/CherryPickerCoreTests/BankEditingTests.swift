@@ -108,7 +108,7 @@ final class BankEditingTests: XCTestCase {
 		XCTAssertEqual(try BankRef.normalizeBankSelect(" 007 "), "7")
 		XCTAssertEqual(try BankRef.normalizeBankSelect("-"), "-")
 		XCTAssertThrowsError(try BankRef.normalizeBankSelect("128"))
-		XCTAssertThrowsError(try BankRef.normalizeBankSelect(""))
+		XCTAssertEqual(try BankRef.normalizeBankSelect(" "), "-", "vacío = sin bank select")
 	}
 
 	func testBankSelectWithoutKeepsPatchesWithOwn() throws {
