@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-22 · local (`main`) · T-018: ventana Patch Names hecha (compila, 36/36 tests); falta probarla a mano.
+> Actualizado: 2026-10-22 · local (`main`) · T-018 COMPLETADA: ventana Patch Names probada en la app y en DP (EXP-013).
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -13,7 +13,8 @@
 
 - **Fase 3 en marcha.** Diseño acordado en `docs/20` (D-005; mejoras y copyright D-007). App AppKit en
   `src/CherryPickerApp` (D-006): `tools/empaquetar_app.sh` → `build/CherryPicker.app`; `swift test` 37/37. Pestaña
-  Patch Banks editable y guardar; DP 11.36 lee lo guardado y respeta los Channel Sets (EXP-011).
+  Patch Banks y ventana Patch Names (lista de presets) editables, con Tab y flechas (P10); DP 11.36 lee lo guardado
+  (EXP-011, EXP-013).
 - **App original disponible** en Snow Leopard (Mac mini del usuario) para contrastar: la hoja Bank Selects se reproduce
   byte a byte (EXP-009); patches nuevos y pegados en EXP-012 (su casilla de bank select no se copia: P9). Ficheros del
   usuario por `incoming/` (los de EXP-012 ya archivados en `captures/exp012/` y `reference/capturas_snow_leopard/`).
@@ -27,9 +28,7 @@
 
 ## EN PROGRESO
 
-- **T-018:** lógica con 16 tests (`PatchEditing.swift`, ahora también ordenar por cabecera) y ventana AppKit
-  `PatchWindowController.swift` + `PatchSheets.swift` (New Patches, Renumber Patches), abierta con el botón P.
-  Compila y se empaqueta; **sin probar a mano** (nada de la interfaz se ha ejecutado aún).
+- —
 
 ## PENDIENTE DE VALIDACIÓN LOCAL
 
@@ -43,29 +42,15 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
-| T-018 | A | IMPLEMENTADA | Fase 3: ventana «Patch Names» (botón P): tabla B0 · B32 · # · Patch Name · Ascii editable, + / −, Renumber, pegar lista con delimitador (hoja New Patches), arrastrar entre listas, Find | — | Tests de la lógica; contraste con el original en Snow Leopard donde haya dudas; prueba a mano |
 | T-014 | C | PENDIENTE | Mirar con el usuario si «Other Controller…» de DP usa la `ControlNameList` | DP abierto (usuario) | EXP registrado; fila `ControlNameList` de `PROTOCOL_INDEX` actualizada |
 
 ## Fichas
 
-### T-018 · Ventana Patch Names (fase 3)
-- **Objetivo:** la lista de patches de un banco como en el original (nib PatchWindow, captura 5 de EXP-009): `B0`,
-  `B32`, `#`, `Patch Name`, `Ascii` editables; + (hoja New Patches: Start At, Start Ascii, Quantity, «Set Bank Selects
-  to Bank values», Patch Delimiter) / −; Renumber; pegar o soltar texto con delimitador; arrastrar dentro y entre
-  listas; Find y Count. Sin Audition Riff (D-005) ni Copy... (más adelante).
-- **Referencias:** `docs/20` §3.2–3.3, EXP-009 (forma de escribir el bank select por patch), `BankEditing.swift`.
-- **Dudas para el original (Snow Leopard):** cómo numera al pegar; qué escribe un patch nuevo con y sin «Set Bank
-  Selects to Bank values» en un banco con y sin bank select.
-- **Hecho:** lógica con tests (`PatchEditing.swift`); dudas resueltas en EXP-012 y P9 (`docs/20`). Delimitador
-  Quote: deducido (texto entre comillas), sin contrastar.
-- **Ventana:** hecha (Find filtra por nombre, deducido; arrastrar a otra lista copia; pegar/soltar texto → New
-  Patches). Fuera: Copy..., audición, arrastrar entre documentos, volcados GigaStudio/Cakewalk y «n=nombre».
-- **Siguiente paso ejecutable:** prueba a mano con una copia de `captures/exp012/Prueba3.midnam` (EXP-013): editar
-  celdas, +, pegar, −, Renumber, ordenar, Find, arrastrar dentro y a otro banco, ⌘Z; guardar, validar con
-  `tools/validar_midnam.sh` y abrir en DP.
+- —
 
 ## SIGUIENTE PASO EXACTO
 
-1. **T-018:** EXP-013: ventana y P10 confirmadas en la app; fichero guardado VÁLIDO e instalado en la
-   carpeta de DP como «Cherrypicker / CP Patches»; falta que el usuario lo abra en DP (preguntas en EXP-013).
+1. **Elegir con el usuario la siguiente tarea de la fase 3** (`docs/20`): en Patch Banks quedan Merge, Import,
+   Find y Zap Dups; en la lista de presets, Copy... y arrastrar entre ficheros; pestañas MIDI, Device, Controllers y
+   Categories; asistente New. Abrir T-019 con su ficha.
 2. Menor, con el usuario y DP abierto: T-014.

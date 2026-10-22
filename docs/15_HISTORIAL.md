@@ -5,6 +5,7 @@ copia. Se consulta por `grep` (p. ej. `grep T-012 docs/15_HISTORIAL.md`), no se 
 
 | ID | Cerrada | Resultado (y cómo se verificó) | Commit · EXP · D |
 |---|---|---|---|
+| T-018 | 2026-10-22 | Ventana Patch Names (botón P): tabla B0 · B32 · # · Patch Name · Ascii editable, + / pegar / soltar texto (New Patches, regla P9), − , Renumber, ordenar por cabecera, Find y Count, arrastrar dentro y a otra lista, deshacer; Tab y flechas al editar (P10). 17 tests de la lógica; probada a mano por el usuario y en DP 11.36 (menús en el orden del fichero) | 8e3d36e…0f82aeb · EXP-012, EXP-013 |
 | T-016 | 2026-10-20 | Pestaña Patch Banks editable (renombrar, Bank Selects, + / −, Channel Set, reordenar, cambio múltiple, deshacer) y guardar; disposición como el original; DP 11.36 lee el fichero editado y respeta los Channel Sets | ad79cdc…774b9e6 · EXP-008, EXP-010, EXP-011 |
 | T-017 | 2026-10-20 | Hoja Bank Selects contrastada con CherryPicker 3 en Snow Leopard: la opción 2 estaba mal deducida y se corrige; las tres reproducen el original byte a byte | 73840f2 · EXP-009 |
 | T-015 | 2026-10-20 | App AppKit decidida (D-006) y esqueleto en `src/CherryPickerApp`: abre un `.midnam` y muestra Patch Banks; `swift test` 1/1 y prueba abriendo el fichero de EXP-006 | cbf25d5 · EXP-007 · D-006 |

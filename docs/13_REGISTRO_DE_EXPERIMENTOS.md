@@ -354,4 +354,9 @@ valer un resultado.
   copiar `captures/exp011/Cherrypicker.middev` (o borrar la carpeta entera, con lo de EXP-011).
 - **Preguntas para DP:** (1) tras reiniciar DP, ¿sale «CP Patches»? (2) ¿*Master Names* muestra «Prueba patches»?
   (3) ¿Los bancos y la lista de patches salen con los nombres y en el orden del fichero?
-- **Estado:** EN CURSO: falta la prueba en DP 11.36 (usuario).
+- **Resultado en DP 11.36 (A, usuario con capturas):** tras reiniciar, el dispositivo «CP Patches» (Cherrypicker /
+  CP Patches) se crea; *Master Names* = «Prueba patches»; bancos «pruebassss» y «pp». Los menús muestran los patches
+  en el orden del fichero (el que dejó ordenar por cabecera), como «Number Name»: 9 en «pruebassss» y 5 en «pp»; los
+  patches sin nombre salen solo con su Number («002», «003»).
+- **Conclusión:** T-018 verificada: lo que escribe la ventana Patch Names lo lee DP tal cual.
+- **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»).
