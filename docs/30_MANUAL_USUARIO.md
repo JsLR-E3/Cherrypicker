@@ -17,7 +17,8 @@ Abrir un `.midnam` con **File ▸ Open…** o arrastrándolo a la app. La app no
   popup **Channel Set** (con varios bancos seleccionados, cambia todos); **+** abre «Add a Single Bank», **−** borra
   los seleccionados; arrastrar para reordenar dentro del Channel Set; con varios seleccionados, clic en el título de
   la columna S0/S32 o Channel Set los cambia todos. ⌘Z / ⇧⌘Z deshacen y rehacen. Nombre en rojo = banco vacío; azul =
-  presets con bank select distinto del banco.
+  presets con bank select distinto del banco. Al editar un nombre, Tab / ↓ pasan al banco siguiente y ⇧Tab / ↑ al
+  anterior.
 - **Lista de presets (botón P de un banco):** una ventana por banco con B0 · B32 · # · Patch Name · Ascii, todo
   editable con doble clic (B0/B32 igual al banco = hereda del banco; vacío o `-` en los dos = solo Program Change);
   al editar, Tab / ⇧Tab pasan a la celda siguiente o anterior (y al siguiente preset), ↑ / ↓ al preset de arriba o

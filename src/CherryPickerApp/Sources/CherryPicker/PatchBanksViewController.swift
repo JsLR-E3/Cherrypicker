@@ -198,6 +198,31 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		}
 	}
 
+	/// [PROPUESTA P10] Mientras se edita un nombre: Tab y ↓ pasan al del banco siguiente, ⇧Tab y ↑ al del anterior
+	/// (el nombre es la única columna que se escribe; en los extremos, lo de siempre).
+	func control(_ control: NSControl, textView: NSTextView, doCommandBy selector: Selector) -> Bool {
+		guard let field = control as? NSTextField, let col = table.tableColumns.firstIndex(where: {
+			$0.identifier.rawValue == "name"
+		}) else { return false }
+		var r = table.row(for: field)
+		guard r >= 0 else { return false }
+		switch selector {
+		case #selector(NSResponder.insertTab(_:)), #selector(NSResponder.moveDown(_:)): r += 1
+		case #selector(NSResponder.insertBacktab(_:)), #selector(NSResponder.moveUp(_:)): r -= 1
+		default: return false
+		}
+		guard rows.indices.contains(r) else { return false }
+		// Terminar la edición encola el cambio (controlTextDidEndEditing); el nombre siguiente se edita después.
+		view.window?.makeFirstResponder(table)
+		DispatchQueue.main.async { [weak self] in
+			guard let self, self.rows.indices.contains(r) else { return }
+			self.table.selectRowIndexes([r], byExtendingSelection: false)
+			self.table.scrollRowToVisible(r)
+			self.table.editColumn(col, row: r, with: nil, select: true)
+		}
+		return true
+	}
+
 	@objc private func channelSetChanged(_ sender: NSPopUpButton) {
 		guard rows.indices.contains(sender.tag) else { return }
 		let target = sender.selectedTag()

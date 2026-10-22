@@ -340,4 +340,6 @@ valer un resultado.
   no salga de la tabla al final de la fila → P10 (Tab / ⇧Tab saltan de fila, ↑ / ↓ cambian de patch al editar),
   hecha sin probar en la app. Pide también ← / → entre columnas: añadidas a P10 (solo con el cursor en el borde
   del texto, para no perder el movimiento del cursor dentro de la celda).
-- **Estado:** EN CURSO: falta comprobar P10; después, guardar, validar y abrir en DP.
+- **Tercera prueba** (app de `341c2b4`): P10 en la lista de patches confirmada por el usuario («mucho más cómodo»).
+  Pide lo mismo en Patch Banks: Tab / ↓ y ⇧Tab / ↑ entre nombres de banco (única columna que se escribe), sin probar.
+- **Estado:** EN CURSO: falta comprobar P10 en Patch Banks; después, guardar, validar y abrir en DP.
