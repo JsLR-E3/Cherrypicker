@@ -54,8 +54,8 @@ y «Custom Banks»).
 - Interfaz: botones Merge (con ≥ 2 bancos), Find y Zap Dups en Patch Banks; hoja «Name for Merged Bank»; ventana
   Finder con campo de búsqueda, «Add New Bank With Patches», «Remove Duplicates», − y arrastre a una lista.
 - Hecho: lógica (`BankTools.swift`, 10 tests; 47/47) e interfaz (botones, hoja Merge con Option-Add, `FinderWindowController`,
-  soltar en una lista patches de varios bancos, P11). Falta: prueba a mano en la app (EXP-014) y abrir en DP un
-  fichero con un Custom Bank tras Zap Dups.
+  soltar en una lista patches de varios bancos, P11). Probada a mano en la app (EXP-014, con dos arreglos). Falta:
+  abrir en DP un fichero con un Custom Bank tras Zap Dups.
 - Aceptación: tests verdes; probado a mano en la app (EXP-014) y un fichero con Custom Bank zapeado abierto en DP.
 
 ## SIGUIENTE PASO EXACTO

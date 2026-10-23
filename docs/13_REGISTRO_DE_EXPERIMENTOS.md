@@ -360,3 +360,19 @@ valer un resultado.
   patches sin nombre salen solo con su Number («002», «003»).
 - **Conclusión:** T-018 verificada: lo que escribe la ventana Patch Names lo lee DP tal cual.
 - **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»).
+
+## EXP-014 · 2026-10-23 · Prueba a mano de Merge, Find y Zap Dups (T-019)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto; `build/CherryPicker.app` del commit `53b453b` más los arreglos de abajo
+  (`tools/empaquetar_app.sh`). Fichero: copia de `Prueba3_exp013.midnam` (sintético). Prueba hecha por el usuario.
+- **Primera prueba:** el Finder no mostraba nada al escribir. Arreglo: la búsqueda se relanza también con cada cambio
+  del texto (`controlTextDidChange`, como el Find de la lista de patches). Aclarado: Find busca nombres de patch, no
+  de banco (manual del original).
+- **Segunda prueba:** «Todo parece funcionar bien» (usuario), salvo que la columna «Ascii» de la lista de patches salía
+  recortada al abrir (captura del usuario). Causa: las columnas suman más que la tabla al crearse la ventana. Arreglo:
+  `sizeToFit` tras colocar la tabla, ventana a 520 de ancho; en el Finder lo mismo (600 de ancho, solo «Patch Name»
+  se estira).
+- **Tercera prueba:** columnas bien al abrir («Perfecto ahora», usuario).
+- **Conclusión:** Merge, Find y Zap Dups funcionan en la app según el usuario. Queda abrir en DP 11.36 un fichero con
+  un Custom Bank tras Zap Dups.
+- **Estado:** EN CURSO (falta DP).

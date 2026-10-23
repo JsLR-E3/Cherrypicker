@@ -59,13 +59,16 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 		master = bank.ref.master
 		bankName = bank.name
 		ref = bank.ref
-		let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 470, height: 560),
+		let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 520, height: 560),
 		                      styleMask: [.titled, .closable, .miniaturizable, .resizable],
 		                      backing: .buffered, defer: false)
 		window.minSize = NSSize(width: 400, height: 260)
 		super.init(window: window)
 		window.delegate = self
 		window.contentView = makeContent()
+		// Las columnas se ajustan al ancho de la tabla ya colocada (EXP-014: «Ascii» salía recortada).
+		window.layoutIfNeeded()
+		table.sizeToFit()
 		place(window, near: document)
 		NotificationCenter.default.addObserver(self, selector: #selector(modelDidChange(_:)),
 		                                       name: MidnamDocument.modelDidChange, object: document)

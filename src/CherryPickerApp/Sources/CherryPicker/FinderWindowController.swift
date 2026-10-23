@@ -37,13 +37,15 @@ final class FinderWindowController: NSWindowController, NSWindowDelegate, NSTabl
 
 	private init(document: MidnamDocument) {
 		midnam = document
-		let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 520, height: 480),
+		let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 600, height: 480),
 		                      styleMask: [.titled, .closable, .miniaturizable, .resizable],
 		                      backing: .buffered, defer: false)
 		window.minSize = NSSize(width: 440, height: 240)
 		super.init(window: window)
 		window.delegate = self
 		window.contentView = makeContent()
+		window.layoutIfNeeded()
+		table.sizeToFit()
 		window.center()
 		NotificationCenter.default.addObserver(self, selector: #selector(modelDidChange(_:)),
 		                                       name: MidnamDocument.modelDidChange, object: document)
@@ -66,6 +68,9 @@ final class FinderWindowController: NSWindowController, NSWindowDelegate, NSTabl
 			let col = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(c.id))
 			col.title = c.title
 			col.width = c.width
+			// Solo «Patch Name» se estira o encoge con la ventana, como en la lista de patches.
+			col.resizingMask = c.id == "name" ? [.autoresizingMask, .userResizingMask] : .userResizingMask
+			if c.id == "name" { col.minWidth = 80 }
 			col.isEditable = false
 			table.addTableColumn(col)
 		}
@@ -137,6 +142,12 @@ final class FinderWindowController: NSWindowController, NSWindowDelegate, NSTabl
 	}
 
 	@objc private func modelDidChange(_ n: Notification) { reload() }
+
+	// Como en la ventana de patches: además de la acción del campo, cada cambio del texto relanza la búsqueda
+	// (EXP-014: con solo la acción no mostraba nada al escribir).
+	func controlTextDidChange(_ obj: Notification) {
+		if (obj.object as? NSSearchField) === findField { findChanged(nil) }
+	}
 
 	@objc private func findChanged(_ sender: Any?) {
 		removed = []
