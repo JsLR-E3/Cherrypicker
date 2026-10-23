@@ -37,6 +37,7 @@ final class MainTabsViewController: NSViewController {
 			let vc: NSViewController? = switch title {
 			case "Patch Banks": PatchBanksViewController(document: document)
 			case "Device": DeviceViewController(document: document)
+			case "MIDI": MIDIViewController(document: document)
 			default: nil
 			}
 			if let vc {

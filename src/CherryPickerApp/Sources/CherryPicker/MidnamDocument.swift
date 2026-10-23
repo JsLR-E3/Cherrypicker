@@ -1,5 +1,6 @@
 // Documento .midnam: se lee y se escribe con MidnamKit, sin pérdidas (lo que no se edita se reescribe igual).
 import AppKit
+import CherryPickerCore
 import MidnamKit
 
 @objc(MidnamDocument)
@@ -49,6 +50,31 @@ final class MidnamDocument: NSDocument {
 		undoManager?.registerUndo(withTarget: self) { $0.replaceModel(with: old, actionName: actionName) }
 		undoManager?.setActionName(actionName)
 		NotificationCenter.default.post(name: Self.modelDidChange, object: self)
+	}
+
+	/// Ajustes de audición (pestaña MIDI), por fabricante y modelo del primer dispositivo del fichero.
+	lazy var audition: AuditionSettings = {
+		let m = model?.masterDeviceNames.first
+		return AuditionSettings(manufacturer: m?.manufacturer ?? "", model: m?.models.first ?? "")
+	}()
+
+	/// «Audition Ch» del banco: el elegido en Device para su Channel Set o, si no, el más bajo del Channel Set.
+	func auditionChannel(for ref: BankRef) -> Int? {
+		guard let m = model else { return nil }
+		if let set = m.channelSetName(ref), let c = audition.auditionChannel(channelSet: set) { return c }
+		return m.defaultAuditionChannel(ref)
+	}
+
+	/// Envía el patch al «Device Out» si «Enable MIDI» está activo (D-002: solo CC0/CC32 y Program Change).
+	func audition(_ patch: PatchRow, in ref: BankRef) {
+		guard audition.enabled, let dest = audition.destination, let ch = auditionChannel(for: ref) else { return }
+		do {
+			let msgs = try auditionMessages(bankSelect0: patch.bankSelect0, bankSelect32: patch.bankSelect32,
+			                                program: patch.program, channel: ch)
+			try MIDIOut.shared.send(msgs, to: dest)
+		} catch {
+			NSSound.beep()
+		}
 	}
 
 	/// Texto exacto que se escribiría al guardar (ventana Preview).

@@ -1,6 +1,6 @@
 // Pestaña Device (nib MainWindow; docs/20 §3.1; disposición de la captura del original, T-020): «Manufacturer:» y
 // «Model:» de solo lectura; caja «Modes» (tabla y + / −) y caja «Channel Sets» del modo seleccionado (tabla, + / −,
-// «Active Channels», «Audition Ch:» y el aviso «(Add disabled: No free channels in mode)»). Doble clic en un nombre lo
+// «Active Channels», «Audition Ch:» (canal de audición, se recuerda en la app; vacío = el más bajo) y el aviso «(Add disabled: No free channels in mode)»). Doble clic en un nombre lo
 // cambia. + de Channel Sets abre «New Channel Set»; − de un Channel Set con patches abre «Reassign Banks To».
 // Sin «MIDI Initialization… / Send Now» (SysEx, regla 4) ni «Middev Editor...» (docs/20 §2).
 import AppKit
@@ -62,8 +62,8 @@ final class DeviceViewController: NSViewController, NSTableViewDataSource, NSTab
 		activeChannels.delegate = self
 		activeChannels.placeholderString = "1-7, 9, 11-16"
 		activeChannels.toolTip = "Channels of the selected channel set, e.g. 1-7, 9, 11-16"
-		auditionChannel.isEditable = false
-		auditionChannel.toolTip = "Channel used to audition patches (lowest channel of the set). MIDI audition is not available yet."
+		auditionChannel.delegate = self
+		auditionChannel.toolTip = "Channel used to audition patches of this set (empty: lowest channel of the set)"
 		addDisabledNote.font = .systemFont(ofSize: NSFont.smallSystemFontSize)
 
 		let modesBox = Self.box("Modes", table: modesTable, buttons: Self.plusMinus(add: #selector(addMode(_:)), remove: removeModeButton,
@@ -197,7 +197,9 @@ final class DeviceViewController: NSViewController, NSTableViewDataSource, NSTab
 		removeSetButton.isEnabled = selectedSet != nil && sets.count > 1
 		activeChannels.isEnabled = selectedSet != nil
 		activeChannels.stringValue = selectedSet?.channelsText ?? ""
-		auditionChannel.stringValue = selectedSet?.auditionChannel.map(String.init) ?? ""
+		auditionChannel.isEnabled = selectedSet != nil
+		let ch = selectedSet.flatMap { document.audition.auditionChannel(channelSet: $0.name) ?? $0.auditionChannel }
+		auditionChannel.stringValue = ch.map(String.init) ?? ""
 	}
 
 	@objc private func modelDidChange(_ n: Notification) { reload() }
@@ -242,6 +244,20 @@ final class DeviceViewController: NSViewController, NSTableViewDataSource, NSTab
 	func controlTextDidEndEditing(_ obj: Notification) {
 		guard let field = obj.object as? NSTextField, let master else { return }
 		let text = field.stringValue
+		if field === auditionChannel {
+			// No va en el fichero: se recuerda en la app por fabricante, modelo y Channel Set (T-021).
+			guard let set = selectedSet else { return }
+			let t = text.trimmingCharacters(in: .whitespaces)
+			if t.isEmpty {
+				document.audition.setAuditionChannel(nil, channelSet: set.name)
+			} else if let c = Int(t), (1...16).contains(c) {
+				document.audition.setAuditionChannel(c, channelSet: set.name)
+			} else {
+				NSSound.beep()
+			}
+			updateControls()
+			return
+		}
 		if field === activeChannels {
 			guard let mode = selectedMode, let set = selectedSet, text != set.channelsText else { return }
 			DispatchQueue.main.async { [weak self] in

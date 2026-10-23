@@ -4,7 +4,8 @@
 // abre «New Patches» con los nombres; arrastrar reordena, o copia los patches a la lista de otro banco del mismo
 // dispositivo. «Find» filtra la tabla por nombre (deducido: el nib tiene findField y findPatches, sin más detalle) y
 // «Count:» cuenta las filas que se ven.
-// Pendiente: Copy..., audición (Enable MIDI), arrastrar entre documentos, volcados de GigaStudio/Cakewalk y «n=nombre».
+// Al seleccionar un solo patch con «Enable MIDI» activo se envía su bank select y Program Change (T-021).
+// Pendiente: Copy..., arrastrar entre documentos, volcados de GigaStudio/Cakewalk y «n=nombre».
 import AppKit
 import CherryPickerCore
 import MidnamKit
@@ -217,7 +218,25 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 
 	private func updateButtons() { removeButton.isEnabled = !table.selectedRowIndexes.isEmpty }
 
-	func tableViewSelectionDidChange(_ notification: Notification) { updateButtons() }
+	func tableViewSelectionDidChange(_ notification: Notification) {
+		updateButtons()
+		auditionSelection()
+	}
+
+	/// Último patch enviado: al recargar la tabla tras una edición no se vuelve a enviar el mismo.
+	private var lastAuditioned: String?
+
+	/// Audición (T-021): con un solo patch seleccionado y «Enable MIDI» activo, envía su bank select y Program Change.
+	private func auditionSelection() {
+		guard table.selectedRowIndexes.count == 1, let i = table.selectedRowIndexes.first, rows.indices.contains(i) else {
+			return
+		}
+		let r = rows[i]
+		let key = "\(bankName)|\(r.index)|\(r.bankSelect0)|\(r.bankSelect32)|\(r.program)"
+		if key == lastAuditioned { return }
+		lastAuditioned = key
+		midnam.audition(r, in: ref)
+	}
 
 	/// Índices de los patches seleccionados (en la lista, no en la tabla filtrada).
 	private var selectedPatches: IndexSet {
