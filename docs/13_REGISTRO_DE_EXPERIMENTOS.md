@@ -378,8 +378,8 @@ valer un resultado.
   usuario → P12: con bancos seleccionados se conservan esos y se borra de todos los demás de su Channel Set (2 tests,
   49/49); sin probar aún en la app.
 - **Conclusión:** Merge, Find y Zap Dups funcionan en la app según el usuario. Queda abrir en DP 11.36 un fichero con
-  un Custom Bank tras Zap Dups.
-- **Estado:** EN CURSO (falta DP).
+  un Custom Bank tras Zap Dups (EXP-015).
+- **Estado:** COMPLETADO.
 
 ## EXP-015 · 2026-10-23 · DP 11.36 con un fichero tras Find y Zap Dups (T-019)
 
@@ -395,4 +395,10 @@ valer un resultado.
   `captures/exp013/Cherrypicker.middev`.
 - **Preguntas para DP:** (1) tras reiniciar DP, ¿sale «CP Zap»? (2) ¿*Master Names* muestra «Prueba zap» con «ROM A»
   (5 patches) y «Mis Pianos» (3)? (3) Al elegir un patch de «Mis Pianos», ¿se queda en ese banco?
-- **Estado:** EN CURSO.
+- **Resultado (A, capturas del usuario):** el usuario copió los dos ficheros (`cmp` idénticos). DP muestra el
+  dispositivo «CP Zap» con *Master Names* «Prueba zap» y los bancos «ROM A» y «Mis Pianos»; el menú de la pista da
+  «Mis Pianos» → «001 Grand Piano», «002 Bright Piano», «004 Rhodes», y tras elegir Grand Piano el menú marca «Mis
+  Pianos» y ese patch. «Todo ok» (usuario).
+- **Conclusión:** DP 11.36 lee bien un Custom Bank hecho con Find y un fichero tras Zap Dups. No se probó si DP
+  confunde los bancos sin Zap Dups (`Prueba zap sin zap.midnam` queda para ello).
+- **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»).
