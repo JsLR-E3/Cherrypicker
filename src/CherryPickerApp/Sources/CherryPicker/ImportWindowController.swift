@@ -27,6 +27,8 @@ final class ImportWindowController: NSWindowController, NSTableViewDataSource, N
 	private var lists: [ImportableList] = []
 	private var destinations: [Destination] = []
 	private var completion: (() -> Void)?
+	/// Ancho de la tabla de ficheros: el de sus columnas (EXP-019: con un reparto fijo se cortaba «Type»).
+	private var filesWidth: NSLayoutConstraint!
 
 	private static let folderKey = "importFolder"
 
@@ -105,10 +107,12 @@ final class ImportWindowController: NSWindowController, NSTableViewDataSource, N
 			v.translatesAutoresizingMaskIntoConstraints = false
 			root.addSubview(v)
 		}
+		filesWidth = scrolls[0].widthAnchor.constraint(equalToConstant: 260)
 		NSLayoutConstraint.activate([
+			filesWidth,
 			scrolls[0].topAnchor.constraint(equalTo: root.topAnchor, constant: 12),
 			scrolls[0].leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 12),
-			scrolls[0].widthAnchor.constraint(equalTo: root.widthAnchor, multiplier: 0.36),
+			scrolls[1].widthAnchor.constraint(greaterThanOrEqualToConstant: 300),
 			scrolls[1].topAnchor.constraint(equalTo: scrolls[0].topAnchor),
 			scrolls[1].leadingAnchor.constraint(equalTo: scrolls[0].trailingAnchor, constant: 8),
 			scrolls[1].trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -12),
@@ -162,6 +166,7 @@ final class ImportWindowController: NSWindowController, NSTableViewDataSource, N
 				self.files = found
 				self.filesTable.reloadData()
 				self.fitColumns(self.filesTable)
+				self.fitWindow()
 				self.progress.stopAnimation(nil)
 				self.progressLabel.stringValue = "\(found.count) file\(found.count == 1 ? "" : "s") in \(folder.path)"
 			}
@@ -204,6 +209,7 @@ final class ImportWindowController: NSWindowController, NSTableViewDataSource, N
 		}
 		listsTable.reloadData()
 		fitColumns(listsTable)
+		fitWindow()
 		updateImportButton()
 	}
 
@@ -223,6 +229,20 @@ final class ImportWindowController: NSWindowController, NSTableViewDataSource, N
 			let extra: CGFloat = col.identifier.rawValue == "destination" ? 40 : 16
 			col.width = max(width(col.title) + 16, (texts.map(width).max() ?? 0) + extra)
 		}
+	}
+
+	/// La tabla de ficheros toma el ancho de sus columnas; la ventana crece si las dos tablas no caben (sin pasar de la
+	/// pantalla: entonces, scroll horizontal).
+	private func fitWindow() {
+		func total(_ t: NSTableView) -> CGFloat {
+			t.tableColumns.reduce(0) { $0 + $1.width + t.intercellSpacing.width } + 20
+		}
+		filesWidth.constant = total(filesTable)
+		guard let w = window else { return }
+		let needed = filesWidth.constant + total(listsTable) + 32
+		let maxWidth = (w.screen ?? NSScreen.main)?.visibleFrame.width ?? needed
+		let width = min(max(w.frame.width, needed), maxWidth)
+		if width > w.frame.width { w.setContentSize(NSSize(width: width, height: w.contentLayoutRect.height)) }
 	}
 
 	private static func master(of doc: MIDINameDocument) -> Int? {
