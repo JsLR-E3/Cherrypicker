@@ -498,3 +498,16 @@ valer un resultado.
   el Finder se abre junto al documento (`07acda2`). Probado por el usuario (mover a la otra pantalla, ⌘Q, reabrir):
   «todo funciona».
 - **Estado:** COMPLETADO.
+
+## EXP-021 · 2026-10-23 · ¿Necesita DP la entrada del `.middev`? (para T-024)
+
+- **Pregunta:** EXP-006 dejó por confirmar si un modelo que no está en ningún `.middev` se puede usar en DP escribiendo
+  a mano fabricante y modelo. De ello depende si «Instalar en DP…» (P3) tiene que escribir en un `.middev`.
+- **Fichero:** `captures/exp021/Prueba sin middev.midnam`, creado con la lógica del asistente (test temporal no
+  versionado; VÁLIDO): Cherrypicker / «CP Sin middev», banco «Banco SM» con «SM uno/dos/tres» (PC 0–2). `grep` de
+  «CP Sin middev» en `/Library/Audio/MIDI Devices`: en ningún `.middev`.
+- **Instalación** (permiso del usuario, 2026-10-23): Claude lo copia a `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/`
+  (fichero nuevo, `cmp` idéntico). **Deshacer:** borrarlo.
+- **Preguntas para DP:** (1) ¿Se puede crear el dispositivo escribiendo a mano «Cherrypicker» / «CP Sin middev»?
+  (2) ¿*Master Names* ofrece «Prueba sin middev»? (3) ¿Sale «Banco SM» con sus 3 presets en la pista?
+- **Estado:** EN CURSO.
