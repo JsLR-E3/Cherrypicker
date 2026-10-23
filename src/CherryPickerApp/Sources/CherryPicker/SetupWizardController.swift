@@ -43,6 +43,8 @@ final class SetupWizardController: NSWindowController, NSComboBoxDelegate, NSCom
 		loadMiddevs()
 		window.contentView = makeContent()
 		window.center()
+		// Recuerda su sitio (y su pantalla) entre usos.
+		window.setFrameAutosaveName("DeviceSetup")
 		NotificationCenter.default.addObserver(forName: NSWindow.willCloseNotification, object: window, queue: .main) { _ in
 			SetupWizardController.current = nil
 		}

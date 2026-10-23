@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-23 · local (`main`) · T-022 COMPLETADA: Import probado en la app (EXP-019).
+> Actualizado: 2026-10-23 · local (`main`) · T-023 COMPLETADA: asistente Device Setup probado en la app (EXP-020).
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -14,7 +14,7 @@
 - **Fase 3 en marcha** (diseño en `docs/20`, D-005/D-007; app AppKit en `src/CherryPickerApp`, D-006):
   `tools/empaquetar_app.sh` → `build/CherryPicker.app`. Hechas y probadas en la app y en DP 11.36:
   pestaña Patch Banks (EXP-010/011) con Merge, Find, Zap Dups (EXP-014/015) e Import (EXP-019), pestaña Device (EXP-016), pestaña MIDI con audición (EXP-017/018) y ventana
-  Patch Names (EXP-013), con Tab y flechas al editar (P10). `swift test` 65/65. Claude ve la app con `tools/capturar_app.sh`.
+  Patch Names (EXP-013), con Tab y flechas al editar (P10). `swift test` 69/69. Asistente Device Setup con File ▸ New (EXP-020). Claude ve la app con `tools/capturar_app.sh`.
 - **Original** en Snow Leopard (Mac mini del usuario) para contrastar (EXP-009, EXP-012). Allí queda un `.middev`
   «Prueba / Prueba» del asistente del original (EXP-012), lo borra el usuario cuando quiera.
 - **Instalación de prueba que se deja a propósito:** `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/` («CP Canales»,
@@ -46,7 +46,10 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 ## SIGUIENTE PASO EXACTO
 
-1. **Abrir T-023 con el usuario:** proponerle una de estas (docs/20 §3): Copy... en la lista de presets, la pestaña Controllers o Categories, o el asistente New. Decidir también el Find de la lista
+1. **Comprobar con el usuario** que las ventanas se abren donde se dejaron (dos pantallas, EXP-020).
+2. **Abrir T-024 con el usuario:** «Instalar en DP…» (P3: copiar el `.midnam` y crear la entrada del `.middev` con
+   confirmación; lo necesita un fichero nuevo del asistente), Copy... en la lista de presets, o las pestañas
+   Controllers o Categories. Decidir también el Find de la lista
    de patches (filtrar o seleccionar, docs/20 §3.2) y si se quiere una nota de prueba opcional para módulos de sonido
    (ampliaría D-002).
-2. Menor, con el usuario y DP abierto: T-014.
+3. Menor, con el usuario y DP abierto: T-014.

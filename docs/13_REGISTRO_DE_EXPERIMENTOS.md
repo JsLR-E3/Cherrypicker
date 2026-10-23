@@ -479,3 +479,21 @@ valer un resultado.
   usuario). Probado: captura de la ventana del documento.
 - **Conclusión:** Import funciona en la app (llenar un banco existente y crear uno nuevo con «Add as New Bank»).
 - **Estado:** COMPLETADO.
+
+## EXP-020 · 2026-10-23 · Asistente Device Setup y pestaña Device en la app (T-023)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto; `build/CherryPicker.app` de `205cc79` y los arreglos de abajo. Prueba
+  hecha por el usuario; Claude mira con `tools/capturar_app.sh` (solo ventanas de CherryPicker).
+- **Primera prueba:** ⌘N → asistente → «TC Electronic» / «INVENT» (sin `.middev`), No, 2 grupos → Go → guardado como
+  «borrar» (carpeta del usuario). Captura: Patch Banks con «New Bank» (Presets) y «New Bank 2» (Drums), vacíos;
+  lista de patches vacía. Fallos (usuario): el autocompletado no admitía minúsculas y el desplegable era corto.
+  Arreglo (`f9b8bca`): fuente de datos propia sin distinguir mayúsculas, 16 filas, y al avanzar se escribe como en el
+  `.middev`.
+- **Pestaña Device** del fichero (capturas): Mode 1; Presets 1-9, 11-16 (Audition Ch 1); Drums 10 (10); + desactivado
+  con «(Add disabled…)». A petición del usuario (`912fc26`): Manufacturer y Model en recuadros separados (parecían un
+  solo nombre) y barras de desplazamiento solo cuando hacen falta; confirmado en captura.
+- **Segunda prueba:** «las minúsculas funcionan» (usuario).
+- **Pedido del usuario** (dos pantallas): que la ventana se abra donde se dejó. Hecho: la ventana de documento guarda
+  su sitio y pantalla (en cascada si hay otra; centrada si esa pantalla ya no está), el asistente recuerda el suyo y
+  el Finder se abre junto al documento. Sin probar aún.
+- **Estado:** COMPLETADO (el sitio de las ventanas, pendiente de ver).

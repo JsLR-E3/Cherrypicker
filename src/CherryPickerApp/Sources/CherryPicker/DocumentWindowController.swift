@@ -13,7 +13,34 @@ final class DocumentWindowController: NSWindowController {
 		window.contentViewController = MainTabsViewController(document: document)
 		// Al asignar el controlador la ventana toma el tamaño mínimo de su contenido: se vuelve a fijar.
 		window.setContentSize(NSSize(width: 560, height: 760))
-		window.center()
+		placeWindow(window)
+		for name in [NSWindow.didMoveNotification, NSWindow.didEndLiveResizeNotification] {
+			NotificationCenter.default.addObserver(forName: name, object: window, queue: .main) { n in
+				guard let w = n.object as? NSWindow else { return }
+				UserDefaults.standard.set(NSStringFromRect(w.frame), forKey: Self.frameKey)
+			}
+		}
+	}
+
+	/// Dónde se dejó la última ventana de documento (pantalla incluida; pedido por el usuario, dos pantallas).
+	private static let frameKey = "documentWindowFrame"
+
+	/// En el sitio guardado si esa pantalla sigue conectada (en cascada si ya hay otro documento abierto); si no, centrada.
+	private func placeWindow(_ window: NSWindow) {
+		guard let s = UserDefaults.standard.string(forKey: Self.frameKey) else {
+			window.center()
+			return
+		}
+		let frame = NSRectFromString(s)
+		guard frame.width > 0, NSScreen.screens.contains(where: { $0.visibleFrame.intersects(frame) }) else {
+			window.center()
+			return
+		}
+		window.setFrame(frame, display: false)
+		let others = NSApp.windows.filter { $0 !== window && $0.isVisible && $0.windowController is DocumentWindowController }
+		if let last = others.last {
+			window.setFrameTopLeftPoint(last.cascadeTopLeft(from: NSPoint(x: last.frame.minX, y: last.frame.maxY)))
+		}
 	}
 
 	required init?(coder: NSCoder) { fatalError("no se usa con nib") }

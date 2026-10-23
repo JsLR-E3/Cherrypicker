@@ -46,7 +46,14 @@ final class FinderWindowController: NSWindowController, NSWindowDelegate, NSTabl
 		window.contentView = makeContent()
 		window.layoutIfNeeded()
 		table.sizeToFit()
-		window.center()
+		// En la pantalla de la ventana del documento.
+		if let main = document.windowControllers.first(where: { $0 is DocumentWindowController })?.window,
+		   let screen = main.screen {
+			window.setFrameTopLeftPoint(NSPoint(x: main.frame.maxX + 8, y: main.frame.maxY))
+			window.setFrame(window.constrainFrameRect(window.frame, to: screen), display: false)
+		} else {
+			window.center()
+		}
 		NotificationCenter.default.addObserver(self, selector: #selector(modelDidChange(_:)),
 		                                       name: MidnamDocument.modelDidChange, object: document)
 		reload()
