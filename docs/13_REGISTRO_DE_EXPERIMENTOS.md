@@ -433,3 +433,19 @@ valer un resultado.
 - **Conclusión:** DP acepta modos con canales sin asignar (los muestra como «No Patches») y Channel Sets nuevos; un
   banco vacío (P13) no estorba en el menú.
 - **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»).
+
+## EXP-017 · 2026-10-23 · Audición a un destino MIDI virtual (T-021)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto; `build/CherryPicker.app` del commit `7f3b42a`. Fichero: copia de
+  `captures/exp011/Prueba canales.midnam` en el scratchpad. Destino: «CP Monitor», destino CoreMIDI virtual creado por
+  Claude en el scratchpad (`captures/exp017/monitor_main.swift`) que solo anota lo que recibe. **Ningún módulo real.**
+- **Procedimiento (usuario):** MIDI ▸ Device Out «CP Monitor» ▸ Enable MIDI; clic y flechas en patches de «Kits»
+  (Channel Set Melodicos, canal 1; banco 2/0) y «Kits extra» (Bateria, canal 10; banco 2/1); después Device ▸ Bateria
+  ▸ Audition Ch 11 y más clics en «Kits extra».
+- **Resultado (A, `captures/exp017/recibido.log`):** 48 mensajes, en grupos de tres: `B0 00 02`, `B0 20 00`, `C0 0n`
+  (Kits, canal 1); `B9 00 02`, `B9 20 01`, `C9 0n` (Kits extra, canal 10); `BA 00 02`, `BA 20 01`, `CA 0n` (canal 11
+  tras cambiar Audition Ch). Program Change 0–2 según el patch. Solo CC0, CC32 y Program Change; nada más.
+- **CPU:** `top` con la app abierta en reposo (cliente CoreMIDI creado): 0,0 %.
+- **Conclusión:** la audición envía exactamente lo previsto (D-002, regla 4), en el canal del Channel Set o en el
+  Audition Ch elegido. Falta probarla con un módulo real (con permiso del usuario).
+- **Estado:** COMPLETADO.

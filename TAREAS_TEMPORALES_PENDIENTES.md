@@ -24,7 +24,7 @@
 
 ## EN PROGRESO
 
-- —
+- T-021 (ficha abajo).
 
 ## PENDIENTE DE VALIDACIÓN LOCAL
 
@@ -38,11 +38,17 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
+| T-021 | A | EN PROGRESO | Pestaña MIDI y audición (D-002) | T-020 | Ficha T-021 |
 | T-014 | C | PENDIENTE | Mirar con el usuario si «Other Controller…» de DP usa la `ControlNameList` | DP abierto (usuario) | EXP registrado; fila `ControlNameList` de `PROTOCOL_INDEX` actualizada |
 
 ## Fichas
 
-- —
+**T-021 — Pestaña MIDI y audición** (D-002, P5; docs/20 §4 flujo 5).
+- Hecho: `CherryPickerCore/Audition.swift` (bytes; solo CC0/CC32/Program Change; 4 tests, 62/62), `MIDIOut.swift`
+  (CoreMIDI, UMP MIDI 1.0), pestaña MIDI (Device Out, Enable MIDI desactivado al abrir), envío al seleccionar un
+  patch en la lista y Audition Ch editable en Device (recordados por fabricante y modelo en la app).
+- Verificado con un destino virtual (EXP-017): bytes y canales correctos; CPU 0,0 % en reposo.
+- Falta: probar con un módulo real (permiso del usuario, solo esos mensajes) y documentar la pestaña en `docs/20`.
 
 ## SIGUIENTE PASO EXACTO
 
