@@ -24,7 +24,7 @@
 
 ## EN PROGRESO
 
-- —
+- T-020 (ficha abajo).
 
 ## PENDIENTE DE VALIDACIÓN LOCAL
 
@@ -38,11 +38,22 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
+| T-020 | A | EN PROGRESO | Pestaña Device: modos y Channel Sets | T-016 | Ficha T-020 |
 | T-014 | C | PENDIENTE | Mirar con el usuario si «Other Controller…» de DP usa la `ControlNameList` | DP abierto (usuario) | EXP registrado; fila `ControlNameList` de `PROTOCOL_INDEX` actualizada |
 
 ## Fichas
 
-- —
+**T-020 — Pestaña Device** (docs/20 §3.1 y §3.3; manual «Modes» y «Channel Sets»; captura del original
+`reference/capturas_snow_leopard/12.tiff`).
+- Lógica en `CherryPickerCore/DeviceEditing.swift` con 8 tests (57/57): leer fabricante/modelo, modos y Channel Sets
+  por modo; Active Channels («1-7, 9, 11-16»), canales libres, + / − y renombrar modos y Channel Sets (nombres
+  únicos), Reassign Banks To; P13 (Channel Set nuevo con banco vacío). Audition Ch se muestra (canal más bajo), sin
+  guardar (acordado con el usuario).
+- Interfaz: Manufacturer/Model, cajas Modes y Channel Sets con + / −, Active Channels, Audition Ch y el aviso «(Add
+  disabled: No free channels in mode)»; hojas New Channel Set y Reassign Banks To.
+- Sin comprobar: qué escribe el original para canales libres (aquí se omiten en `ChannelNameSetAssignments`) y si
+  DP lo acepta.
+- Aceptación: tests verdes; probado a mano (EXP-016); fichero con dos Channel Sets editados abierto en DP.
 
 ## SIGUIENTE PASO EXACTO
 

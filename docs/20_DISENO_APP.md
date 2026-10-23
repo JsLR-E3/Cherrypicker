@@ -179,6 +179,7 @@ se puede borrar ni sacar el último banco de un Channel Set (`PatchBank+`).
 | P10 | Lista de patches: al editar una celda, Tab / ⇧Tab recorren las celdas saltando de fila al final de cada una, y ↑ / ↓ pasan a la misma columna del patch de arriba o de abajo; ← / → pasan a la celda de al lado cuando el cursor está en el borde del texto o todo él seleccionado. En Patch Banks (solo se escribe el nombre), Tab / ↓ y ⇧Tab / ↑ pasan al nombre del banco siguiente o anterior | Edición más rápida; en el original Tab salía de la tabla a los botones. Pedida por el usuario (EXP-013) |
 | P11 | Zap Dups pide confirmación con el número de patches que borrará (o avisa si no hay ninguno) | Borra patches; el original lo hacía sin preguntar (manual: «haz copia antes») |
 | P12 | Zap Dups con bancos seleccionados: se conservan esos y sus patches se borran de todos los demás bancos de su Channel Set, tengan bank select o no; sin selección, la regla del original (se conservan los bancos sin bank select). El aviso dice cuántos se borran de cada banco | Con la regla sola, un banco de origen sin bank select se toma por Custom y no se limpia nunca (EXP-014); pedida por el usuario |
+| P13 | Un Channel Set nuevo (+ en Channel Sets o al crear un modo) lleva un banco vacío «New Bank»; nombres de modo y de Channel Set únicos | La DTD exige `PatchBank+`: el original los dejaba vacíos y con nombres repetidos, y el fichero no validaba (EXP-012); aceptada por el usuario (2026-10-23) |
 
 ## 6. Inventario de los nibs
 
