@@ -510,4 +510,13 @@ valer un resultado.
   (fichero nuevo, `cmp` idéntico). **Deshacer:** borrarlo.
 - **Preguntas para DP:** (1) ¿Se puede crear el dispositivo escribiendo a mano «Cherrypicker» / «CP Sin middev»?
   (2) ¿*Master Names* ofrece «Prueba sin middev»? (3) ¿Sale «Banco SM» con sus 3 presets en la pista?
-- **Estado:** EN CURSO.
+- **Resultado (A, capturas del usuario):** el desplegable de modelos de DP no ofrece «CP Sin middev» (solo lista lo de
+  los `.middev`). En Configuración de Audio MIDI sí se puede escribir a mano: con un modelo distinto («CP Sin middev a
+  mano») *Master Names* solo da «Default Names» / «General MIDI»; con el modelo **exacto** («CP Sin middev»), tras
+  reiniciar DP, *Master Names* = «Prueba sin middev», banco «Banco SM» y en la pista «001 SM uno», «002 SM dos»,
+  «003 SM tres».
+- **Conclusión:** la entrada del `.middev` **no es necesaria** para que DP use un `.midnam`; basta con que fabricante y
+  modelo del dispositivo coincidan exactamente con los del fichero. El `.middev` es una comodidad: que el modelo salga
+  en los desplegables. Corrige la fila de `PROTOCOL_INDEX` (EXP-006). El usuario prefiere que «Instalar en DP…» lo
+  cree igualmente (opcional).
+- **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»).

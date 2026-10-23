@@ -11,7 +11,7 @@ Estados: CONFIRMED · PARTIAL · OBSERVED · UNKNOWN · DISCARDED. Niveles de ev
 | Bank select: ninguno, por banco o por preset (`PatchMIDICommands`) | OBSERVED | EXP-001 (B) | `PatchBank.Item.midiCommands`, `Patch.Item.patchMIDICommands` |
 | Listas de controles con nombre (`ControlNameList`) | PARTIAL: DP conoce `UsesControlNameList` (EXP-002) pero no la usa en el menú de controladores de la pista (EXP-006); falta «Other Controller…» | EXP-006 (A) | `ControlNameList`, `Control` |
 | Dónde y cómo lee DP 11.36 los `.midnam` | OBSERVED: `/Library/Audio/MIDI Devices/MOTU/<Fabricante>/` | EXP-002 (usuario + D); `protocol/observed/dp_carpeta_midnam.md` | — |
-| `.middev` para que un fabricante/modelo nuevo salga en la lista de Audio MIDI | CONFIRMED (a mano también funcionaría: por confirmar) | EXP-006 (A) | — |
+| `.middev` para que un fabricante/modelo nuevo salga en la lista de Audio MIDI | CONFIRMED: sin él no sale en los desplegables, pero escribiéndolo a mano en Configuración de Audio MIDI (fabricante y modelo exactos) DP usa el `.midnam` igual | EXP-006 (A), EXP-021 (A) | — |
 | DP acepta el DOCTYPE de midi.org; *Master Names* = nombre de fichero; menú de presets = nombre de `PatchNameList` + «Number Name»; recarga al volver a elegir en *Master Names* | CONFIRMED | EXP-006 (A); EXP-013 (A): orden del fichero, patch sin nombre = solo «Number» | `MidnamFile.newFileProlog` |
 | Hoja Bank Selects del original: qué hace cada opción con los patches | CONFIRMED | EXP-009 (B, reproducido byte a byte) | `BankEditing.swift`, `testBankSelectOptionsMatchOriginal` |
 | DP 11.36 lee lo que escribe la app; bancos por canal según `ChannelNameSet`; un solo banco en el juego = presets sin submenú | CONFIRMED | EXP-011 (A) | `src/CherryPickerApp` |

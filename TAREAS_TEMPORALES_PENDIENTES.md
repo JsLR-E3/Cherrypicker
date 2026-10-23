@@ -18,7 +18,7 @@
 - **Original** en Snow Leopard (Mac mini del usuario) para contrastar (EXP-009, EXP-012). Allí queda un `.middev`
   «Prueba / Prueba» del asistente del original (EXP-012), lo borra el usuario cuando quiera.
 - **Instalación de prueba que se deja a propósito:** `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/` («CP Canales»,
-  EXP-011; «CP Patches», EXP-013; «CP Zap» con «Prueba zap», «… sin zap» y «… orden», EXP-015; «Prueba device» en CP Canales, EXP-016). Deshacer: borrar esa carpeta.
+  EXP-011; «CP Patches», EXP-013; «CP Zap» con «Prueba zap», «… sin zap» y «… orden», EXP-015; «Prueba device» en CP Canales, EXP-016; «Prueba sin middev», EXP-021). Deshacer: borrar esa carpeta.
 - Base: MidnamKit sin pérdidas y validación DTD (fase 1); cómo lee DP los `.midnam` (fase 2); estados en
   `protocol/PROTOCOL_INDEX.md`.
 
@@ -46,8 +46,8 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 ## SIGUIENTE PASO EXACTO
 
-1. **Abrir T-024 con el usuario:** «Instalar en DP…» (P3: copiar el `.midnam` y crear la entrada del `.middev` con
-   confirmación; lo necesita un fichero nuevo del asistente), Copy... en la lista de presets, o las pestañas
+1. **Abrir T-024 con el usuario:** «Instalar en DP…» (P3: copiar el `.midnam` y, opcional, crear la entrada del
+   `.middev`, con confirmación; EXP-021: el `.middev` no es imprescindible, solo hace que el modelo salga en las listas), Copy... en la lista de presets, o las pestañas
    Controllers o Categories. Decidir también el Find de la lista
    de patches (filtrar o seleccionar, docs/20 §3.2) y si se quiere una nota de prueba opcional para módulos de sonido
    (ampliaría D-002).
