@@ -412,3 +412,17 @@ valer un resultado.
   de banco (`MIDICommands`) coincide con el del patch, y «Mis Pianos» no lleva bank select de banco.
 - **Estado:** COMPLETADO. Instalación sin retirar: también `Prueba zap sin zap.midnam` y `Prueba zap orden.midnam`
   (deshacer: borrarlos).
+
+## EXP-016 · 2026-10-23 · Pestaña Device en la app y en DP (T-020)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto; `build/CherryPicker.app` del commit `d9e30cf`. Fichero: copia de
+  `captures/exp011/Prueba canales.midnam` en el scratchpad (sintético). Prueba hecha por el usuario con la lista de la
+  sesión (disposición, Active Channels, + / − de Channel Sets con Reassign Banks To, modos, renombrar, deshacer).
+- **Resultado en la app (A, usuario):** «parece que todo está correcto».
+- **Fichero para DP:** `captures/exp016/Prueba device.midnam` (generado con la lógica de la app, test temporal no
+  versionado; VÁLIDO): mismo dispositivo que EXP-011 (Cherrypicker / CP Canales), «Melodicos» 1-8, «Bateria» 10,
+  «Bajos» 11-12 (nuevo, con «New Bank» vacío y «Kits extra»); canales 9 y 13-16 **libres** (sin
+  `ChannelNameSetAssign`).
+- **Preguntas para DP:** (1) ¿*Master Names* muestra «Prueba device»? (2) Canal 11: ¿bancos «New Bank» y «Kits extra»?
+  (3) Canal 1: ¿solo «Kits»? (4) Canal 9 o 13 (libres): ¿qué muestra DP?
+- **Estado:** EN CURSO (falta DP).

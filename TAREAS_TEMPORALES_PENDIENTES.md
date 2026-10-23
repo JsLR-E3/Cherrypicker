@@ -53,6 +53,7 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
   disabled: No free channels in mode)»; hojas New Channel Set y Reassign Banks To.
 - Sin comprobar: qué escribe el original para canales libres (aquí se omiten en `ChannelNameSetAssignments`) y si
   DP lo acepta.
+- Probada a mano en la app (EXP-016). Falta: `captures/exp016/Prueba device.midnam` en DP (canales libres).
 - Aceptación: tests verdes; probado a mano (EXP-016); fichero con dos Channel Sets editados abierto en DP.
 
 ## SIGUIENTE PASO EXACTO
