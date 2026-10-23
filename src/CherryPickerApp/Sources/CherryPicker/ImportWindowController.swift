@@ -2,7 +2,8 @@
 // Izquierda, «Files You Can Import From»: los `.midnam` de la carpeta (por defecto la de DP del fabricante del
 // documento; «Set midnam folder…» elige otra y se recuerda), con su «Type» (fabricante y modelo). Derecha, «Available
 // Patch Lists» del fichero elegido, con «#» y «Select Destination Bank»: «-» (no se importa), el banco del mismo
-// nombre si lo hay (manual), otro banco del documento o «New Bank» ([PROPUESTA P14]). «Import» lo aplica de una vez.
+// nombre si lo hay (manual), otro banco del documento o «Add as New Bank» ([PROPUESTA P14]). Las columnas se ajustan a
+// su texto más largo; con scroll horizontal si no caben. «Import» lo aplica de una vez.
 // Los ficheros se leen solo para listarlos; no se modifican.
 import AppKit
 import CherryPickerCore
@@ -31,7 +32,7 @@ final class ImportWindowController: NSWindowController, NSTableViewDataSource, N
 
 	init(document: MidnamDocument) {
 		midnam = document
-		let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 700, height: 360), styleMask: [.titled, .resizable],
+		let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 820, height: 380), styleMask: [.titled, .resizable],
 		                      backing: .buffered, defer: false)
 		window.title = "Patchlist Importer"
 		window.minSize = NSSize(width: 600, height: 280)
@@ -76,7 +77,7 @@ final class ImportWindowController: NSWindowController, NSTableViewDataSource, N
 			t.dataSource = self
 			t.delegate = self
 			t.usesAlternatingRowBackgroundColors = true
-			t.columnAutoresizingStyle = .lastColumnOnlyAutoresizingStyle
+			t.columnAutoresizingStyle = .noColumnAutoresizing
 		}
 		listsTable.selectionHighlightStyle = .none
 
@@ -84,6 +85,8 @@ final class ImportWindowController: NSWindowController, NSTableViewDataSource, N
 			let s = NSScrollView()
 			s.documentView = t
 			s.hasVerticalScroller = true
+			s.hasHorizontalScroller = true
+			s.autohidesScrollers = true
 			s.borderType = .bezelBorder
 			return s
 		}
@@ -158,6 +161,7 @@ final class ImportWindowController: NSWindowController, NSTableViewDataSource, N
 				guard let self else { return }
 				self.files = found
 				self.filesTable.reloadData()
+				self.fitColumns(self.filesTable)
 				self.progress.stopAnimation(nil)
 				self.progressLabel.stringValue = "\(found.count) file\(found.count == 1 ? "" : "s") in \(folder.path)"
 			}
@@ -199,7 +203,26 @@ final class ImportWindowController: NSWindowController, NSTableViewDataSource, N
 				?? .none
 		}
 		listsTable.reloadData()
+		fitColumns(listsTable)
 		updateImportButton()
+	}
+
+	/// Cada columna al ancho de su texto más largo (cabecera incluida; EXP-019: se cortaban los nombres).
+	private func fitColumns(_ table: NSTableView) {
+		let font = NSFont.systemFont(ofSize: NSFont.systemFontSize)
+		func width(_ s: String) -> CGFloat { (s as NSString).size(withAttributes: [.font: font]).width }
+		for col in table.tableColumns {
+			let texts: [String]
+			switch col.identifier.rawValue {
+			case "midnam": texts = files.map(\.url.lastPathComponent)
+			case "type": texts = files.map(\.type)
+			case "name": texts = lists.map(\.name)
+			case "count": texts = lists.map { String($0.count) }
+			default: texts = ["Add as New Bank"] + (midnam.model.map { BankRows.rows($0).map(\.name) } ?? [])
+			}
+			let extra: CGFloat = col.identifier.rawValue == "destination" ? 40 : 16
+			col.width = max(width(col.title) + 16, (texts.map(width).max() ?? 0) + extra)
+		}
 	}
 
 	private static func master(of doc: MIDINameDocument) -> Int? {
@@ -234,15 +257,20 @@ final class ImportWindowController: NSWindowController, NSTableViewDataSource, N
 			let popup = NSPopUpButton()
 			popup.isBordered = false
 			popup.controlSize = .small
+			// «Add as New Bank» y no «New Bank»: un banco puede llamarse así (P13; EXP-019). Los bancos van por su
+			// nombre en `representedObject`, no por el título.
 			popup.addItem(withTitle: "-")
-			popup.addItem(withTitle: "New Bank")
+			popup.addItem(withTitle: "Add as New Bank")
 			popup.menu?.addItem(.separator())
 			let banks = midnam.model.map { m in BankRows.rows(m).filter { $0.ref.master == Self.master(of: m) }.map(\.name) } ?? []
-			for b in banks { popup.addItem(withTitle: b) }
+			for b in banks {
+				popup.addItem(withTitle: b)
+				popup.lastItem?.representedObject = b
+			}
 			switch destinations[row] {
 			case .none: popup.selectItem(at: 0)
 			case .newBank: popup.selectItem(at: 1)
-			case .bank(let n): popup.selectItem(withTitle: n)
+			case .bank(let n): popup.selectItem(at: popup.itemArray.firstIndex { $0.representedObject as? String == n } ?? 0)
 			}
 			popup.tag = row
 			popup.target = self
@@ -256,7 +284,7 @@ final class ImportWindowController: NSWindowController, NSTableViewDataSource, N
 		switch sender.indexOfSelectedItem {
 		case 0: destinations[sender.tag] = .none
 		case 1: destinations[sender.tag] = .newBank
-		default: destinations[sender.tag] = .bank(sender.titleOfSelectedItem ?? "")
+		default: destinations[sender.tag] = (sender.selectedItem?.representedObject as? String).map(Destination.bank) ?? .none
 		}
 		updateImportButton()
 	}
