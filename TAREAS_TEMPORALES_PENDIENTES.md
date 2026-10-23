@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-23 · local (`main`) · T-024 COMPLETADA: «Install in DP…» probado en la app y en DP (EXP-022).
+> Actualizado: 2026-10-23 · local (`main`) · T-019 a T-024 completadas: Merge/Find/Zap Dups, Device, MIDI y audición, Import, asistente New e «Install in DP…».
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -11,16 +11,14 @@
 
 ## ESTADO ACTUAL
 
-- **Fase 3 en marcha** (diseño en `docs/20`, D-005/D-007; app AppKit en `src/CherryPickerApp`, D-006):
-  `tools/empaquetar_app.sh` → `build/CherryPicker.app`. Hechas y probadas en la app y en DP 11.36:
-  pestaña Patch Banks (EXP-010/011) con Merge, Find, Zap Dups (EXP-014/015) e Import (EXP-019), pestaña Device (EXP-016), pestaña MIDI con audición (EXP-017/018) y ventana
-  Patch Names (EXP-013), con Tab y flechas al editar (P10). `swift test` 72/72. Asistente Device Setup (File ▸ New, EXP-020) e «Install in DP…» (⌘I, EXP-022). Claude ve la app con `tools/capturar_app.sh`.
-- **Original** en Snow Leopard (Mac mini del usuario) para contrastar (EXP-009, EXP-012). Allí queda un `.middev`
-  «Prueba / Prueba» del asistente del original (EXP-012), lo borra el usuario cuando quiera.
-- **Instalación de prueba que se deja a propósito:** `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/` («CP Canales»,
-  EXP-011; «CP Patches», EXP-013; «CP Zap» con «Prueba zap», «… sin zap» y «… orden», EXP-015; «Prueba device» en CP Canales, EXP-016; «Prueba sin middev», EXP-021; «CP Instalar» y «Cherrypicker (CherryPicker).middev», EXP-022). Deshacer: borrar esa carpeta.
-- Base: MidnamKit sin pérdidas y validación DTD (fase 1); cómo lee DP los `.midnam` (fase 2); estados en
-  `protocol/PROTOCOL_INDEX.md`.
+- **Fase 3 casi completa** (diseño `docs/20`; app AppKit `src/CherryPickerApp`, D-006; `swift test` 72/72;
+  `tools/empaquetar_app.sh` → `build/CherryPicker.app`). Probado en la app y en DP 11.36: Patch Banks con Merge, Find,
+  Zap Dups e Import; ventana Patch Names; pestañas Device y MIDI (audición con el M3000, EXP-018); asistente New;
+  «Install in DP…». Fases 4 y 6 del roadmap hechas. Uso en `docs/30`.
+- Claude ve la app con `tools/capturar_app.sh` (solo ventanas de CherryPicker); el usuario la maneja.
+- **Original** en Snow Leopard (Mac mini) para contrastar (EXP-009, EXP-012); allí queda un `.middev` «Prueba / Prueba».
+- **Instalación de prueba que se deja a propósito:** `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/` (EXP-011 a
+  EXP-022; cada EXP dice cómo deshacer lo suyo). Deshacer todo: borrar esa carpeta.
 
 ## EN PROGRESO
 
@@ -46,7 +44,8 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 ## SIGUIENTE PASO EXACTO
 
-1. **Abrir T-025 con el usuario:** Copy... en la lista de presets, la pestaña Controllers (con T-014) o Categories.
-   Decidir también el Find de la lista de patches (filtrar o seleccionar, docs/20 §3.2) y si se quiere una nota de
-   prueba opcional para módulos de sonido (ampliaría D-002).
+1. **Abrir T-025 con el usuario:** leer `docs/20` §3.1–3.2 y proponerle Controllers (con T-014), Categories o Copy...
+   en la lista de presets; con la elegida, ficha y lógica con tests en `CherryPickerCore`. Decidir también el Find de
+   la lista de patches (filtrar o seleccionar como el original, docs/20 §3.2) y si se quiere una nota de prueba
+   opcional para módulos de sonido (ampliaría D-002).
 2. Menor, con el usuario y DP abierto: T-014.

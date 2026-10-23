@@ -29,13 +29,35 @@ Abrir un `.midnam` con **File ▸ Open…** o arrastrándolo a la app. La app no
   («Patch Delimiter»). **−** o Supr borran; **Renumber** numera todos o los seleccionados. Arrastrar reordena; a la
   ventana de otro banco del mismo fichero, copia (cada preset sigue sonando con su bank select). **Find** filtra por
   nombre y «Count:» cuenta lo que se ve.
+- **Patch Banks, más botones:** **Merge** (con dos o más bancos) junta sus presets en un banco nuevo y borra los
+  originales (con Option al pulsar «Add», los conserva). **Zap Dups** borra los presets repetidos: con bancos
+  seleccionados, conserva esos y borra los repetidos de los demás bancos de su Channel Set; sin selección, borra de
+  los bancos con bank select los que ya están en un banco sin bank select (Custom Bank). Sirve para que DP recuerde el
+  Custom Bank desde el que elegiste un preset (EXP-015), a cambio de dejar huecos en el banco original. **Import** trae
+  listas de otros `.midnam` de una carpeta (por defecto la de DP del fabricante): cada lista llena un banco o crea
+  uno («Add as New Bank»). **Find** abre el Finder: busca presets por nombre en todos los bancos; «Add New Bank With
+  Patches» crea un banco con los que quedan en la lista, − y «Remove Duplicates» solo quitan filas de la lista, y se
+  pueden arrastrar a la lista de un banco.
+- **Device:** fabricante y modelo (solo lectura), modos y Channel Sets con + / − y doble clic para renombrar,
+  «Active Channels» (p. ej. `1-9, 11-16`) y «Audition Ch» (canal por el que suena la audición; vacío = el más bajo).
+  El + de Channel Sets solo funciona si quedan canales libres; un Channel Set nuevo trae un banco vacío. Al borrar uno
+  con presets, pregunta a qué Channel Set pasan sus bancos.
+- **MIDI (audición):** elegir «Device Out» y marcar «Enable MIDI» (se desmarca al abrir). Al seleccionar un preset en
+  su lista se envían su bank select y su Program Change, y nada más (ni notas ni SysEx).
+- **File ▸ New (⌘N):** asistente Device Setup: fabricante y modelo (se autocompletan con los de DP), si todos los
+  bancos suenan en todos los canales y, si no, los grupos de canales. Crea un documento sin guardar con un banco vacío
+  por grupo.
 - **Preview:** el XML exacto que se guardará.
-- **Llevarlo a DP:** copiar el `.midnam` (y un `.middev` si el modelo es nuevo) a
-  `/Library/Audio/MIDI Devices/MOTU/<Fabricante>/`; DP necesita reiniciarse para un `.middev` nuevo y, tras cambiar un
-  fichero, volver a elegirlo en *Master Names*. («Instalar en DP…», P3, aún no está hecho.)
+- **Llevarlo a DP: File ▸ Install in DP… (⌘I).** Copia el fichero a `/Library/Audio/MIDI Devices/MOTU/<Fabricante>/`
+  con el nombre que verás en *Master Names* y, si el modelo es nuevo, puede añadirlo a «<Fabricante>
+  (CherryPicker).middev» para que salga en la lista de modelos (sin él también funciona si escribes fabricante y
+  modelo exactos en Configuración de Audio MIDI). Pide confirmación, guarda copia de lo que sustituye y dice cómo
+  deshacerlo. Después, reiniciar DP o volver a elegir el fichero en *Master Names*.
+- **Ventanas:** la del documento se abre donde la dejaste (también en otra pantalla).
 
 ## 3. Diagnóstico y limitaciones
 
 - Solo se lee `.midnam` en UTF-8.
-- Aún no hay: Copy… y audición en la lista de presets, arrastrar presets entre ficheros, New (asistente), pestañas MIDI, Device, Controllers y Categories.
+- Aún no hay: Copy… en la lista de presets, arrastrar presets o bancos entre ficheros, pestañas Controllers y
+  Categories, Note Lists.
 - Un Channel Set no puede quedarse sin bancos (lo exige el formato).
