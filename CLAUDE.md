@@ -63,6 +63,9 @@ máquina y no viaja entre el Mac y la nube).
   de los ejemplos y validación contra la DTD de lo que escribe).
 - **Validar un `.midnam` contra la DTD 1.0:** `tools/validar_midnam.sh fichero.midnam…` (sin red; necesita
   `reference/dtd/MIDINameDocument10.dtd` y `MIDIEvents10.dtd`).
+- **Ver la app sin pedir capturas al usuario:** `tools/capturar_app.sh [carpeta]` guarda en PNG solo las ventanas de
+  CherryPicker (nunca el resto de la pantalla; permiso del usuario, 2026-10-23). Claude no puede hacer clic: el usuario
+  maneja la app y Claude mira.
 - Comprobación de la documentación y del repositorio: `.claude/scripts/comprobar.py`.
 
 ## Economía de contexto

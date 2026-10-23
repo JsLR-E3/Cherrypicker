@@ -463,3 +463,19 @@ valer un resultado.
 - **Resultado (A, usuario):** «Todo perfecto»: el M3000 cambia al preset seleccionado.
 - **Conclusión:** la audición sirve con un aparato real; no se envía nada más que el cambio de preset (D-002).
 - **Estado:** COMPLETADO.
+
+## EXP-019 · 2026-10-23 · Import en la app (T-022)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto; `build/CherryPicker.app` de `8f70157` y los arreglos de abajo. Fichero:
+  copias de `captures/exp016/Prueba device.midnam` en el scratchpad; carpeta de importación por defecto
+  `/Library/Audio/MIDI Devices/MOTU/Cherrypicker` (6 `.midnam` de prueba; solo se leen). Prueba hecha por el usuario.
+- **Primera prueba:** columnas del Importer cortadas; y «New Bank» como destino llenó el banco existente «New Bank»
+  (creado en EXP-016, P13) en vez de crear «ROM A»: dos entradas con el mismo título. Arreglos (`0a3fdd0`): columnas
+  al ancho de su texto; la opción pasa a «Add as New Bank» y los bancos se identifican por `representedObject`.
+- **Segunda prueba** (captura del usuario): «Ahora sí aparece ROM A», pero la tabla de ficheros (36 % fijo) cortaba
+  «Type». Arreglo (`736c531`): la tabla toma el ancho de sus columnas y la hoja crece si hace falta.
+- **Tercera prueba:** «Ahora sí» (usuario).
+- **Desde aquí:** Claude ve las ventanas de la app con `tools/capturar_app.sh` (solo las de CherryPicker; permiso del
+  usuario). Probado: captura de la ventana del documento.
+- **Conclusión:** Import funciona en la app (llenar un banco existente y crear uno nuevo con «Add as New Bank»).
+- **Estado:** COMPLETADO.
