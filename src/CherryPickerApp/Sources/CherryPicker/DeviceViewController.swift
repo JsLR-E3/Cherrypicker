@@ -9,8 +9,8 @@ import MidnamKit
 
 final class DeviceViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
 	private let document: MidnamDocument
-	private let manufacturer = NSTextField(labelWithString: "")
-	private let model = NSTextField(labelWithString: "")
+	private let manufacturer = NSTextField(string: "")
+	private let model = NSTextField(string: "")
 	private let modesTable = NSTableView()
 	private let setsTable = NSTableView()
 	private let removeModeButton = NSButton()
@@ -55,9 +55,16 @@ final class DeviceViewController: NSViewController, NSTableViewDataSource, NSTab
 			t.target = self
 			t.doubleAction = #selector(doubleClick(_:))
 		}
+		// Recuadros de solo lectura, «Model:» a la derecha, como en el original (EXP-020: juntos parecían un solo nombre).
 		for f in [manufacturer, model] {
+			f.isEditable = false
 			f.isSelectable = true
+			f.isBezeled = true
+			f.bezelStyle = .squareBezel
+			f.drawsBackground = true
+			f.backgroundColor = .controlBackgroundColor
 			f.lineBreakMode = .byTruncatingTail
+			f.widthAnchor.constraint(equalToConstant: 170).isActive = true
 		}
 		activeChannels.delegate = self
 		activeChannels.placeholderString = "1-7, 9, 11-16"
@@ -85,9 +92,11 @@ final class DeviceViewController: NSViewController, NSTableViewDataSource, NSTab
 		fields.translatesAutoresizingMaskIntoConstraints = false
 		setsBox.contentView?.addSubview(fields)
 
-		let names = NSGridView(views: [[NSTextField(labelWithString: "Manufacturer:"), manufacturer,
-		                                NSTextField(labelWithString: "Model:"), model]])
-		names.columnSpacing = 6
+		let spacer = NSView()
+		spacer.setContentHuggingPriority(.defaultLow, for: .horizontal)
+		let names = NSStackView(views: [NSTextField(labelWithString: "Manufacturer:"), manufacturer, spacer,
+		                                NSTextField(labelWithString: "Model:"), model])
+		names.spacing = 6
 		let root = NSView()
 		for v in [names, modesBox, setsBox] as [NSView] {
 			v.translatesAutoresizingMaskIntoConstraints = false
@@ -99,7 +108,7 @@ final class DeviceViewController: NSViewController, NSTableViewDataSource, NSTab
 			modesScroll.trailingAnchor.constraint(equalTo: modesBox.contentView!.trailingAnchor, constant: -8),
 			names.topAnchor.constraint(equalTo: root.topAnchor, constant: 12),
 			names.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 12),
-			names.trailingAnchor.constraint(lessThanOrEqualTo: root.trailingAnchor, constant: -12),
+			names.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -12),
 			modesBox.topAnchor.constraint(equalTo: names.bottomAnchor, constant: 14),
 			modesBox.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 8),
 			modesBox.widthAnchor.constraint(equalToConstant: 170),
@@ -129,6 +138,7 @@ final class DeviceViewController: NSViewController, NSTableViewDataSource, NSTab
 		let scroll = NSScrollView()
 		scroll.documentView = table
 		scroll.hasVerticalScroller = true
+		scroll.autohidesScrollers = true
 		scroll.borderType = .bezelBorder
 		for v in [scroll, buttons] {
 			v.translatesAutoresizingMaskIntoConstraints = false
