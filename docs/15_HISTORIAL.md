@@ -5,6 +5,7 @@ copia. Se consulta por `grep` (p. ej. `grep T-012 docs/15_HISTORIAL.md`), no se 
 
 | ID | Cerrada | Resultado (y cómo se verificó) | Commit · EXP · D |
 |---|---|---|---|
+| T-024 | 2026-10-23 | «Install in DP…» (File, ⌘I; P3): copia a `MOTU/<Fabricante>/` con confirmación, `.middev` propio opcional, copia de seguridad y cómo deshacer. 3 tests (72/72); probado en la app y en DP 11.36 (el modelo sale en la lista y en Master Names) | 7f55a86…e4ebba6 · EXP-021, EXP-022 |
 | T-023 | 2026-10-23 | Asistente Device Setup (File ▸ New): fabricante/modelo con autocompletado desde los `.middev` (sin distinguir mayúsculas), aviso de `.middev`, grupos de canales; documento nuevo válido con un banco vacío por grupo. 4 tests (69/69); probado a mano por el usuario | 45189f5…912fc26 · EXP-020 |
 | T-022 | 2026-10-23 | Import desde otros `.midnam` (Patchlist Importer): ficheros de una carpeta con su Type, listas con destino (mismo nombre, otro banco o «Add as New Bank», P14). 3 tests (65/65); probado a mano por el usuario (2 arreglos) | 8f70157…736c531 · EXP-019 |
 | T-021 | 2026-10-23 | Pestaña MIDI y audición por CoreMIDI: Device Out, Enable MIDI (P5), envío de CC0/CC32 + Program Change al seleccionar un patch, Audition Ch editable. 4 tests (62/62); bytes comprobados con un destino virtual y probada con el M3000 en la Unitor8 | 7f3b42a…ed52e4a · EXP-017, EXP-018 · D-002 |

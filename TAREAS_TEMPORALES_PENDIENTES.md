@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-23 · local (`main`) · T-023 COMPLETADA: asistente Device Setup probado en la app (EXP-020).
+> Actualizado: 2026-10-23 · local (`main`) · T-024 COMPLETADA: «Install in DP…» probado en la app y en DP (EXP-022).
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -14,17 +14,17 @@
 - **Fase 3 en marcha** (diseño en `docs/20`, D-005/D-007; app AppKit en `src/CherryPickerApp`, D-006):
   `tools/empaquetar_app.sh` → `build/CherryPicker.app`. Hechas y probadas en la app y en DP 11.36:
   pestaña Patch Banks (EXP-010/011) con Merge, Find, Zap Dups (EXP-014/015) e Import (EXP-019), pestaña Device (EXP-016), pestaña MIDI con audición (EXP-017/018) y ventana
-  Patch Names (EXP-013), con Tab y flechas al editar (P10). `swift test` 69/69. Asistente Device Setup con File ▸ New (EXP-020). Claude ve la app con `tools/capturar_app.sh`.
+  Patch Names (EXP-013), con Tab y flechas al editar (P10). `swift test` 72/72. Asistente Device Setup (File ▸ New, EXP-020) e «Install in DP…» (⌘I, EXP-022). Claude ve la app con `tools/capturar_app.sh`.
 - **Original** en Snow Leopard (Mac mini del usuario) para contrastar (EXP-009, EXP-012). Allí queda un `.middev`
   «Prueba / Prueba» del asistente del original (EXP-012), lo borra el usuario cuando quiera.
 - **Instalación de prueba que se deja a propósito:** `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/` («CP Canales»,
-  EXP-011; «CP Patches», EXP-013; «CP Zap» con «Prueba zap», «… sin zap» y «… orden», EXP-015; «Prueba device» en CP Canales, EXP-016; «Prueba sin middev», EXP-021). Deshacer: borrar esa carpeta.
+  EXP-011; «CP Patches», EXP-013; «CP Zap» con «Prueba zap», «… sin zap» y «… orden», EXP-015; «Prueba device» en CP Canales, EXP-016; «Prueba sin middev», EXP-021; «CP Instalar» y «Cherrypicker (CherryPicker).middev», EXP-022). Deshacer: borrar esa carpeta.
 - Base: MidnamKit sin pérdidas y validación DTD (fase 1); cómo lee DP los `.midnam` (fase 2); estados en
   `protocol/PROTOCOL_INDEX.md`.
 
 ## EN PROGRESO
 
-- T-024 (ficha abajo).
+- —
 
 ## PENDIENTE DE VALIDACIÓN LOCAL
 
@@ -38,22 +38,15 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
-| T-024 | A | EN PROGRESO | «Install in DP…» (P3) | T-023 | Ficha T-024 |
 | T-014 | C | PENDIENTE | Mirar con el usuario si «Other Controller…» de DP usa la `ControlNameList` | DP abierto (usuario) | EXP registrado; fila `ControlNameList` de `PROTOCOL_INDEX` actualizada |
 
 ## Fichas
 
-**T-024 — Install in DP…** (P3; EXP-021).
-- Hecho: `CherryPickerCore/InstallInDP.swift` (carpeta, nombres, `.middev` propio; 3 tests, 72/72), `InstallSheet.swift`
-  (File ▸ Install in DP…, ⌘I; confirmación, copia de seguridad, cómo deshacer).
-- Falta: prueba a mano (EXP-022) con un dispositivo nuevo del asistente (p. ej. Cherrypicker / «CP Instalar») y
-  comprobar en DP que sale en la lista de modelos y en *Master Names*.
+- —
 
 ## SIGUIENTE PASO EXACTO
 
-1. **Abrir T-024 con el usuario:** «Instalar en DP…» (P3: copiar el `.midnam` y, opcional, crear la entrada del
-   `.middev`, con confirmación; EXP-021: el `.middev` no es imprescindible, solo hace que el modelo salga en las listas), Copy... en la lista de presets, o las pestañas
-   Controllers o Categories. Decidir también el Find de la lista
-   de patches (filtrar o seleccionar, docs/20 §3.2) y si se quiere una nota de prueba opcional para módulos de sonido
-   (ampliaría D-002).
+1. **Abrir T-025 con el usuario:** Copy... en la lista de presets, la pestaña Controllers (con T-014) o Categories.
+   Decidir también el Find de la lista de patches (filtrar o seleccionar, docs/20 §3.2) y si se quiere una nota de
+   prueba opcional para módulos de sonido (ampliaría D-002).
 2. Menor, con el usuario y DP abierto: T-014.

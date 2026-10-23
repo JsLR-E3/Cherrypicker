@@ -536,5 +536,9 @@ valer un resultado.
   en `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/`: `CP Instalar.midnam` (VÁLIDO) y `Cherrypicker
   (CherryPicker).middev` nuevo con «Cherrypicker / CP Instalar»; `Cherrypicker.middev` sin tocar; sin copias de
   seguridad (no se sustituyó nada). **Deshacer:** borrar esos dos ficheros.
-- **Pendiente:** DP 11.36: ¿sale «CP Instalar» en el desplegable de modelos y «CP Instalar» en *Master Names*?
-- **Estado:** EN CURSO.
+- **Resultado en DP 11.36 (A, capturas del usuario, tras reiniciar DP):** el desplegable de modelos de «Cherrypicker»
+  ofrece CP Canales, **CP Instalar**, CP Patches y CP Zap (DP junta los dos `.middev` de la carpeta); con «CP
+  Instalar», *Master Names* = «CP Instalar» y el banco «New Bank».
+- **Conclusión:** «Install in DP…» deja el fichero listo para DP, y el `.middev` propio hace que el modelo salga en
+  la lista sin escribirlo a mano. Un segundo `.middev` en la misma carpeta no estorba.
+- **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»).
