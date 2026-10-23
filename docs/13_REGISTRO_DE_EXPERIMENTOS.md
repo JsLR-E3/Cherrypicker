@@ -542,3 +542,29 @@ valer un resultado.
 - **Conclusión:** «Install in DP…» deja el fichero listo para DP, y el `.middev` propio hace que el modelo salga en
   la lista sin escribirlo a mano. Un segundo `.middev` en la misma carpeta no estorba.
 - **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»).
+
+## EXP-023 · 2026-10-23 · M3000: bancos de usuario e instantáneas por MIDI (consulta aledaña)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto, DP 11.36. Fuentes: manual del M3000 (español e inglés) y
+  «M3000 MIDI specification» v1.01 de TC (firmware 2.03), en `incoming/` (no versionado). Fichero de partida:
+  `reference/midnam_usuario/M3000.midnam` (privado, D-004), sin tocar.
+- **Lo que dicen las fuentes (B, documentación del fabricante):** 500 sencillos y 100 combinados de fábrica; 250
+  sencillos y 50 combinados de usuario (RAM 1: 1–128, RAM 2: 129–250). Con *Program Bank Change = External*, el CC0
+  desplaza el Program Change en 128 × CC0. Numeración de la especificación: sencillos de fábrica 1–512, de usuario
+  513–768, de tarjeta 769–1024; combinados de fábrica 1–128, de usuario 129–256, **instantáneas 257–384**, de tarjeta
+  385–512. El manual no dice que las instantáneas se carguen por MIDI.
+- **Fichero del usuario (estructura):** canales 1-2 «Engine 1-2» y canal 3 «Combined»; bancos de fábrica con CC0 0–3
+  y RAM 1/2 con CC0 4/5, coherentes con la especificación. Discrepancias: «Combined RAM 1» y «Combined RAM 2»
+  (CC0 1 y 2) con 128 entradas cada uno (el aparato guarda 50, y CC0 = 2 es el rango de las instantáneas); «RAM 2»
+  con 128 entradas (existen 122). Las entradas de los cuatro bancos de usuario no tienen nombre.
+- **Copia corregida** (scratchpad, `M3000_corregido.midnam`, VÁLIDO contra la DTD 1.0; DOCTYPE conservado, D-003):
+  «Combined RAM 1» con 50 entradas; «Combined RAM 2» sustituido por «Snapshots» (CC0 = 2, Program Change 1–4,
+  «Snapshot 1–4»); «RAM 2» con 122 entradas numeradas 129–250. El resto, idéntico.
+- **Instalación** (permiso del usuario, 2026-10-23 22:07): `/Library/Audio/MIDI Devices/MOTU/TC Electronic/M3000
+  prueba.midnam` (sha256 `ca606485a51d1837…`), junto a `M3000.midnam`, que sigue idéntico al de `reference/`.
+  **Deshacer:** borrar `M3000 prueba.midnam`.
+- **Prueba pendiente (usuario, DP 11.36 y M3000; solo CC0/CC32 y Program Change, D-002):** en el aparato, *Program Bank
+  Change = External* y algo reconocible en la instantánea 1; en DP, *Master Names* = «M3000 prueba». Comprobar en el
+  monitor MIDI del aparato (SHIFT + UTIL/MIDI): combinados de usuario 1 y 50 por el canal 3, **Snapshot 1** (¿carga la
+  instantánea o da «ILLEGAL PRESET»?) y RAM 2 129 y 250 por el canal 1.
+- **Estado:** PENDIENTE-LOCAL (instalado; falta la prueba con el aparato).
