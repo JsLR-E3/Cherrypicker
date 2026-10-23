@@ -53,22 +53,37 @@ public extension MIDINameDocument {
 		}
 	}
 
-	/// «Add New Bank With Patches» (Finder): banco nuevo al final del Channel Set `set` con copias de los patches
-	/// `sources` (banco y posición), en ese orden; cada uno sigue sonando con su bank select.
+	/// Copias de los patches `sources` (banco y posición, de cualquier banco) delante del patch `position` de `target`
+	/// (nil: al final), en ese orden; cada una sigue sonando con su bank select (arrastrar desde el Finder).
 	@discardableResult
-	mutating func addBank(name: String, bs0: String, bs32: String, master: Int, set: Int,
-	                      withPatches sources: [(bank: BankRef, index: Int)]) throws -> BankRef {
+	mutating func copyPatches(_ sources: [(bank: BankRef, index: Int)], to target: BankRef,
+	                          before position: Int? = nil) throws -> Range<Int> {
 		let patches = try sources.map { s -> (Patch, (String, String)) in
 			guard let bank = bank(s.bank), let list = patchList(s.bank) else { throw BankEditError.notFound }
 			let all = list.patches
 			guard all.indices.contains(s.index) else { throw PatchEditError.notFound }
 			return (all[s.index], bank.bankLevelSelect)
 		}
-		let ref = try addBank(name: name, bs0: bs0, bs32: bs32, master: master, set: set)
-		let dstBS = (try BankRef.normalizeBankSelect(bs0), try BankRef.normalizeBankSelect(bs32))
-		try modifyPatchList(ref) { list in
-			list.items += patches.map { .patch($0.0.rebased(from: $0.1, to: dstBS)) }
+		guard let dstBS = bank(target)?.bankLevelSelect else { throw BankEditError.notFound }
+		var inserted = 0..<0
+		try modifyPatchList(target) { list in
+			let positions = list.patchPositions
+			let at = position ?? positions.count
+			guard (0...positions.count).contains(at) else { throw PatchEditError.notFound }
+			let itemIndex = at < positions.count ? positions[at] : (positions.last.map { $0 + 1 } ?? list.items.count)
+			list.items.insert(contentsOf: patches.map { .patch($0.0.rebased(from: $0.1, to: dstBS)) }, at: itemIndex)
+			inserted = at..<(at + patches.count)
 		}
+		return inserted
+	}
+
+	/// «Add New Bank With Patches» (Finder): banco nuevo al final del Channel Set `set` con copias de `sources`.
+	@discardableResult
+	mutating func addBank(name: String, bs0: String, bs32: String, master: Int, set: Int,
+	                      withPatches sources: [(bank: BankRef, index: Int)]) throws -> BankRef {
+		// Las posiciones de los originales no cambian al añadir el banco: va detrás de los demás de su Channel Set.
+		let ref = try addBank(name: name, bs0: bs0, bs32: bs32, master: master, set: set)
+		try copyPatches(sources, to: ref)
 		return ref
 	}
 

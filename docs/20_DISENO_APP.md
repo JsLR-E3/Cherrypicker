@@ -104,7 +104,8 @@ Arriba a la derecha: **«Preview»**. Sin popup «Save Format» ni «XML Filters
 
 Una por banco, desde el botón **P**. Tabla `B0` · `B32` · `#` · `Patch Name` · `Ascii`, editables y ordenables por
 cabecera (reordena la lista del fichero); arrastrar para reordenar o llevar a otra lista (copia). Campo «Find»
-(filtra la tabla por nombre: deducido, el nib solo nombra `findField`/`findPatches`) y «Count:» (filas visibles). Botones «Renumber» y + / −. «Copy...»
+(filtra la tabla por nombre; el manual dice que el original *selecciona* los que coinciden y, al arrastrar uno, se
+mueven todos: pendiente de decidir con el usuario) y «Count:» (filas visibles). Botones «Renumber» y + / −. «Copy...»
 más adelante (§2). Al seleccionar un patch con «Enable MIDI» activo, se envían Bank Select + Program Change (D-002). Sin
 el bloque «Audition Riff» (§7).
 
@@ -134,8 +135,12 @@ se puede borrar ni sacar el último banco de un Channel Set (`PatchBank+`).
 - **Device Setup** (SetupWizard), con File ▸ New: 1) «Manufacturer:» / «Model:» con autocompletado desde los `.middev`;
   2) aviso de `.middev` creado o actualizado; 3) «Do all patch banks play on all channels?» y número de grupos;
   4) tabla «Name» / «Uses Channels»; 5) «Setup Finished». Sin «Launch AudioMIDI Setup» (DP no lo necesita, EXP-006).
-- **Finder** (FoundWindow): búsqueda en todos los bancos, columnas sin editar, «Add New Bank With Patches»,
-  «Remove Duplicates» y −.
+- **Finder** (FoundWindow): búsqueda en todos los bancos (el nombre contiene el texto), columnas sin editar, «Add New
+  Bank With Patches» (hoja de banco con todos los de la lista), «Remove Duplicates» (deducido: quita los que suenan
+  igual que uno anterior) y − (quita de la lista, no del fichero); se arrastran a cualquier lista (copia). T-019.
+- **Zap Dups** (T-019; deducido, el manual no define «duplicado»): en cada Channel Set, borra de los bancos con bank
+  select los patches cuyo bank select efectivo + Program Change está en un banco sin bank select (Custom Bank). A
+  contrastar con el original.
 - **Patchlist Importer** (ImportBrowser): «Files You Can Import From» y la asignación de bancos de destino.
 - **Preview**: el XML exacto que se escribirá.
 - **Preferences**: carpeta de `MIDI Devices` (por defecto `/Library/Audio/MIDI Devices`) y «Create new folders inside
@@ -172,6 +177,7 @@ se puede borrar ni sacar el último banco de un Channel Set (`PatchBank+`).
 | P8 | Con varios bancos seleccionados, cambiar el popup de Channel Set de uno los cambia todos (además de la cabecera del original) | Más directo; aceptada por el usuario al probarla (EXP-010) |
 | P9 | «Set Bank Selects to Bank values» igual con + que al pegar: marcada (o banco sin bank select), los patches nuevos heredan del banco (forma corta); sin marcar en un banco con bank select, «-» (solo Program Change). El banco conserva su bank select aunque algún patch lleve otro (no pasa a «-»). Al arrastrar a otra lista, cada patch sigue sonando con el mismo bank select | El original es incoherente (EXP-012: 5/0 propios con y sin la casilla en +; «-» o 1/1 fijo al pegar); aceptada por el usuario (2026-10-21) |
 | P10 | Lista de patches: al editar una celda, Tab / ⇧Tab recorren las celdas saltando de fila al final de cada una, y ↑ / ↓ pasan a la misma columna del patch de arriba o de abajo; ← / → pasan a la celda de al lado cuando el cursor está en el borde del texto o todo él seleccionado. En Patch Banks (solo se escribe el nombre), Tab / ↓ y ⇧Tab / ↑ pasan al nombre del banco siguiente o anterior | Edición más rápida; en el original Tab salía de la tabla a los botones. Pedida por el usuario (EXP-013) |
+| P11 | Zap Dups pide confirmación con el número de patches que borrará (o avisa si no hay ninguno) | Borra patches; el original lo hacía sin preguntar (manual: «haz copia antes») |
 
 ## 6. Inventario de los nibs
 

@@ -2,7 +2,9 @@
 // Doble clic en el nombre para cambiarlo; doble clic en S0/S32 abre la hoja Bank Selects; el Channel Set se elige en
 // su popup; con varios bancos seleccionados, clic en la cabecera S0/S32 o Channel Set los cambia todos (manual); + abre «Add a Single Bank» y − borra los seleccionados; se arrastra para reordenar dentro del Channel Set.
 // «P» abre la lista de patches del banco (PatchWindowController).
-// Pendiente: Merge, Import, Find, Zap Dups.
+// «Merge» (con dos o más bancos) abre «Name for Merged Bank»; «Find» abre el Finder; «Zap Dups» borra de los bancos
+// con bank select los patches que ya están en un Custom Bank del mismo Channel Set (T-019).
+// Pendiente: Import.
 import AppKit
 import CherryPickerCore
 import MidnamKit
@@ -19,6 +21,7 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 	private var rows: [BankRow] = []
 	private let table = NSTableView()
 	private let removeButton = NSButton()
+	private let mergeButton = NSButton(title: "Merge", target: nil, action: nil)
 
 	init(document: MidnamDocument) {
 		self.document = document
@@ -61,8 +64,14 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		removeButton.bezelStyle = add.bezelStyle
 		removeButton.target = self
 		removeButton.action = #selector(removeBanks(_:))
-		let buttons = NSStackView(views: [add, removeButton])
+		mergeButton.target = self
+		mergeButton.action = #selector(mergeBanks(_:))
+		let find = NSButton(title: "Find", target: self, action: #selector(find(_:)))
+		let zap = NSButton(title: "Zap Dups", target: self, action: #selector(zapDups(_:)))
+		for b in [mergeButton, find, zap] { b.controlSize = .small }
+		let buttons = NSStackView(views: [add, removeButton, mergeButton, find, zap])
 		buttons.spacing = 4
+		buttons.setCustomSpacing(12, after: removeButton)
 
 		// Leyenda del original (EXP-009): color del nombre del banco.
 		let legend = NSStackView(views: [(BankKind.normal, "Normal"), (.empty, "Empty"), (.mixed, "Mixed")].map {
@@ -110,7 +119,11 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		table.selectRowIndexes(IndexSet(rows.indices.filter { selected.contains(rows[$0].name) }), byExtendingSelection: false)
 	}
 
-	private func updateButtons() { removeButton.isEnabled = !table.selectedRowIndexes.isEmpty }
+	private func updateButtons() {
+		let selected = table.selectedRowIndexes.map { rows[$0].ref }
+		removeButton.isEnabled = !selected.isEmpty
+		mergeButton.isEnabled = selected.count > 1 && selected.allSatisfy { $0.master == selected[0].master }
+	}
 
 	func tableViewSelectionDidChange(_ notification: Notification) { updateButtons() }
 
@@ -307,6 +320,47 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 			}
 		}
 		sheet.begin(on: w) { _ in _ = sheet }
+	}
+
+	/// Merge: «Add» borra los originales; Option-Add los conserva (original, nib MergeSheet).
+	@objc private func mergeBanks(_ sender: Any?) {
+		let refs = table.selectedRowIndexes.map { rows[$0].ref }
+		guard refs.count > 1, let w = view.window, let model = document.model else { return }
+		let master = refs[0].master
+		let sheet = AddBankSheet(channelSets: model.channelSets(master: master), selectedSet: refs[0].set,
+		                         title: "Name for Merged Bank", note: "(Use <Option Add> to keep original banks)") { [weak self] name in
+			self?.document.model?.isBankNameAvailable(name, master: master) ?? false
+		}
+		sheet.onCommit = { [weak self] set, name, bs0, bs32 in
+			let keep = NSApp.currentEvent?.modifierFlags.contains(.option) ?? false
+			try self?.document.edit("Merge Banks") {
+				try $0.mergeBanks(refs, name: name, bs0: bs0, bs32: bs32, set: set, keepOriginals: keep)
+			}
+		}
+		sheet.begin(on: w) { _ in _ = sheet }
+	}
+
+	@objc private func find(_ sender: Any?) { FinderWindowController.show(document: document) }
+
+	/// [PROPUESTA P11] Pide confirmación con el número de patches que se borrarán (el original los borraba sin más).
+	@objc private func zapDups(_ sender: Any?) {
+		guard let w = view.window, let model = document.model else { return }
+		let n = model.duplicatePatches().count
+		let alert = NSAlert()
+		if n == 0 {
+			alert.messageText = "No duplicates found."
+			alert.informativeText = "No patch in a bank with bank selects is also in a custom bank of the same channel set."
+			alert.beginSheetModal(for: w)
+			return
+		}
+		alert.messageText = n == 1 ? "Delete 1 duplicate patch?" : "Delete \(n) duplicate patches?"
+		alert.informativeText = "These patches are in banks with bank selects and also in custom banks of the same channel set. Only the custom versions will remain."
+		alert.addButton(withTitle: "Zap Dups")
+		alert.addButton(withTitle: "Cancel")
+		alert.beginSheetModal(for: w) { [weak self] response in
+			guard response == .alertFirstButtonReturn else { return }
+			self?.edit("Zap Dups") { try $0.zapDuplicates() }
+		}
 	}
 
 	@objc private func removeBanks(_ sender: Any?) {

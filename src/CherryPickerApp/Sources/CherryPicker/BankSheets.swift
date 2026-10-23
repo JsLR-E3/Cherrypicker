@@ -98,7 +98,8 @@ class SheetController: NSWindowController {
 	}
 }
 
-/// «Add a Single Bank» (BankSheet): Channel Set, Name, B Sel0, B Sel32; «Add» solo con un nombre válido.
+/// «Add a Single Bank» (BankSheet): Channel Set, Name, B Sel0, B Sel32; «Add» solo con un nombre válido. Con otro
+/// título y una nota es también «Name for Merged Bank» (MergeSheet) y la hoja de «Add New Bank With Patches».
 final class AddBankSheet: SheetController, NSTextFieldDelegate {
 	let channelSet = NSPopUpButton()
 	let name = SheetController.field("", width: 240)
@@ -109,7 +110,8 @@ final class AddBankSheet: SheetController, NSTextFieldDelegate {
 	/// Lo que se añadirá: se lee al cerrar con «Add».
 	var onCommit: ((_ setIndex: Int, _ name: String, _ bs0: String, _ bs32: String) throws -> Void)?
 
-	init(channelSets: [(index: Int, name: String)], selectedSet: Int?, isNameAvailable: @escaping (String) -> Bool) {
+	init(channelSets: [(index: Int, name: String)], selectedSet: Int?, title: String = "Add a Single Bank",
+	     note: String? = nil, isNameAvailable: @escaping (String) -> Bool) {
 		self.isNameAvailable = isNameAvailable
 		for s in channelSets {
 			channelSet.addItem(withTitle: s.name)
@@ -121,11 +123,18 @@ final class AddBankSheet: SheetController, NSTextFieldDelegate {
 		bs0.toolTip = "Bank Select 0 value, or '-' if not used"
 		bs32.toolTip = "Bank Select 32 value, or '-' if not used"
 		// Orden del original (EXP-009): Name; B Sel0 y B Sel32 en una fila; Channel Set.
-		super.init(title: "Add a Single Bank", rows: [
+		var rows: [[NSView]] = [
 			[Self.label("Name"), name],
 			[Self.label("B Sel0"), bs0, Self.label("B Sel32"), bs32],
 			[Self.label("Channel Set"), channelSet],
-		], okTitle: "Add")
+		]
+		if let note {
+			let l = Self.label(note)
+			l.font = .systemFont(ofSize: NSFont.smallSystemFontSize)
+			l.textColor = .secondaryLabelColor
+			rows.append([l])
+		}
+		super.init(title: title, rows: rows, okTitle: "Add")
 		okButton.toolTip = "Enabled if there is a valid bank name"
 		name.delegate = self
 		validate()

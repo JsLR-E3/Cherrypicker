@@ -44,6 +44,14 @@ final class BankToolsTests: XCTestCase {
 		XCTAssertEqual(cols("Uno").count, 2, "el original no cambia")
 	}
 
+	/// Arrastrar desde el Finder: patches de varios bancos a una lista, delante de un patch.
+	func testCopyFoundPatchesToList() throws {
+		let found = doc.findPatches(containing: "c") + doc.findPatches(containing: "e")
+		let r = try doc.copyPatches(found.map { ($0.bank, $0.index) }, to: ref("Uno"), before: 1)
+		XCTAssertEqual(r, 1..<4)
+		XCTAssertEqual(cols("Uno"), ["1/5 0 A", "2/0 7 C", "-/- 0 E", "-/- 0 E", "1/5 1 B"])
+	}
+
 	func testMerge() throws {
 		try doc.mergeBanks([ref("Custom"), ref("Uno")], name: "Juntos", bs0: "1", bs32: "5", set: ref("Uno").set)
 		XCTAssertEqual(banks(), ["Todos:Tres", "Todos:Juntos", "Drums:Kits"])

@@ -15,7 +15,12 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 		("bs0", "B0", 40, .bankSelect), ("bs32", "B32", 40, .bankSelect), ("num", "#", 40, .program),
 		("name", "Patch Name", 220, .name), ("ascii", "Ascii", 60, .ascii),
 	]
-	private static let rowType = NSPasteboard.PasteboardType("local.cherrypicker.patchrow")
+	/// Patches arrastrados (también desde el Finder): «documento|dispositivo|banco|posición».
+	static let rowType = NSPasteboard.PasteboardType("local.cherrypicker.patchrow")
+
+	static func dragString(document: MidnamDocument, master: Int, bank: String, index: Int) -> String {
+		"\(ObjectIdentifier(document).hashValue)|\(master)|\(bank)|\(index)"
+	}
 
 	private let midnam: MidnamDocument
 	private let master: Int
@@ -415,34 +420,31 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 
 	// MARK: Arrastrar
 
-	/// Lo que viaja en el arrastre: documento, dispositivo, banco y posición del patch.
-	private var dragSourceID: String { "\(ObjectIdentifier(midnam).hashValue)|\(master)|\(bankName)" }
-
 	func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
 		let item = NSPasteboardItem()
-		item.setString("\(dragSourceID)|\(rows[row].index)", forType: Self.rowType)
+		item.setString(Self.dragString(document: midnam, master: master, bank: bankName, index: rows[row].index),
+		               forType: Self.rowType)
 		// Fuera de la app se arrastra el nombre (p. ej. a un editor de texto).
 		item.setString(rows[row].name, forType: .string)
 		return item
 	}
 
-	/// Banco de origen y patches arrastrados, si vienen de una lista del mismo dispositivo de este documento.
-	private func draggedPatches(_ info: NSDraggingInfo) -> (bankName: String, indices: IndexSet)? {
+	/// Patches arrastrados (banco y posición), si vienen de listas o del Finder del mismo dispositivo de este documento.
+	private func draggedPatches(_ info: NSDraggingInfo) -> [(bankName: String, index: Int)]? {
 		guard let items = info.draggingPasteboard.pasteboardItems, !items.isEmpty else { return nil }
-		var bank: String?
-		var indices = IndexSet()
+		let prefix = "\(ObjectIdentifier(midnam).hashValue)|\(master)|"
+		var out: [(bankName: String, index: Int)] = []
 		for item in items {
-			guard let s = item.string(forType: Self.rowType), let sep = s.lastIndex(of: "|"),
+			guard let s = item.string(forType: Self.rowType), s.hasPrefix(prefix), let sep = s.lastIndex(of: "|"),
 			      let i = Int(s[s.index(after: sep)...]) else { return nil }
-			let source = String(s[..<sep])
-			let prefix = "\(ObjectIdentifier(midnam).hashValue)|\(master)|"
-			guard source.hasPrefix(prefix) else { return nil }
-			let name = String(source.dropFirst(prefix.count))
-			if bank != nil && bank != name { return nil }
-			bank = name
-			indices.insert(i)
+			out.append((String(s[s.index(s.startIndex, offsetBy: prefix.count)..<sep]), i))
 		}
-		return bank.map { ($0, indices) }
+		return out
+	}
+
+	/// Todos los arrastrados son de esta lista: se reordena en vez de copiar.
+	private func isMove(_ dragged: [(bankName: String, index: Int)]) -> Bool {
+		dragged.allSatisfy { $0.bankName == bankName }
 	}
 
 	private func isOwnRowDrag(_ info: NSDraggingInfo) -> Bool {
@@ -452,9 +454,9 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 	func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int,
 	               proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
 		if dropOperation == .on { tableView.setDropRow(row, dropOperation: .above) }
-		if let (source, _) = draggedPatches(info) {
+		if let dragged = draggedPatches(info) {
 			// Con Find activo la tabla no muestra toda la lista: reordenar ahí sería confuso.
-			if source == bankName { return rows.count == allRows.count ? .move : [] }
+			if isMove(dragged) { return rows.count == allRows.count ? .move : [] }
 			return .copy
 		}
 		if isOwnRowDrag(info) { return [] }
@@ -464,19 +466,22 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 	func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int,
 	               dropOperation: NSTableView.DropOperation) -> Bool {
 		let position = listPosition(forRow: row), ref = ref
-		if let (source, indices) = draggedPatches(info) {
-			if source == bankName {
+		if let dragged = draggedPatches(info) {
+			if isMove(dragged) {
+				let indices = IndexSet(dragged.map(\.index))
 				edit("Move Patches") { doc in
 					let r = try doc.movePatches(ref, at: indices, before: position)
 					pendingSelection = IndexSet(integersIn: r)
 				}
 				return true
 			}
-			guard let model = midnam.model,
-			      let src = BankRows.rows(model).first(where: { $0.ref.master == master && $0.name == source })?.ref
-			else { return false }
+			guard let model = midnam.model else { return false }
+			let refs = Dictionary(BankRows.rows(model).filter { $0.ref.master == master }.map { ($0.name, $0.ref) },
+			                      uniquingKeysWith: { a, _ in a })
+			let sources = dragged.compactMap { d in refs[d.bankName].map { (bank: $0, index: d.index) } }
+			guard sources.count == dragged.count else { return false }
 			edit("Copy Patches") { doc in
-				let r = try doc.copyPatches(from: src, at: indices, to: ref, before: position)
+				let r = try doc.copyPatches(sources, to: ref, before: position)
 				pendingSelection = IndexSet(integersIn: r)
 			}
 			return true
