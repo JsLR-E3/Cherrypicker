@@ -37,21 +37,25 @@ final class InstallSheet: SheetController {
 		manufacturer = maker
 		model = device
 		listed = MiddevIndex.load().first { $0.manufacturer == maker && $0.model == device }?.file
-		let base = document.fileURL?.deletingPathExtension().lastPathComponent ?? document.displayName ?? ""
+		// Sin guardar, el modelo (EXP-022: «Untitled» no dice nada en Master Names).
+		let base = document.fileURL?.deletingPathExtension().lastPathComponent ?? device
 		name = Self.field(base, width: 260)
 		name.toolTip = "Name shown in DP's Master Names"
 		let folder = InstallInDP.folder(manufacturer: maker)
 		var rows: [[NSView]] = [
-			[Self.label("Device:"), Self.label("\(maker) \(device)")],
+			[Self.label("Manufacturer:"), Self.label(maker)],
+			[Self.label("Model:"), Self.label(device)],
 			[Self.label("Folder:"), Self.wrapping(folder.path)],
 			[Self.label("File name:"), name],
 		]
 		if let listed {
 			rows.append([Self.wrapping("“\(device)” is already in \(listed.lastPathComponent): DP lists it.")])
 		} else {
-			addMiddev.title = "Add “\(maker) \(device)” to \(InstallInDP.middevName(manufacturer: maker)) so it appears in the device lists"
+			// Título corto y explicación aparte: un título largo ensanchaba la hoja (EXP-022).
+			addMiddev.title = "Add the model to the device lists"
 			addMiddev.state = .on
 			rows.append([addMiddev])
+			rows.append([Self.wrapping("Writes it in \(InstallInDP.middevName(manufacturer: maker)), in the same folder. Without it, DP still uses the file if you type the manufacturer and model exactly in Audio MIDI Setup.")])
 		}
 		rows.append([Self.wrapping("After installing, restart DP or choose the file again in Master Names (MIDI Device Properties ▸ Patches).")])
 		super.init(title: "Install in Digital Performer", rows: rows, okTitle: "Install")
@@ -62,7 +66,7 @@ final class InstallSheet: SheetController {
 
 	private static func wrapping(_ s: String) -> NSTextField {
 		let l = NSTextField(wrappingLabelWithString: s)
-		l.preferredMaxLayoutWidth = 380
+		l.preferredMaxLayoutWidth = 400
 		l.textColor = .secondaryLabelColor
 		return l
 	}
