@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MIDINameDocument PUBLIC "-//MIDI Manufacturers Association//DTD MIDINameDocument 1.0//EN" "http://www.midi.org/dtds/MIDINameDocument10.dtd">
+
+<MIDINameDocument>
+	<Author>CherryPicker</Author>
+	<MasterDeviceNames>
+		<Manufacturer>Cherrypicker</Manufacturer>
+		<Model>CP Zap</Model>
+		<CustomDeviceMode Name="Mode 1" >
+			<ChannelNameSetAssignments>
+				<ChannelNameSetAssign Channel="1" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="2" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="3" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="4" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="5" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="6" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="7" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="8" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="9" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="10" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="11" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="12" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="13" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="14" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="15" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="16" NameSet="Presets" />
+			</ChannelNameSetAssignments>
+		</CustomDeviceMode>
+		<ChannelNameSet Name="Presets" >
+			<AvailableForChannels>
+				<AvailableChannel Channel="1" Available="true" />
+				<AvailableChannel Channel="2" Available="true" />
+				<AvailableChannel Channel="3" Available="true" />
+				<AvailableChannel Channel="4" Available="true" />
+				<AvailableChannel Channel="5" Available="true" />
+				<AvailableChannel Channel="6" Available="true" />
+				<AvailableChannel Channel="7" Available="true" />
+				<AvailableChannel Channel="8" Available="true" />
+				<AvailableChannel Channel="9" Available="true" />
+				<AvailableChannel Channel="10" Available="true" />
+				<AvailableChannel Channel="11" Available="true" />
+				<AvailableChannel Channel="12" Available="true" />
+				<AvailableChannel Channel="13" Available="true" />
+				<AvailableChannel Channel="14" Available="true" />
+				<AvailableChannel Channel="15" Available="true" />
+				<AvailableChannel Channel="16" Available="true" />
+			</AvailableForChannels>
+			<PatchBank Name="ROM A" >
+				<MIDICommands>
+					<ControlChange Control="0" Value="0" />
+					<ControlChange Control="32" Value="0" />
+				</MIDICommands>
+				<UsesPatchNameList Name="ROM A" />
+			</PatchBank>
+			<PatchBank Name="Mis Pianos" >
+				<UsesPatchNameList Name="Mis Pianos" />
+			</PatchBank>
+		</ChannelNameSet>
+		<PatchNameList Name="ROM A" >
+			<Patch Number="003" Name="Strings" ProgramChange="2" />
+			<Patch Number="005" Name="Brass" ProgramChange="4" />
+			<Patch Number="006" Name="Pad Warm" ProgramChange="5" />
+			<Patch Number="007" Name="Synth Bass" ProgramChange="6" />
+			<Patch Number="008" Name="Choir" ProgramChange="7" />
+		</PatchNameList>
+		<PatchNameList Name="Mis Pianos" >
+			<Patch Number="001" Name="Grand Piano" >
+				<PatchMIDICommands>
+					<ControlChange Control="0" Value="0" />
+					<ControlChange Control="32" Value="0" />
+					<ProgramChange Number="0" />
+				</PatchMIDICommands>
+			</Patch>
+			<Patch Number="002" Name="Bright Piano" >
+				<PatchMIDICommands>
+					<ControlChange Control="0" Value="0" />
+					<ControlChange Control="32" Value="0" />
+					<ProgramChange Number="1" />
+				</PatchMIDICommands>
+			</Patch>
+			<Patch Number="004" Name="Rhodes" >
+				<PatchMIDICommands>
+					<ControlChange Control="0" Value="0" />
+					<ControlChange Control="32" Value="0" />
+					<ProgramChange Number="3" />
+				</PatchMIDICommands>
+			</Patch>
+		</PatchNameList>
+	</MasterDeviceNames>
+</MIDINameDocument>

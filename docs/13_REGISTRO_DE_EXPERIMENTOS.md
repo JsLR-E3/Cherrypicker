@@ -380,3 +380,19 @@ valer un resultado.
 - **Conclusión:** Merge, Find y Zap Dups funcionan en la app según el usuario. Queda abrir en DP 11.36 un fichero con
   un Custom Bank tras Zap Dups.
 - **Estado:** EN CURSO (falta DP).
+
+## EXP-015 · 2026-10-23 · DP 11.36 con un fichero tras Find y Zap Dups (T-019)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto, DP 11.36; CherryPickerCore del commit `74af700`.
+- **Ficheros** (`captures/exp014/`, sintéticos, VÁLIDOS con `tools/validar_midnam.sh`): `Prueba zap base.midnam`
+  (Cherrypicker / CP Zap; banco «ROM A», 0/0, 8 patches en forma corta), `Prueba zap sin zap.midnam` (= base + Find
+  «piano» y «rhodes» → «Add New Bank With Patches» «Mis Pianos» sin bank select, 3 patches con 0/0 propios) y
+  `Prueba zap.midnam` (= lo anterior + Zap Dups: 3 borrados de «ROM A», que queda con 5). Generados con la lógica de
+  la app (test temporal, no versionado). `Cherrypicker.middev` = el de EXP-013 + el modelo «CP Zap».
+- **Instalación** (permiso del usuario, 2026-10-23): copiar `Cherrypicker.middev` y `Prueba zap.midnam` a
+  `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/` (la copia la hace el usuario: el modo automático no dejó a Claude
+  sobrescribir el `.middev`). **Deshacer:** borrar `Prueba zap.midnam` y volver a copiar
+  `captures/exp013/Cherrypicker.middev`.
+- **Preguntas para DP:** (1) tras reiniciar DP, ¿sale «CP Zap»? (2) ¿*Master Names* muestra «Prueba zap» con «ROM A»
+  (5 patches) y «Mis Pianos» (3)? (3) Al elegir un patch de «Mis Pianos», ¿se queda en ese banco?
+- **Estado:** EN CURSO.
