@@ -66,6 +66,23 @@ final class DeviceEditingTests: XCTestCase {
 		XCTAssertThrowsError(try doc.addChannelSet(master: master, mode: mode))
 	}
 
+	/// Hoja New Channel Set: nombre y canales elegidos, solo entre los libres.
+	func testAddChannelSetFromSheet() throws {
+		XCTAssertEqual(doc.newChannelSetName(master: master), "New Channel Set")
+		try doc.addChannelSet(master: master, mode: mode, name: "Bajos", channels: "2-4")
+		XCTAssertEqual(sets(), ["Todos 1", "Drums 10", "Bajos 2-4"], "en el orden del fichero")
+		XCTAssertThrowsError(try doc.addChannelSet(master: master, mode: mode, name: "Otro", channels: "4-5")) {
+			XCTAssertEqual($0 as? DeviceEditError, .channelsInUse([4]))
+		}
+		XCTAssertThrowsError(try doc.addChannelSet(master: master, mode: mode, name: "Todos", channels: "5")) {
+			XCTAssertEqual($0 as? DeviceEditError, .duplicateChannelSetName("Todos"))
+		}
+		XCTAssertFalse(doc.channelSetHasPatches(master: master, set: setIndex("Bajos")))
+		XCTAssertTrue(doc.channelSetHasPatches(master: master, set: setIndex("Drums")))
+		let new = try doc.addMode(master: master)
+		XCTAssertEqual(doc.banksLostWithMode(master: master, mode: new), ["New Bank 2"])
+	}
+
 	func testRename() throws {
 		try doc.renameChannelSet(master: master, set: setIndex("Drums"), to: "Bateria")
 		XCTAssertEqual(sets(), ["Todos 1", "Bateria 10"])

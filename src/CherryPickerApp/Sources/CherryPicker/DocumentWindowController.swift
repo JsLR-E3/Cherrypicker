@@ -34,8 +34,12 @@ final class MainTabsViewController: NSViewController {
 		for title in ["MIDI", "Device", "Patch Banks", "Controllers", "Categories"] {
 			let item = NSTabViewItem(identifier: title)
 			item.label = title
-			if title == "Patch Banks" {
-				let vc = PatchBanksViewController(document: document)
+			let vc: NSViewController? = switch title {
+			case "Patch Banks": PatchBanksViewController(document: document)
+			case "Device": DeviceViewController(document: document)
+			default: nil
+			}
+			if let vc {
 				addChild(vc)
 				item.view = vc.view
 			} else {

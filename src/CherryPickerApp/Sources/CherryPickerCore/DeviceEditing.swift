@@ -184,19 +184,49 @@ public extension MIDINameDocument {
 		}
 	}
 
-	/// + de Channel Sets: «New Channel Set» con todos los canales libres del modo y un banco vacío (P13).
-	/// Devuelve su índice en `MasterDeviceNames.items`.
+	/// + de Channel Sets (hoja New Channel Set): Channel Set `name` (nil: «New Channel Set») con `channels` (nil: todos
+	/// los libres del modo) y un banco vacío (P13). Devuelve su índice en `MasterDeviceNames.items`.
 	@discardableResult
-	mutating func addChannelSet(master: Int, mode: Int) throws -> Int {
+	mutating func addChannelSet(master: Int, mode: Int, name newName: String? = nil, channels text: String? = nil) throws -> Int {
 		let free = freeChannels(master: master, mode: mode)
 		guard !free.isEmpty else { throw DeviceEditError.noFreeChannels }
+		let channels = try text.map(parseChannels) ?? free
+		guard !channels.isEmpty else { throw DeviceEditError.noChannels }
+		let taken = channels.filter { !free.contains($0) }
+		if !taken.isEmpty { throw DeviceEditError.channelsInUse(taken) }
 		var index = 0
 		try modifyMaster(master) { m in
 			guard m.modeAt(mode) != nil else { throw DeviceEditError.notFound }
-			let name = m.unique("New Channel Set", taken: m.channelNameSets.map(\.name))
-			index = try m.insertChannelSet(named: name, channels: free, inMode: mode)
+			let name: String
+			if let n = newName?.trimmingCharacters(in: .whitespaces) {
+				guard !n.isEmpty else { throw DeviceEditError.emptyName }
+				if m.channelNameSets.contains(where: { $0.name == n }) { throw DeviceEditError.duplicateChannelSetName(n) }
+				name = n
+			} else {
+				name = m.unique("New Channel Set", taken: m.channelNameSets.map(\.name))
+			}
+			index = try m.insertChannelSet(named: name, channels: channels, inMode: mode)
 		}
 		return index
+	}
+
+	/// Nombre libre para un Channel Set nuevo (valor inicial de la hoja).
+	func newChannelSetName(master: Int) -> String {
+		masterAt(master).map { $0.unique("New Channel Set", taken: $0.channelNameSets.map(\.name)) } ?? "New Channel Set"
+	}
+
+	/// ¿Tiene el Channel Set algún banco con patches (o con una lista que no está en el fichero)? Entonces su − pide
+	/// a qué Channel Set pasan los bancos.
+	func channelSetHasPatches(master: Int, set: Int) -> Bool {
+		masterAt(master)?.channelSetHasPatches(set) ?? false
+	}
+
+	/// Bancos que se perderían al borrar el modo (los de Channel Sets que solo usa él).
+	func banksLostWithMode(master: Int, mode: Int) -> [String] {
+		guard let m = masterAt(master), let d = m.modeAt(mode) else { return [] }
+		let others = Set(m.items.indices.filter { $0 != mode }.compactMap { m.modeAt($0) }.flatMap { $0.assignedChannels.values })
+		let doomed = Set(d.assignedChannels.values).subtracting(others)
+		return m.channelNameSets.filter { doomed.contains($0.name) }.flatMap { $0.patchBanks.compactMap(\.name) }
 	}
 
 	/// − de Channel Sets: quita el Channel Set del modo; sus canales quedan libres. Si ningún otro modo lo usa, se borra
@@ -215,12 +245,7 @@ public extension MIDINameDocument {
 			if let target {
 				guard target != set, m.setAt(target) != nil else { throw DeviceEditError.notFound }
 				try m.modifySet(target) { t in for b in banks { _ = t.insertBankAtEnd(b) } }
-			} else if banks.contains(where: { b in
-				b.usedListName.flatMap { m.listIndex(named: $0) }.map { li -> Bool in
-					if case .patchNameList(let l) = m.items[li] { return !l.patches.isEmpty }
-					return false
-				} ?? true
-			}) {
+			} else if m.channelSetHasPatches(set) {
 				throw DeviceEditError.reassignTargetNeeded
 			}
 			m.items.remove(at: set)
@@ -256,6 +281,15 @@ public extension MIDINameDocument {
 // MARK: - Ayudantes
 
 extension MasterDeviceNames {
+	func channelSetHasPatches(_ set: Int) -> Bool {
+		guard let s = setAt(set) else { return false }
+		return s.patchBanks.contains { b in
+			guard let n = b.usedListName else { return true }
+			guard let li = listIndex(named: n), case .patchNameList(let l) = items[li] else { return true }
+			return !l.patches.isEmpty
+		}
+	}
+
 	func modeAt(_ i: Int) -> CustomDeviceMode? {
 		guard items.indices.contains(i), case .customDeviceMode(let d) = items[i] else { return nil }
 		return d
