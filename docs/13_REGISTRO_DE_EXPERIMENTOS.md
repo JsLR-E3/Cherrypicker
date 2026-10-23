@@ -449,3 +449,17 @@ valer un resultado.
 - **Conclusión:** la audición envía exactamente lo previsto (D-002, regla 4), en el canal del Channel Set o en el
   Audition Ch elegido. Falta probarla con un módulo real (con permiso del usuario).
 - **Estado:** COMPLETADO.
+
+## EXP-018 · 2026-10-23 · Audición con un módulo real: TC Electronic M3000 (T-021)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto; `build/CherryPicker.app` del commit `7f3b42a`. Módulo: multiefectos
+  TC Electronic M3000 en la Unitor8, puerto 1 (elegido por el usuario, con su permiso). Fichero: copia en el
+  scratchpad del `M3000.midnam` del usuario (carpeta de DP; el original no se toca ni se versiona): 3 canales
+  («Engine 1-2» 1-2, «Combined» 3) y 23 bancos con bank select por banco o por preset.
+- **Al empezar:** la Unitor8 no salía entre los destinos de CoreMIDI que veía Claude (solo IAC, «Network …» y FW-1884);
+  la conectó el usuario (cómo, no anotado).
+- **Procedimiento (usuario):** MIDI ▸ Device Out = puerto de la Unitor8 ▸ Enable MIDI; con audio por el M3000, abrir
+  bancos y seleccionar presets. Solo se envían CC0/CC32 y Program Change (EXP-017).
+- **Resultado (A, usuario):** «Todo perfecto»: el M3000 cambia al preset seleccionado.
+- **Conclusión:** la audición sirve con un aparato real; no se envía nada más que el cambio de preset (D-002).
+- **Estado:** COMPLETADO.

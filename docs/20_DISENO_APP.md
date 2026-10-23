@@ -91,7 +91,7 @@ Una por `.midnam` abierto; varias a la vez (se arrastran bancos y patches entre 
 
 | Pestaña | Contenido en la app nueva |
 |---|---|
-| **MIDI** | Caja «MIDI Connections»: casilla «Enable MIDI» (desactivada por defecto), popup «Device Out». («Controller In», el teclado, solo si se decide el thru, §7.) |
+| **MIDI** | Caja «MIDI Connections»: popup «Device Out» (destinos de CoreMIDI; se recuerda por fabricante y modelo) y casilla «Enable MIDI» (desactivada al abrir, P5). Al seleccionar un solo patch se envían CC0/CC32 (si no son «-») y Program Change por el «Audition Ch» de su Channel Set (editable en Device; se recuerda en la app, no en el fichero). Sin notas ni secuencias: con multiefectos no sirven y pueden cambiar el efecto (T-021). («Controller In», el teclado, solo si se decide el thru, §7.) |
 | **Device** | «Manufacturer:» y «Model:» (solo lectura, ligados al `.middev`); caja «Modes» con tabla y + / −; caja «Channel Sets» con tabla y + / −, «Active Channels», «Audition Ch:» y el aviso «(Add disabled: No free channels in mode)». Sin «MIDI Initialization… / Send Now» (SysEx, regla 4). |
 | **Patch Banks** | Tabla `P` · `S0` · `S32` · `Patch Bank` · `#` · `Channel Set` y leyenda «• Normal / • Mixed / • Empty». Botones + / −, «Merge», «Import», «Find», «Zap Dups». Sin «Bank Initialization / Transmit», «Zap Custom» ni «Sibelius». |
 | **Note Lists** | No por ahora (§7.1): sin pestaña; las listas de notas de un fichero abierto se conservan al guardar. |

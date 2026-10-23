@@ -5,6 +5,7 @@ copia. Se consulta por `grep` (p. ej. `grep T-012 docs/15_HISTORIAL.md`), no se 
 
 | ID | Cerrada | Resultado (y cómo se verificó) | Commit · EXP · D |
 |---|---|---|---|
+| T-021 | 2026-10-23 | Pestaña MIDI y audición por CoreMIDI: Device Out, Enable MIDI (P5), envío de CC0/CC32 + Program Change al seleccionar un patch, Audition Ch editable. 4 tests (62/62); bytes comprobados con un destino virtual y probada con el M3000 en la Unitor8 | 7f3b42a…ed52e4a · EXP-017, EXP-018 · D-002 |
 | T-020 | 2026-10-23 | Pestaña Device: Manufacturer/Model, modos y Channel Sets con + / − y renombrar, Active Channels, Audition Ch (solo se muestra), hojas New Channel Set y Reassign Banks To, P13. 9 tests (58/58); probada a mano por el usuario y en DP 11.36 (canales libres = «No Patches») | addf13e…271264b · EXP-016 |
 | T-019 | 2026-10-23 | Patch Banks: Merge (hoja con Option-Add), Find (ventana Finder: Add New Bank With Patches, Remove Duplicates, −, arrastrar a listas) y Zap Dups (P11 confirmación, P12 con selección). 12 tests (49/49); probada a mano por el usuario (2 arreglos) y en DP 11.36 | 64c8594…73e8505 · EXP-014, EXP-015 |
 | T-018 | 2026-10-22 | Ventana Patch Names (botón P): tabla B0 · B32 · # · Patch Name · Ascii editable, + / pegar / soltar texto (New Patches, regla P9), − , Renumber, ordenar por cabecera, Find y Count, arrastrar dentro y a otra lista, deshacer; Tab y flechas al editar (P10). 17 tests de la lógica; probada a mano por el usuario y en DP 11.36 (menús en el orden del fichero) | 8e3d36e…0f82aeb · EXP-012, EXP-013 |

@@ -17,4 +17,4 @@ Estados: CONFIRMED · PARTIAL · OBSERVED · UNKNOWN · DISCARDED. Niveles de ev
 | DP 11.36 lee lo que escribe la app; bancos por canal según `ChannelNameSet`; un solo banco en el juego = presets sin submenú | CONFIRMED | EXP-011 (A) | `src/CherryPickerApp` |
 | DP 11.36 con el mismo sonido (bank select + Program Change) en dos bancos: tras elegirlo desde un Custom Bank, el menú marca el banco de fábrica; sin el duplicado (Zap Dups) se queda en el Custom Bank; poner el Custom Bank delante no cambia nada | CONFIRMED | EXP-015 (A) | `BankTools.swift` (`zapDuplicates`) |
 | DP 11.36 con canales sin `ChannelNameSetAssign` en el modo: «No Patches» en ese canal; un banco vacío no sale en el menú | CONFIRMED | EXP-016 (A) | `DeviceEditing.swift` |
-| Audición por CoreMIDI | UNKNOWN | — | — |
+| Audición por CoreMIDI (CC0/CC32 + Program Change, UMP MIDI 1.0) | CONFIRMED | EXP-017 (A, destino virtual), EXP-018 (A, M3000) | `Audition.swift`, `MIDIOut.swift` |
