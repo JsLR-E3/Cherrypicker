@@ -15,5 +15,5 @@ Estados: CONFIRMED · PARTIAL · OBSERVED · UNKNOWN · DISCARDED. Niveles de ev
 | DP acepta el DOCTYPE de midi.org; *Master Names* = nombre de fichero; menú de presets = nombre de `PatchNameList` + «Number Name»; recarga al volver a elegir en *Master Names* | CONFIRMED | EXP-006 (A); EXP-013 (A): orden del fichero, patch sin nombre = solo «Number» | `MidnamFile.newFileProlog` |
 | Hoja Bank Selects del original: qué hace cada opción con los patches | CONFIRMED | EXP-009 (B, reproducido byte a byte) | `BankEditing.swift`, `testBankSelectOptionsMatchOriginal` |
 | DP 11.36 lee lo que escribe la app; bancos por canal según `ChannelNameSet`; un solo banco en el juego = presets sin submenú | CONFIRMED | EXP-011 (A) | `src/CherryPickerApp` |
-| DP 11.36 con el mismo sonido (bank select + Program Change) en dos bancos: tras elegirlo desde un Custom Bank, el menú marca el banco de fábrica; sin el duplicado (Zap Dups) se queda en el Custom Bank | CONFIRMED | EXP-015 (A) | `BankTools.swift` (`zapDuplicates`) |
+| DP 11.36 con el mismo sonido (bank select + Program Change) en dos bancos: tras elegirlo desde un Custom Bank, el menú marca el banco de fábrica; sin el duplicado (Zap Dups) se queda en el Custom Bank; poner el Custom Bank delante no cambia nada | CONFIRMED | EXP-015 (A) | `BankTools.swift` (`zapDuplicates`) |
 | Audición por CoreMIDI | UNKNOWN | — | — |

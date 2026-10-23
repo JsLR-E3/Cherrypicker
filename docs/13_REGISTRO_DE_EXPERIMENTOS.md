@@ -405,4 +405,10 @@ valer un resultado.
 - **Conclusión:** DP 11.36 lee bien un Custom Bank hecho con Find y un fichero tras Zap Dups, y **el fallo que describe
   el manual del original existe en DP 11.36**: con el mismo sonido (bank select + Program Change) en dos bancos, DP
   muestra el de fábrica aunque se eligiera desde el Custom Bank. Zap Dups lo evita (primera prueba).
-- **Estado:** COMPLETADO. Instalación sin retirar: también `Prueba zap sin zap.midnam` (deshacer: borrarlo).
+- **Tercera prueba, orden de los bancos** (hipótesis de Claude: DP se queda con el primer banco del fichero que tiene el
+  sonido): `Prueba zap orden.midnam` = «sin zap» con «Mis Pianos» delante de «ROM A» (VÁLIDO; copiado por Claude con
+  permiso del usuario, `cmp` idéntico). Resultado (usuario, A): «siempre se va a ROM A al abrir y cerrar».
+  **Hipótesis descartada:** el orden no influye. Deducido, sin probar: DP parece preferir el banco cuyo bank select
+  de banco (`MIDICommands`) coincide con el del patch, y «Mis Pianos» no lleva bank select de banco.
+- **Estado:** COMPLETADO. Instalación sin retirar: también `Prueba zap sin zap.midnam` y `Prueba zap orden.midnam`
+  (deshacer: borrarlos).
