@@ -567,4 +567,11 @@ valer un resultado.
   Change = External* y algo reconocible en la instantánea 1; en DP, *Master Names* = «M3000 prueba». Comprobar en el
   monitor MIDI del aparato (SHIFT + UTIL/MIDI): combinados de usuario 1 y 50 por el canal 3, **Snapshot 1** (¿carga la
   instantánea o da «ILLEGAL PRESET»?) y RAM 2 129 y 250 por el canal 1.
-- **Estado:** PENDIENTE-LOCAL (instalado; falta la prueba con el aparato).
+- **Resultado (usuario, 2026-10-23, DP 11.36 y M3000 con «M3000 prueba»):** «todo funciona». Las **instantáneas se
+  seleccionan sin problema** desde «Snapshots» por el canal 3 (CC0 = 2 + Program Change 1–4) (A). El usuario solo tiene
+  2 combinados de usuario guardados y los dos se eligen desde «Combined RAM 1» (CC0 = 1); las posiciones vacías (hasta
+  la 50) no se pueden comprobar.
+- **Conclusión:** la numeración de la especificación vale para DP con *Program Bank Change = External*: combinados de
+  usuario en CC0 = 1 e instantáneas en CC0 = 2 por el canal de combinados. Las instantáneas sirven como cuatro escenas
+  completas (los dos motores y el routing) desde una sola pista de DP.
+- **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»); `M3000.midnam` del usuario sin cambios.
