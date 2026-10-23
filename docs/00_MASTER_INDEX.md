@@ -32,6 +32,7 @@ entero). Si falta información, buscarla primero aquí y en `docs/13`, `protocol
 | `16_ARQUITECTURA.md` | Arquitectura de componentes |
 | `20_DISENO_APP.md` | Diseño de la app a partir de CherryPicker: ventanas, flujos, propuestas e inventario de nibs (T-010, borrador) |
 | `30_MANUAL_USUARIO.md` | Manual de usuario (borrador) |
+| `40_IDEA_EDITOR_FX_BCR2000.md` | Idea para un proyecto futuro (tras BCR2000 y Cherrypicker): editor de efectos MIDI con el BCR2000; fuera del alcance |
 | `plantillas/` | Formatos de documentos recurrentes (auditoría, análisis de un componente original) |
 | `remoto/` | Buzones y propuestas de sesiones en paralelo fuera del Mac (índice en `remoto/00_INDICE.md`) |
 | `../protocol/PROTOCOL_INDEX.md` | Índice canónico del formato `.midnam` y de cómo lo lee DP: hallazgos confirmados, observados, hipótesis, descartes |
@@ -43,7 +44,7 @@ si afecta al usuario, `30` §3) · **procedimiento de prueba** → EXP (procedim
 
 Numeración: 00–09 índice y fuentes · 10–19 método, trabajo con Claude, decisiones, registro, roadmap, historial,
 arquitectura · 20–29 análisis del software original (uno por componente) · 30–39 manual, auditorías fechadas y diseños
-de fases grandes.
+de fases grandes · 40–49 ideas para proyectos futuros (fuera del alcance).
 
 Carpetas: `protocol/{confirmed,observed,hypotheses,discarded}`, `captures/` (capturas propias), `tools/` (utilidades),
 `src/`, `tests/`, `experiments/`, `design/`, `reference/` (terceros, no versionado), `incoming/` (bandeja, no versionada),
