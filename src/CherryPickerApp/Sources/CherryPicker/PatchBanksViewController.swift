@@ -2,8 +2,8 @@
 // Doble clic en el nombre para cambiarlo; doble clic en S0/S32 abre la hoja Bank Selects; el Channel Set se elige en
 // su popup; con varios bancos seleccionados, clic en la cabecera S0/S32 o Channel Set los cambia todos (manual); + abre «Add a Single Bank» y − borra los seleccionados; se arrastra para reordenar dentro del Channel Set.
 // «P» abre la lista de patches del banco (PatchWindowController).
-// «Merge» (con dos o más bancos) abre «Name for Merged Bank»; «Find» abre el Finder; «Zap Dups» borra de los bancos
-// con bank select los patches que ya están en un Custom Bank del mismo Channel Set (T-019).
+// «Merge» (con dos o más bancos) abre «Name for Merged Bank»; «Find» abre el Finder; «Zap Dups» borra los patches que
+// ya están en los bancos seleccionados (o, sin selección, en un Custom Bank) del mismo Channel Set (T-019).
 // Pendiente: Import.
 import AppKit
 import CherryPickerCore
@@ -342,24 +342,35 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 
 	@objc private func find(_ sender: Any?) { FinderWindowController.show(document: document) }
 
-	/// [PROPUESTA P11] Pide confirmación con el número de patches que se borrarán (el original los borraba sin más).
+	/// [PROPUESTA P11] Pide confirmación con lo que se borrará de cada banco (el original lo borraba sin más).
+	/// [PROPUESTA P12] Con bancos seleccionados, se conservan esos y se borra de todos los demás de su Channel Set.
 	@objc private func zapDups(_ sender: Any?) {
 		guard let w = view.window, let model = document.model else { return }
-		let n = model.duplicatePatches().count
+		let selected = table.selectedRowIndexes.map { rows[$0].ref }
+		let keeping = selected.isEmpty ? nil : selected
+		let dups = model.duplicatePatches(keeping: keeping)
+		let kept = keeping.map { refs in rows.filter { refs.contains($0.ref) }.map(\.name).joined(separator: ", ") }
 		let alert = NSAlert()
-		if n == 0 {
+		if dups.isEmpty {
 			alert.messageText = "No duplicates found."
-			alert.informativeText = "No patch in a bank with bank selects is also in a custom bank of the same channel set."
+			alert.informativeText = kept.map { "No patch of \($0) is in another bank of the same channel set." }
+				?? "No patch in a bank with bank selects is also in a custom bank of the same channel set."
 			alert.beginSheetModal(for: w)
 			return
 		}
-		alert.messageText = n == 1 ? "Delete 1 duplicate patch?" : "Delete \(n) duplicate patches?"
-		alert.informativeText = "These patches are in banks with bank selects and also in custom banks of the same channel set. Only the custom versions will remain."
+		let perBank = rows.compactMap { r -> String? in
+			let n = dups.filter { $0.bank == r.ref }.count
+			return n == 0 ? nil : "\(r.name): \(n)"
+		}
+		alert.messageText = dups.count == 1 ? "Delete 1 duplicate patch?" : "Delete \(dups.count) duplicate patches?"
+		alert.informativeText = (kept.map { "Patches that are also in \($0) will be deleted from:" }
+			?? "Patches that are also in custom banks of the same channel set will be deleted from:")
+			+ "\n" + perBank.joined(separator: "\n")
 		alert.addButton(withTitle: "Zap Dups")
 		alert.addButton(withTitle: "Cancel")
 		alert.beginSheetModal(for: w) { [weak self] response in
 			guard response == .alertFirstButtonReturn else { return }
-			self?.edit("Zap Dups") { try $0.zapDuplicates() }
+			self?.edit("Zap Dups") { try $0.zapDuplicates(keeping: keeping) }
 		}
 	}
 

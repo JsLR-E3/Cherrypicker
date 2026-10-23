@@ -110,24 +110,28 @@ public extension MIDINameDocument {
 	}
 
 	/// Zap Dups (deducido; el manual dice «borra los patches de los Standard Banks que también están en Custom Banks»):
-	/// en cada Channel Set, patches de bancos con bank select que suenan igual (bank select efectivo + Program Change)
-	/// que uno de un banco sin bank select. Una lista compartida con un banco sin bank select no se toca.
-	func duplicatePatches() -> [(bank: BankRef, index: Int)] {
+	/// en cada Channel Set, patches que suenan igual (bank select efectivo + Program Change) que uno de los bancos que
+	/// se conservan. Sin `keeping`, se conservan los bancos sin bank select y se borra solo de los que lo tienen; con
+	/// `keeping` ([PROPUESTA P12], los bancos seleccionados), se conservan esos y se borra de todos los demás de su
+	/// Channel Set. Una lista compartida con un banco que se conserva no se toca.
+	func duplicatePatches(keeping: [BankRef]? = nil) -> [(bank: BankRef, index: Int)] {
 		var out: [(bank: BankRef, index: Int)] = []
 		for (mi, item) in items.enumerated() {
 			guard case .masterDeviceNames(let m) = item else { continue }
 			let banks = m.bankRefs(master: mi)
 			for setIndex in Set(banks.map(\.ref.set)).sorted() {
 				let inSet = banks.filter { $0.ref.set == setIndex }
-				let isCustom: (PatchBank) -> Bool = { $0.bankLevelSelect == ("-", "-") }
-				let custom = inSet.filter { isCustom($0.bank) }
-				let customLists = Set(custom.compactMap(\.bank.usedListName))
-				let keys = Set(custom.flatMap { b in patchRows(b.ref).map { SoundKey($0.bankSelect0, $0.bankSelect32, $0.program) } })
+				let isKept: ((ref: BankRef, bank: PatchBank)) -> Bool = { b in
+					keeping.map { $0.contains(b.ref) } ?? (b.bank.bankLevelSelect == ("-", "-"))
+				}
+				let kept = inSet.filter(isKept)
+				let keptLists = Set(kept.compactMap(\.bank.usedListName))
+				let keys = Set(kept.flatMap { b in patchRows(b.ref).map { SoundKey($0.bankSelect0, $0.bankSelect32, $0.program) } })
 				var doneLists = Set<String>()
-				for b in inSet where !isCustom(b.bank) {
+				for b in inSet where !isKept(b) {
 					if let l = b.bank.usedListName {
 						// Cada lista una vez: otro banco que la use vería borrados los mismos patches.
-						if customLists.contains(l) || !doneLists.insert(l).inserted { continue }
+						if keptLists.contains(l) || !doneLists.insert(l).inserted { continue }
 					}
 					for r in patchRows(b.ref) where r.program != "-" && keys.contains(SoundKey(r.bankSelect0, r.bankSelect32, r.program)) {
 						out.append((b.ref, r.index))
@@ -138,10 +142,10 @@ public extension MIDINameDocument {
 		return out
 	}
 
-	/// Borra los patches de `duplicatePatches()`. Devuelve cuántos.
+	/// Borra los patches de `duplicatePatches(keeping:)`. Devuelve cuántos.
 	@discardableResult
-	mutating func zapDuplicates() throws -> Int {
-		let dups = duplicatePatches()
+	mutating func zapDuplicates(keeping: [BankRef]? = nil) throws -> Int {
+		let dups = duplicatePatches(keeping: keeping)
 		for ref in Set(dups.map(\.bank)) {
 			try deletePatches(ref, at: IndexSet(dups.filter { $0.bank == ref }.map(\.index)))
 		}

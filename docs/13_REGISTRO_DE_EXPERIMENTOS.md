@@ -373,6 +373,10 @@ valer un resultado.
   `sizeToFit` tras colocar la tabla, ventana a 520 de ancho; en el Finder lo mismo (600 de ancho, solo «Patch Name»
   se estira).
 - **Tercera prueba:** columnas bien al abrir («Perfecto ahora», usuario).
+- **Zap Dups solo borraba de uno de los bancos de origen** (usuario). Causa deducida, sin reproducir con su fichero: el
+  otro banco de origen no tenía bank select y la regla lo toma por Custom Bank (no se borra de él). Acordado con el
+  usuario → P12: con bancos seleccionados se conservan esos y se borra de todos los demás de su Channel Set (2 tests,
+  49/49); sin probar aún en la app.
 - **Conclusión:** Merge, Find y Zap Dups funcionan en la app según el usuario. Queda abrir en DP 11.36 un fichero con
   un Custom Bank tras Zap Dups.
 - **Estado:** EN CURSO (falta DP).

@@ -140,7 +140,7 @@ se puede borrar ni sacar el último banco de un Channel Set (`PatchBank+`).
   igual que uno anterior) y − (quita de la lista, no del fichero); se arrastran a cualquier lista (copia). T-019.
 - **Zap Dups** (T-019; deducido, el manual no define «duplicado»): en cada Channel Set, borra de los bancos con bank
   select los patches cuyo bank select efectivo + Program Change está en un banco sin bank select (Custom Bank). A
-  contrastar con el original.
+  contrastar con el original. Con bancos seleccionados, P12.
 - **Patchlist Importer** (ImportBrowser): «Files You Can Import From» y la asignación de bancos de destino.
 - **Preview**: el XML exacto que se escribirá.
 - **Preferences**: carpeta de `MIDI Devices` (por defecto `/Library/Audio/MIDI Devices`) y «Create new folders inside
@@ -178,6 +178,7 @@ se puede borrar ni sacar el último banco de un Channel Set (`PatchBank+`).
 | P9 | «Set Bank Selects to Bank values» igual con + que al pegar: marcada (o banco sin bank select), los patches nuevos heredan del banco (forma corta); sin marcar en un banco con bank select, «-» (solo Program Change). El banco conserva su bank select aunque algún patch lleve otro (no pasa a «-»). Al arrastrar a otra lista, cada patch sigue sonando con el mismo bank select | El original es incoherente (EXP-012: 5/0 propios con y sin la casilla en +; «-» o 1/1 fijo al pegar); aceptada por el usuario (2026-10-21) |
 | P10 | Lista de patches: al editar una celda, Tab / ⇧Tab recorren las celdas saltando de fila al final de cada una, y ↑ / ↓ pasan a la misma columna del patch de arriba o de abajo; ← / → pasan a la celda de al lado cuando el cursor está en el borde del texto o todo él seleccionado. En Patch Banks (solo se escribe el nombre), Tab / ↓ y ⇧Tab / ↑ pasan al nombre del banco siguiente o anterior | Edición más rápida; en el original Tab salía de la tabla a los botones. Pedida por el usuario (EXP-013) |
 | P11 | Zap Dups pide confirmación con el número de patches que borrará (o avisa si no hay ninguno) | Borra patches; el original lo hacía sin preguntar (manual: «haz copia antes») |
+| P12 | Zap Dups con bancos seleccionados: se conservan esos y sus patches se borran de todos los demás bancos de su Channel Set, tengan bank select o no; sin selección, la regla del original (se conservan los bancos sin bank select). El aviso dice cuántos se borran de cada banco | Con la regla sola, un banco de origen sin bank select se toma por Custom y no se limpia nunca (EXP-014); pedida por el usuario |
 
 ## 6. Inventario de los nibs
 

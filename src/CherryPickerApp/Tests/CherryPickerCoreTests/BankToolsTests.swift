@@ -103,6 +103,29 @@ final class BankToolsTests: XCTestCase {
 		XCTAssertEqual(cols("CustomD"), ["1/5 0 X"])
 	}
 
+	/// P12: con bancos seleccionados se borra de todos los demás del Channel Set, tengan bank select o no.
+	func testZapDupsKeepingSelectedBanks() throws {
+		// «Juntos» (sin bank select) con A de Uno (1/5) y E de Tres (sin bank select).
+		let found = doc.findPatches(containing: "a") + doc.findPatches(containing: "e").prefix(1)
+		try doc.addBank(name: "Juntos", bs0: "-", bs32: "-", master: 1, set: ref("Uno").set,
+		                withPatches: found.map { ($0.bank, $0.index) })
+		XCTAssertEqual(doc.duplicatePatches().count, 1, "sin selección, Tres (sin bank select) se conserva")
+		let dups = doc.duplicatePatches(keeping: [ref("Juntos")])
+		XCTAssertEqual(dups.map { doc.bank($0.bank)!.name }, ["Uno", "Tres"])
+		try doc.zapDuplicates(keeping: [ref("Juntos")])
+		XCTAssertEqual(cols("Uno"), ["1/5 1 B"])
+		XCTAssertEqual(cols("Tres"), [], "y Kits, que comparte su lista, también")
+		XCTAssertEqual(cols("Juntos"), ["1/5 0 A", "-/- 0 E"])
+	}
+
+	/// Los bancos seleccionados se conservan aunque tengan bank select; los de otro Channel Set no se tocan.
+	func testZapDupsKeepingStandardBank() throws {
+		try doc.copyPatches(from: ref("Uno"), at: [1], to: ref("Custom"))
+		XCTAssertEqual(try doc.zapDuplicates(keeping: [ref("Uno")]), 1)
+		XCTAssertEqual(cols("Uno").count, 2)
+		XCTAssertEqual(cols("Custom"), ["2/0 7 C", "-/- 3 D"])
+	}
+
 	func testSoundKeyComparesNumbers() {
 		XCTAssertEqual(SoundKey("01", "5", "007"), SoundKey("1", "5", "7"))
 		XCTAssertNotEqual(SoundKey("-", "5", "7"), SoundKey("0", "5", "7"))
