@@ -45,7 +45,8 @@ final class InstallSheet: SheetController {
 		var rows: [[NSView]] = [
 			[Self.label("Manufacturer:"), Self.label(maker)],
 			[Self.label("Model:"), Self.label(device)],
-			[Self.label("Folder:"), Self.wrapping(folder.path)],
+			// En una línea: en dos, la segunda no se veía (EXP-022).
+			[Self.label("Folder:"), Self.pathLabel(folder.path)],
 			[Self.label("File name:"), name],
 		]
 		if let listed {
@@ -63,6 +64,15 @@ final class InstallSheet: SheetController {
 	}
 
 	required init?(coder: NSCoder) { fatalError("no se usa con nib") }
+
+	private static func pathLabel(_ s: String) -> NSTextField {
+		let l = NSTextField(labelWithString: s)
+		l.textColor = .secondaryLabelColor
+		l.lineBreakMode = .byTruncatingHead
+		l.toolTip = s
+		l.isSelectable = true
+		return l
+	}
 
 	private static func wrapping(_ s: String) -> NSTextField {
 		let l = NSTextField(wrappingLabelWithString: s)

@@ -520,3 +520,21 @@ valer un resultado.
   en los desplegables. Corrige la fila de `PROTOCOL_INDEX` (EXP-006). El usuario prefiere que «Instalar en DP…» lo
   cree igualmente (opcional).
 - **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»).
+
+## EXP-022 · 2026-10-23 · «Install in DP…» (T-024)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto; `build/CherryPicker.app` de `7f55a86` y `a610111`. Documento nuevo del
+  asistente: Cherrypicker / «CP Instalar», todos los canales (un banco vacío). Prueba hecha por el usuario; Claude
+  mira con `tools/capturar_app.sh` y comprueba los ficheros.
+- **Primera vista de la hoja** (captura): más ancha que la ventana (título de la casilla largo), nombre propuesto
+  «Untitled» y «Device: Cherrypicker CP Instalar» en una línea. Arreglo (`a610111`): casilla corta con nota aparte,
+  fabricante y modelo en dos filas, nombre propuesto = modelo. ⌘I pareció no responder una vez: con la ventana del
+  documento activa, sí (el atajo va a la ventana activa).
+- **Segunda vista** (captura): correcta salvo la carpeta, cortada en «…/MOTU/» (la segunda línea no se veía); arreglo
+  posterior: ruta en una línea.
+- **Instalación** (pulsada por el usuario; permiso, 2026-10-23): aviso final con lo hecho y cómo deshacerlo. Ficheros
+  en `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/`: `CP Instalar.midnam` (VÁLIDO) y `Cherrypicker
+  (CherryPicker).middev` nuevo con «Cherrypicker / CP Instalar»; `Cherrypicker.middev` sin tocar; sin copias de
+  seguridad (no se sustituyó nada). **Deshacer:** borrar esos dos ficheros.
+- **Pendiente:** DP 11.36: ¿sale «CP Instalar» en el desplegable de modelos y «CP Instalar» en *Master Names*?
+- **Estado:** EN CURSO.
