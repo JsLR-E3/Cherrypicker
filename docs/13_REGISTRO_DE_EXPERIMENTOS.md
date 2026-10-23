@@ -495,5 +495,6 @@ valer un resultado.
 - **Segunda prueba:** «las minúsculas funcionan» (usuario).
 - **Pedido del usuario** (dos pantallas): que la ventana se abra donde se dejó. Hecho: la ventana de documento guarda
   su sitio y pantalla (en cascada si hay otra; centrada si esa pantalla ya no está), el asistente recuerda el suyo y
-  el Finder se abre junto al documento. Sin probar aún.
-- **Estado:** COMPLETADO (el sitio de las ventanas, pendiente de ver).
+  el Finder se abre junto al documento (`07acda2`). Probado por el usuario (mover a la otra pantalla, ⌘Q, reabrir):
+  «todo funciona».
+- **Estado:** COMPLETADO.

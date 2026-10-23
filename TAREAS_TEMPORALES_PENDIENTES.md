@@ -46,10 +46,9 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 ## SIGUIENTE PASO EXACTO
 
-1. **Comprobar con el usuario** que las ventanas se abren donde se dejaron (dos pantallas, EXP-020).
-2. **Abrir T-024 con el usuario:** «Instalar en DP…» (P3: copiar el `.midnam` y crear la entrada del `.middev` con
+1. **Abrir T-024 con el usuario:** «Instalar en DP…» (P3: copiar el `.midnam` y crear la entrada del `.middev` con
    confirmación; lo necesita un fichero nuevo del asistente), Copy... en la lista de presets, o las pestañas
    Controllers o Categories. Decidir también el Find de la lista
    de patches (filtrar o seleccionar, docs/20 §3.2) y si se quiere una nota de prueba opcional para módulos de sonido
    (ampliaría D-002).
-3. Menor, con el usuario y DP abierto: T-014.
+2. Menor, con el usuario y DP abierto: T-014.
