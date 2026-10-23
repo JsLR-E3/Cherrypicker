@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-23 · local (`main`) · T-019 a T-024 completadas: Merge/Find/Zap Dups, Device, MIDI y audición, Import, asistente New e «Install in DP…».
+> Actualizado: 2026-10-23 · local (`main`) · EXP-023 (instantáneas del M3000 desde DP) y nota de idea futura en `docs/40` (editor de efectos con el BCR2000; se queda aquí hasta que empiece ese proyecto).
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -19,6 +19,8 @@
 - **Original** en Snow Leopard (Mac mini) para contrastar (EXP-009, EXP-012); allí queda un `.middev` «Prueba / Prueba».
 - **Instalación de prueba que se deja a propósito:** `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/` (EXP-011 a
   EXP-022; cada EXP dice cómo deshacer lo suyo). Deshacer todo: borrar esa carpeta.
+- **Idea para un proyecto futuro** (tras BCR2000 y Cherrypicker): `docs/40_IDEA_EDITOR_FX_BCR2000.md`. Fuera del
+  alcance; al empezar ese proyecto se lleva a su repositorio como documento de partida.
 
 ## EN PROGRESO
 
