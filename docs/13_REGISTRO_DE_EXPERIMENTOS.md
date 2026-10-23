@@ -457,7 +457,7 @@ valer un resultado.
   scratchpad del `M3000.midnam` del usuario (carpeta de DP; el original no se toca ni se versiona): 3 canales
   («Engine 1-2» 1-2, «Combined» 3) y 23 bancos con bank select por banco o por preset.
 - **Al empezar:** la Unitor8 no salía entre los destinos de CoreMIDI que veía Claude (solo IAC, «Network …» y FW-1884);
-  la conectó el usuario (cómo, no anotado).
+  tenía el USB desconectado. Cadena (usuario): Unitor8 → USB → MU4 → USB → Mac; al reconectarla, aparece en «Device Out».
 - **Procedimiento (usuario):** MIDI ▸ Device Out = puerto de la Unitor8 ▸ Enable MIDI; con audio por el M3000, abrir
   bancos y seleccionar presets. Solo se envían CC0/CC32 y Program Change (EXP-017).
 - **Resultado (A, usuario):** «Todo perfecto»: el M3000 cambia al preset seleccionado.
