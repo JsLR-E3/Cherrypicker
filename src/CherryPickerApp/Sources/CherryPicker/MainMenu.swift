@@ -1,5 +1,5 @@
 // Menú principal (nib MainMenu, docs/20 §3.4), sin las entradas fuera de alcance (Send Feedback, updates, Donate)
-// y con el menú Window estándar. New queda para el asistente Device Setup.
+// y con el menú Window estándar. New (⌘N) abre el asistente Device Setup.
 import AppKit
 
 enum MainMenu {
@@ -19,6 +19,7 @@ enum MainMenu {
 		app.addItem(withTitle: "Quit CherryPicker", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
 
 		let file = submenu(main, "File")
+		file.addItem(withTitle: "New", action: #selector(NSDocumentController.newDocument(_:)), keyEquivalent: "n")
 		file.addItem(withTitle: "Open…", action: #selector(NSDocumentController.openDocument(_:)), keyEquivalent: "o")
 		let recent = NSMenuItem(title: "Open Recent", action: nil, keyEquivalent: "")
 		let recentMenu = NSMenu(title: "Open Recent")

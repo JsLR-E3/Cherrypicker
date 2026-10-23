@@ -77,6 +77,17 @@ final class MidnamDocument: NSDocument {
 		}
 	}
 
+	/// Documento nuevo sin guardar (asistente Device Setup): queda marcado como modificado para que pida guardarlo.
+	static func openUntitled(text: String) throws {
+		let controller = NSDocumentController.shared
+		guard let doc = try controller.makeUntitledDocument(ofType: typeName) as? MidnamDocument else { return }
+		try doc.read(from: Data(text.utf8), ofType: typeName)
+		doc.updateChangeCount(.changeDone)
+		controller.addDocument(doc)
+		doc.makeWindowControllers()
+		doc.showWindows()
+	}
+
 	/// Texto exacto que se escribiría al guardar (ventana Preview).
 	func previewText() -> String {
 		(try? data(ofType: Self.typeName)).map { String(decoding: $0, as: UTF8.self) } ?? ""
@@ -85,6 +96,9 @@ final class MidnamDocument: NSDocument {
 
 /// macOS no tiene un tipo propio para .midnam (lo asocia a texto plano), así que se reconoce por la extensión.
 final class MidnamDocumentController: NSDocumentController, NSOpenSavePanelDelegate {
+	/// File ▸ New abre el asistente Device Setup (T-023).
+	override func newDocument(_ sender: Any?) { SetupWizardController.show() }
+
 	override func typeForContents(of url: URL) throws -> String {
 		url.pathExtension.lowercased() == "midnam" ? MidnamDocument.typeName : try super.typeForContents(of: url)
 	}
