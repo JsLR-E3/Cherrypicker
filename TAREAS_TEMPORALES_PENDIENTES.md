@@ -23,7 +23,7 @@
 
 ## EN PROGRESO
 
-- —
+- T-019 (ficha abajo).
 
 ## PENDIENTE DE VALIDACIÓN LOCAL
 
@@ -37,11 +37,23 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
+| T-019 | A | EN PROGRESO | Patch Banks: Merge, Find (ventana Finder) y Zap Dups | T-016, T-018 | Ficha T-019 |
 | T-014 | C | PENDIENTE | Mirar con el usuario si «Other Controller…» de DP usa la `ControlNameList` | DP abierto (usuario) | EXP registrado; fila `ControlNameList` de `PROTOCOL_INDEX` actualizada |
 
 ## Fichas
 
-- —
+**T-019 — Merge / Find / Zap Dups** (docs/20 §3.1, §3.3 MergeSheet, §3.4 Finder; manual del original, «Banks Tab»
+y «Custom Banks»).
+- Lógica en `CherryPickerCore/BankTools.swift` con tests: `findPatches` (nombre contiene el texto, sin distinguir
+  mayúsculas, en todos los bancos), `addBank(…withPatches:)` (banco nuevo con copias; cada patch sigue sonando con su
+  bank select), `mergeBanks` (banco nuevo con los patches de los seleccionados en el orden de la tabla; borra los
+  originales salvo Option-Add), `duplicatePatches` / `zapDuplicates`.
+- Zap Dups (deducido, el manual no define «duplicado»): en cada Channel Set, se borran de los bancos con bank select
+  los patches cuyo bank select efectivo + Program Change ya está en un banco sin bank select (Custom). A contrastar con
+  el original en el Mac mini.
+- Interfaz: botones Merge (con ≥ 2 bancos), Find y Zap Dups en Patch Banks; hoja «Name for Merged Bank»; ventana
+  Finder con campo de búsqueda, «Add New Bank With Patches», «Remove Duplicates», − y arrastre a una lista.
+- Aceptación: tests verdes; probado a mano en la app (EXP-014) y un fichero con Custom Bank zapeado abierto en DP.
 
 ## SIGUIENTE PASO EXACTO
 

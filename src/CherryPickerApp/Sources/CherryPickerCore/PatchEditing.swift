@@ -270,17 +270,7 @@ public extension MIDINameDocument {
 		let patches = srcList.patches
 		guard indices.allSatisfy(patches.indices.contains) else { throw PatchEditError.notFound }
 		let dstBS = dstBank.bankLevelSelect
-		let block = indices.map { i -> PatchNameList.Item in
-			var p = patches[i]
-			let eff = BankRows.effectiveBankSelect(p, bank: srcBank.bankLevelSelect)
-			if (eff[0], eff[1]) == dstBS {
-				p.setOwnBankSelect(bs0: "-", bs32: "-")
-			} else {
-				p.setOwnBankSelect(bs0: eff[0], bs32: eff[1])
-				p.makeExplicit()
-			}
-			return .patch(p)
-		}
+		let block = indices.map { PatchNameList.Item.patch(patches[$0].rebased(from: srcBank.bankLevelSelect, to: dstBS)) }
 		let sameList = source == target || (srcBank.usedListName != nil && srcBank.usedListName == dstBank.usedListName)
 		if move && sameList {
 			return try movePatches(target, at: indices, before: position ?? patches.count)
@@ -391,6 +381,20 @@ extension Patch {
 				programChange = newValue
 			}
 		}
+	}
+
+	/// Copia para un banco con bank select `to` que sigue sonando igual que en el banco `from`: forma corta si coincide
+	/// con el de destino; si no, bank select propio (o «-» explícito).
+	func rebased(from: (String, String), to: (String, String)) -> Patch {
+		var p = self
+		let eff = BankRows.effectiveBankSelect(p, bank: from)
+		if (eff[0], eff[1]) == to {
+			p.setOwnBankSelect(bs0: "-", bs32: "-")
+		} else {
+			p.setOwnBankSelect(bs0: eff[0], bs32: eff[1])
+			p.makeExplicit()
+		}
+		return p
 	}
 
 	/// Pasa el Program Change de la forma corta a `PatchMIDICommands`: un patch así no hereda el bank select del banco
