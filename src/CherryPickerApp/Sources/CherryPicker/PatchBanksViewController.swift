@@ -4,7 +4,7 @@
 // «P» abre la lista de patches del banco (PatchWindowController).
 // «Merge» (con dos o más bancos) abre «Name for Merged Bank»; «Find» abre el Finder; «Zap Dups» borra los patches que
 // ya están en los bancos seleccionados (o, sin selección, en un Custom Bank) del mismo Channel Set (T-019).
-// Pendiente: Import.
+// «Import» abre el «Patchlist Importer» (T-022).
 import AppKit
 import CherryPickerCore
 import MidnamKit
@@ -68,8 +68,10 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		mergeButton.action = #selector(mergeBanks(_:))
 		let find = NSButton(title: "Find", target: self, action: #selector(find(_:)))
 		let zap = NSButton(title: "Zap Dups", target: self, action: #selector(zapDups(_:)))
-		for b in [mergeButton, find, zap] { b.controlSize = .small }
-		let buttons = NSStackView(views: [add, removeButton, mergeButton, find, zap])
+		let importButton = NSButton(title: "Import", target: self, action: #selector(importLists(_:)))
+		for b in [mergeButton, find, zap, importButton] { b.controlSize = .small }
+		// Orden de la captura del original (EXP-009): Merge, Zap Dups, Import, Find.
+		let buttons = NSStackView(views: [add, removeButton, mergeButton, zap, importButton, find])
 		buttons.spacing = 4
 		buttons.setCustomSpacing(12, after: removeButton)
 
@@ -341,6 +343,13 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 	}
 
 	@objc private func find(_ sender: Any?) { FinderWindowController.show(document: document) }
+
+	/// «Import»: ventana «Patchlist Importer» como hoja (T-022).
+	@objc private func importLists(_ sender: Any?) {
+		guard let w = view.window else { return }
+		let importer = ImportWindowController(document: document)
+		importer.begin(on: w) { _ = importer }
+	}
 
 	/// [PROPUESTA P11] Pide confirmación con lo que se borrará de cada banco (el original lo borraba sin más).
 	/// [PROPUESTA P12] Con bancos seleccionados, se conservan esos y se borra de todos los demás de su Channel Set.

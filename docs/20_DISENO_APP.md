@@ -141,7 +141,7 @@ se puede borrar ni sacar el último banco de un Channel Set (`PatchBank+`).
 - **Zap Dups** (T-019; deducido, el manual no define «duplicado»): en cada Channel Set, borra de los bancos con bank
   select los patches cuyo bank select efectivo + Program Change está en un banco sin bank select (Custom Bank). A
   contrastar con el original. Con bancos seleccionados, P12. El fallo de DP que evita existe en DP 11.36 (EXP-015).
-- **Patchlist Importer** (ImportBrowser): «Files You Can Import From» y la asignación de bancos de destino.
+- **Patchlist Importer** (ImportBrowser): «Files You Can Import From» (con «Type»), «Available Patch Lists» con «#» y «Select Destination Bank», «Set midnam folder…», «Cancel» / «Import» (textos del nib; T-022, P14). Los patches importados sustituyen a los del banco de destino.
 - **Preview**: el XML exacto que se escribirá.
 - **Preferences**: carpeta de `MIDI Devices` (por defecto `/Library/Audio/MIDI Devices`) y «Create new folders inside
   default folder». Sin actualizaciones ni atajos de ProTools/Cubase.
@@ -180,6 +180,7 @@ se puede borrar ni sacar el último banco de un Channel Set (`PatchBank+`).
 | P11 | Zap Dups pide confirmación con el número de patches que borrará (o avisa si no hay ninguno) | Borra patches; el original lo hacía sin preguntar (manual: «haz copia antes») |
 | P12 | Zap Dups con bancos seleccionados: se conservan esos y sus patches se borran de todos los demás bancos de su Channel Set, tengan bank select o no; sin selección, la regla del original (se conservan los bancos sin bank select). El aviso dice cuántos se borran de cada banco | Con la regla sola, un banco de origen sin bank select se toma por Custom y no se limpia nunca (EXP-014); pedida por el usuario |
 | P13 | Un Channel Set nuevo (+ en Channel Sets o al crear un modo) lleva un banco vacío «New Bank»; nombres de modo y de Channel Set únicos | La DTD exige `PatchBank+`: el original los dejaba vacíos y con nombres repetidos, y el fichero no validaba (EXP-012); aceptada por el usuario (2026-10-23) |
+| P14 | Import: además de llenar un banco existente (el del mismo nombre, como el original), «New Bank» crea un banco con la lista importada y el bank select de su banco de origen, en el Channel Set del mismo nombre o en el primero. «Files You Can Import From» lista los `.midnam` de una carpeta (por defecto la de DP del fabricante; «Set midnam folder…» la cambia y se recuerda) | El original importaba sobre todo expansiones MOTU a bancos ya existentes; aquí se importa de cualquier `.midnam` (§7.2) |
 
 ## 6. Inventario de los nibs
 

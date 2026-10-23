@@ -24,7 +24,7 @@
 
 ## EN PROGRESO
 
-- —
+- T-022 (ficha abajo).
 
 ## PENDIENTE DE VALIDACIÓN LOCAL
 
@@ -38,11 +38,16 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
+| T-022 | A | EN PROGRESO | Import desde otros `.midnam` (Patchlist Importer) | T-016 | Ficha T-022 |
 | T-014 | C | PENDIENTE | Mirar con el usuario si «Other Controller…» de DP usa la `ControlNameList` | DP abierto (usuario) | EXP registrado; fila `ControlNameList` de `PROTOCOL_INDEX` actualizada |
 
 ## Fichas
 
-- —
+**T-022 — Import** (docs/20 §3.4, P14; nib ImportBrowser; manual «Importing»).
+- Hecho: `CherryPickerCore/Import.swift` (3 tests, 65/65) y `ImportWindowController.swift` (hoja desde el botón
+  Import de Patch Banks).
+- Falta: prueba a mano (EXP-019) con una copia de `captures/exp016/Prueba device.midnam` importando de la carpeta
+  `MOTU/Cherrypicker` (por defecto); comprobar que el fichero resultante es válido.
 
 ## SIGUIENTE PASO EXACTO
 
