@@ -7,8 +7,8 @@ import AppKit
 import CherryPickerCore
 import MidnamKit
 
-final class SetupWizardController: NSWindowController, NSComboBoxDelegate, NSTableViewDataSource, NSTableViewDelegate,
-	NSTextFieldDelegate {
+final class SetupWizardController: NSWindowController, NSComboBoxDelegate, NSComboBoxDataSource, NSTableViewDataSource,
+	NSTableViewDelegate, NSTextFieldDelegate {
 	private static var current: SetupWizardController?
 
 	private let steps = NSTabView()
@@ -130,12 +130,15 @@ final class SetupWizardController: NSWindowController, NSComboBoxDelegate, NSTab
 	}
 
 	private func stepDevice() -> NSView {
+		// Con fuente de datos propia: el autocompletado de NSComboBox distingue mayúsculas (EXP-020).
 		for c in [manufacturer, model] {
+			c.usesDataSource = true
+			c.dataSource = self
 			c.completes = true
 			c.delegate = self
+			c.numberOfVisibleItems = 16
 			c.widthAnchor.constraint(equalToConstant: 260).isActive = true
 		}
-		manufacturer.addItems(withObjectValues: manufacturers)
 		closeMatchLabel.textColor = .systemOrange
 		let grid = NSGridView(views: [[NSTextField(labelWithString: "Manufacturer:"), manufacturer],
 		                              [NSTextField(labelWithString: "Model:"), model]])
@@ -223,6 +226,10 @@ final class SetupWizardController: NSWindowController, NSComboBoxDelegate, NSTab
 	@objc private func next(_ sender: Any?) {
 		switch stepIndex {
 		case 0:
+			// DP distingue mayúsculas: si coincide con uno conocido salvo en eso, se escribe como en el `.middev`.
+			if let m = closeMatch(manufacturer.stringValue, in: manufacturers) { manufacturer.stringValue = m }
+			let m = manufacturer.stringValue.trimmingCharacters(in: .whitespaces)
+			if let mo = closeMatch(model.stringValue, in: models(of: m)) { model.stringValue = mo }
 			showMiddevStep()
 			steps.selectTabViewItem(at: 1)
 		case 1:
@@ -277,15 +284,33 @@ final class SetupWizardController: NSWindowController, NSComboBoxDelegate, NSTab
 
 	private func deviceChanged() {
 		let m = manufacturer.stringValue.trimmingCharacters(in: .whitespaces)
-		let models = models(of: m)
-		if (model.objectValues as? [String]) != models {
-			model.removeAllItems()
-			model.addItems(withObjectValues: models)
+		let models = models(of: closeMatch(m, in: manufacturers) ?? m)
+		if modelItems != models {
+			modelItems = models
+			model.reloadData()
 		}
 		let match = closeMatch(m, in: manufacturers).map { "Manufacturer: \($0)" }
 			?? closeMatch(model.stringValue, in: models).map { "Model: \($0)" }
 		closeMatchLabel.stringValue = match.map { "CherryPicker found a close match (cases were different) — \($0)" } ?? ""
 		updateNext()
+	}
+
+	private var modelItems: [String] = []
+
+	private func items(_ c: NSComboBox) -> [String] { c === manufacturer ? manufacturers : modelItems }
+
+	func numberOfItems(in comboBox: NSComboBox) -> Int { items(comboBox).count }
+
+	func comboBox(_ comboBox: NSComboBox, objectValueForItemAt index: Int) -> Any? { items(comboBox)[index] }
+
+	func comboBox(_ comboBox: NSComboBox, indexOfItemWithStringValue string: String) -> Int {
+		items(comboBox).firstIndex { $0.caseInsensitiveCompare(string) == .orderedSame } ?? NSNotFound
+	}
+
+	/// Autocompleta sin distinguir mayúsculas; el texto pasa a escribirse como en el `.middev`.
+	func comboBox(_ comboBox: NSComboBox, completedString string: String) -> String? {
+		guard !string.isEmpty else { return nil }
+		return items(comboBox).first { $0.range(of: string, options: [.caseInsensitive, .anchored]) != nil }
 	}
 
 	// MARK: Paso 4
