@@ -5,6 +5,7 @@ copia. Se consulta por `grep` (p. ej. `grep T-012 docs/15_HISTORIAL.md`), no se 
 
 | ID | Cerrada | Resultado (y cómo se verificó) | Commit · EXP · D |
 |---|---|---|---|
+| T-020 | 2026-10-23 | Pestaña Device: Manufacturer/Model, modos y Channel Sets con + / − y renombrar, Active Channels, Audition Ch (solo se muestra), hojas New Channel Set y Reassign Banks To, P13. 9 tests (58/58); probada a mano por el usuario y en DP 11.36 (canales libres = «No Patches») | addf13e…271264b · EXP-016 |
 | T-019 | 2026-10-23 | Patch Banks: Merge (hoja con Option-Add), Find (ventana Finder: Add New Bank With Patches, Remove Duplicates, −, arrastrar a listas) y Zap Dups (P11 confirmación, P12 con selección). 12 tests (49/49); probada a mano por el usuario (2 arreglos) y en DP 11.36 | 64c8594…73e8505 · EXP-014, EXP-015 |
 | T-018 | 2026-10-22 | Ventana Patch Names (botón P): tabla B0 · B32 · # · Patch Name · Ascii editable, + / pegar / soltar texto (New Patches, regla P9), − , Renumber, ordenar por cabecera, Find y Count, arrastrar dentro y a otra lista, deshacer; Tab y flechas al editar (P10). 17 tests de la lógica; probada a mano por el usuario y en DP 11.36 (menús en el orden del fichero) | 8e3d36e…0f82aeb · EXP-012, EXP-013 |
 | T-016 | 2026-10-20 | Pestaña Patch Banks editable (renombrar, Bank Selects, + / −, Channel Set, reordenar, cambio múltiple, deshacer) y guardar; disposición como el original; DP 11.36 lee el fichero editado y respeta los Channel Sets | ad79cdc…774b9e6 · EXP-008, EXP-010, EXP-011 |

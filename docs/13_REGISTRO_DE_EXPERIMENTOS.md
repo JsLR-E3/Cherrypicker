@@ -425,4 +425,11 @@ valer un resultado.
   `ChannelNameSetAssign`).
 - **Preguntas para DP:** (1) ¿*Master Names* muestra «Prueba device»? (2) Canal 11: ¿bancos «New Bank» y «Kits extra»?
   (3) Canal 1: ¿solo «Kits»? (4) Canal 9 o 13 (libres): ¿qué muestra DP?
-- **Estado:** EN CURSO (falta DP).
+- **Instalación** (permiso del usuario, 2026-10-23): Claude copia `Prueba device.midnam` a
+  `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/` (fichero nuevo, `cmp` idéntico). **Deshacer:** borrarlo.
+- **Resultado en DP 11.36 (A, capturas del usuario):** (1) *Master Names* «Prueba device» con los 6 bancos (Kits,
+  Pianos CP, Cuerdas, Sintes, New Bank, Kits extra). (2) Canal 11: solo «Kits extra» → 001–003; **el banco vacío no
+  sale en el menú**. (3) Canal 1: presets de «Kits» sin submenú. (4) Canal 9 (libre): «No Patches».
+- **Conclusión:** DP acepta modos con canales sin asignar (los muestra como «No Patches») y Channel Sets nuevos; un
+  banco vacío (P13) no estorba en el menú.
+- **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»).
