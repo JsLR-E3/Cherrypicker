@@ -399,6 +399,10 @@ valer un resultado.
   dispositivo «CP Zap» con *Master Names* «Prueba zap» y los bancos «ROM A» y «Mis Pianos»; el menú de la pista da
   «Mis Pianos» → «001 Grand Piano», «002 Bright Piano», «004 Rhodes», y tras elegir Grand Piano el menú marca «Mis
   Pianos» y ese patch. «Todo ok» (usuario).
-- **Conclusión:** DP 11.36 lee bien un Custom Bank hecho con Find y un fichero tras Zap Dups. No se probó si DP
-  confunde los bancos sin Zap Dups (`Prueba zap sin zap.midnam` queda para ello).
-- **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»).
+- **Segunda prueba, sin Zap Dups** (pedida por el usuario): Claude copia `Prueba zap sin zap.midnam` (fichero nuevo,
+  `cmp` idéntico) a la misma carpeta; el usuario lo elige en *Master Names*, elige «Mis Pianos ▸ Grand Piano» y al
+  volver al menú DP marca «ROM A»: «no recuerda MIS PIANOS y se va al ROM A» (usuario, A).
+- **Conclusión:** DP 11.36 lee bien un Custom Bank hecho con Find y un fichero tras Zap Dups, y **el fallo que describe
+  el manual del original existe en DP 11.36**: con el mismo sonido (bank select + Program Change) en dos bancos, DP
+  muestra el de fábrica aunque se eligiera desde el Custom Bank. Zap Dups lo evita (primera prueba).
+- **Estado:** COMPLETADO. Instalación sin retirar: también `Prueba zap sin zap.midnam` (deshacer: borrarlo).

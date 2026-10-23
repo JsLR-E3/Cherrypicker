@@ -18,7 +18,7 @@
 - **Original** en Snow Leopard (Mac mini del usuario) para contrastar (EXP-009, EXP-012). Allí queda un `.middev`
   «Prueba / Prueba» del asistente del original (EXP-012), lo borra el usuario cuando quiera.
 - **Instalación de prueba que se deja a propósito:** `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/` («CP Canales»,
-  EXP-011; «CP Patches», EXP-013; «CP Zap», EXP-015). Deshacer: borrar esa carpeta.
+  EXP-011; «CP Patches», EXP-013; «CP Zap» con «Prueba zap» y «Prueba zap sin zap», EXP-015). Deshacer: borrar esa carpeta.
 - Base: MidnamKit sin pérdidas y validación DTD (fase 1); cómo lee DP los `.midnam` (fase 2); estados en
   `protocol/PROTOCOL_INDEX.md`.
 

@@ -140,7 +140,7 @@ se puede borrar ni sacar el último banco de un Channel Set (`PatchBank+`).
   igual que uno anterior) y − (quita de la lista, no del fichero); se arrastran a cualquier lista (copia). T-019.
 - **Zap Dups** (T-019; deducido, el manual no define «duplicado»): en cada Channel Set, borra de los bancos con bank
   select los patches cuyo bank select efectivo + Program Change está en un banco sin bank select (Custom Bank). A
-  contrastar con el original. Con bancos seleccionados, P12.
+  contrastar con el original. Con bancos seleccionados, P12. El fallo de DP que evita existe en DP 11.36 (EXP-015).
 - **Patchlist Importer** (ImportBrowser): «Files You Can Import From» y la asignación de bancos de destino.
 - **Preview**: el XML exacto que se escribirá.
 - **Preferences**: carpeta de `MIDI Devices` (por defecto `/Library/Audio/MIDI Devices`) y «Create new folders inside
