@@ -24,7 +24,7 @@
 
 ## EN PROGRESO
 
-- —
+- T-024 (ficha abajo).
 
 ## PENDIENTE DE VALIDACIÓN LOCAL
 
@@ -38,11 +38,16 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
+| T-024 | A | EN PROGRESO | «Install in DP…» (P3) | T-023 | Ficha T-024 |
 | T-014 | C | PENDIENTE | Mirar con el usuario si «Other Controller…» de DP usa la `ControlNameList` | DP abierto (usuario) | EXP registrado; fila `ControlNameList` de `PROTOCOL_INDEX` actualizada |
 
 ## Fichas
 
-- —
+**T-024 — Install in DP…** (P3; EXP-021).
+- Hecho: `CherryPickerCore/InstallInDP.swift` (carpeta, nombres, `.middev` propio; 3 tests, 72/72), `InstallSheet.swift`
+  (File ▸ Install in DP…, ⌘I; confirmación, copia de seguridad, cómo deshacer).
+- Falta: prueba a mano (EXP-022) con un dispositivo nuevo del asistente (p. ej. Cherrypicker / «CP Instalar») y
+  comprobar en DP que sale en la lista de modelos y en *Master Names*.
 
 ## SIGUIENTE PASO EXACTO
 

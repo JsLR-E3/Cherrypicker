@@ -53,15 +53,7 @@ final class SetupWizardController: NSWindowController, NSComboBoxDelegate, NSCom
 	required init?(coder: NSCoder) { fatalError("no se usa con nib") }
 
 	/// Lee (sin modificarlos) los `.middev` de la carpeta de dispositivos MIDI.
-	private func loadMiddevs() {
-		let root = URL(fileURLWithPath: "/Library/Audio/MIDI Devices")
-		let e = FileManager.default.enumerator(at: root, includingPropertiesForKeys: nil)
-		while let url = e?.nextObject() as? URL {
-			guard url.pathExtension.lowercased() == "middev", let data = try? Data(contentsOf: url),
-			      let text = String(data: data, encoding: .utf8) else { continue }
-			entries += middevEntries(text).map { ($0.manufacturer, $0.model, url) }
-		}
-	}
+	private func loadMiddevs() { entries = MiddevIndex.load() }
 
 	private var manufacturers: [String] {
 		Array(Set(entries.map(\.manufacturer))).sorted { $0.localizedStandardCompare($1) == .orderedAscending }

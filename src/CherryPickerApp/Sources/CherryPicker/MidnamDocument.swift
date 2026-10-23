@@ -88,6 +88,19 @@ final class MidnamDocument: NSDocument {
 		doc.showWindows()
 	}
 
+	/// File ▸ Install in DP… (T-024, P3): hoja con confirmación; al terminar, qué se hizo y cómo deshacerlo.
+	@objc func installInDP(_ sender: Any?) {
+		guard let w = windowControllers.first(where: { $0 is DocumentWindowController })?.window else { return }
+		let sheet = InstallSheet(document: self)
+		sheet.begin(on: w) { ok in
+			guard ok else { return }
+			let a = NSAlert()
+			a.messageText = "Installed in Digital Performer"
+			a.informativeText = sheet.report
+			a.beginSheetModal(for: w)
+		}
+	}
+
 	/// Texto exacto que se escribiría al guardar (ventana Preview).
 	func previewText() -> String {
 		(try? data(ofType: Self.typeName)).map { String(decoding: $0, as: UTF8.self) } ?? ""

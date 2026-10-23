@@ -34,6 +34,9 @@ enum MainMenu {
 		saveAs.keyEquivalentModifierMask = [.command, .shift]
 		file.addItem(withTitle: "Revert To Saved",
 		             action: #selector(NSDocument.revertToSaved(_:)), keyEquivalent: "r")
+		file.addItem(.separator())
+		// [PROPUESTA P3] Copia a la carpeta de DP, con confirmación (T-024).
+		file.addItem(withTitle: "Install in DP…", action: #selector(MidnamDocument.installInDP(_:)), keyEquivalent: "i")
 
 		let edit = submenu(main, "Edit")
 		edit.addItem(withTitle: "Undo", action: Selector(("undo:")), keyEquivalent: "z")
