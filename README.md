@@ -128,7 +128,8 @@ each name, to fill by dragging patches into it.
 
 ## License
 
-Midnamer is free software under the GNU General Public License v3.0 (see `LICENSE`). It is an independent project,
+Midnamer is free software under the GNU General Public License v3.0 (see `LICENSE`). Source code:
+<https://github.com/JsLR-E3/Cherrypicker>. It is an independent project,
 not affiliated with Alterspective (CherryPicker) or MOTU (Digital Performer); their names are used only to say what it
 works with.
 
