@@ -853,3 +853,24 @@ valer un resultado.
 - **Resultado final (usuario, 2026-10-24, DP 11.36):** la viñeta «• » y el SPX2000 optimizado se ven bien (A).
 - **Conclusión:** D-010 vale en DP: «• » para el banco con todos y árbol «├ »/«└ » para los sub-bancos.
 - **Estado:** COMPLETADO. Instalaciones sin retirar (ver «Deshacer»).
+
+## EXP-035 · 2026-10-24 · Viñeta y árbol (D-010) en M3000 y DSP-128 Plus
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto, DP 11.36; árbol de trabajo sobre `02c7232`.
+- **Ficheros** (privados, D-004; VÁLIDOS contra la DTD 1.0; en `reference/midnam_trabajo/`):
+  - `M3000 optimizado.midnam` (sha256 `669bb13e357d42f4…`): bancos padre nuevos «Halls» (21–136, Bank Select por patch),
+    «Indoor» (251–399, por patch), «Outdoor» (410–439, CC0 3 en el banco) y «Combined» (1–100, CC0 0), cada uno justo
+    encima de sus sub-bancos, renombrados «├ Natural» / «└ Super-natural», «├ Indoor Mini» … «└ Indoor XXL», «├ Outdoor
+    Medium» … «└ Outdoor XXL» y «├ Music» / «├ Film» / «└ Surround» (nombre completo en Indoor y Outdoor para que las
+    listas no se repitan). Sin banco «todos» (Top 20 es una selección).
+  - `DSP-128 Plus optimizado.midnam` (`7895a475df33b341…`): «• All Programs», «Rooms» (1–49) con «├ Large», «├ Medium»,
+    «└ Small» y «EQ» (100–126) con «├ Parametric», «└ Graphic»; las demás familias, sueltas.
+- **Comprobado con script:** M3000, las 904 direcciones de `M3000 prueba` siguen igual (más las 300 de Card), un solo
+  nombre por dirección y número mostrado coherente con CC0/PC; DSP-128, los 128 PC con un nombre cada uno; nombres de
+  patch sin cambios en los dos.
+- **Instalación (pendiente, el usuario con `sudo`):** sustituir `MOTU/TC Electronic/M3000 optimizado.midnam` (EXP-030) y
+  `MOTU/Digitech/DSP-128 Plus optimizado.midnam` (EXP-031); son ficheros de la sesión. **Deshacer:** borrarlos.
+- **Prueba (usuario):** menús en DP; en el M3000, un preset de «Halls» por encima de 128 (p. ej. 130) y uno de «Indoor»
+  (p. ej. 300) desde el banco padre.
+- **Resultado:** —
+- **Estado:** EN CURSO.

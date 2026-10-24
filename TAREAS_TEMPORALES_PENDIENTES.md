@@ -34,7 +34,7 @@
 
 ## EN PROGRESO
 
-- —
+- EXP-035: viñeta y árbol (D-010) en M3000 y DSP-128 Plus; los instala el usuario con `sudo`. Siguiente paso: resultado en DP.
 
 ## PENDIENTE DE VALIDACIÓN LOCAL
 
@@ -56,7 +56,7 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 ## SIGUIENTE PASO EXACTO
 
-0. Otro `.midnam` como en T-030/T-031 (`docs/15`, EXP-030 y EXP-031): PCM-81 o PCM-91, con sus manuales en `incoming/`
+0. Otro `.midnam` como en T-030/T-031 (`docs/15`, EXP-030 y EXP-031), con la viñeta y el árbol de D-010: PCM-81 o PCM-91, con sus manuales en `incoming/`
    (se archivan en `reference/manuales/<modelo>/`).
 1. **Con el usuario, decidir el siguiente bloque:** preparar la app para compartir (D-007: nombre e icono propios,
    revisar textos cortos de los nibs con `grep -rn '"[A-Z][^"]\{20,\}"' src/CherryPickerApp/Sources/CherryPicker`,

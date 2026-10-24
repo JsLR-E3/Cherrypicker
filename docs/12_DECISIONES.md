@@ -19,7 +19,11 @@ Lo que es solo una propuesta va en la tarea o en `docs/remoto/`, no aquí.
   sub-bancos, cuyo nombre empieza por «├ » (U+251C y espacio) y, el último del grupo, por «└ » (U+2514 y espacio):
   «Studio», «├ Halls»… «└ Delay/Pitch/Mod». El banco con todos los presets del aparato o de su memoria principal
   empieza por «• » (U+2022): «• All Presets», «• PRESET»; los demás bancos padre, sin símbolo. («● », U+25CF, se
-  probó primero y en DP se veía demasiado grande, EXP-034.) Se aplica a LXP-15 I/II
+  probó primero y en DP se veía demasiado grande, EXP-034.) Si el banco padre no existe, se crea con los presets de sus
+  sub-bancos (Bank Select por patch si cruza un límite de 128). Los nombres de lista tienen que ser únicos en el fichero:
+  si dos grupos tienen sub-bancos con el mismo nombre, se deja el nombre completo («├ Indoor Medium», «├ Outdoor
+  Medium»). El usuario la pide para todos los ficheros hechos (M3000, DSP-128 Plus, LXP-15 I/II, SPX2000) y los
+  siguientes (2026-10-24, EXP-035). Se aplica a LXP-15 I/II
   y SPX2000 y es la norma para los siguientes.
 - **Motivo:** DP 11.36 solo muestra un nivel de submenús (EXP-006, EXP-011) y respeta el orden del fichero (EXP-013);
   muestra bien estos símbolos y los espacios iniciales en los nombres de banco (EXP-033). El árbol deja ver qué cuelga
