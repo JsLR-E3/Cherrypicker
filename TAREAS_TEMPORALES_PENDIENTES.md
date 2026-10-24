@@ -22,7 +22,7 @@
   Además, `MOTU/TC Electronic/M3000 optimizado.midnam` (EXP-030) y
   `MOTU/Digitech/DSP-128 Plus optimizado.midnam` (EXP-031, con `sudo`),
   `MOTU/Lexicon/LXP-15 II Presets.midnam` y `LXP-15 I Registers.midnam` (EXP-032/034, con `sudo`),
-  `MOTU/Yamaha/SPX2000 optimizado.midnam` (EXP-034), `MOTU/Lexicon/PCM-81 optimizado.midnam` (EXP-037), `MOTU/Lexicon/PCM-91 optimizado.midnam` (EXP-038); deshacer: borrar esos ficheros. Los demás de esas
+  `MOTU/Yamaha/SPX2000 optimizado.midnam` (EXP-034), `MOTU/Lexicon/PCM-81 optimizado.midnam` (EXP-037), `MOTU/Lexicon/PCM-91 optimizado.midnam` (EXP-038), `MOTU/Viscount/EFX 100 optimizado.midnam` (EXP-044, con `sudo`); deshacer: borrar esos ficheros. Los demás de esas
   carpetas son del usuario.
 - **Permisos de DP cambiados por el usuario** (2026-10-24, con `sudo chown jslr`): las carpetas `MOTU/Digitech`,
   `MOTU/Lexicon` y `MOTU/Yamaha` son del usuario (antes `root:wheel`, `drwxrwxr-x`; los ficheros de dentro no se tocaron)
@@ -38,7 +38,7 @@
 
 ## EN PROGRESO
 
-- EXP-044: `EFX 100 optimizado.midnam` hecho y comprobado; falta instalarlo (carpeta `MOTU/Viscount/` del usuario E3: `sudo` o Finder) y probarlo en DP.
+- —
 
 ## PENDIENTE DE VALIDACIÓN LOCAL
 

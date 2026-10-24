@@ -1080,7 +1080,8 @@ valer un resultado.
   pedal pone «DELAY» sin separar el multitap), Resonator (84–91) y Rotary (92–99).
 - **Comprobado con script:** las 200 direcciones (CC0, CC32, PC) siguen igual; el nombre corto de cada dirección es el
   final del completo; canales iguales.
-- **Instalación:** pendiente. `MOTU/Viscount/` es del usuario `E3` (no de `jslr`), así que hay que copiarlo con `sudo` o
-  desde el Finder. **Deshacer:** borrar `MOTU/Viscount/EFX 100 optimizado.midnam`.
-- **Resultado:** —
-- **Estado:** EN CURSO.
+- **Instalación:** `MOTU/Viscount/` es del usuario `E3` (no de `jslr`); la copia la hizo el usuario con `sudo cp -n`,
+  idéntica (misma sha256); `EFX 100.midnam` sin cambios. **Deshacer:**
+  `sudo rm "/Library/Audio/MIDI Devices/MOTU/Viscount/EFX 100 optimizado.midnam"`.
+- **Resultado (usuario, 2026-10-25, DP 11.36 con el EFX 100):** funciona bien (A).
+- **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»).

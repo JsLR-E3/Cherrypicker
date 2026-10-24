@@ -5,6 +5,7 @@ copia. Se consulta por `grep` (p. ej. `grep T-012 docs/15_HISTORIAL.md`), no se 
 
 | ID | Cerrada | Resultado (y cómo se verificó) | Commit · EXP · D |
 |---|---|---|---|
+| EXP-044 | 2026-10-25 | Viscount EFX 100 optimizado: • Presets, familias en árbol con nombres cortos, 12 nombres arreglados, [F]; probado en DP | 1c3818e · EXP-044 |
 | T-037 | 2026-10-24 | Versión 0.9.0 universal (arm64 + x86_64) y `tools/distribuir.sh` → `build/Midnamer-0.9.0.zip`, firma ad hoc; guía con instalación y requisitos al día | (este commit) · D-013, EXP-043 |
 | T-036 | 2026-10-24 | Guía de uso en inglés en `README.md`, mostrada también en Help ▸ Midnamer Help; `swift test` 111/111, ventana revisada en captura | (este commit) · D-012, EXP-042 |
 | T-035 | 2026-10-24 | App renombrada a Midnamer: nombre, icono propio dibujado por código, tooltips y avisos del original reescritos, `.middev` antiguo respetado, preferencias migradas; GPL-3.0 confirmada; `swift test` 108/108, comprobado por el usuario | `99478ae` y este commit · D-011, EXP-041 |
