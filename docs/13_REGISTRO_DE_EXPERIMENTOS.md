@@ -776,5 +776,7 @@ valer un resultado.
 - **Prueba pendiente (usuario, DP 11.36 y DSP-128 Plus; solo Program Change, D-002):** en DP, *Master Names* =
   «DSP-128 Plus optimizado»; que salgan los 11 bancos y que 1, 17, 50, 70, 100 y 128 pongan el aparato en P 1, P 17,
   P 50, P 70, P 100 y P 128.
-- **Resultado:** —
-- **Estado:** EN CURSO.
+- **Resultado (usuario, 2026-10-24, DP 11.36 y DSP-128 Plus con «DSP-128 Plus optimizado»):** «todo funciona» (A).
+- **Conclusión:** bancos sin Bank Select para un aparato sin bancos funcionan en DP: cada banco es solo una forma de
+  agrupar, y el patch n manda PC n − 1 (P n en el aparato).
+- **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»); los demás ficheros de la carpeta, sin cambios.

@@ -5,6 +5,7 @@ copia. Se consulta por `grep` (p. ej. `grep T-012 docs/15_HISTORIAL.md`), no se 
 
 | ID | Cerrada | Resultado (y cómo se verificó) | Commit · EXP · D |
 |---|---|---|---|
+| T-031 | 2026-10-24 | DSP-128 Plus optimizado contra su manual (OCR): All Programs + 10 familias sin Bank Select y 28 nombres; mismos PC; probado en DP con el aparato | 04276a4, f45d826 · EXP-031 |
 | T-030 | 2026-10-24 | M3000 optimizado contra manual, addendum y especificación MIDI: 53 nombres (13 leídos en el aparato), bancos Halls/Outdoor/Combined partidos y Card nuevos; mismas direcciones MIDI; probado en DP con el M3000 | eab89f7, 77deec1, 4ba4fef · EXP-030 |
 | T-029 | 2026-10-24 | Uso con los 6 `.midnam` reales del usuario (copias): casilla P fina, celdas centradas, columnas que caben, lista de patches a la izquierda si no cabe a la derecha, banco nuevo desde la selección y soltando patches en Patch Banks (P21). 2 tests (94/94); probado a mano por el usuario, guardado de DSP-128 válido contra la DTD | 2a6dff0…552df90 · EXP-029 |
 | T-028 | 2026-10-24 | Pestaña Controllers sencilla (D-009): listas con «Default Control Names», controles ordenados por número, «Used by Channel Sets» (P20). 5 tests (92/92); probada a mano por el usuario | d0090d1… · EXP-028 · D-009 |
