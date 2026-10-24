@@ -893,5 +893,13 @@ valer un resultado.
 - **Sin comprobar en DP (usuario):** (1) qué comandos hay al buscar «patch» y «sound» en *Commands*; (2) con el menú
   de patches abierto, si funcionan las flechas, Return y escribir el principio del nombre (comportamiento de los menús
   de macOS). Si (2) funciona, los prefijos «• », «├ », «└ » impiden saltar a un banco escribiendo su nombre.
-- **Resultado:** —
+- **Resultado (usuario, 2026-10-24, DP 11.36; captura de *Commands* en el chat, no versionada):**
+  - En *Commands*, al buscar «patch» salen **«Next Patch»** (Key 1 ⌃↑) y **«Previous Patch»** (Key 1 ⌃↓), con un
+    segundo atajo con ⌥, grupo «Sound Selection Master» (A). Pulsados no cambian el patch ni en Sequence ni en Tracks.
+  - Flechas, Return o escribir con el menú de patches abierto: no funcionan (A). Por eso los prefijos de D-010 no
+    estorban.
+  - El Patch Change de la Event List no le sirve para ir probando presets.
+- **Hipótesis (sin comprobar):** macOS se queda ⌃↑/⌃↓ (Mission Control y Exposé de apps por defecto). Siguiente:
+  probar Key 2, asignar otro atajo (p. ej. ⌥⌘↑/↓) o un evento MIDI, con la pista seleccionada o armada; y ver si al
+  final de un banco pasa al siguiente.
 - **Estado:** EN CURSO.
