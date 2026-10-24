@@ -760,3 +760,21 @@ valer un resultado.
   banco) y otro que cruza el 128 con comandos por patch (Super-natural) cambian bien de preset; los Combined partidos
   también por el canal 3. Los PDF del M3000 quedan archivados en `reference/manuales/M3000/`.
 - **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»); los demás ficheros de la carpeta, sin cambios.
+
+## EXP-031 · 2026-10-24 · DSP-128 Plus optimizado en DP 11.36 (T-031)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto, DP 11.36; árbol de trabajo sobre `04276a4`. Fichero:
+  `reference/midnam_trabajo/DSP-128 Plus optimizado.midnam` (privado, D-004; VÁLIDO contra la DTD 1.0; sha256
+  `0c1e11ed1ee59443…`), sacado de `DSP-128 Plus.midnam` (EXP-029) con los cambios de la ficha T-031. Fuente: manual
+  del DSP 128 plus (escaneo, leído con OCR de Vision) en `reference/manuales/DSP-128 Plus/`.
+- **Comprobado sin aparato (script):** 11 bancos sin Bank Select (All Programs + 10 familias); los 128 PC 0–127 con un
+  solo nombre cada uno, patch n → PC n − 1; canales y `CustomDeviceMode` idénticos; 28 nombres cambiados.
+- **Instalación:** `/Library/Audio/MIDI Devices/MOTU/Digitech/` es de root y Claude no puede escribir en ella
+  (`cp` → «Permission denied»). La copia la hizo el usuario con `sudo cp -n` (2026-10-24 20:14), como
+  `DSP-128 Plus optimizado.midnam`, idéntica a la de trabajo (misma sha256). `DSP-128 Plus.midnam` del usuario, sin
+  cambios (= `reference/midnam_usuario/`, `2cc90bd1…`). **Deshacer:** `sudo rm "/Library/Audio/MIDI Devices/MOTU/Digitech/DSP-128 Plus optimizado.midnam"`.
+- **Prueba pendiente (usuario, DP 11.36 y DSP-128 Plus; solo Program Change, D-002):** en DP, *Master Names* =
+  «DSP-128 Plus optimizado»; que salgan los 11 bancos y que 1, 17, 50, 70, 100 y 128 pongan el aparato en P 1, P 17,
+  P 50, P 70, P 100 y P 128.
+- **Resultado:** —
+- **Estado:** EN CURSO.

@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-24 · local (`main`) · T-031: `DSP-128 Plus optimizado.midnam` generado (10 familias); falta instalarlo y probarlo en DP.
+> Actualizado: 2026-10-24 · local (`main`) · T-031: `DSP-128 Plus optimizado.midnam` generado (10 familias); instalado; falta probarlo en DP.
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -19,8 +19,9 @@
 - **Original** en Snow Leopard (Mac mini) para contrastar (EXP-009, EXP-012); allí queda un `.middev` «Prueba / Prueba».
 - **Instalación de prueba que se deja a propósito:** `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/` (EXP-011 a
   EXP-022 y EXP-027; cada EXP dice cómo deshacer lo suyo). Deshacer todo: borrar esa carpeta.
-  Además, `MOTU/TC Electronic/M3000 optimizado.midnam` (EXP-030; deshacer: borrar ese fichero). Los demás de esa
-  carpeta son del usuario.
+  Además, `MOTU/TC Electronic/M3000 optimizado.midnam` (EXP-030) y
+  `MOTU/Digitech/DSP-128 Plus optimizado.midnam` (EXP-031, con `sudo`); deshacer: borrar esos ficheros. Los demás de esas
+  carpetas son del usuario.
 - **Copias de trabajo del usuario** en `reference/midnam_trabajo/` (privadas, no versionadas; no se borran ni se
   sobrescriben sin su permiso): `DSP-128 Plus.midnam` (la sigue optimizando él), `M3000 prueba.midnam` (= la instalada
   en DP, EXP-023) y `M3000 optimizado.midnam` (T-030) y `DSP-128 Plus optimizado.midnam` (T-031).
@@ -56,12 +57,12 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
   Parametric EQ, Graphic EQ, Mute & Dry), sin Bank Select; 28 nombres (Parametriq → Parametric ×20, Barroque → Baroque,
   «Brite Lg Room» → «Bright Large Room», mayúsculas y dobles espacios). Comprobado con script: los 128 PC, un nombre por
   PC, canales sin cambios. Todos los presets del aparato son de fábrica (usuario).
-  **Falta:** instalarlo en DP (la carpeta `MOTU/Digitech/` es de root: puede que lo tenga que copiar el usuario) y
-  probarlo (EXP).
+  Instalado por el usuario con `sudo` en `MOTU/Digitech/` (carpeta de root; EXP-031, cómo deshacerlo allí).
+  **Falta:** la prueba del usuario en DP con el aparato (EXP-031).
 
 ## SIGUIENTE PASO EXACTO
 
-0. T-031: instalar y probar en DP. Después, otro `.midnam` como en T-030 (`docs/15` y EXP-030): LXP-15, LXP-15 II, PCM-81 o PCM-91, con sus manuales en `incoming/`
+0. T-031: resultado de la prueba en DP (EXP-031). Después, otro `.midnam` como en T-030 (`docs/15` y EXP-030): LXP-15, LXP-15 II, PCM-81 o PCM-91, con sus manuales en `incoming/`
    (se archivan en `reference/manuales/<modelo>/`).
 1. **Con el usuario, decidir el siguiente bloque:** preparar la app para compartir (D-007: nombre e icono propios,
    revisar textos cortos de los nibs con `grep -rn '"[A-Z][^"]\{20,\}"' src/CherryPickerApp/Sources/CherryPicker`,
