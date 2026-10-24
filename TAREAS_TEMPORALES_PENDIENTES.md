@@ -48,6 +48,8 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 ## SIGUIENTE PASO EXACTO
 
+0. El usuario sigue optimizando sus `.midnam` en otro chat sobre `reference/midnam_trabajo/`: al empezar, preguntarle
+   si de ahí salió algo para la app (fallos o funciones) y anotarlo como tarea.
 1. **Con el usuario, decidir el siguiente bloque:** preparar la app para compartir (D-007: nombre e icono propios,
    revisar textos cortos de los nibs con `grep -rn '"[A-Z][^"]\{20,\}"' src/CherryPickerApp/Sources/CherryPicker`,
    licencia) o Note Lists (fuera por ahora, docs/20 §7.1). Lo que salga del uso real de la app, como tarea nueva.
