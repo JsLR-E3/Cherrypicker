@@ -727,7 +727,10 @@ valer un resultado.
     Channel Set, como + y Find.
 - **Tests:** `swift test` → 94/94 (2 nuevos en `TransferTests`: banco nuevo con patches de otro documento, en medio o al
   final, y nombre ocupado).
-- **Probado por el usuario:** menú contextual (OK; el cambio al final del Channel Set, sin probar aún en la app), arrastre de patches a Patch Banks
+- **Probado por el usuario:** menú contextual (OK, también con el banco al final del Channel Set), arrastre de patches a Patch Banks
   (OK), Tab al renombrar bancos tras el cambio de celdas (OK).
+- **Guardar y reabrir:** el usuario agrupa presets de DSP-128 Plus en bancos nuevos, guarda y vuelve a abrir (OK).
+  Lo guardado: VÁLIDO contra la DTD 1.0; DOCTYPE y cabecera idénticos al original (D-003); 7 bancos (antes 1), 147
+  patches (128 + 19 copiados), cada banco con su lista. El original de `reference/` sigue sin tocar (fecha de 2020).
 - **Estado:** EN CURSO (T-029 sigue: más uso real).
 

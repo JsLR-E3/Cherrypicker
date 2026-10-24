@@ -38,7 +38,7 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
-| T-029 | A | EN PROGRESO | Usar la app con los 6 `.midnam` reales (copias) y anotar fallos y carencias | — | Ficha T-029. Hecho: casilla P, columnas, posición de la lista de patches, P21 (EXP-029). Falta: comprobar «New Bank from Selection» al final y seguir usándola |
+| T-029 | A | EN PROGRESO | Usar la app con los 6 `.midnam` reales (copias) y anotar fallos y carencias | — | Ficha T-029. Hecho: casilla P, columnas, posición de la lista de patches, P21 (EXP-029). Guardar y reabrir DSP-128 OK. Falta: seguir usándola (PCM-81, M3000) |
 
 ## Fichas
 
