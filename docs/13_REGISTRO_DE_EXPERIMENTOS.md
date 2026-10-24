@@ -877,3 +877,21 @@ valer un resultado.
 - **Conclusión:** D-010 aplicada a todos los `.midnam` hechos hasta ahora; los bancos padre con Bank Select por patch
   (Halls, Indoor) funcionan igual que los de un solo banco.
 - **Estado:** COMPLETADO. Instalaciones sin retirar (ver «Deshacer»).
+
+## EXP-036 · 2026-10-24 · Elegir banco y patch en DP sin ratón (consulta del manual)
+
+- **Objetivo:** el usuario elige banco y preset en DP siempre con el ratón; buscar algo más cómodo.
+- **Fuente:** *Digital Performer User Guide* de DP 11 (PDF del proyecto TASCAM FW1884, `reference/Manuales/DP11/`, leído
+  allí y pasado a texto en el scratchpad, sin copiarlo), nivel B.
+- **Lo que dice:**
+  - «The patch list» (p. 147): el patch se elige en la columna *Default Patch* / *Patch* de la Track List o en el menú
+    *Default Patch* del Sequence Editor; nada de teclado para ese menú.
+  - Ventana *Commands* (Setup, p. 107–110): asigna atajos de teclado **o eventos MIDI** (nota, controlador) a cualquier
+    comando de la lista; hay un grupo maestro **«Sound Selection»** que el manual nombra sin describir sus comandos.
+  - Event List: el número de un Patch Change se escribe a mano, y con Option-clic en el campo DP «aprende» el número
+    del preset que se elige en el aparato (p. 27648 del texto, «Finding patch numbers»).
+- **Sin comprobar en DP (usuario):** (1) qué comandos hay al buscar «patch» y «sound» en *Commands*; (2) con el menú
+  de patches abierto, si funcionan las flechas, Return y escribir el principio del nombre (comportamiento de los menús
+  de macOS). Si (2) funciona, los prefijos «• », «├ », «└ » impiden saltar a un banco escribiendo su nombre.
+- **Resultado:** —
+- **Estado:** EN CURSO.
