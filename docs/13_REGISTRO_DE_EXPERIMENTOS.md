@@ -836,9 +836,10 @@ valer un resultado.
   - `SPX2000.midnam`: copia del instalado `MOTU/Yamaha/SPX2000.midnam` (sha256 `c463e3246e1c6ddb…`, del usuario; leído
     con su permiso). `SPX2000 optimizado.midnam` (`9ce72158f805ebcb…`): lo mismo («● PRESET»), y «- Samplig» → «└ Sampling». Bank
     Select (CC0/CC32 por banco) y patches sin cambios (`diff`: solo nombres de banco).
-- **Instalación (pendiente, la hace el usuario con `sudo`; carpetas de root):** sustituir en `MOTU/Lexicon/` los dos LXP-15
+- **Instalación (usuario, 2026-10-24 21:05–21:07; SPX2000 desde el Finder, LXP-15 con `sudo cp`; las tres copias idénticas
+  a las de trabajo, misma sha256; `SPX2000.midnam` sin cambios):** sustituir en `MOTU/Lexicon/` los dos LXP-15
   de EXP-032 (son ficheros de la sesión, no del usuario), añadir `MOTU/Yamaha/SPX2000 optimizado.midnam` junto a su
-  `SPX2000.midnam` (sin tocar) y retirar `MOTU/Lexicon/CP Prueba simbolos.midnam` (EXP-033). **Deshacer:** borrar
+  `SPX2000.midnam` (sin tocar) y retirar `MOTU/Lexicon/CP Prueba simbolos.midnam` (EXP-033). Pendiente: retirar ese fichero de prueba. **Deshacer:** borrar
   `MOTU/Yamaha/SPX2000 optimizado.midnam` y los dos LXP-15 (o volver a copiar los de EXP-032, sha256 `719b3878…` y
   `181bfd32…`).
 - **Prueba (usuario):** en DP, el árbol en los menús de «LXP-15 II Presets», «LXP-15 I Registers» y «SPX2000
