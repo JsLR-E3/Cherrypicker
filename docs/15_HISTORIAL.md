@@ -5,6 +5,7 @@ copia. Se consulta por `grep` (p. ej. `grep T-012 docs/15_HISTORIAL.md`), no se 
 
 | ID | Cerrada | Resultado (y cómo se verificó) | Commit · EXP · D |
 |---|---|---|---|
+| T-032 | 2026-10-24 | LXP-15 con ROM del II: «LXP-15 II Presets» (Pgm Chg = Pre) y «LXP-15 I Registers» (Pgm Chg = Reg), sub-bancos «- » como el SPX2000, marcas [F]/[M]/[E] de los manuales, I 86 corregido; probado en DP | 76e762b, 1a23de2 · EXP-032 |
 | T-031 | 2026-10-24 | DSP-128 Plus optimizado contra su manual (OCR): All Programs + 10 familias sin Bank Select y 28 nombres; mismos PC; probado en DP con el aparato | 04276a4, f45d826 · EXP-031 |
 | T-030 | 2026-10-24 | M3000 optimizado contra manual, addendum y especificación MIDI: 53 nombres (13 leídos en el aparato), bancos Halls/Outdoor/Combined partidos y Card nuevos; mismas direcciones MIDI; probado en DP con el M3000 | eab89f7, 77deec1, 4ba4fef · EXP-030 |
 | T-029 | 2026-10-24 | Uso con los 6 `.midnam` reales del usuario (copias): casilla P fina, celdas centradas, columnas que caben, lista de patches a la izquierda si no cabe a la derecha, banco nuevo desde la selección y soltando patches en Patch Banks (P21). 2 tests (94/94); probado a mano por el usuario, guardado de DSP-128 válido contra la DTD | 2a6dff0…552df90 · EXP-029 |

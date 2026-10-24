@@ -798,5 +798,7 @@ valer un resultado.
   *Master Names* = «LXP-15 II Presets», bancos y algunos presets (p. ej. 1, 27, 65, 128); con *Pgm Chg* = Reg y «LXP-15 I
   Registers», lo mismo y el 86 («Spacious5th^»). Mirar si DP muestra bien los corchetes y si los «- » se ven como en el
   SPX2000.
-- **Resultado:** —
-- **Estado:** EN CURSO.
+- **Resultado (usuario, 2026-10-24, DP 11.36 y LXP-15 con ROM del II, con los dos ficheros):** «todo funciona muy bien»
+  (A): bancos con sub-bancos «- » y marcas [F]/[M]/[E] se ven bien. El usuario deja la organización así; no quiere
+  los rangos en el nombre del banco ni quitar «Studio». La prueba de otros símbolos va en EXP-033.
+- **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»).
