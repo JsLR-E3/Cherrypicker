@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-24 · local (`main`) · T-030: `M3000 optimizado.midnam` revisado contra el manual y con los nombres del aparato; falta probarlo en DP.
+> Actualizado: 2026-10-24 · local (`main`) · T-030 completada: M3000 optimizado contra el manual y probado en DP con el aparato (EXP-030).
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -43,29 +43,15 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
-| T-030 | A | PENDIENTE-LOCAL | Optimizar el `.midnam` del M3000 contra el manual, el addendum y la especificación MIDI (en `incoming/`) | — | Ver ficha. Aceptación: el usuario confirma en DP 11.36 que los bancos nuevos cambian bien de preset (EXP nuevo) |
 
 ## Fichas
 
-- **T-030 (M3000):** hecho sobre una copia, sin tocar `M3000 prueba.midnam`: `reference/midnam_trabajo/M3000 optimizado.midnam`,
-  válido contra la DTD. Comprobado con script (sin aparato): los 904 patches originales siguen en la misma dirección
-  (Channel Set, CC0, CC32, PC), con la regla de la especificación MIDI de TC: programa = 128 × CC0 + PC (Single: fábrica 0–3,
-  RAM 4–5, Card 6–7; Combined: fábrica 0, RAM 1, Snapshots 2, Card 3). Cambios: 40 nombres (erratas y mayúsculas, según
-  el manual); bancos Halls Natural 21–63 (ya sin comandos por patch) / Super-natural 64–136, Outdoor Medium 410–415
-  aparte, «Outdoot XXL» → «Outdoor XXL», Combined Music 1–50 / Film 51–95 / Surround 96–100, y Card 1, Card 2 y
-  Combined Card nuevos (vacíos, como RAM). Se dejan CC32 y los nombres RAM vacíos (decisión del usuario). No se añaden
-  ControlNameList, porque DP no los muestra (EXP-027).
-  Nombres dudosos leídos por el usuario en la pantalla del M3000 (2026-10-24) y aplicados: 13 más (53 en total). El
-  aparato no siempre coincide con el manual: 249 «Master De-Esser» (manual «Dynamic Lo Cut») y 245 «Slow Phaser»
-  (fichero «Standard Phaser»); 453 y 492 se quedan como en el fichero («Atmosph…»), igual que en el aparato.
-  Instalado en DP como `MOTU/TC Electronic/M3000 optimizado.midnam` (EXP-030, cómo deshacerlo allí).
-  **Falta:** (1) prueba del usuario en DP con el aparato (EXP-030); (2) archivar los 3 PDF del
-  M3000 de `incoming/` en `reference/`.
+- —
 
 ## SIGUIENTE PASO EXACTO
 
-0. T-030: resultado de la prueba en DP (EXP-030). Después, mismo
-   proceso con DSP-128 Plus, LXP-15, LXP-15 II, PCM-81 o PCM-91, con sus manuales en `incoming/`.
+0. Optimizar otro `.midnam` como en T-030 (`docs/15` y EXP-030): DSP-128 Plus, LXP-15, LXP-15 II, PCM-81 o PCM-91, con sus manuales en `incoming/`
+   (se archivan en `reference/manuales/<modelo>/`).
 1. **Con el usuario, decidir el siguiente bloque:** preparar la app para compartir (D-007: nombre e icono propios,
    revisar textos cortos de los nibs con `grep -rn '"[A-Z][^"]\{20,\}"' src/CherryPickerApp/Sources/CherryPicker`,
    licencia) o Note Lists (fuera por ahora, docs/20 §7.1). Lo que salga del uso real de la app, como tarea nueva.

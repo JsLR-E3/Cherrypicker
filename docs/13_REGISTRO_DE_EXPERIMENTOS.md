@@ -755,5 +755,8 @@ valer un resultado.
   Outdoor Medium, Outdoor XXL, Combined Music/Film/Surround, Card 1/2, Combined Card) y elegir, viendo el número en el
   aparato: 21 y 63 (Halls Natural, ahora sin comandos por patch), 64 y 136 (Super-natural, cruza el 128), 410 y 415
   (Outdoor Medium), un Combined Film (p. ej. 51) y uno Surround (96) por el canal 3. Card solo si hay tarjeta.
-- **Resultado:** —
-- **Estado:** EN CURSO.
+- **Resultado (usuario, 2026-10-24, DP 11.36 y M3000 con «M3000 optimizado»):** «todo funciona» (A).
+- **Conclusión:** la reorganización de bancos vale en DP: un banco sin comandos por patch (Halls Natural, CC0 en el
+  banco) y otro que cruza el 128 con comandos por patch (Super-natural) cambian bien de preset; los Combined partidos
+  también por el canal 3. Los PDF del M3000 quedan archivados en `reference/manuales/M3000/`.
+- **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»); los demás ficheros de la carpeta, sin cambios.
