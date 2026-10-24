@@ -65,16 +65,48 @@ final class MidnamDocument: NSDocument {
 		return m.defaultAuditionChannel(ref)
 	}
 
-	/// Envía el patch al «Device Out» si «Enable MIDI» está activo (D-002: solo CC0/CC32 y Program Change).
+	/// Envía el patch al «Device Out» si «Enable MIDI» está activo (D-002: CC0/CC32 y Program Change) y, si está
+	/// activada, la nota de prueba (D-008) poco después, para que el módulo haya cambiado de programa.
 	func audition(_ patch: PatchRow, in ref: BankRef) {
 		guard audition.enabled, let dest = audition.destination, let ch = auditionChannel(for: ref) else { return }
+		endTestNote()
 		do {
 			let msgs = try auditionMessages(bankSelect0: patch.bankSelect0, bankSelect32: patch.bankSelect32,
 			                                program: patch.program, channel: ch)
 			try MIDIOut.shared.send(msgs, to: dest)
+			guard audition.testNoteEnabled, !msgs.isEmpty else { return }
+			let note = audition.testNote
+			let m = try note.messages(channel: ch)
+			let off = DispatchWorkItem { try? MIDIOut.shared.send([m.off], to: dest) }
+			pendingNoteOff = off
+			DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Self.noteDelay)) { [weak self] in
+				guard self?.pendingNoteOff === off else { return }
+				try? MIDIOut.shared.send([m.on], to: dest)
+				DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(note.length)) { [weak self] in
+					guard self?.pendingNoteOff === off else { return }
+					self?.endTestNote()
+				}
+			}
 		} catch {
 			NSSound.beep()
 		}
+	}
+
+	/// Espera entre el Program Change y la nota de prueba (ms).
+	private static let noteDelay = 150
+	/// Note Off de la nota de prueba que suena (o va a sonar).
+	private var pendingNoteOff: DispatchWorkItem?
+
+	/// Termina la nota de prueba en curso: se envía su Note Off (también si aún no había empezado; no hace daño).
+	func endTestNote() {
+		guard let off = pendingNoteOff else { return }
+		pendingNoteOff = nil
+		off.perform()
+	}
+
+	override func close() {
+		endTestNote()
+		super.close()
 	}
 
 	/// Documento nuevo sin guardar (asistente Device Setup): queda marcado como modificado para que pida guardarlo.

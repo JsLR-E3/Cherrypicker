@@ -575,3 +575,20 @@ valer un resultado.
   usuario en CC0 = 1 e instantáneas en CC0 = 2 por el canal de combinados. Las instantáneas sirven como cuatro escenas
   completas (los dos motores y el routing) desde una sola pista de DP.
 - **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»); `M3000.midnam` del usuario sin cambios.
+
+## EXP-024 · 2026-10-24 · Pestaña Categories, Find con «Select Matches» y nota de prueba (T-025)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto; árbol de trabajo sobre `1dbf7e6`; `build/CherryPicker.app` montado con
+  `tools/empaquetar_app.sh`. Documento: copia en el scratchpad de `captures/exp010/Prueba canales.midnam` (fichero
+  propio, dos Channel Sets).
+- **Qué hacía el original** (nivel D: nib `MainWindow` y símbolos del binario 3.0, sin ver la app funcionando):
+  controlador `CPCategoryController` con tablas `categoryTV` («Categories») y `bankTV` («Bank Names»), acciones
+  `addCat:` / `deleteCat:`, `addBank:` / `deleteBank:`, `duplicate:` («Dup») y `addToSynth:` («Add To Banks»);
+  recurso `Categories.plist` con «GM Categories» (16) y «EMU Categories» (26); método `newUserBankNamed:`. El manual
+  2.6.2 solo dice que se pueden crear de golpe los Custom Banks de las categorías GM o E-mu. Sin datos de dónde guardaba
+  los juegos propios ni de qué hacía con nombres de banco repetidos: decisiones propias en P17.
+- **Tests:** `cd src/CherryPickerApp && swift test` → 79/79 (6 nuevos en `CategoriesTests`, incluida la validación DTD
+  de un fichero con los 26 bancos E-mu añadidos; 1 nuevo en `AuditionTests` para la nota de prueba).
+- **App:** abre el documento y muestra la ventana (captura con `tools/capturar_app.sh`). Pendiente: que el usuario
+  pruebe Categories, el Find en los dos modos y la nota de prueba con un módulo de sonido.
+- **Estado:** EN CURSO.

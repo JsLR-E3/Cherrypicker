@@ -2,8 +2,9 @@
 // abierta con el botón «P» de Patch Banks. Tabla B0 · B32 · # · Patch Name · Ascii editable; clic en una cabecera
 // ordena la lista (manual del original); + abre «New Patches» y − (o Supr) borra; «Renumber»; pegar o soltar texto
 // abre «New Patches» con los nombres; arrastrar reordena, o copia los patches a la lista de otro banco del mismo
-// dispositivo. «Find» filtra la tabla por nombre (deducido: el nib tiene findField y findPatches, sin más detalle) y
-// «Count:» cuenta las filas que se ven.
+// dispositivo. «Find» filtra la tabla por nombre o, con «Select Matches» en su menú, selecciona los que coinciden sin
+// ocultar el resto, como el original según el manual (así se arrastran todos a la vez; P15, T-025); el modo se recuerda.
+// «Count:» cuenta las filas que se ven o, al seleccionar, las que coinciden.
 // Al seleccionar un solo patch con «Enable MIDI» activo se envía su bank select y Program Change (T-021).
 // Pendiente: Copy..., arrastrar entre documentos, volcados de GigaStudio/Cakewalk y «n=nombre».
 import AppKit
@@ -148,6 +149,7 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 		findField.target = self
 		findField.action = #selector(findChanged(_:))
 		findField.widthAnchor.constraint(equalToConstant: 150).isActive = true
+		updateFindMenu()
 
 		let root = NSView()
 		for v in [buttons, findField, scroll, countLabel] as [NSView] {
@@ -178,12 +180,23 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 
 	private func applyFilter() {
 		let find = findField.stringValue.trimmingCharacters(in: .whitespaces)
-		rows = find.isEmpty ? allRows : allRows.filter {
-			$0.name.range(of: find, options: [.caseInsensitive, .diacriticInsensitive]) != nil
-		}
+		let matches = { (r: PatchRow) in r.name.range(of: find, options: [.caseInsensitive, .diacriticInsensitive]) != nil }
+		rows = find.isEmpty || findSelects ? allRows : allRows.filter(matches)
 		table.reloadData()
 		countLabel.stringValue = "Count: \(rows.count)"
 		updateButtons()
+	}
+
+	/// «Select Matches»: selecciona los patches que coinciden con Find (la tabla muestra toda la lista).
+	private func selectMatches() {
+		let find = findField.stringValue.trimmingCharacters(in: .whitespaces)
+		guard findSelects, !find.isEmpty else { return }
+		let hits = IndexSet(rows.indices.filter {
+			rows[$0].name.range(of: find, options: [.caseInsensitive, .diacriticInsensitive]) != nil
+		})
+		table.selectRowIndexes(hits, byExtendingSelection: false)
+		if let first = hits.first { table.scrollRowToVisible(first) }
+		countLabel.stringValue = "Count: \(hits.count)"
 	}
 
 	@objc private func modelDidChange(_ n: Notification) {
@@ -379,11 +392,43 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 
 	// MARK: Find
 
-	func controlTextDidChange(_ obj: Notification) {
-		if (obj.object as? NSSearchField) === findField { applyFilter() }
+	private static let findModeKey = "patchFindSelects"
+
+	/// Modo de Find: seleccionar las coincidencias (como el original) o filtrar la tabla (por defecto).
+	private var findSelects: Bool {
+		get { UserDefaults.standard.bool(forKey: Self.findModeKey) }
+		set { UserDefaults.standard.set(newValue, forKey: Self.findModeKey) }
 	}
 
-	@objc private func findChanged(_ sender: Any?) { applyFilter() }
+	/// Menú de la lupa con los dos modos; marca el elegido.
+	private func updateFindMenu() {
+		let menu = NSMenu()
+		for (title, selects) in [("Filter", false), ("Select Matches", true)] {
+			let item = NSMenuItem(title: title, action: #selector(setFindMode(_:)), keyEquivalent: "")
+			item.target = self
+			item.tag = selects ? 1 : 0
+			item.state = selects == findSelects ? .on : .off
+			menu.addItem(item)
+		}
+		findField.searchMenuTemplate = menu
+		findField.placeholderString = findSelects ? "Find (select)" : "Find"
+	}
+
+	@objc private func setFindMode(_ sender: NSMenuItem) {
+		findSelects = sender.tag == 1
+		updateFindMenu()
+		applyFilter()
+		selectMatches()
+	}
+
+	func controlTextDidChange(_ obj: Notification) {
+		if (obj.object as? NSSearchField) === findField { findChanged(obj) }
+	}
+
+	@objc private func findChanged(_ sender: Any?) {
+		applyFilter()
+		selectMatches()
+	}
 
 	// MARK: Botones y hojas
 

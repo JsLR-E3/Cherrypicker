@@ -33,9 +33,21 @@ final class AuditionTests: XCTestCase {
 				}
 			}
 		}
-		for bad: [UInt8] in [[0xF0, 0x7E, 0xF7], [0xB0, 7, 100], [0x90, 60, 100], [0xC0], [0xC0, 0x80], [0xB0, 0, 1, 2], []] {
+		for bad: [UInt8] in [[0xF0, 0x7E, 0xF7], [0xB0, 7, 100], [0xA0, 60, 100], [0xE0, 0, 64], [0x90, 60], [0xC0], [0xC0, 0x80], [0xB0, 0, 1, 2], []] {
 			XCTAssertFalse(isAllowedAuditionMessage(bad), "\(bad)")
 		}
+	}
+
+	/// Nota de prueba (D-008): Note On y Note Off por el canal, permitidos; valores fuera de rango, error.
+	func testTestNote() throws {
+		let m = try TestNote.default.messages(channel: 10)
+		XCTAssertEqual(m.on, [0x99, 60, 100])
+		XCTAssertEqual(m.off, [0x89, 60, 64])
+		XCTAssertTrue(isAllowedAuditionMessage(m.on) && isAllowedAuditionMessage(m.off))
+		XCTAssertThrowsError(try TestNote(note: 128, velocity: 100, length: 500).messages(channel: 1))
+		XCTAssertThrowsError(try TestNote(note: 60, velocity: 0, length: 500).messages(channel: 1))
+		XCTAssertThrowsError(try TestNote.default.messages(channel: 17))
+		XCTAssertEqual([0, 60, 61, 127].map(TestNote.name), ["C-2", "C3", "C#3", "G8"])
 	}
 
 	func testDefaultChannel() throws {

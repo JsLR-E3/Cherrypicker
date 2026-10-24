@@ -91,12 +91,12 @@ Una por `.midnam` abierto; varias a la vez (se arrastran bancos y patches entre 
 
 | Pestaña | Contenido en la app nueva |
 |---|---|
-| **MIDI** | Caja «MIDI Connections»: popup «Device Out» (destinos de CoreMIDI; se recuerda por fabricante y modelo) y casilla «Enable MIDI» (desactivada al abrir, P5). Al seleccionar un solo patch se envían CC0/CC32 (si no son «-») y Program Change por el «Audition Ch» de su Channel Set (editable en Device; se recuerda en la app, no en el fichero). Sin notas ni secuencias: con multiefectos no sirven y pueden cambiar el efecto (T-021). («Controller In», el teclado, solo si se decide el thru, §7.) |
+| **MIDI** | Caja «MIDI Connections»: popup «Device Out» (destinos de CoreMIDI; se recuerda por fabricante y modelo) y casilla «Enable MIDI» (desactivada al abrir, P5). Al seleccionar un solo patch se envían CC0/CC32 (si no son «-») y Program Change por el «Audition Ch» de su Channel Set (editable en Device; se recuerda en la app, no en el fichero). Debajo, «Test Note» con «Note», «Velocity» y «Length (ms)»: nota opcional tras el cambio de programa, para módulos de sonido (P16, D-008); desactivada por defecto, se recuerda por fabricante y modelo. Sin secuencias. («Controller In», el teclado, solo si se decide el thru, §7.) |
 | **Device** | «Manufacturer:» y «Model:» (solo lectura, ligados al `.middev`); caja «Modes» con tabla y + / −; caja «Channel Sets» con tabla y + / −, «Active Channels», «Audition Ch:» y el aviso «(Add disabled: No free channels in mode)». Sin «MIDI Initialization… / Send Now» (SysEx, regla 4). |
 | **Patch Banks** | Tabla `P` · `S0` · `S32` · `Patch Bank` · `#` · `Channel Set` y leyenda «• Normal / • Mixed / • Empty». Botones + / −, «Merge», «Import», «Find», «Zap Dups». Sin «Bank Initialization / Transmit», «Zap Custom» ni «Sibelius». |
 | **Note Lists** | No por ahora (§7.1): sin pestaña; las listas de notas de un fichero abierto se conservan al guardar. |
 | **Controllers** | Tablas «Control Name Lists» (+ / −) y `Ctl` · `Name`; + crea «Default Control Names». |
-| **Categories** | Tablas «Categories» y «Bank Names» con + / −, «Add To Banks», «Dup». |
+| **Categories** | Tablas «Categories» y «Bank Names» con + / −, «Dup» y «Add To Banks» (T-025; deducido del nib y del binario, nivel D, a contrastar con el original). «Categories» lista los juegos: «GM Categories» y «EMU Categories» de serie (en gris, no se editan) y los propios. «Dup» hace una copia propia del juego seleccionado; + crea uno vacío; doble clic cambia un nombre. «Add To Banks» crea en el documento un Custom Bank vacío (bank select «-») por cada nombre seleccionado, o por todos si no hay selección; con varios Channel Sets pregunta en cuál; los nombres que ya son de un banco no se crean y se avisa (P17). |
 
 Arriba a la derecha: **«Preview»**. Sin popup «Save Format» ni «XML Filters...»: el formato es siempre el de DP (§5).
 
@@ -104,8 +104,9 @@ Arriba a la derecha: **«Preview»**. Sin popup «Save Format» ni «XML Filters
 
 Una por banco, desde el botón **P**. Tabla `B0` · `B32` · `#` · `Patch Name` · `Ascii`, editables y ordenables por
 cabecera (reordena la lista del fichero); arrastrar para reordenar o llevar a otra lista (copia). Campo «Find»
-(filtra la tabla por nombre; el manual dice que el original *selecciona* los que coinciden y, al arrastrar uno, se
-mueven todos: pendiente de decidir con el usuario) y «Count:» (filas visibles). Botones «Renumber» y + / −. «Copy...»
+con dos modos en el menú de la lupa (P15): «Filter» (por defecto: filtra la tabla por nombre) y «Select Matches»
+(como el original según el manual: selecciona los que coinciden sin ocultar el resto y se arrastran todos a la vez); el
+modo se recuerda. «Count:» (filas visibles o, al seleccionar, coincidencias). Botones «Renumber» y + / −. «Copy...»
 más adelante (§2). Al seleccionar un patch con «Enable MIDI» activo, se envían Bank Select + Program Change (D-002). Sin
 el bloque «Audition Riff» (§7).
 
@@ -181,6 +182,9 @@ se puede borrar ni sacar el último banco de un Channel Set (`PatchBank+`).
 | P12 | Zap Dups con bancos seleccionados: se conservan esos y sus patches se borran de todos los demás bancos de su Channel Set, tengan bank select o no; sin selección, la regla del original (se conservan los bancos sin bank select). El aviso dice cuántos se borran de cada banco | Con la regla sola, un banco de origen sin bank select se toma por Custom y no se limpia nunca (EXP-014); pedida por el usuario |
 | P13 | Un Channel Set nuevo (+ en Channel Sets o al crear un modo) lleva un banco vacío «New Bank»; nombres de modo y de Channel Set únicos | La DTD exige `PatchBank+`: el original los dejaba vacíos y con nombres repetidos, y el fichero no validaba (EXP-012); aceptada por el usuario (2026-10-23) |
 | P14 | Import: además de llenar un banco existente (el del mismo nombre, como el original), «Add as New Bank» crea un banco con la lista importada y el bank select de su banco de origen, en el Channel Set del mismo nombre o en el primero. «Files You Can Import From» lista los `.midnam` de una carpeta (por defecto la de DP del fabricante; «Set midnam folder…» la cambia y se recuerda) | El original importaba sobre todo expansiones MOTU a bancos ya existentes; aquí se importa de cualquier `.midnam` (§7.2) |
+| P15 | Find de la lista de patches con dos modos: «Filter» (oculta lo que no coincide) y «Select Matches» (selecciona las coincidencias, como el original) | El filtro es más cómodo para buscar; seleccionar sirve para arrastrar varios a un Custom Bank. Elegida por el usuario (2026-10-24) |
+| P16 | Nota de prueba opcional en la audición («Test Note», pestaña MIDI), por dispositivo | Oír módulos de sonido sin teclado; el original lo hacía con «Audition Riff». D-008 (usuario, 2026-10-24) |
+| P17 | Categories: los juegos GM y E-mu no se editan (se duplican con «Dup»); los propios se guardan en la app, para todos los documentos; «Add To Banks» con varios Channel Sets pregunta en cuál y salta (avisando) los nombres que ya son de un banco | El nib no muestra dónde guardaba el original los juegos ni qué hacía con nombres repetidos; nombres de banco únicos (P4). A confirmar con el usuario |
 
 ## 6. Inventario de los nibs
 

@@ -65,6 +65,7 @@ final class MainTabsViewController: NSViewController {
 			case "Patch Banks": PatchBanksViewController(document: document)
 			case "Device": DeviceViewController(document: document)
 			case "MIDI": MIDIViewController(document: document)
+			case "Categories": CategoriesViewController(document: document)
 			default: nil
 			}
 			if let vc {

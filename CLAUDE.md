@@ -29,8 +29,9 @@ máquina y no viaja entre el Mac y la nube).
 3. **Nada se instala ni se copia en las carpetas de DP** (`/Library/Audio/MIDI Devices/…`) **ni del sistema** sin permiso
    del usuario, anotando cómo deshacerlo. **Privacidad** (usuario): pedir permiso antes de leer o escribir fuera de la
    carpeta del proyecto.
-4. **MIDI a módulos reales** (audición, D-002): solo Bank Select (CC0/CC32) y Program Change, al destino que elija el
-   usuario y con su permiso. **Nunca** SysEx, volcados ni mensajes que cambien la memoria del módulo.
+4. **MIDI a módulos reales** (audición, D-002 y D-008): solo Bank Select (CC0/CC32), Program Change y la nota de
+   prueba opcional (Note On/Off), al destino que elija el usuario y con su permiso. **Nunca** SysEx, volcados ni
+   mensajes que cambien la memoria del módulo.
 5. Cada prueba (con la app original, con DP o con un módulo) se registra en `docs/13_REGISTRO_DE_EXPERIMENTOS.md`
    (EXP-NNN, con su entorno), también si falla.
 6. `reference/` e `incoming/` no se versionan (material de terceros). **Nunca `git add -A` ni `git add .`:** se añade

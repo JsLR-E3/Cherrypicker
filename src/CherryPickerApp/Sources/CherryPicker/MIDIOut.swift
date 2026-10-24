@@ -1,5 +1,6 @@
 // Salida MIDI para la audición (CoreMIDI; D-002, T-021). Un cliente para toda la app, creado la primera vez que se
-// usa; solo envía lo que `isAllowedAuditionMessage` permite (CC0, CC32, Program Change; regla 4).
+// usa; solo envía lo que `isAllowedAuditionMessage` permite (CC0, CC32, Program Change y la nota de prueba; regla 4,
+// D-008).
 // Ajustes por documento: «Enable MIDI» desactivado al abrir (P5); el destino («Device Out») y los «Audition Ch»
 // cambiados se recuerdan por fabricante y modelo (manual: «Your settings for each synth are saved»).
 import CoreMIDI
@@ -93,6 +94,27 @@ final class AuditionSettings {
 	func setAuditionChannel(_ channel: Int?, channelSet: String) {
 		UserDefaults.standard.set(channel, forKey: "auditionCh.\(key)|\(channelSet)")
 		post()
+	}
+
+	/// «Test Note» (D-008): activada o no, por fabricante y modelo; desactivada si no se ha elegido.
+	var testNoteEnabled: Bool {
+		get { UserDefaults.standard.bool(forKey: "testNoteOn.\(key)") }
+		set {
+			UserDefaults.standard.set(newValue, forKey: "testNoteOn.\(key)")
+			post()
+		}
+	}
+
+	/// Nota, velocidad y duración de la nota de prueba (por fabricante y modelo).
+	var testNote: TestNote {
+		get {
+			guard let a = UserDefaults.standard.array(forKey: "testNote.\(key)") as? [Int], a.count == 3 else { return .default }
+			return TestNote(note: a[0], velocity: a[1], length: a[2])
+		}
+		set {
+			UserDefaults.standard.set([newValue.note, newValue.velocity, newValue.length], forKey: "testNote.\(key)")
+			post()
+		}
 	}
 
 	private func post() { NotificationCenter.default.post(name: Self.didChange, object: self) }

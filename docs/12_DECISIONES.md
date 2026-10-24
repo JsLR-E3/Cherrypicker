@@ -13,6 +13,18 @@ Lo que es solo una propuesta va en la tarea o en `docs/remoto/`, no aquí.
 - **Estado:** vigente · sustituida por D-…
 -->
 
+## D-008 · 2026-10-24 · Nota de prueba opcional en la audición (amplía D-002)
+
+- **Decisión:** además de Bank Select (CC0/CC32) y Program Change, la audición puede tocar una **nota de prueba**
+  (Note On y su Note Off) por el mismo canal, poco después del cambio de programa. Desactivada por defecto; se activa y
+  se ajusta (nota, velocidad, duración) **por fabricante y modelo** en la pestaña MIDI («Test Note»). Sigue sin
+  enviarse SysEx, volcados ni ningún otro mensaje (filtro `isAllowedAuditionMessage`).
+- **Motivo:** con módulos de sonido sirve para oír el patch sin tocar el teclado; con multiefectos (M3000) no tiene
+  sentido y queda apagada (T-021). Una nota no cambia la memoria del módulo (regla 4).
+- **Alternativas descartadas:** secuencias o ficheros MIDI («Audition Riff» del original, docs/20 §7.3): más adelante.
+- **Quién:** usuario (2026-10-24, al abrir T-025).
+- **Estado:** vigente.
+
 ## D-007 · 2026-10-20 · Mejoras sobre el original y copyright
 
 - **Decisión:** (1) se puede mejorar CherryPicker o añadir funciones cuando se considere necesario; cada mejora se
@@ -80,7 +92,7 @@ Lo que es solo una propuesta va en la tarea o en `docs/remoto/`, no aquí.
   probar antes de exportar. Nunca SysEx ni volcados.
 - **Motivo:** función que el usuario usaba en CherryPicker; los mensajes de selección no cambian la memoria del módulo.
 - **Quién:** usuario (T-005).
-- **Estado:** vigente.
+- **Estado:** vigente; ampliada por D-008 (nota de prueba opcional).
 
 ## D-001 · 2026-10-19 · Alcance: app nativa parecida a CherryPicker para DP 11.36
 
