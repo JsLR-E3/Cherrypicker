@@ -66,6 +66,7 @@ final class MainTabsViewController: NSViewController {
 			case "Device": DeviceViewController(document: document)
 			case "MIDI": MIDIViewController(document: document)
 			case "Categories": CategoriesViewController(document: document)
+			case "Controllers": ControllersViewController(document: document)
 			default: nil
 			}
 			if let vc {

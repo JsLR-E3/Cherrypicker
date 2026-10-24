@@ -685,3 +685,25 @@ valer un resultado.
   controladores, en «Other Controller…» ni en la Legend, y el manual no los menciona. Junto con EXP-006, DP no usa los
   controles con nombre. Sin mirar: los lanes de automatización del editor.
 - **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»).
+
+## EXP-028 · 2026-10-24 · Pestaña Controllers (T-028)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto; árbol de trabajo sobre `d0090d1`; `build/CherryPicker.app` de
+  `tools/empaquetar_app.sh`. Documentos: copias en el scratchpad de `captures/exp027/CP Controles.midnam` (con la lista
+  «CP Controles» usada por «Presets») y `captures/exp010/Prueba canales.midnam` (sin listas; «Melodicos» y «Bateria»).
+  Lo maneja el usuario; Claude mira con `tools/capturar_app.sh` (A).
+- **Qué hacía el original** (nivel D): `CPControllerVC` con tablas «Control Name Lists» y `Ctl` · `Name`, + / −;
+  «Default Control Names» y el recurso `ControllerNames.plist` (72 nombres estándar). La lista estándar de la app es
+  propia, de la especificación MIDI 1.0 (41 controladores; D-007).
+- **Tests:** `swift test` → 92/92 (5 nuevos en `ControllersTests`, incluida la validación DTD).
+- **En la app:**
+  - «CP Controles»: la lista con 7, 12, 13 y 85 y «Presets» marcado en «Used by Channel Sets» (P20).
+  - «Prueba canales»: + crea «Default Control Names» con los estándar; «Melodicos» y «Bateria» sin marcar. Marcar
+    «Melodicos», + a la derecha («New Control», 96), renombrar, número 7 → aviso «Controller 7 is already in this
+    list.», número 85, − de dos controles: correcto (usuario). Renombrar la lista a «Synth»: Preview con la
+    `ControlNameList Name="Synth"` detrás de las `PatchNameList`. ⌘Z lo deshace todo.
+  - A petición del usuario, la lista se ordena por número al añadir o cambiar un número; probado: 96 → 85 queda entre
+    84 y 91, y 1 → 3 entre 2 y 4, seleccionado.
+- **No visto en la app:** el `UsesControlNameList` dentro de «Melodicos» en Preview (fuera de la captura; lo cubre el
+  test de posición y la validación DTD).
+- **Conclusión:** la pestaña funciona como se diseñó. **Estado:** COMPLETADO.

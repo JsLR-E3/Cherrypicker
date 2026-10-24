@@ -5,6 +5,7 @@ copia. Se consulta por `grep` (p. ej. `grep T-012 docs/15_HISTORIAL.md`), no se 
 
 | ID | Cerrada | Resultado (y cómo se verificó) | Commit · EXP · D |
 |---|---|---|---|
+| T-028 | 2026-10-24 | Pestaña Controllers sencilla (D-009): listas con «Default Control Names», controles ordenados por número, «Used by Channel Sets» (P20). 5 tests (92/92); probada a mano por el usuario | d0090d1… · EXP-028 · D-009 |
 | T-014 | 2026-10-24 | ¿Usa DP 11.36 la `ControlNameList`? No: lee el fichero, pero ni el menú de controladores de la pista ni «Other Controller…» (solo pide un número) muestran los nombres. Probado en DP por el usuario con un fichero de prueba instalado | EXP-027 (y EXP-006) |
 | T-027 | 2026-10-24 | «Copy...» en la lista de presets: hoja «Copy Fields To Clipboard» (campos, orden, delimitador, comillas, banco, TextEdit; All / Selection, P19); al portapapeles. 4 tests (87/87); probado a mano por el usuario (Claude leyó el portapapeles) | 6bc7c72… · EXP-026 |
 | T-026 | 2026-10-24 | Arrastrar bancos (a Patch Banks) y patches (a una lista) entre documentos abiertos: siempre copia, con su bank select y lista propia, «nombre 2» si está ocupado (P18). 4 tests (83/83); probado a mano por el usuario | 32496cc… · EXP-025 |

@@ -68,7 +68,7 @@ Editor de «patchfiles» (`.midnam`, y también OMS, FreeMIDI y Cubase) que:
 | Pegar o soltar texto con delimitador | **Sí** | Uso declarado (T-005) |
 | Copy… (exportar campos al portapapeles) | **Sí** (T-027, P19) | Pedido por el usuario (2026-10-24) |
 | Device: modos y Channel Sets | **Sí** | Estructura del fichero |
-| Controllers (`ControlNameList`) | **Sí** (fase 5) | DP no los muestra en el menú de pista (EXP-006, T-014) |
+| Controllers (`ControlNameList`) | **Sí** (fase 5, sencilla: D-009) | DP no los muestra (EXP-006, EXP-027) |
 | Audición: Bank Select + Program Change al seleccionar un patch | **Sí** (fase 4) | D-002: solo esos mensajes |
 | Teclado thru y reproductor de ficheros MIDI | **No por ahora** (§7.3) | Se añadirán si hacen falta |
 | Preview del XML | **Sí** | Barato; útil para comprobar |
@@ -95,7 +95,7 @@ Una por `.midnam` abierto; varias a la vez (se arrastran bancos y patches entre 
 | **Device** | «Manufacturer:» y «Model:» (solo lectura, ligados al `.middev`); caja «Modes» con tabla y + / −; caja «Channel Sets» con tabla y + / −, «Active Channels», «Audition Ch:» y el aviso «(Add disabled: No free channels in mode)». Sin «MIDI Initialization… / Send Now» (SysEx, regla 4). |
 | **Patch Banks** | Tabla `P` · `S0` · `S32` · `Patch Bank` · `#` · `Channel Set` y leyenda «• Normal / • Mixed / • Empty». Botones + / −, «Merge», «Import», «Find», «Zap Dups». Sin «Bank Initialization / Transmit», «Zap Custom» ni «Sibelius». |
 | **Note Lists** | No por ahora (§7.1): sin pestaña; las listas de notas de un fichero abierto se conservan al guardar. |
-| **Controllers** | Tablas «Control Name Lists» (+ / −) y `Ctl` · `Name`; + crea «Default Control Names». |
+| **Controllers** | Tablas «Control Name Lists» (+ / −) y `Ctl` · `Name` (+ / −, doble clic para editar; ordenada por número); + crea «Default Control Names» con 41 controladores estándar (lista propia, D-007); «Used by Channel Sets» (P20). DP 11.36 no muestra estos nombres (EXP-027, D-009). |
 | **Categories** | Tablas «Categories» y «Bank Names» con + / −, «Dup» y «Add To Banks» (T-025; deducido del nib y del binario, nivel D, a contrastar con el original). «Categories» lista los juegos: «GM Categories» y «EMU Categories» de serie (en gris, no se editan) y los propios. «Dup» hace una copia propia del juego seleccionado; + crea uno vacío; doble clic cambia un nombre. «Add To Banks» crea en el documento un Custom Bank vacío (bank select «-») por cada nombre seleccionado, o por todos si no hay selección; con varios Channel Sets pregunta en cuál; los nombres que ya son de un banco no se crean y se avisa (P17). |
 
 Arriba a la derecha: **«Preview»**. Sin popup «Save Format» ni «XML Filters...»: el formato es siempre el de DP (§5).
@@ -186,6 +186,7 @@ se puede borrar ni sacar el último banco de un Channel Set (`PatchBank+`).
 | P17 | Categories: los juegos GM y E-mu no se editan (se duplican con «Dup»); los propios se guardan en la app, para todos los documentos; «Add To Banks» con varios Channel Sets pregunta en cuál y salta (avisando) los nombres que ya son de un banco | El nib no muestra dónde guardaba el original los juegos ni qué hacía con nombres repetidos; nombres de banco únicos (P4). Aceptada por el usuario (2026-10-24), que decide también dejar la lista E-mu tal cual (nombres de categoría, datos; matiza D-007) |
 | P18 | Arrastrar entre documentos siempre copia (el origen no cambia): bancos a Patch Banks (al Channel Set de la fila de encima del punto donde se sueltan, con bank select, patches y lista propia; nombre ocupado → «nombre 2»; aviso si sus patches usan listas de notas o de controles que el destino no tiene) y patches a una lista (cada uno con su bank select, P9) | El manual del original solo dice que se pueden arrastrar bancos y patches de un fichero a otro; copiar es lo seguro con ficheros del usuario. T-026, probada por el usuario (EXP-025) |
 | P19 | «Copy...»: además de toda la lista, «All» / «Selection» como en Renumber; los ajustes de la hoja se recuerdan; «TextEdit Export» abre un `.txt` temporal en TextEdit | Copiar solo unos cuantos sin borrar el resto; el original exportaba siempre la lista entera (manual). T-027, probada por el usuario (EXP-026) |
+| P20 | Controllers: «Used by Channel Sets» (casillas) para elegir qué Channel Sets usan la lista seleccionada (`UsesControlNameList`); la lista de controles se ordena por número al añadir o cambiar uno | Sin eso la lista no se usaría en el fichero; el nib no muestra cómo lo hacía el original. Ordenar, pedido por el usuario. T-028, D-009, probada (EXP-028) |
 
 ## 6. Inventario de los nibs
 

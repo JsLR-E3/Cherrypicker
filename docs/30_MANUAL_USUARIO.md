@@ -54,6 +54,9 @@ Abrir un `.midnam` con **File ▸ Open…** o arrastrándolo a la app. La app no
   su lista se envían su bank select y su Program Change. Con **Test Note** marcado (para módulos de sonido; apagado
   en multiefectos), además suena una nota corta (Note, Velocity, Length en ms; por defecto C3, 100, 500) poco después
   del cambio; al cambiar de preset, la anterior se corta. Se recuerda por fabricante y modelo. Nunca se envía SysEx.
+- **Controllers:** listas de nombres de controladores. **+** a la izquierda crea «Default Control Names» con los
+  controladores estándar; a la derecha, + / − y doble clic para cambiar número (0–127, sin repetir) o nombre; la lista
+  se ordena por número. «Used by Channel Sets» marca qué Channel Sets usan la lista seleccionada.
 - **Categories:** juegos de nombres de banco. «GM Categories» y «EMU Categories» vienen de serie y no se editan:
   **Dup** hace una copia tuya que sí (doble clic para renombrar, + / − en las dos tablas). Tus juegos valen para
   todos los documentos. **Add To Banks** crea en el documento un Custom Bank vacío (sin bank select) por cada nombre
@@ -73,5 +76,6 @@ Abrir un `.midnam` con **File ▸ Open…** o arrastrándolo a la app. La app no
 ## 3. Diagnóstico y limitaciones
 
 - Solo se lee `.midnam` en UTF-8.
-- Aún no hay: pestaña Controllers, Note Lists.
+- Aún no hay: Note Lists.
+- DP 11.36 no muestra los nombres de la pestaña Controllers (EXP-027): sirven para otros programas.
 - Un Channel Set no puede quedarse sin bancos (lo exige el formato).

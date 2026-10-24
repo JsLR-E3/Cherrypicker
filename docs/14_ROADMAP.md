@@ -41,7 +41,7 @@ a CherryPicker** (misma organización y nombres; las mejoras se proponen antes).
 | 2 | Dónde y cómo lee DP 11.36 los `.midnam`; prueba con un ejemplo del usuario | Alta | Ruta o caché propia de DP sin documentar | COMPLETADA (EXP-002, EXP-006, T-012) |
 | 3 | App: documento, modos/canales, bancos con bank select por banco, listas de presets, pegar listas con delimitador, arrastrar entre bancos | Alta | Volumen de UI; partir de las ventanas de CherryPicker (nibs y manual) | COMPLETADA (diseño `docs/20`, D-005, D-006; T-016 a T-027) |
 | 4 | Audición por CoreMIDI (Bank Select + Program Change al destino elegido) | Alta | Enviar a un aparato real: solo con permiso; solo mensajes de selección, nunca SysEx | COMPLETADA (T-021, EXP-017/018) |
-| 5 | Listas de controles con nombre (`ControlNameList`) | Alta | Cómo las muestra DP | PENDIENTE |
+| 5 | Listas de controles con nombre (`ControlNameList`) | Alta | Cómo las muestra DP | COMPLETADA (DP no las muestra, EXP-027; pestaña sencilla, T-028, D-009) |
 | 6 | Exportar/instalar en la carpeta que lee DP y validar en DP 11.36 | Alta | — | COMPLETADA («Install in DP…», T-024, EXP-022) |
 
 Restricciones globales: Mac de destino Apple Silicon (arm64) con macOS 15.7.9; la app original no puede ejecutarse aquí,

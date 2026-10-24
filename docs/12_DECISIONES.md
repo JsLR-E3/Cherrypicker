@@ -13,6 +13,17 @@ Lo que es solo una propuesta va en la tarea o en `docs/remoto/`, no aquí.
 - **Estado:** vigente · sustituida por D-…
 -->
 
+## D-009 · 2026-10-24 · Pestaña Controllers sencilla aunque DP no la use
+
+- **Decisión:** la fase 5 se hace con una pestaña Controllers sencilla: listas de controles del dispositivo, sus
+  controles (número 0–127 y nombre, ordenados por número) y qué Channel Sets usan cada lista (P20). Sin `Values` ni
+  `ValueNameList` (se conservan si vienen en el fichero) ni edición de listas dentro de un Channel Set o de un patch.
+- **Motivo:** DP 11.36 no muestra estos nombres en ningún sitio mirado y su manual no los menciona (EXP-006,
+  EXP-027), pero el usuario la quiere «por si acaso» (otros programas o versiones de DP).
+- **Alternativas descartadas:** dejarla fuera (bastaba con que MidnamKit conserve las listas).
+- **Quién:** usuario (2026-10-24).
+- **Estado:** vigente.
+
 ## D-008 · 2026-10-24 · Nota de prueba opcional en la audición (amplía D-002)
 
 - **Decisión:** además de Bank Select (CC0/CC32) y Program Change, la audición puede tocar una **nota de prueba**
