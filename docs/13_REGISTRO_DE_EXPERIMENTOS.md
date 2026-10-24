@@ -817,5 +817,11 @@ valer un resultado.
   `sudo rm "/Library/Audio/MIDI Devices/MOTU/Lexicon/CP Prueba simbolos.midnam"`.
 - **Prueba (usuario):** en DP, *Master Names* = «CP Prueba simbolos»; abrir el menú de presets y mirar cómo sale cada
   banco (símbolo bien, cuadro vacío o «?», espacios recortados o no). Con *Pgm Chg* = Pre se puede elegir un preset.
-- **Resultado:** —
-- **Estado:** EN CURSO.
+- **Resultado (usuario, 2026-10-24, DP 11.36; captura del menú pasada en el chat, no versionada: se ve su lista de dispositivos):** DP
+  muestra **los diez prefijos bien**, en el orden del fichero (A): `- `, `└ `, `├ `, `› `, `▸ `, `→ `, `· ` y `— ` se ven
+  como símbolos (ni cuadros ni «?»), y **no recorta los espacios del principio**: «   Halls (espacios)» y el de espacios
+  duros salen sangrados, con «Halls» a la misma altura que el texto de los demás. Al abrir un banco se ven sus presets
+  y las marcas («004 Compress Hall [E]»).
+- **Conclusión:** en los nombres de banco de DP 11.36 valen Unicode (flechas, dibujo de cajas) y los espacios iniciales;
+  se puede sangrar de verdad o dibujar un árbol (├ en medio, └ en el último).
+- **Estado:** COMPLETADO (falta retirar el fichero de prueba; ver «Deshacer»).
