@@ -617,3 +617,20 @@ valer un resultado.
 - **Conclusión:** Categories, el Find en sus dos modos y la nota de prueba funcionan como se diseñaron (docs/20 §3.1,
   §3.2, P15–P17, D-008).
 - **Estado:** COMPLETADO.
+
+## EXP-025 · 2026-10-24 · Arrastrar bancos y patches entre documentos (T-026)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto; árbol de trabajo sobre `32496cc`; `build/CherryPicker.app` de
+  `tools/empaquetar_app.sh`. Documentos: copias en el scratchpad de `captures/exp010/Prueba canales.midnam` (origen) y
+  `captures/exp013/Prueba patches.midnam` (destino; Channel Set «Presets», bancos «pruebassss» y «pp» 5/5). Lo maneja el
+  usuario; Claude mira con `tools/capturar_app.sh` (A).
+- **Tests:** `swift test` → 83/83 (4 nuevos en `TransferTests`, incluida la validación DTD del destino).
+- **Bancos:** «Cuerdas» (0/1, 3 patches) soltado debajo de «pp» → llega al final de «Presets» con 0/1 y 3 patches; el
+  origen no cambia. Otra vez → «Cuerdas 2». «Kits» y «Kits extra» juntos, soltados encima de «pruebassss» → quedan
+  los dos primeros, en su orden, con 2/0 y 2/1.
+- **Patches:** «Pianos 2» (0/0, PC 1) de la lista de «Pianos» a la de «pp» → llega al final con 0/0 (no toma el 5/5
+  del banco).
+- **Deshacer:** cuatro ⌘Z en «Prueba patches» quitan las cuatro copias; vuelve a «pruebassss» y «pp» con sus 5
+  patches.
+- **No probado en la app:** el aviso de listas de notas o de controles que faltan en el destino (solo en los tests).
+- **Conclusión:** P18 funciona como se diseñó. **Estado:** COMPLETADO.

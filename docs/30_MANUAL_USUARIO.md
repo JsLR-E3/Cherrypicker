@@ -27,7 +27,7 @@ Abrir un `.midnam` con **File ▸ Open…** o arrastrándolo a la app. La app no
   Start Ascii, Quantity, «Set Bank Selects to Bank values»); los nuevos van delante del seleccionado o al final.
   Pegar (⌘V) o soltar texto abre la misma hoja con un preset por línea, coma, tabulador o entre comillas
   («Patch Delimiter»). **−** o Supr borran; **Renumber** numera todos o los seleccionados. Arrastrar reordena; a la
-  ventana de otro banco del mismo fichero, copia (cada preset sigue sonando con su bank select). **Find** filtra por
+  ventana de otro banco, del mismo fichero o de otro abierto, copia (cada preset sigue sonando con su bank select). **Find** filtra por
   nombre y «Count:» cuenta lo que se ve; en el menú de la lupa, «Select Matches» selecciona los que coinciden sin
   ocultar el resto (para arrastrarlos todos de una vez a otro banco). El modo elegido se recuerda.
 - **Patch Banks, más botones:** **Merge** (con dos o más bancos) junta sus presets en un banco nuevo y borra los
@@ -39,6 +39,9 @@ Abrir un `.midnam` con **File ▸ Open…** o arrastrándolo a la app. La app no
   uno («Add as New Bank»). **Find** abre el Finder: busca presets por nombre en todos los bancos; «Add New Bank With
   Patches» crea un banco con los que quedan en la lista, − y «Remove Duplicates» solo quitan filas de la lista, y se
   pueden arrastrar a la lista de un banco.
+- **Patch Banks entre ficheros:** arrastrar uno o varios bancos a la tabla de otro documento abierto los copia (el
+  de origen no cambia) al Channel Set de la fila de encima de donde se sueltan, con su bank select y sus presets; si
+  el nombre ya existe, llega como «nombre 2».
 - **Device:** fabricante y modelo (solo lectura), modos y Channel Sets con + / − y doble clic para renombrar,
   «Active Channels» (p. ej. `1-9, 11-16`) y «Audition Ch» (canal por el que suena la audición; vacío = el más bajo).
   El + de Channel Sets solo funciona si quedan canales libres; un Channel Set nuevo trae un banco vacío. Al borrar uno
@@ -66,6 +69,5 @@ Abrir un `.midnam` con **File ▸ Open…** o arrastrándolo a la app. La app no
 ## 3. Diagnóstico y limitaciones
 
 - Solo se lee `.midnam` en UTF-8.
-- Aún no hay: Copy… en la lista de presets, arrastrar presets o bancos entre ficheros, pestaña Controllers,
-  Note Lists.
+- Aún no hay: Copy… en la lista de presets, pestaña Controllers, Note Lists.
 - Un Channel Set no puede quedarse sin bancos (lo exige el formato).

@@ -5,6 +5,8 @@
 // «Merge» (con dos o más bancos) abre «Name for Merged Bank»; «Find» abre el Finder; «Zap Dups» borra los patches que
 // ya están en los bancos seleccionados (o, sin selección, en un Custom Bank) del mismo Channel Set (T-019).
 // «Import» abre el «Patchlist Importer» (T-022).
+// Arrastrar bancos desde la ventana de otro documento los copia aquí (T-026, P18): van al Channel Set de la fila de
+// encima del punto donde se sueltan, con su bank select y sus patches.
 import AppKit
 import CherryPickerCore
 import MidnamKit
@@ -15,6 +17,7 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		("open", "P", 24), ("bs0", "S0", 40), ("bs32", "S32", 40),
 		("name", "Patch Bank", 200), ("num", "#", 36), ("channels", "Channel Set", 130),
 	]
+	/// Bancos arrastrados: «documento|dispositivo|banco».
 	private static let rowType = NSPasteboard.PasteboardType("local.cherrypicker.bankrow")
 
 	private let document: MidnamDocument
@@ -52,7 +55,7 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		table.target = self
 		table.doubleAction = #selector(doubleClick(_:))
 		table.registerForDraggedTypes([Self.rowType])
-		table.setDraggingSourceOperationMask(.move, forLocal: true)
+		table.setDraggingSourceOperationMask([.move, .copy], forLocal: true)
 
 		let scroll = NSScrollView()
 		scroll.documentView = table
@@ -389,19 +392,37 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		edit(refs.count == 1 ? "Delete Bank" : "Delete Banks") { try $0.deleteBanks(refs) }
 	}
 
-	// MARK: Arrastrar para reordenar (dentro de su Channel Set, como el original)
+	// MARK: Arrastrar para reordenar (dentro de su Channel Set, como el original) o copiar desde otro documento
 
 	func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
 		let item = NSPasteboardItem()
-		item.setString(String(row), forType: Self.rowType)
+		let r = rows[row]
+		item.setString("\(PatchWindowController.documentKey(document))|\(r.ref.master)|\(r.name)", forType: Self.rowType)
 		return item
 	}
 
+	/// Bancos arrastrados: documento de origen, dispositivo y nombres (todos del mismo documento y dispositivo).
+	private func draggedBanks(_ info: NSDraggingInfo) -> (document: MidnamDocument, master: Int, names: [String])? {
+		guard let items = info.draggingPasteboard.pasteboardItems, !items.isEmpty else { return nil }
+		var key: String?, master: Int?
+		var names: [String] = []
+		for item in items {
+			guard let s = item.string(forType: Self.rowType) else { return nil }
+			let parts = s.split(separator: "|", maxSplits: 2, omittingEmptySubsequences: false)
+			guard parts.count == 3, let m = Int(parts[1]) else { return nil }
+			if key == nil { key = String(parts[0]); master = m }
+			guard key == String(parts[0]), master == m else { return nil }
+			names.append(String(parts[2]))
+		}
+		guard let key, let master, let doc = PatchWindowController.openDocument(key: key) else { return nil }
+		return (doc, master, names)
+	}
+
+	/// Un solo banco de esta misma tabla: se reordena.
 	private func draggedRow(_ info: NSDraggingInfo) -> Int? {
-		guard (info.draggingSource as? NSTableView) === table,
-		      let items = info.draggingPasteboard.pasteboardItems, items.count == 1,
-		      let s = items[0].string(forType: Self.rowType), let row = Int(s), rows.indices.contains(row) else { return nil }
-		return row
+		guard (info.draggingSource as? NSTableView) === table, let d = draggedBanks(info), d.document === document,
+		      d.names.count == 1 else { return nil }
+		return rows.firstIndex { $0.ref.master == d.master && $0.name == d.names[0] }
 	}
 
 	/// Posición de destino contada entre los bancos del mismo Channel Set; nil si la fila cae en otro.
@@ -412,19 +433,50 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		return dropRow - first
 	}
 
+	/// Dónde quedan los bancos soltados desde otro documento: en el Channel Set de la fila de encima, detrás de ella
+	/// (arriba del todo, delante del primero).
+	private func copyTarget(dropRow: Int) -> (master: Int, set: Int, position: Int)? {
+		guard !rows.isEmpty else { return nil }
+		let anchor = dropRow > 0 ? rows[min(dropRow, rows.count) - 1].ref : rows[0].ref
+		let same = rows.indices.filter { rows[$0].ref.master == anchor.master && rows[$0].ref.set == anchor.set }
+		let position = dropRow > 0 ? (same.firstIndex(of: min(dropRow, rows.count) - 1)! + 1) : 0
+		return (anchor.master, anchor.set, position)
+	}
+
 	func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int,
 	               proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
-		guard dropOperation == .above, let from = draggedRow(info), targetPosition(from: from, to: row) != nil else {
-			return []
-		}
-		return .move
+		guard dropOperation == .above else { return [] }
+		if let from = draggedRow(info) { return targetPosition(from: from, to: row) != nil ? .move : [] }
+		if let d = draggedBanks(info), d.document !== document, copyTarget(dropRow: row) != nil { return .copy }
+		return []
 	}
 
 	func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int,
 	               dropOperation: NSTableView.DropOperation) -> Bool {
-		guard let from = draggedRow(info), let position = targetPosition(from: from, to: row) else { return false }
-		let ref = rows[from].ref
-		edit("Move Bank") { try $0.reorderBank(ref, toPosition: position) }
+		if let from = draggedRow(info) {
+			guard let position = targetPosition(from: from, to: row) else { return false }
+			let ref = rows[from].ref
+			edit("Move Bank") { try $0.reorderBank(ref, toPosition: position) }
+			return true
+		}
+		guard let d = draggedBanks(info), d.document !== document, let other = d.document.model,
+		      let target = copyTarget(dropRow: row) else { return false }
+		let byName = Dictionary(BankRows.rows(other).filter { $0.ref.master == d.master }.map { ($0.name, $0.ref) },
+		                        uniquingKeysWith: { a, _ in a })
+		let refs = d.names.compactMap { byName[$0] }
+		guard refs.count == d.names.count else { return false }
+		var missing: [String] = []
+		edit(refs.count == 1 ? "Copy Bank" : "Copy Banks") {
+			missing = try $0.copyBanks(refs, from: other, master: target.master, set: target.set,
+			                           before: target.position).missingLists
+		}
+		// Los patches que usan listas de notas o de controles de su fichero las pierden aquí: se avisa.
+		if !missing.isEmpty, let w = view.window {
+			let a = NSAlert()
+			a.messageText = "Some patches use lists that this document doesn't have"
+			a.informativeText = "Not copied: \(missing.joined(separator: ", ")). The patches keep the reference."
+			DispatchQueue.main.async { a.beginSheetModal(for: w) }
+		}
 		return true
 	}
 }

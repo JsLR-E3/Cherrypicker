@@ -39,7 +39,7 @@ a CherryPicker** (misma organización y nombres; las mejoras se proponen antes).
 |---|---|---|---|---|
 | 1 | Modelo de datos midnam + lectura/escritura sin pérdidas (paquete Swift con tests) | Alta: XML documentado (DTD 0.7/1.0 MMA) y 6 ejemplos reales | Elementos poco usados que se pierdan al reescribir | COMPLETADA (MidnamKit, EXP-003/004/005) |
 | 2 | Dónde y cómo lee DP 11.36 los `.midnam`; prueba con un ejemplo del usuario | Alta | Ruta o caché propia de DP sin documentar | COMPLETADA (EXP-002, EXP-006, T-012) |
-| 3 | App: documento, modos/canales, bancos con bank select por banco, listas de presets, pegar listas con delimitador, arrastrar entre bancos | Alta | Volumen de UI; partir de las ventanas de CherryPicker (nibs y manual) | EN PROGRESO (diseño `docs/20`, D-005, D-006) |
+| 3 | App: documento, modos/canales, bancos con bank select por banco, listas de presets, pegar listas con delimitador, arrastrar entre bancos | Alta | Volumen de UI; partir de las ventanas de CherryPicker (nibs y manual) | EN PROGRESO (diseño `docs/20`, D-005, D-006; falta Copy...) |
 | 4 | Audición por CoreMIDI (Bank Select + Program Change al destino elegido) | Alta | Enviar a un aparato real: solo con permiso; solo mensajes de selección, nunca SysEx | COMPLETADA (T-021, EXP-017/018) |
 | 5 | Listas de controles con nombre (`ControlNameList`) | Alta | Cómo las muestra DP | PENDIENTE |
 | 6 | Exportar/instalar en la carpeta que lee DP y validar en DP 11.36 | Alta | — | COMPLETADA («Install in DP…», T-024, EXP-022) |

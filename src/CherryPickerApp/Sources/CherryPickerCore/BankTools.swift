@@ -58,23 +58,7 @@ public extension MIDINameDocument {
 	@discardableResult
 	mutating func copyPatches(_ sources: [(bank: BankRef, index: Int)], to target: BankRef,
 	                          before position: Int? = nil) throws -> Range<Int> {
-		let patches = try sources.map { s -> (Patch, (String, String)) in
-			guard let bank = bank(s.bank), let list = patchList(s.bank) else { throw BankEditError.notFound }
-			let all = list.patches
-			guard all.indices.contains(s.index) else { throw PatchEditError.notFound }
-			return (all[s.index], bank.bankLevelSelect)
-		}
-		guard let dstBS = bank(target)?.bankLevelSelect else { throw BankEditError.notFound }
-		var inserted = 0..<0
-		try modifyPatchList(target) { list in
-			let positions = list.patchPositions
-			let at = position ?? positions.count
-			guard (0...positions.count).contains(at) else { throw PatchEditError.notFound }
-			let itemIndex = at < positions.count ? positions[at] : (positions.last.map { $0 + 1 } ?? list.items.count)
-			list.items.insert(contentsOf: patches.map { .patch($0.0.rebased(from: $0.1, to: dstBS)) }, at: itemIndex)
-			inserted = at..<(at + patches.count)
-		}
-		return inserted
+		try copyPatches(sources, from: self, to: target, before: position)
 	}
 
 	/// «Add New Bank With Patches» (Finder): banco nuevo al final del Channel Set `set` con copias de `sources`.

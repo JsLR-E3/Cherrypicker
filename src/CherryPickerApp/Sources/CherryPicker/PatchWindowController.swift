@@ -2,11 +2,11 @@
 // abierta con el botón «P» de Patch Banks. Tabla B0 · B32 · # · Patch Name · Ascii editable; clic en una cabecera
 // ordena la lista (manual del original); + abre «New Patches» y − (o Supr) borra; «Renumber»; pegar o soltar texto
 // abre «New Patches» con los nombres; arrastrar reordena, o copia los patches a la lista de otro banco del mismo
-// dispositivo. «Find» filtra la tabla por nombre o, con «Select Matches» en su menú, selecciona los que coinciden sin
+// dispositivo o de otro documento abierto (T-026). «Find» filtra la tabla por nombre o, con «Select Matches» en su menú, selecciona los que coinciden sin
 // ocultar el resto, como el original según el manual (así se arrastran todos a la vez; P15, T-025); el modo se recuerda.
 // «Count:» cuenta las filas que se ven o, al seleccionar, las que coinciden.
 // Al seleccionar un solo patch con «Enable MIDI» activo se envía su bank select y Program Change (T-021).
-// Pendiente: Copy..., arrastrar entre documentos, volcados de GigaStudio/Cakewalk y «n=nombre».
+// Pendiente: Copy..., volcados de GigaStudio/Cakewalk y «n=nombre».
 import AppKit
 import CherryPickerCore
 import MidnamKit
@@ -21,7 +21,15 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 	static let rowType = NSPasteboard.PasteboardType("local.cherrypicker.patchrow")
 
 	static func dragString(document: MidnamDocument, master: Int, bank: String, index: Int) -> String {
-		"\(ObjectIdentifier(document).hashValue)|\(master)|\(bank)|\(index)"
+		"\(documentKey(document))|\(master)|\(bank)|\(index)"
+	}
+
+	/// Identifica un documento abierto en lo arrastrado.
+	static func documentKey(_ document: MidnamDocument) -> String { String(ObjectIdentifier(document).hashValue) }
+
+	/// Documento abierto con esa clave.
+	static func openDocument(key: String) -> MidnamDocument? {
+		NSDocumentController.shared.documents.lazy.compactMap { $0 as? MidnamDocument }.first { documentKey($0) == key }
 	}
 
 	private let midnam: MidnamDocument
@@ -498,15 +506,28 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 
 	/// Patches arrastrados (banco y posición), si vienen de listas o del Finder del mismo dispositivo de este documento.
 	private func draggedPatches(_ info: NSDraggingInfo) -> [(bankName: String, index: Int)]? {
+		guard let d = draggedFromAnyDocument(info), d.document === midnam, d.master == master else { return nil }
+		return d.patches
+	}
+
+	/// Patches arrastrados desde cualquier documento abierto (todos del mismo documento y dispositivo).
+	private func draggedFromAnyDocument(_ info: NSDraggingInfo)
+		-> (document: MidnamDocument, master: Int, patches: [(bankName: String, index: Int)])? {
 		guard let items = info.draggingPasteboard.pasteboardItems, !items.isEmpty else { return nil }
-		let prefix = "\(ObjectIdentifier(midnam).hashValue)|\(master)|"
+		var key: String?, master: Int?
 		var out: [(bankName: String, index: Int)] = []
 		for item in items {
-			guard let s = item.string(forType: Self.rowType), s.hasPrefix(prefix), let sep = s.lastIndex(of: "|"),
-			      let i = Int(s[s.index(after: sep)...]) else { return nil }
-			out.append((String(s[s.index(s.startIndex, offsetBy: prefix.count)..<sep]), i))
+			// «documento|dispositivo|banco|posición»; el nombre del banco puede llevar «|».
+			guard let s = item.string(forType: Self.rowType) else { return nil }
+			let parts = s.split(separator: "|", maxSplits: 2, omittingEmptySubsequences: false)
+			guard parts.count == 3, let m = Int(parts[1]), let sep = parts[2].lastIndex(of: "|"),
+			      let i = Int(parts[2][parts[2].index(after: sep)...]) else { return nil }
+			if key == nil { key = String(parts[0]); master = m }
+			guard key == String(parts[0]), master == m else { return nil }
+			out.append((String(parts[2][..<sep]), i))
 		}
-		return out
+		guard let key, let master, let doc = Self.openDocument(key: key) else { return nil }
+		return (doc, master, out)
 	}
 
 	/// Todos los arrastrados son de esta lista: se reordena en vez de copiar.
@@ -526,6 +547,8 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 			if isMove(dragged) { return rows.count == allRows.count ? .move : [] }
 			return .copy
 		}
+		// Desde otro documento, siempre se copia.
+		if draggedFromAnyDocument(info) != nil { return .copy }
 		if isOwnRowDrag(info) { return [] }
 		return info.draggingPasteboard.string(forType: .string) != nil ? .copy : []
 	}
@@ -549,6 +572,17 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 			guard sources.count == dragged.count else { return false }
 			edit("Copy Patches") { doc in
 				let r = try doc.copyPatches(sources, to: ref, before: position)
+				pendingSelection = IndexSet(integersIn: r)
+			}
+			return true
+		}
+		if let d = draggedFromAnyDocument(info), let other = d.document.model {
+			let refs = Dictionary(BankRows.rows(other).filter { $0.ref.master == d.master }.map { ($0.name, $0.ref) },
+			                      uniquingKeysWith: { a, _ in a })
+			let sources = d.patches.compactMap { p in refs[p.bankName].map { (bank: $0, index: p.index) } }
+			guard sources.count == d.patches.count else { return false }
+			edit("Copy Patches") { doc in
+				let r = try doc.copyPatches(sources, from: other, to: ref, before: position)
 				pendingSelection = IndexSet(integersIn: r)
 			}
 			return true
