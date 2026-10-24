@@ -48,6 +48,7 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
+| T-033 | B | PENDIENTE | App: viñeta «• » y sub-bancos en árbol «├ »/«└ » (D-010) gestionados desde Patch Banks (P22 en `docs/20`) | — | Diseñar con el usuario (controles, qué pasa al reordenar y al abrir ficheros con «- »), implementar con tests en `CherryPickerCore` y probar en DP con un fichero de prueba |
 
 ## Fichas
 
