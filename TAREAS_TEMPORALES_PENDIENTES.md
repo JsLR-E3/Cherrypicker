@@ -39,7 +39,7 @@
 
 ## EN PROGRESO
 
-- —
+- EXP-038: `PCM-91 optimizado.midnam` hecho y comprobado; falta instalarlo y probarlo en DP.
 
 ## PENDIENTE DE VALIDACIÓN LOCAL
 
@@ -61,7 +61,7 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 ## SIGUIENTE PASO EXACTO
 
-0. PCM-91 (sus PDF ya están en `incoming/`; mismo método que PCM-81, EXP-037). Después, otro `.midnam` como en T-030/T-031 (`docs/15`, EXP-030 y EXP-031), con la viñeta y el árbol de D-010: PCM-81 o PCM-91, con sus manuales en `incoming/`
+0. Con PCM-91 (EXP-038) quedan hechos todos los `.midnam` del usuario. Si llega otro, `.midnam` como en T-030/T-031 (`docs/15`, EXP-030 y EXP-031), con la viñeta y el árbol de D-010: PCM-81 o PCM-91, con sus manuales en `incoming/`
    (se archivan en `reference/manuales/<modelo>/`).
 1. **Con el usuario, decidir el siguiente bloque:** preparar la app para compartir (D-007: nombre e icono propios,
    revisar textos cortos de los nibs con `grep -rn '"[A-Z][^"]\{20,\}"' src/CherryPickerApp/Sources/CherryPicker`,

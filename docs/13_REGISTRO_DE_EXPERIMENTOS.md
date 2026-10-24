@@ -944,3 +944,26 @@ valer un resultado.
   «R0», «C0»…«Ca» (como en la pantalla; los manuales solo dicen «Program Bank 0…5»). Nuevo sha256 `6a629e7daf44a7df…`,
   VÁLIDO; las 900 direcciones siguen igual. Reinstalado por Claude con permiso del usuario (`cp -f`, misma sha256).
 - **Estado:** COMPLETADO (la versión con los grupos de la User Guide, sin volver a probar en DP). Instalación sin retirar.
+
+## EXP-038 · 2026-10-24 · PCM-91 optimizado (Preset Menu, User Guide y D-010)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto, DP 11.36; árbol de trabajo sobre `37734b1`.
+- **Fuentes** (`reference/manuales/PCM-91/`): User Guide Rev 1 (9 bancos P0–P8 con nombre —Halls, Rooms, Plates, Post,
+  Splits, Studio, Live, Post, Surround— y 5 grupos de 10 en cada uno; sus páginas de presets no salen en texto) y Preset
+  Menu (450 nombres y descripciones).
+- **Partida:** `reference/midnam_usuario/PCM-91.midnam` (el de MOTU, igual al instalado en DP; sha256 `ba6657a70477ef02…`),
+  listas dentro de cada banco, Bank Select por CC32 (P0–P8 0–8, R0–R1 9–10, C0–C4 16–20).
+- **El aparato del usuario sigue el Preset Menu, no el fichero de MOTU** (A, leído por el usuario): P3 2.2 «Outdoor PA 2»
+  (MOTU: «Two Autos», con P3 2.2–2.9 desplazados), P0 0.8 «Concert Hall» (MOTU «Large Church»), P1 4.4 «Split Rooms»
+  (MOTU «Crazy Rooms»). Probablemente MOTU usó otro firmware.
+- **Fichero:** `reference/midnam_trabajo/PCM-91 optimizado.midnam` (sha256 `7e13c3e512fe0307…`; VÁLIDO contra la DTD 1.0):
+  - 57 nombres como el Preset Menu (con apóstrofos ASCII y sin los «:» del PDF); si el del menú pasa de 12 caracteres y el
+    del fichero es el mismo en 12, se deja el del fichero. Leídos por el usuario: P4 2.0 «Dlys/HallBPM», P6 3.4
+    «Kick+SnInvrs».
+  - Bancos «P0 Halls»…«P8 Surround» (antes «P8 Surround Bank»), «R0», «R1», «C0»…«C4»; sub-bancos de D-010 con el banco
+    entre paréntesis para que las listas no se repitan («├ Orchestral (P0)» … «└ "Clean Slate" (P8)»).
+  - Marcas de las descripciones, revisadas a mano: [F] 4, [E] 6, [T] 32 (42 presets); ninguno [M].
+- **Comprobado con script:** las 800 direcciones (CC32, PC) siguen igual, un nombre por dirección, canales iguales.
+- **Instalación:** pendiente. **Deshacer:** borrar `MOTU/Lexicon/PCM-91 optimizado.midnam`.
+- **Resultado:** —
+- **Estado:** EN CURSO.

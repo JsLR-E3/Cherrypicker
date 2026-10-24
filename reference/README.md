@@ -12,6 +12,7 @@ no se sube a GitHub. Lo que llega a `incoming/` se archiva aquí (T-003) conserv
 | `midnam_trabajo/` | **PRIVADO.** Copias de trabajo del usuario editadas con la app (no son originales): `DSP-128 Plus.midnam` con presets agrupados en bancos (EXP-029) `M3000 optimizado.midnam` (T-030, instalada en DP, EXP-030), `PCM-81.midnam` (versión del usuario de 2025, distinta de la de `midnam_usuario/`) y `M3000 prueba.midnam`, la copia corregida de EXP-023 que está instalada en DP (sha256 `ca606485a51d1837…`, igual a la instalada). El usuario sigue optimizándola; no se borra ni se sobrescribe sin su permiso | Usuario, 2026-10-24 |
 | `manuales/DSP-128 Plus/` | Digitech DSP 128 plus: manual de usuario (PDF escaneado, sin texto: se lee con OCR) y «cheatsheet» de algoritmos | Usuario, incoming 2026-10-24 |
 | `manuales/LXP-15/` | Lexicon LXP-15 y LXP-15 II: manuales de usuario (PDF con texto) | Usuario, incoming 2026-10-24 |
+| `manuales/PCM-91/` | Lexicon PCM 91: User Guide Rev 1 (sin las páginas de presets en texto) y Preset Menu | Usuario, incoming 2026-10-24 |
 | `manuales/PCM-81/` | Lexicon PCM 81: User Guide (llegó como `Manual.pdf`), Preset Menu, «PCM 90 MIDI implementation details» y `AK85 PRESETS/` (presets de terceros del usuario: notas `.rtf`/`.rtfd`, imagen y volcados `.syx`, que nunca se envían) | Usuario, incoming 2026-10-24 |
 | `manuales/M3000/` | TC Electronic M3000: manual (inglés), addendum «Film and Post Production» rev. 1.3 y «M3000 MIDI specification» v1.01 (PDF) | Usuario, incoming 2026-10-24 |
 
