@@ -909,4 +909,8 @@ valer un resultado.
   mandan Bank Select y Program Change (P5, `docs/20`), y ↑/↓ en la lista recorren los presets.
 - **Tercera prueba (usuario):** con el transporte en marcha, también en bucle, el atajo no manda el cambio al momento:
   hace falta la pista armada en REC y el cambio solo sale al volver a pulsar Play (A). Opción (1) descartada.
-- **Estado:** EN CURSO (falta probar el barrido con la app).
+- **Barrido con la app (usuario):** ya lo había probado con un Roland MKS-50 y funciona: con *Enable MIDI*, ↑/↓ en la
+  lista de patches mandan cada preset al momento (A).
+- **Conclusión:** DP 11.36 no permite un barrido rápido de presets por teclado (Next/Previous Patch solo cambian el
+  *Default Patch*, que sale con REC y Play); para probar sonidos se usa la audición de la app y luego se elige en DP.
+- **Estado:** COMPLETADO.
