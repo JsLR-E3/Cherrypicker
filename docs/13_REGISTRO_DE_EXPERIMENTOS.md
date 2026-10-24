@@ -923,12 +923,14 @@ valer un resultado.
   footswitch o a un controlador MIDI hasta el 119) y Preset Menu (300 nombres, grupos, «T» = sincronizable a tempo).
 - **Partida:** `reference/midnam_trabajo/PCM-81.midnam`, versión del usuario de 2025 (sha256 `a46505a4276923f0…`; no es la
   de MOTU de `midnam_usuario/`), con sub-bancos «- » y Bank Select por CC32.
-- **Fichero:** `reference/midnam_trabajo/PCM-81 optimizado.midnam` (sha256 `7662558abfe4ea5e…`; VÁLIDO contra la DTD 1.0):
+- **Fichero:** `reference/midnam_trabajo/PCM-81 optimizado.midnam` (sha256 `727643d9013ef90c…`; VÁLIDO contra la DTD 1.0):
   - Árbol de D-010 en los sub-bancos de P0–P5; límites del Preset Menu en P2 (Gain 2.5–3.3, Resonant Chords 3.4–4.9) y
     P4 (Vocal Shift 0.0–1.6, Vocal Harmony 1.7–1.9).
   - Nombres: 4 erratas (ADJUpMyEchos, RoughIdle FX, BandEko Rvb, VoxFix Sprno) y 2 leídos en el aparato por el usuario
     (ChaosImpuls, BowedEchoes); también leídos y sin cambio: Wizz & Wazz, Freez 2 of 8, Freez 2over3, SwrlWholNt (el aparato
-    muestra 12 caracteres). «[T]» en los 108 sincronizables a tempo.
+    muestra 12 caracteres). Marcas en un solo corchete al final, sacadas de las descripciones del Preset Menu y
+    revisadas a mano: [F] footswitch o pedal (17), [M] controlado por MIDI: teclado, aftertouch, notas (9), [E] nivel de
+    entrada (25), [T] sincronizable a tempo (108); 134 presets marcados (p. ej. «FootPdlEkos [FET]»).
   - Registros R0: 0.0–0.5 con los nombres que da el usuario (JP PlexDly 1, Circ+PanDlys, CircPanDlyV3, SCF+Ekos 1, AK85
     350/500, Pitch Across); el resto «User Effect». Tarjeta C0–Ca sin cambios (el usuario tiene tarjeta).
 - **Comprobado con script:** las 900 direcciones (CC32, PC) siguen igual, un solo nombre por dirección, canales iguales;
