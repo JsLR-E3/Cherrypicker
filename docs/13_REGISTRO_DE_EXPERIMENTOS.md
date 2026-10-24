@@ -907,4 +907,6 @@ valer un resultado.
 - **Opciones propuestas (sin probar):** (1) en DP, con el transporte en marcha (ciclo o grabación en ciclo) el cambio
   debería mandarse al momento; (2) barrido con la app: con *Enable MIDI* y *Device Out*, al seleccionar un patch se
   mandan Bank Select y Program Change (P5, `docs/20`), y ↑/↓ en la lista recorren los presets.
-- **Estado:** EN CURSO (falta que el usuario pruebe las opciones).
+- **Tercera prueba (usuario):** con el transporte en marcha, también en bucle, el atajo no manda el cambio al momento:
+  hace falta la pista armada en REC y el cambio solo sale al volver a pulsar Play (A). Opción (1) descartada.
+- **Estado:** EN CURSO (falta probar el barrido con la app).
