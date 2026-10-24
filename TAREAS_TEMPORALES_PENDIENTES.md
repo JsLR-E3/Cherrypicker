@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-24 · local (`main`) · T-025 a T-028 y T-014 completadas; fases 3 y 5 terminadas (EXP-024 a EXP-028, D-008, D-009).
+> Actualizado: 2026-10-24 · local (`main`) · T-029 completada: uso con los `.midnam` reales, arreglos de interfaz y P21 (EXP-029).
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -19,12 +19,14 @@
 - **Original** en Snow Leopard (Mac mini) para contrastar (EXP-009, EXP-012); allí queda un `.middev` «Prueba / Prueba».
 - **Instalación de prueba que se deja a propósito:** `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/` (EXP-011 a
   EXP-022 y EXP-027; cada EXP dice cómo deshacer lo suyo). Deshacer todo: borrar esa carpeta.
+- **Copia de trabajo del usuario:** `reference/midnam_trabajo/DSP-128 Plus.midnam` (privada, no versionada; la sigue
+  optimizando él; no se borra ni se sobrescribe sin su permiso).
 - **Antes de compartir la app** (D-007): nombre e icono propios, revisar textos cortos tomados de los nibs, licencia.
 - **Idea para un proyecto futuro:** `docs/40_IDEA_EDITOR_FX_BCR2000.md` (fuera del alcance).
 
 ## EN PROGRESO
 
-- T-029: uso de la app con los `.midnam` reales del usuario (copias en el scratchpad de la sesión).
+- —
 
 ## PENDIENTE DE VALIDACIÓN LOCAL
 
@@ -38,20 +40,13 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
-| T-029 | A | EN PROGRESO | Usar la app con los 6 `.midnam` reales (copias) y anotar fallos y carencias | — | Ficha T-029. Hecho: casilla P, columnas, posición de la lista de patches, P21 (EXP-029). Guardar y reabrir DSP-128 OK. Falta: seguir usándola (PCM-81, M3000) |
 
 ## Fichas
 
-- **T-029 · Uso real.** Copias de `reference/midnam_usuario/` (6 ficheros) en el scratchpad, VÁLIDAS contra la DTD
-  1.0; la ida y vuelta ya la cubre EXP-003 (la app guarda con el mismo `XMLWriter`). El usuario abre cada copia en
-  `build/CherryPicker.app` y recorre pestañas: Device, Patch Banks (bancos grandes: M3000 1112 presets, PCM-81 900),
-  Patch Names (Find, Copy..., editar un nombre), Categories, MIDI (audición, solo con su permiso, D-008), guardar y
-  volver a abrir. Claude mira con `tools/capturar_app.sh`, valida lo guardado con `tools/validar_midnam.sh` y compara
-  con el original (`diff`, solo recuentos y estructura en el registro, D-004). Criterio: lista de hallazgos en EXP-029,
-  cada uno con tarea propia o descartado con el usuario.
+- —
 
 ## SIGUIENTE PASO EXACTO
 
-1. **Con el usuario, decidir el siguiente bloque:** usarla con sus `.midnam` reales (sobre copias) y anotar lo que
-   falle o falte; preparar la app para compartir (D-007: nombre e icono propios, revisar textos de los nibs, licencia);
-   o Note Lists (fuera por ahora, docs/20 §7.1). Lo elegido, como T-029 con su ficha.
+1. **Con el usuario, decidir el siguiente bloque:** preparar la app para compartir (D-007: nombre e icono propios,
+   revisar textos cortos de los nibs con `grep -rn '"[A-Z][^"]\{20,\}"' src/CherryPickerApp/Sources/CherryPicker`,
+   licencia) o Note Lists (fuera por ahora, docs/20 §7.1). Lo que salga del uso real de la app, como tarea nueva.

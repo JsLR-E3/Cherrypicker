@@ -732,5 +732,6 @@ valer un resultado.
 - **Guardar y reabrir:** el usuario agrupa presets de DSP-128 Plus en bancos nuevos, guarda y vuelve a abrir (OK).
   Lo guardado: VÁLIDO contra la DTD 1.0; DOCTYPE y cabecera idénticos al original (D-003); 7 bancos (antes 1), 147
   patches (128 + 19 copiados), cada banco con su lista. El original de `reference/` sigue sin tocar (fecha de 2020).
-- **Estado:** EN CURSO (T-029 sigue: más uso real).
+- **Resto de ficheros:** el usuario abre los demás y van bien; lo da por bueno por ahora.
+- **Estado:** COMPLETADO. Copia de trabajo de DSP-128 guardada en `reference/midnam_trabajo/` (no versionada).
 
