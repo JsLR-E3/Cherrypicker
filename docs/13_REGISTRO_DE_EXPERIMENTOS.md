@@ -935,6 +935,8 @@ valer un resultado.
     350/500, Pitch Across); el resto «User Effect». Tarjeta C0–Ca sin cambios (el usuario tiene tarjeta).
 - **Comprobado con script:** las 900 direcciones (CC32, PC) siguen igual, un solo nombre por dirección, canales iguales;
   12 nombres cambiados además de las marcas.
-- **Instalación:** pendiente (carpeta `MOTU/Lexicon/`, ya del usuario). **Deshacer:** borrar `PCM-81 optimizado.midnam`.
+- **Instalación** (permiso del usuario, 2026-10-24 22:12): copiado por Claude con `cp -n` como
+  `/Library/Audio/MIDI Devices/MOTU/Lexicon/PCM-81 optimizado.midnam`, idéntico (misma sha256). El `PCM-81.midnam` de MOTU
+  de esa carpeta, sin cambios (`46ef15aa…`). **Deshacer:** borrar `PCM-81 optimizado.midnam`.
 - **Resultado:** —
 - **Estado:** EN CURSO.
