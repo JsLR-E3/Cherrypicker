@@ -849,5 +849,7 @@ valer un resultado.
   las marcas [F]/[E] (A). El usuario ve **demasiado grande** el «● » de «● All Presets»/«● All Registers».
 - **Cambio:** «● » → «• » (U+2022) en los tres (D-010). Nuevas sha256: `LXP-15 II Presets` `e983a89410e2d14c…`,
   `LXP-15 I Registers` `c867b02b0dbcb11e…`, `SPX2000 optimizado` `3f16cb4a312611b7…`; VÁLIDOS. Copiados por el usuario con
-  `sudo cp` (2026-10-24), idénticos (misma sha256); `SPX2000.midnam` sin cambios. Falta que vea la viñeta en DP.
-- **Estado:** EN CURSO.
+  `sudo cp` (2026-10-24), idénticos (misma sha256); `SPX2000.midnam` sin cambios. 
+- **Resultado final (usuario, 2026-10-24, DP 11.36):** la viñeta «• » y el SPX2000 optimizado se ven bien (A).
+- **Conclusión:** D-010 vale en DP: «• » para el banco con todos y árbol «├ »/«└ » para los sub-bancos.
+- **Estado:** COMPLETADO. Instalaciones sin retirar (ver «Deshacer»).

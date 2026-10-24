@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-24 · local (`main`) · D-010: sub-bancos en árbol (├ └), aplicado a LXP-15 I/II y SPX2000 (EXP-034, falta instalar y probar).
+> Actualizado: 2026-10-24 · local (`main`) · D-010: «• » y sub-bancos en árbol (├ └) en LXP-15 I/II y SPX2000, probados en DP (EXP-034).
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -21,7 +21,8 @@
   EXP-022 y EXP-027; cada EXP dice cómo deshacer lo suyo). Deshacer todo: borrar esa carpeta.
   Además, `MOTU/TC Electronic/M3000 optimizado.midnam` (EXP-030) y
   `MOTU/Digitech/DSP-128 Plus optimizado.midnam` (EXP-031, con `sudo`),
-  `MOTU/Lexicon/LXP-15 II Presets.midnam` y `LXP-15 I Registers.midnam` (EXP-032, con `sudo`); deshacer: borrar esos ficheros. Los demás de esas
+  `MOTU/Lexicon/LXP-15 II Presets.midnam` y `LXP-15 I Registers.midnam` (EXP-032/034, con `sudo`),
+  `MOTU/Yamaha/SPX2000 optimizado.midnam` (EXP-034); deshacer: borrar esos ficheros. Los demás de esas
   carpetas son del usuario.
 - **Copias de trabajo del usuario** en `reference/midnam_trabajo/` (privadas, no versionadas; no se borran ni se
   sobrescriben sin su permiso): `DSP-128 Plus.midnam` (la sigue optimizando él), `M3000 prueba.midnam` (= la instalada
@@ -33,8 +34,7 @@
 
 ## EN PROGRESO
 
-- EXP-034: sub-bancos en árbol (D-010) en LXP-15 I/II y `SPX2000 optimizado.midnam`; los instala el usuario con `sudo`
-  (comandos en el EXP, también retirar `CP Prueba simbolos`). Siguiente paso: resultado en DP.
+- —
 
 ## PENDIENTE DE VALIDACIÓN LOCAL
 
