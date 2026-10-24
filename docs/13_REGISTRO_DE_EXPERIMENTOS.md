@@ -824,7 +824,7 @@ valer un resultado.
   y las marcas («004 Compress Hall [E]»).
 - **Conclusión:** en los nombres de banco de DP 11.36 valen Unicode (flechas, dibujo de cajas) y los espacios iniciales;
   se puede sangrar de verdad o dibujar un árbol (├ en medio, └ en el último).
-- **Estado:** COMPLETADO (falta retirar el fichero de prueba; ver «Deshacer»).
+- **Estado:** COMPLETADO. Fichero de prueba retirado de DP (EXP-034).
 
 ## EXP-034 · 2026-10-24 · Sub-bancos en árbol (D-010) en LXP-15 I/II y SPX2000
 
@@ -839,7 +839,7 @@ valer un resultado.
 - **Instalación (usuario, 2026-10-24 21:05–21:07; SPX2000 desde el Finder, LXP-15 con `sudo cp`; las tres copias idénticas
   a las de trabajo, misma sha256; `SPX2000.midnam` sin cambios):** sustituir en `MOTU/Lexicon/` los dos LXP-15
   de EXP-032 (son ficheros de la sesión, no del usuario), añadir `MOTU/Yamaha/SPX2000 optimizado.midnam` junto a su
-  `SPX2000.midnam` (sin tocar) y retirar `MOTU/Lexicon/CP Prueba simbolos.midnam` (EXP-033). Pendiente: retirar ese fichero de prueba. **Deshacer:** borrar
+  `SPX2000.midnam` (sin tocar) y retirar `MOTU/Lexicon/CP Prueba simbolos.midnam` (EXP-033). Retirado por el usuario con `sudo rm` (comprobado). **Deshacer:** borrar
   `MOTU/Yamaha/SPX2000 optimizado.midnam` y los dos LXP-15 (o volver a copiar los de EXP-032, sha256 `719b3878…` y
   `181bfd32…`).
 - **Prueba (usuario):** en DP, el árbol en los menús de «LXP-15 II Presets», «LXP-15 I Registers» y «SPX2000
