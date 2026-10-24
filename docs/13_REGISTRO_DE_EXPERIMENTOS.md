@@ -968,3 +968,34 @@ valer un resultado.
   sha256); el `PCM-91.midnam` de MOTU, sin cambios. **Deshacer:** borrar `MOTU/Lexicon/PCM-91 optimizado.midnam`.
 - **Resultado (usuario, 2026-10-24, DP 11.36 con el PCM-91):** funciona bien (A).
 - **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»).
+
+## EXP-039 · 2026-10-24 · Árbol de D-010 gestionado por la app (T-033, P22)
+
+- **Objetivo:** comprobar que la app mete y saca sub-bancos, marca «• » y rehace «├ »/«└ » en Patch Banks, y que DP
+  muestra el fichero que guarda.
+- **Entorno:** macOS 15.7.9, Mac del proyecto (teclado Spanish - ISO), DP 11.36; app de `tools/empaquetar_app.sh` sobre
+  `547bf6a` con los cambios de T-033; `swift test` 108/108 (14 nuevos en `BankTreeTests`, con validación DTD).
+- **Fichero:** `captures/exp039/CP Arbol.midnam` (propio, sin datos del usuario; Cherrypicker / CP Arbol; VÁLIDO contra
+  la DTD 1.0; DOCTYPE de midi.org, D-003): «All Presets», «- Halls», «- Rooms», «- Plates», «Studio», «- Medium»,
+  «- Small», «Outdoor», «Medium», «User». El usuario lo editó en la app como `captures/exp039/CP Arbol prueba.midnam`
+  (sha256 `0a6cc934a5ea888a…`, VÁLIDO).
+- **Prueba en la app (usuario; Claude miró con `tools/capturar_app.sh`):** al abrir ofrece pasar los «- » a árbol y
+  Convert los deja en «├ »/«└ »; Mark as All Patches → «• All Presets»; Indent sobre el «Medium» de debajo de «Outdoor»
+  abre la hoja con «Medium (Studio)» y «Medium (Outdoor)» (el usuario escribió «Indoor Medium» en el primero); Outdent
+  de «├ Halls»; arrastrar «Studio» con sus sub-bancos arriba; mover un sub-banco de grupo; editar el nombre sin prefijo;
+  deshacer; guardar. Todo bien (A). **⌘] / ⌘[ no funcionaban** con el teclado español («]» y «[» van con ⌥): se
+  cambiaron a ⌘→ / ⌘←, que funcionan. Las órdenes del árbol solo se activan con la tabla activa (si el foco está en
+  «Preview», no). Visto de paso: File → Open Recent está vacío (tarea aparte).
+- **Comprobado con script:** en los 10 bancos el nombre de `PatchBank`, el de `UsesPatchNameList` y el de su
+  `PatchNameList` coinciden.
+- **Instalación** (permiso del usuario, 2026-10-24): Claude copió con `cp -n` `CP Arbol prueba.midnam` como
+  `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/CP Arbol.midnam` (misma sha256) y, como DP no lo ofrecía tras
+  reiniciar (falta el modelo en un `.middev`, EXP-006), añadió la entrada «Cherrypicker / CP Arbol» a
+  `MOTU/Cherrypicker/Cherrypicker (CherryPicker).middev` (el propio de la app, EXP-021). **Deshacer:** borrar
+  `MOTU/Cherrypicker/CP Arbol.midnam` y quitar la entrada `Model="CP Arbol"` de ese `.middev` (o borrar la carpeta
+  `MOTU/Cherrypicker/` entera, como el resto de pruebas).
+- **Resultado (usuario, 2026-10-24, DP 11.36, tras reiniciar; captura en el chat, no versionada):** el menú de presets
+  muestra «Studio, ├ Indoor Medium, └ Small, • All Presets, ├ Rooms, └ Plates, Halls, Outdoor, └ Medium (Outdoor),
+  User» en ese orden, con los símbolos bien, y «Studio» abre sus presets 025–032 (A).
+- **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»).
+

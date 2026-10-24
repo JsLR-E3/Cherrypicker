@@ -7,11 +7,16 @@
 // «Import» abre el «Patchlist Importer» (T-022).
 // Arrastrar bancos desde la ventana de otro documento los copia aquí (T-026, P18): van al Channel Set de la fila de
 // encima del punto donde se sueltan, con su bank select y sus patches.
+// [PROPUESTA P22] Sub-bancos en árbol de D-010 (T-033): «Indent Bank» (⌘→), «Outdent Bank» (⌘←) y «Mark as All
+// Patches» en el menú Edit y con clic derecho; la tabla muestra los nombres con «• », «├ » y «└ », como DP, y al editar
+// un nombre solo se escribe lo que va detrás del prefijo. Un banco padre se arrastra con sus sub-bancos. Si un nombre
+// se repetiría, una hoja propone «nombre (padre)». Al abrir un fichero con sub-bancos «- », ofrece pasarlos a árbol.
 import AppKit
 import CherryPickerCore
 import MidnamKit
 
-final class PatchBanksViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
+final class PatchBanksViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate,
+	NSMenuDelegate, NSMenuItemValidation {
 	/// Identificador y cabecera de cada columna, como en el nib; ancho inicial.
 	private static let columns: [(id: String, title: String, width: CGFloat)] = [
 		("open", "P", 24), ("bs0", "S0", 40), ("bs32", "S32", 40),
@@ -25,6 +30,8 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 	private let table = NSTableView()
 	private let removeButton = NSButton()
 	private let mergeButton = NSButton(title: "Merge", target: nil, action: nil)
+	/// Ya se ofreció pasar los sub-bancos «- » a árbol.
+	private var offeredDashConversion = false
 
 	init(document: MidnamDocument) {
 		self.document = document
@@ -56,6 +63,13 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		table.doubleAction = #selector(doubleClick(_:))
 		table.registerForDraggedTypes([Self.rowType, PatchWindowController.rowType])
 		table.setDraggingSourceOperationMask([.move, .copy], forLocal: true)
+		let menu = NSMenu()
+		for item in Self.treeMenuItems() {
+			item.target = self
+			menu.addItem(item)
+		}
+		menu.delegate = self
+		table.menu = menu
 
 		let scroll = NSScrollView()
 		scroll.documentView = table
@@ -119,9 +133,16 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 	}
 
 	@objc private func modelDidChange(_ n: Notification) {
-		let selected = Set(table.selectedRowIndexes.compactMap { rows.indices.contains($0) ? rows[$0].name : nil })
+		// Por el nombre sin prefijo: meter o sacar un sub-banco cambia «├ »/«└ » (D-010).
+		func base(_ r: BankRow) -> String { TreeName(parsing: r.name).base }
+		let selected = Set(table.selectedRowIndexes.compactMap { rows.indices.contains($0) ? base(rows[$0]) : nil })
 		reload()
-		table.selectRowIndexes(IndexSet(rows.indices.filter { selected.contains(rows[$0].name) }), byExtendingSelection: false)
+		table.selectRowIndexes(IndexSet(rows.indices.filter { selected.contains(base(rows[$0])) }), byExtendingSelection: false)
+	}
+
+	override func viewDidAppear() {
+		super.viewDidAppear()
+		offerDashConversion()
 	}
 
 	private func updateButtons() {
@@ -151,7 +172,8 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		let r = rows[row]
 		switch id {
 		case "name":
-			let field = NSTextField(string: r.name)
+			let field = BankNameField(string: r.name)
+			field.base = TreeName(parsing: r.name).base
 			field.isBordered = false
 			field.drawsBackground = false
 			field.lineBreakMode = .byTruncatingTail
@@ -234,10 +256,14 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		guard let field = obj.object as? NSTextField, rows.indices.contains(field.tag) else { return }
 		let r = rows[field.tag]
 		let name = field.stringValue
-		if name == r.name { return }
+		if name == r.name || name == TreeName(parsing: r.name).base {
+			// Sin cambios: la celda vuelve a mostrar el prefijo.
+			field.stringValue = r.name
+			return
+		}
 		// Fuera del fin de edición: el cambio recarga la tabla y no debe hacerlo mientras la celda aún edita.
 		DispatchQueue.main.async { [weak self] in
-			self?.edit("Rename Bank") { try $0.renameBank(r.ref, to: name) }
+			self?.editTree("Rename Bank") { try $0.renameBank(r.ref, keepingTreeTo: name, overrides: $1) }
 		}
 	}
 
@@ -272,7 +298,8 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		// [PROPUESTA] Si la fila forma parte de una selección múltiple, cambian todas las seleccionadas.
 		let selected = table.selectedRowIndexes
 		let indices = selected.contains(sender.tag) && selected.count > 1 ? Array(selected) : [sender.tag]
-		let refs = indices.map { rows[$0].ref }
+		// [PROPUESTA P22] Un banco padre se lleva sus sub-bancos.
+		let refs = document.model?.withTreeChildren(indices.map { rows[$0].ref }) ?? []
 		guard refs.allSatisfy({ $0.master == refs[0].master }) else { return }
 		edit("Change Channel Set") { try $0.moveBanks(refs, toChannelSet: target) }
 	}
@@ -322,7 +349,7 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 			guard selected.allSatisfy({ $0.ref.master == master }), let w = view.window,
 			      let sets = document.model?.channelSets(master: master) else { return }
 			let sheet = ChannelSetSheet(channelSets: sets, selected: selected[0].ref.set)
-			let refs = selected.map(\.ref)
+			let refs = document.model?.withTreeChildren(selected.map(\.ref)) ?? []
 			sheet.onCommit = { [weak self] target in
 				try self?.document.edit("Change Channel Set") { try $0.moveBanks(refs, toChannelSet: target) }
 			}
@@ -458,6 +485,14 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		return dropRow - first
 	}
 
+	/// [PROPUESTA P22] Como `targetPosition`, pero un banco padre (con sus sub-bancos) solo se suelta entre grupos.
+	private func treeTargetPosition(from row: Int, to dropRow: Int) -> Int? {
+		guard let p = targetPosition(from: row, to: dropRow), let model = document.model else { return nil }
+		let ref = rows[row].ref
+		if TreeName(parsing: rows[row].name).isChild { return p }
+		return model.isTreeGroupBoundary(master: ref.master, set: ref.set, position: p) ? p : nil
+	}
+
 	/// Dónde quedan los bancos soltados desde otro documento: en el Channel Set de la fila de encima, detrás de ella
 	/// (arriba del todo, delante del primero).
 	private func copyTarget(dropRow: Int) -> (master: Int, set: Int, position: Int)? {
@@ -522,8 +557,10 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		sheet.name.stringValue = model.freeBankName("New Bank", master: t.master)
 		sheet.onCommit = { [weak self] set, name, bs0, bs32 in
 			try self?.document.edit("New Bank with Patches") {
-				try $0.addBank(name: name, bs0: bs0, bs32: bs32, master: t.master, set: set, withPatches: sources,
-				               from: source, before: set == t.set ? t.position : nil)
+				let ref = try $0.addBank(name: name, bs0: bs0, bs32: bs32, master: t.master, set: set, withPatches: sources,
+				                         from: source, before: set == t.set ? t.position : nil)
+				// Soltado en medio de un grupo, pasa a sub-banco (D-010).
+				try $0.adoptIntoGroup([ref])
 			}
 		}
 		sheet.begin(on: w) { _ in _ = sheet }
@@ -536,7 +573,7 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 			return validatePatchDrop(info, row: row, on: dropOperation == .on)
 		}
 		guard dropOperation == .above else { return [] }
-		if let from = draggedRow(info) { return targetPosition(from: from, to: row) != nil ? .move : [] }
+		if let from = draggedRow(info) { return treeTargetPosition(from: from, to: row) != nil ? .move : [] }
 		if let d = draggedBanks(info), d.document !== document, copyTarget(dropRow: row) != nil { return .copy }
 		return []
 	}
@@ -547,9 +584,9 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 			return acceptPatchDrop(info, row: row, on: dropOperation == .on)
 		}
 		if let from = draggedRow(info) {
-			guard let position = targetPosition(from: from, to: row) else { return false }
+			guard let position = treeTargetPosition(from: from, to: row) else { return false }
 			let ref = rows[from].ref
-			edit("Move Bank") { try $0.reorderBank(ref, toPosition: position) }
+			editTree("Move Bank") { try $0.moveBankGroup(ref, toPosition: position, overrides: $1) }
 			return true
 		}
 		guard let d = draggedBanks(info), d.document !== document, let other = d.document.model,
@@ -560,8 +597,10 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		guard refs.count == d.names.count else { return false }
 		var missing: [String] = []
 		edit(refs.count == 1 ? "Copy Bank" : "Copy Banks") {
-			missing = try $0.copyBanks(refs, from: other, master: target.master, set: target.set,
-			                           before: target.position).missingLists
+			let copied = try $0.copyBanks(refs, from: other, master: target.master, set: target.set,
+			                              before: target.position)
+			try $0.adoptIntoGroup(copied.added)
+			missing = copied.missingLists
 		}
 		// Los patches que usan listas de notas o de controles de su fichero las pierden aquí: se avisa.
 		if !missing.isEmpty, let w = view.window {
@@ -571,5 +610,141 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 			DispatchQueue.main.async { a.beginSheetModal(for: w) }
 		}
 		return true
+	}
+
+	// MARK: Sub-bancos en árbol (D-010, [PROPUESTA P22])
+
+	/// Órdenes del menú Edit y del menú contextual de la tabla (sin destino: van al Patch Banks de la ventana activa).
+	static func treeMenuItems() -> [NSMenuItem] {
+		// ⌘→ y ⌘←: ⌘] y ⌘[ no salen en el teclado español (ISO), donde «]» y «[» van con ⌥ (prueba del usuario).
+		let indent = NSMenuItem(title: "Indent Bank", action: #selector(indentBanks(_:)),
+		                        keyEquivalent: String(UnicodeScalar(NSRightArrowFunctionKey)!))
+		let outdent = NSMenuItem(title: "Outdent Bank", action: #selector(outdentBanks(_:)),
+		                         keyEquivalent: String(UnicodeScalar(NSLeftArrowFunctionKey)!))
+		let all = NSMenuItem(title: "Mark as All Patches", action: #selector(markAllPatches(_:)), keyEquivalent: "")
+		let dash = NSMenuItem(title: "Convert “- ” Sub-Banks to Tree", action: #selector(convertDashSubBanks(_:)),
+		                      keyEquivalent: "")
+		return [indent, outdent, all, dash]
+	}
+
+	private var selectedRefs: [BankRef] { table.selectedRowIndexes.compactMap { rows.indices.contains($0) ? rows[$0].ref : nil } }
+
+	/// Clic derecho en una fila sin seleccionar: la selecciona (las órdenes actúan sobre la selección).
+	func menuNeedsUpdate(_ menu: NSMenu) {
+		let r = table.clickedRow
+		if r >= 0, !table.selectedRowIndexes.contains(r) { table.selectRowIndexes([r], byExtendingSelection: false) }
+	}
+
+	func validateMenuItem(_ item: NSMenuItem) -> Bool {
+		guard let model = document.model else { return false }
+		// Mientras se edita un nombre, ⌘→ y ⌘← mueven el cursor (el menú desactivado deja pasar la tecla).
+		guard view.window?.firstResponder === table else { return false }
+		let refs = selectedRefs
+		switch item.action {
+		case #selector(indentBanks(_:)): return refs.contains { model.canIndent($0) }
+		case #selector(outdentBanks(_:)): return refs.contains { model.canOutdent($0) }
+		case #selector(markAllPatches(_:)):
+			let tops = refs.filter { model.bank($0).map { !TreeName(parsing: $0.name).isChild } ?? false }
+			let marked = !tops.isEmpty && tops.allSatisfy { model.bank($0).map { TreeName(parsing: $0.name).isAll } ?? false }
+			item.state = marked ? .on : .off
+			return !tops.isEmpty
+		case #selector(convertDashSubBanks(_:)): return !model.dashSubBanks().isEmpty
+		default: return true
+		}
+	}
+
+	@objc func indentBanks(_ sender: Any?) {
+		let refs = selectedRefs
+		editTree("Indent Bank") { try $0.indentBanks(refs, overrides: $1) }
+	}
+
+	@objc func outdentBanks(_ sender: Any?) {
+		let refs = selectedRefs
+		editTree("Outdent Bank") { try $0.outdentBanks(refs, overrides: $1) }
+	}
+
+	@objc func markAllPatches(_ sender: Any?) {
+		let refs = selectedRefs
+		editTree("Mark as All Patches") { try $0.toggleAllMark(refs, overrides: $1) }
+	}
+
+	@objc func convertDashSubBanks(_ sender: Any?) {
+		editTree("Convert Sub-Banks") { try $0.convertDashSubBanks(overrides: $1) }
+	}
+
+	/// Al abrir un fichero con sub-bancos «- » (como el SPX2000 del usuario), una vez: ofrece pasarlos a árbol.
+	private func offerDashConversion() {
+		guard !offeredDashConversion, let w = view.window, let model = document.model else { return }
+		offeredDashConversion = true
+		let dash = model.dashSubBanks()
+		guard !dash.isEmpty else { return }
+		let alert = NSAlert()
+		alert.messageText = "Show “- ” sub-banks as a tree?"
+		alert.informativeText = "\(dash.count) banks start with “- ” under another bank. They can be shown as its "
+			+ "sub-banks, with “├ ” and “└ ” on the last one. (Also in Edit > Convert “- ” Sub-Banks to Tree.)"
+		alert.addButton(withTitle: "Convert")
+		alert.addButton(withTitle: "Not Now")
+		alert.beginSheetModal(for: w) { [weak self] response in
+			guard response == .alertFirstButtonReturn else { return }
+			self?.convertDashSubBanks(nil)
+		}
+	}
+
+	/// Cambio del árbol: si algún nombre se repetiría, la hoja de nombres propone otros y se repite con ellos.
+	private func editTree(_ actionName: String, overrides: [BankRef: String] = [:],
+	                      _ change: @escaping (inout MIDINameDocument, [BankRef: String]) throws -> Void) {
+		do {
+			try document.edit(actionName) { try change(&$0, overrides) }
+		} catch BankEditError.treeNameConflicts(let conflicts) {
+			reload()
+			askNames(conflicts) { [weak self] names in
+				self?.editTree(actionName, overrides: overrides.merging(names) { $1 }, change)
+			}
+		} catch {
+			reload()
+			if let w = view.window { NSAlert(error: error).beginSheetModal(for: w) }
+		}
+	}
+
+	/// Hoja con un campo por banco repetido, con la propuesta «nombre (padre)»; Cancel deja todo como estaba.
+	private func askNames(_ conflicts: [TreeConflict], then: @escaping ([BankRef: String]) -> Void) {
+		guard let w = view.window else { return }
+		let alert = NSAlert()
+		alert.messageText = conflicts.count == 1 ? "This bank name would be repeated" : "These bank names would be repeated"
+		alert.informativeText = "DP shows each bank by the name of its patch list, so names must be unique. "
+			+ "Type the new name (without the “├ ” or “└ ”):"
+		var fields: [(BankRef, NSTextField)] = []
+		let grid = NSGridView(views: conflicts.map { c in
+			let label = NSTextField(labelWithString: c.prefix + c.base)
+			let prefix = NSTextField(labelWithString: "→ " + c.prefix)
+			let field = NSTextField(string: c.proposal)
+			field.widthAnchor.constraint(greaterThanOrEqualToConstant: 180).isActive = true
+			fields.append((c.ref, field))
+			return [label, prefix, field]
+		})
+		grid.rowSpacing = 6
+		grid.columnSpacing = 4
+		grid.frame.size = grid.fittingSize
+		alert.accessoryView = grid
+		alert.addButton(withTitle: "OK")
+		alert.addButton(withTitle: "Cancel")
+		alert.window.initialFirstResponder = fields.first?.1
+		alert.beginSheetModal(for: w) { response in
+			guard response == .alertFirstButtonReturn else { return }
+			// Fuera de la hoja: si vuelve a chocar, se abre otra.
+			let names = Dictionary(fields.map { ($0.0, $0.1.stringValue) }, uniquingKeysWith: { a, _ in a })
+			DispatchQueue.main.async { then(names) }
+		}
+	}
+}
+
+/// [PROPUESTA P22] Nombre de banco: al empezar a editarlo se escribe solo lo que va detrás de «• », «├ » o «└ »; la app
+/// vuelve a poner el prefijo (D-010).
+private final class BankNameField: NSTextField {
+	var base = ""
+
+	override func becomeFirstResponder() -> Bool {
+		if stringValue != base { stringValue = base }
+		return super.becomeFirstResponder()
 	}
 }

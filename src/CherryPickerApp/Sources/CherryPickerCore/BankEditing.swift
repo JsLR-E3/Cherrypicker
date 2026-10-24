@@ -37,6 +37,8 @@ public enum BankEditError: LocalizedError, Equatable {
 	case duplicateName(String)
 	case invalidBankSelect(String)
 	case lastBankInChannelSet(String)
+	/// Nombres que se repetirían al recalcular el árbol de D-010, con su propuesta (BankTree.swift).
+	case treeNameConflicts([TreeConflict])
 
 	// Textos en inglés, como la interfaz (D-005, P7).
 	public var errorDescription: String? {
@@ -46,6 +48,8 @@ public enum BankEditError: LocalizedError, Equatable {
 		case .duplicateName(let n): return "There is already a bank named “\(n)”. Bank names must be unique."
 		case .invalidBankSelect(let v): return "“\(v)” is not a valid bank select. Use a number from 0 to 127, or '-' if not used."
 		case .lastBankInChannelSet(let s): return "The channel set “\(s)” must keep at least one bank."
+		case .treeNameConflicts(let c):
+			return "Bank names must be unique: " + c.map { "“\($0.prefix)\($0.base)”" }.joined(separator: ", ")
 		}
 	}
 }

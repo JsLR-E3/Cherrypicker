@@ -37,10 +37,11 @@ final class MidnamDocument: NSDocument {
 	static let modelDidChange = Notification.Name("MidnamDocumentModelDidChange")
 
 	/// Aplica un cambio al modelo con deshacer (copia del modelo anterior; el modelo es un valor). Si `change` lanza un
-	/// error, el documento no cambia.
+	/// error, el documento no cambia. Después rehace los prefijos «├ »/«└ » de los sub-bancos (D-010, T-033).
 	func edit(_ actionName: String, _ change: (inout MIDINameDocument) throws -> Void) throws {
 		guard var m = model else { return }
 		try change(&m)
+		try m.normalizeTree()
 		replaceModel(with: m, actionName: actionName)
 	}
 

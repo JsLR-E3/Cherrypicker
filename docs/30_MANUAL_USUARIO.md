@@ -49,6 +49,13 @@ Abrir un `.midnam` con **File ▸ Open…** o arrastrándolo a la app. La app no
 - **Patch Banks entre ficheros:** arrastrar uno o varios bancos a la tabla de otro documento abierto los copia (el
   de origen no cambia) al Channel Set de la fila de encima de donde se sueltan, con su bank select y sus presets; si
   el nombre ya existe, llega como «nombre 2».
+- **Patch Banks, sub-bancos en árbol (D-010):** con la tabla activa, **Edit → Indent Bank (⌘→)** mete los bancos
+  seleccionados como sub-bancos del banco de encima y **Outdent Bank (⌘←)** los saca (quedan detrás de su grupo);
+  **Mark as All Patches** pone o quita «• ». También con clic derecho. La app pone «├ » y «└ » (en el último) y los
+  rehace al añadir, borrar, mover o renombrar; al editar un nombre solo se escribe lo que va detrás del prefijo. Un
+  banco padre se arrastra con sus sub-bancos y solo se suelta entre grupos; un sub-banco pasa al grupo donde se suelta.
+  Si dos sub-bancos quedarían con el mismo nombre, una hoja propone «nombre (padre)» para editarlo. Al abrir un fichero
+  con sub-bancos «- » ofrece pasarlos a árbol (o **Edit → Convert “- ” Sub-Banks to Tree**).
 - **Device:** fabricante y modelo (solo lectura), modos y Channel Sets con + / − y doble clic para renombrar,
   «Active Channels» (p. ej. `1-9, 11-16`) y «Audition Ch» (canal por el que suena la audición; vacío = el más bajo).
   El + de Channel Sets solo funciona si quedan canales libres; un Channel Set nuevo trae un banco vacío. Al borrar uno

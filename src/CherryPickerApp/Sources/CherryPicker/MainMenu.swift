@@ -52,6 +52,9 @@ enum MainMenu {
 		// [PROPUESTA P21] Lista de patches: banco nuevo con los seleccionados.
 		edit.addItem(withTitle: "New Bank from Selection…",
 		             action: #selector(PatchWindowController.newBankFromSelection(_:)), keyEquivalent: "")
+		edit.addItem(.separator())
+		// [PROPUESTA P22] Sub-bancos en árbol de D-010 (pestaña Patch Banks; también con clic derecho en la tabla).
+		for item in PatchBanksViewController.treeMenuItems() { edit.addItem(item) }
 
 		let window = submenu(main, "Window")
 		window.addItem(withTitle: "Minimize", action: #selector(NSWindow.performMiniaturize(_:)), keyEquivalent: "m")
