@@ -32,7 +32,8 @@
 
 ## EN PROGRESO
 
-- —
+- EXP-033: prueba de símbolos en los nombres de banco (`CP Prueba simbolos.midnam`, en el scratchpad; lo instala el
+  usuario con `sudo` en `MOTU/Lexicon/`). Siguiente paso: resultado del usuario; si se instala, el fichero sale de ahí al acabar.
 
 ## PENDIENTE DE VALIDACIÓN LOCAL
 

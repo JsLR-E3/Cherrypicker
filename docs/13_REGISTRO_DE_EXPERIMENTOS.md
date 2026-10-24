@@ -802,3 +802,20 @@ valer un resultado.
   (A): bancos con sub-bancos «- » y marcas [F]/[M]/[E] se ven bien. El usuario deja la organización así; no quiere
   los rangos en el nombre del banco ni quitar «Studio». La prueba de otros símbolos va en EXP-033.
 - **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»).
+
+## EXP-033 · 2026-10-24 · ¿Qué símbolos muestra DP 11.36 delante del nombre de un banco?
+
+- **Objetivo:** ver si hay algo más claro que «- » para que un banco parezca colgar de otro en el menú de presets
+  (DP solo muestra un nivel de submenús, EXP-006 y EXP-011), sin que DP lo muestre mal ni lo recorte.
+- **Entorno:** macOS 15.7.9, Mac del proyecto, DP 11.36; árbol de trabajo sobre `d5dd608`.
+- **Fichero:** `CP Prueba simbolos.midnam` (scratchpad de la sesión; VÁLIDO contra la DTD 1.0; DOCTYPE de midi.org, D-003;
+  sha256 `09ea87e9efaa0ffe…`), Lexicon / LXP-15, hecho a partir de `LXP-15 II Presets` (privado, no se versiona).
+  Bancos: «All Presets» (1–128) y diez bancos con los presets 1–6, cada uno con un prefijo: `- `, `└ `, `├ `, `› `,
+  `▸ `, `→ `, `· `, `— `, tres espacios («(espacios)») y tres espacios duros U+00A0 («(nbsp)»).
+- **Instalación (pendiente, la hace el usuario con `sudo`, la carpeta es de root):** como
+  `/Library/Audio/MIDI Devices/MOTU/Lexicon/CP Prueba simbolos.midnam`. **Deshacer:**
+  `sudo rm "/Library/Audio/MIDI Devices/MOTU/Lexicon/CP Prueba simbolos.midnam"`.
+- **Prueba (usuario):** en DP, *Master Names* = «CP Prueba simbolos»; abrir el menú de presets y mirar cómo sale cada
+  banco (símbolo bien, cuadro vacío o «?», espacios recortados o no). Con *Pgm Chg* = Pre se puede elegir un preset.
+- **Resultado:** —
+- **Estado:** EN CURSO.
