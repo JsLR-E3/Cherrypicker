@@ -848,6 +848,6 @@ valer un resultado.
   árbol se ve bien y en orden («General», «├ Halls»… «└ Special»; «Studio», «├ Halls»… «└ Delay/Pitch/Mod»), igual que
   las marcas [F]/[E] (A). El usuario ve **demasiado grande** el «● » de «● All Presets»/«● All Registers».
 - **Cambio:** «● » → «• » (U+2022) en los tres (D-010). Nuevas sha256: `LXP-15 II Presets` `e983a89410e2d14c…`,
-  `LXP-15 I Registers` `c867b02b0dbcb11e…`, `SPX2000 optimizado` `3f16cb4a312611b7…`; VÁLIDOS. Pendiente: que el usuario
-  los vuelva a copiar a DP (Finder) y vea la viñeta.
+  `LXP-15 I Registers` `c867b02b0dbcb11e…`, `SPX2000 optimizado` `3f16cb4a312611b7…`; VÁLIDOS. Copiados por el usuario con
+  `sudo cp` (2026-10-24), idénticos (misma sha256); `SPX2000.midnam` sin cambios. Falta que vea la viñeta en DP.
 - **Estado:** EN CURSO.
