@@ -24,6 +24,11 @@
   `MOTU/Lexicon/LXP-15 II Presets.midnam` y `LXP-15 I Registers.midnam` (EXP-032/034, con `sudo`),
   `MOTU/Yamaha/SPX2000 optimizado.midnam` (EXP-034); deshacer: borrar esos ficheros. Los demás de esas
   carpetas son del usuario.
+- **Permisos de DP cambiados por el usuario** (2026-10-24, con `sudo chown jslr`): las carpetas `MOTU/Digitech`,
+  `MOTU/Lexicon` y `MOTU/Yamaha` son del usuario (antes `root:wheel`, `drwxrwxr-x`; los ficheros de dentro no se tocaron)
+  para copiar sin contraseña; `MOTU/TC Electronic` ya era suya. Los ficheros copiados antes con `sudo` siguen siendo de root:
+  se sustituyen con `cp -f` o desde el Finder. **Deshacer:** `sudo chown root` sobre las tres carpetas. Una
+  actualización de DP podría devolverlas a root.
 - **Copias de trabajo del usuario** en `reference/midnam_trabajo/` (privadas, no versionadas; no se borran ni se
   sobrescriben sin su permiso): `DSP-128 Plus.midnam` (la sigue optimizando él), `M3000 prueba.midnam` (= la instalada
   en DP, EXP-023) y `M3000 optimizado.midnam` (T-030) y `DSP-128 Plus optimizado.midnam` (T-031),
