@@ -899,7 +899,12 @@ valer un resultado.
   - Flechas, Return o escribir con el menú de patches abierto: no funcionan (A). Por eso los prefijos de D-010 no
     estorban.
   - El Patch Change de la Event List no le sirve para ir probando presets.
-- **Hipótesis (sin comprobar):** macOS se queda ⌃↑/⌃↓ (Mission Control y Exposé de apps por defecto). Siguiente:
-  probar Key 2, asignar otro atajo (p. ej. ⌥⌘↑/↓) o un evento MIDI, con la pista seleccionada o armada; y ver si al
-  final de un banco pasa al siguiente.
-- **Estado:** EN CURSO.
+- **Segunda prueba (usuario):** con Key 2 (⌥) «Next/Previous Patch» funcionan, pero solo en la columna *MIDI Patch*:
+  cambian el *Default Patch* de la pista, que DP no manda hasta Play/Stop; no sirve para un barrido rápido (A). Key 1
+  (⌃↑/⌃↓) no llega a DP (probablemente macOS, Mission Control; sin comprobar).
+- **El manual lo explica** («Changing the MIDI channel or patch on the fly», capítulo de grabación): son atajos para
+  cambiar *Default patch*, canal o dispositivo durante la grabación en ciclo, y se pueden asignar a notas MIDI.
+- **Opciones propuestas (sin probar):** (1) en DP, con el transporte en marcha (ciclo o grabación en ciclo) el cambio
+  debería mandarse al momento; (2) barrido con la app: con *Enable MIDI* y *Device Out*, al seleccionar un patch se
+  mandan Bank Select y Program Change (P5, `docs/20`), y ↑/↓ en la lista recorren los presets.
+- **Estado:** EN CURSO (falta que el usuario pruebe las opciones).
