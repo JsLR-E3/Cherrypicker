@@ -3,7 +3,8 @@
 // en el documento. Deducido del nib y del binario (nivel D): acciones addCat:/deleteCat:, addBank:/deleteBank:,
 // duplicate: y addToSynth:; recurso Categories.plist con «GM Categories» y «EMU Categories».
 // Los juegos estándar no se editan (se duplican con «Dup» para hacer uno propio); los propios se guardan en la app
-// (no en el .midnam). Las listas se rehacen aquí, no se copia el recurso del original (D-007).
+// (no en el .midnam). Las listas se escriben aquí, sin usar el recurso del original; los nombres E-mu coinciden con
+// los suyos porque son nombres de categoría (datos): el usuario decide dejarlos así (2026-10-24, P17 y D-007).
 import Foundation
 import MidnamKit
 

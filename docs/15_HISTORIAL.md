@@ -5,6 +5,7 @@ copia. Se consulta por `grep` (p. ej. `grep T-012 docs/15_HISTORIAL.md`), no se 
 
 | ID | Cerrada | Resultado (y cómo se verificó) | Commit · EXP · D |
 |---|---|---|---|
+| T-025 | 2026-10-24 | Pestaña Categories (juegos GM y E-mu de serie, propios con Dup, Add To Banks; P17), Find de la lista con «Filter» / «Select Matches» (P15) y nota de prueba opcional en la audición (P16, D-008). 7 tests (79/79); probado a mano por el usuario y con el MKS-50 en la Unitor8 (la nota doble al cambiar con la anterior sonando es del MKS-50 y se deja) | 1fa1782…a6809ed · EXP-024 · D-008 |
 | T-024 | 2026-10-23 | «Install in DP…» (File, ⌘I; P3): copia a `MOTU/<Fabricante>/` con confirmación, `.middev` propio opcional, copia de seguridad y cómo deshacer. 3 tests (72/72); probado en la app y en DP 11.36 (el modelo sale en la lista y en Master Names) | 7f55a86…e4ebba6 · EXP-021, EXP-022 |
 | T-023 | 2026-10-23 | Asistente Device Setup (File ▸ New): fabricante/modelo con autocompletado desde los `.middev` (sin distinguir mayúsculas), aviso de `.middev`, grupos de canales; documento nuevo válido con un banco vacío por grupo. 4 tests (69/69); probado a mano por el usuario | 45189f5…912fc26 · EXP-020 |
 | T-022 | 2026-10-23 | Import desde otros `.midnam` (Patchlist Importer): ficheros de una carpeta con su Type, listas con destino (mismo nombre, otro banco o «Add as New Bank», P14). 3 tests (65/65); probado a mano por el usuario (2 arreglos) | 8f70157…736c531 · EXP-019 |
