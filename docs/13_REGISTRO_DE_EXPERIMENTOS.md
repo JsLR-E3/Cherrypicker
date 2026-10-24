@@ -830,10 +830,11 @@ valer un resultado.
 
 - **Entorno:** macOS 15.7.9, Mac del proyecto, DP 11.36; árbol de trabajo sobre `bd5ce77`.
 - **Ficheros** (privados, D-004; VÁLIDOS contra la DTD 1.0; en `reference/midnam_trabajo/`):
-  - `LXP-15 II Presets.midnam` (sha256 `d1692c864f8384fc…`) y `LXP-15 I Registers.midnam` (`23e6e03f85513f84…`): los
-    de EXP-032 con «- » cambiado por «├ »/«└ » en banco, `UsesPatchNameList` y `PatchNameList` (`diff`: solo esas líneas).
+  - `LXP-15 II Presets.midnam` (sha256 `93ebf1056a0fb2d1…`) y `LXP-15 I Registers.midnam` (`500543f0384e0742…`): los
+    de EXP-032 con «- » cambiado por «├ »/«└ » y «● » delante de All Presets / All Registers, en banco,
+    `UsesPatchNameList` y `PatchNameList` (`diff`: solo esas líneas).
   - `SPX2000.midnam`: copia del instalado `MOTU/Yamaha/SPX2000.midnam` (sha256 `c463e3246e1c6ddb…`, del usuario; leído
-    con su permiso). `SPX2000 optimizado.midnam` (`036ce9220c0c6e02…`): lo mismo, y «- Samplig» → «└ Sampling». Bank
+    con su permiso). `SPX2000 optimizado.midnam` (`9ce72158f805ebcb…`): lo mismo («● PRESET»), y «- Samplig» → «└ Sampling». Bank
     Select (CC0/CC32 por banco) y patches sin cambios (`diff`: solo nombres de banco).
 - **Instalación (pendiente, la hace el usuario con `sudo`; carpetas de root):** sustituir en `MOTU/Lexicon/` los dos LXP-15
   de EXP-032 (son ficheros de la sesión, no del usuario), añadir `MOTU/Yamaha/SPX2000 optimizado.midnam` junto a su

@@ -17,7 +17,9 @@ Lo que es solo una propuesta va en la tarea o en `docs/remoto/`, no aquí.
 
 - **Decisión:** al organizar los `.midnam` del usuario, un grupo es un banco con todos sus presets seguido de sus
   sub-bancos, cuyo nombre empieza por «├ » (U+251C y espacio) y, el último del grupo, por «└ » (U+2514 y espacio):
-  «Studio», «├ Halls»… «└ Delay/Pitch/Mod». Se aplica a LXP-15 I/II y SPX2000 y es la norma para los siguientes.
+  «Studio», «├ Halls»… «└ Delay/Pitch/Mod». El banco con todos los presets del aparato o de su memoria principal
+  empieza por «● » (U+25CF): «● All Presets», «● PRESET»; los demás bancos padre, sin símbolo. Se aplica a LXP-15 I/II
+  y SPX2000 y es la norma para los siguientes.
 - **Motivo:** DP 11.36 solo muestra un nivel de submenús (EXP-006, EXP-011) y respeta el orden del fichero (EXP-013);
   muestra bien estos símbolos y los espacios iniciales en los nombres de banco (EXP-033). El árbol deja ver qué cuelga
   de qué y dónde acaba el grupo.
