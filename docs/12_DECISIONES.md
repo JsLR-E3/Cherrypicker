@@ -13,6 +13,18 @@ Lo que es solo una propuesta va en la tarea o en `docs/remoto/`, no aquí.
 - **Estado:** vigente · sustituida por D-…
 -->
 
+## D-012 · 2026-10-24 · Guía de uso en inglés en el README y en Help
+
+- **Decisión:** la guía para quien recibe Midnamer (usuarios de DP, sin compilar) está en `README.md`, **en inglés**
+  como la interfaz, y la parte entre `<!-- help:start -->` y `<!-- help:end -->` es la que la app muestra en
+  **Help ▸ Midnamer Help** (⇧⌘?; `tools/empaquetar_app.sh` copia el README en `Resources`). Un solo texto: al cambiar
+  la app se actualiza el README. El resto de la documentación sigue en español; `docs/30` queda como manual detallado.
+- **Motivo:** elección del usuario (destinatario, idioma y sitio) entre propuestas de Claude.
+- **Alternativas descartadas:** guía también en español o solo en español; «Léeme» suelto junto a la app; README
+  solo, sin ayuda en la app; ayuda de Apple (Help Book), más compleja para lo mismo.
+- **Quién:** usuario, 2026-10-24.
+- **Estado:** vigente.
+
 ## D-011 · 2026-10-24 · Nombre Midnamer, icono propio y GPL-3.0
 
 - **Decisión:** la app se llama **Midnamer** (menú, Dock, ejecutable `Midnamer`, `build/Midnamer.app`, identificador

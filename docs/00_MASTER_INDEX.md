@@ -31,7 +31,7 @@ entero). Si falta información, buscarla primero aquí y en `docs/13`, `protocol
 | `15_HISTORIAL.md` | Tareas cerradas, una línea cada una |
 | `16_ARQUITECTURA.md` | Arquitectura de componentes |
 | `20_DISENO_APP.md` | Diseño de la app a partir de CherryPicker: ventanas, flujos, propuestas e inventario de nibs (T-010, borrador) |
-| `30_MANUAL_USUARIO.md` | Manual de usuario (borrador) |
+| `30_MANUAL_USUARIO.md` | Manual de usuario (borrador, detalle en español). La guía para quien recibe la app es `README.md` (inglés, D-012), que la app muestra en Help |
 | `40_IDEA_EDITOR_FX_BCR2000.md` | Idea para un proyecto futuro (tras BCR2000 y Cherrypicker): editor de efectos MIDI con el BCR2000; fuera del alcance |
 | `plantillas/` | Formatos de documentos recurrentes (auditoría, análisis de un componente original) |
 | `remoto/` | Buzones y propuestas de sesiones en paralelo fuera del Mac (índice en `remoto/00_INDICE.md`) |

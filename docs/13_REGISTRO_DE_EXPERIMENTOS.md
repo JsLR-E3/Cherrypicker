@@ -1031,3 +1031,19 @@ valer un resultado.
   escribiendo en `Cherrypicker (CherryPicker).middev`. **Deshacer:** `build/` no se versiona; las preferencias nuevas
   están en el dominio `local.midnamer.app` (`defaults delete local.midnamer.app`).
 - **Estado:** COMPLETADO.
+
+## EXP-042 · 2026-10-24 · Guía de uso y Help ▸ Midnamer Help (T-036, D-012)
+
+- **Objetivo:** que quien reciba la app tenga instrucciones, en el README y dentro de la app.
+- **Entorno:** macOS 15.7.9, Mac del proyecto; app de `tools/empaquetar_app.sh` sobre `af600bd` con el cambio.
+- **Hecho:** `README.md` reescrito en inglés a partir de `docs/30` y de los menús y botones reales del código
+  (requisitos, instalación con «Open Anyway», flujo hasta *Master Names* según EXP-002/EXP-006, pestañas, atajos,
+  qué cambia en el Mac, limitaciones, licencia). `HelpText` (CherryPickerCore) extrae la sección y la parte en bloques;
+  `HelpWindowController` le da formato con el Markdown en línea de Foundation.
+- **Resultado (B):** `swift test` 111/111 (3 nuevos, uno lee el README real); empaquetada con `README.md` en
+  `Resources`. El usuario abrió Help ▸ Midnamer Help y Claude capturó la ventana (`tools/capturar_app.sh`): títulos,
+  listas, negritas y rutas en monoespaciado correctos, en modo oscuro.
+- **Pendiente:** «Requirements» dice Apple silicon porque el ejecutable es solo arm64 (`file`); cambiarlo si se hace
+  universal. Revisar el texto si cambia la app.
+- **Estado:** COMPLETADO.
+

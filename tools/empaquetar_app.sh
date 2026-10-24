@@ -13,6 +13,7 @@ mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
 cp "$bin" "$app/Contents/MacOS/Midnamer"
 sed "s/<string>VERSION<\/string>/<string>$(cat VERSION)<\/string>/" "$pkg/Info.plist" > "$app/Contents/Info.plist"
 plutil -lint "$app/Contents/Info.plist" >/dev/null
+cp README.md "$app/Contents/Resources/README.md"   # Help ▸ Midnamer Help (T-036)
 swift tools/icono/dibujar_icono.swift build/Midnamer.iconset
 iconutil -c icns -o "$app/Contents/Resources/Midnamer.icns" build/Midnamer.iconset
 codesign --force --sign - "$app"

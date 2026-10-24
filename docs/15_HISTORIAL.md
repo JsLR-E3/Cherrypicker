@@ -5,6 +5,7 @@ copia. Se consulta por `grep` (p. ej. `grep T-012 docs/15_HISTORIAL.md`), no se 
 
 | ID | Cerrada | Resultado (y cómo se verificó) | Commit · EXP · D |
 |---|---|---|---|
+| T-036 | 2026-10-24 | Guía de uso en inglés en `README.md`, mostrada también en Help ▸ Midnamer Help; `swift test` 111/111, ventana revisada en captura | (este commit) · D-012, EXP-042 |
 | T-035 | 2026-10-24 | App renombrada a Midnamer: nombre, icono propio dibujado por código, tooltips y avisos del original reescritos, `.middev` antiguo respetado, preferencias migradas; GPL-3.0 confirmada; `swift test` 108/108, comprobado por el usuario | `99478ae` y este commit · D-011, EXP-041 |
 | T-034 | 2026-10-24 | App: File → Open Recent ya muestra los documentos (el menú sin nib necesitaba el nombre `NSRecentDocumentsMenu`); comprobado por el usuario | (este commit) · EXP-040 |
 | T-033 | 2026-10-24 | App: árbol de D-010 en Patch Banks (Indent ⌘→, Outdent ⌘←, Mark as All Patches, prefijos rehechos tras cada cambio, hoja «nombre (padre)» para repetidos, conversión de «- »); `swift test` 108/108, probado por el usuario en la app y en DP | fa55579 · EXP-039 · P22 |

@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-24 · local (`main`) · T-035: la app pasa a llamarse Midnamer, con icono y textos propios y GPL-3.0 (D-011); comprobado por el usuario (EXP-041).
+> Actualizado: 2026-10-24 · local (`main`) · T-035: Midnamer, con icono y textos propios y GPL-3.0 (D-011, EXP-041); T-036: guía en inglés en README y en Help (D-012, EXP-042).
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -11,10 +11,10 @@
 
 ## ESTADO ACTUAL
 
-- **Fases 1 a 6 del roadmap completadas** (`docs/14`). App AppKit `src/CherryPickerApp` (D-006; `swift test` 108/108;
+- **Fases 1 a 6 del roadmap completadas** (`docs/14`). App AppKit `src/CherryPickerApp` (D-006; `swift test` 111/111;
   `tools/empaquetar_app.sh` → `build/Midnamer.app`; nombre, icono y licencia GPL-3.0 de D-011) con todas las pestañas: MIDI (audición y Test Note, D-008),
   Device, Patch Banks, Controllers (D-009; DP no la usa, EXP-027) y Categories; Patch Names con Find, Copy...,
-  arrastre entre documentos y banco nuevo desde la selección (P21); árbol de D-010 en Patch Banks (P22, EXP-039: Indent ⌘→, Outdent ⌘←, Mark as All Patches); asistente New; «Install in DP…». Uso en `docs/30`.
+  arrastre entre documentos y banco nuevo desde la selección (P21); árbol de D-010 en Patch Banks (P22, EXP-039: Indent ⌘→, Outdent ⌘←, Mark as All Patches); asistente New; «Install in DP…». Guía en inglés en `README.md` y en Help (D-012; al cambiar la app, actualizarla); detalle en `docs/30`.
 - Claude ve la app con `tools/capturar_app.sh` (solo ventanas de Midnamer); el usuario la maneja.
 - **Original** en Snow Leopard (Mac mini) para contrastar (EXP-009, EXP-012); allí queda un `.middev` «Prueba / Prueba».
 - **Instalación de prueba que se deja a propósito:** `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/` (EXP-011 a
@@ -62,5 +62,5 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 0. Si llega otro `.midnam` del usuario: como en T-030/T-031 (EXP-030, EXP-031); el árbol de D-010 ya se hace en la
    app (Patch Banks: Convert, ⌘→/⌘←, Mark as All Patches; EXP-039). Manuales en `incoming/` → `reference/manuales/<modelo>/`.
-1. **Con el usuario, decidir el siguiente bloque:** cómo compartir Midnamer (README de uso, versión, firma) o Note Lists (fuera por ahora,
+1. **Con el usuario, decidir el siguiente bloque:** cómo compartir Midnamer (versión, ejecutable universal, firma/notarización, .zip o .dmg) o Note Lists (fuera por ahora,
    docs/20 §7.1). Lo que salga del uso real de la app, como tarea nueva.

@@ -65,6 +65,10 @@ enum MainMenu {
 		NSApplication.shared.windowsMenu = window
 
 		let help = submenu(main, "Help")
+		// La guía del README.md (T-036).
+		let guide = help.addItem(withTitle: "Midnamer Help", action: #selector(HelpWindowController.show(_:)),
+		                         keyEquivalent: "?")
+		guide.target = HelpWindowController.self
 		NSApplication.shared.helpMenu = help
 
 		return main
