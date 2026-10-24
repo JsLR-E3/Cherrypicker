@@ -19,7 +19,7 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 		("name", "Patch Name", 220, .name), ("ascii", "Ascii", 60, .ascii),
 	]
 	/// Patches arrastrados (también desde el Finder): «documento|dispositivo|banco|posición».
-	static let rowType = NSPasteboard.PasteboardType("local.cherrypicker.patchrow")
+	static let rowType = NSPasteboard.PasteboardType("local.midnamer.patchrow")
 
 	static func dragString(document: MidnamDocument, master: Int, bank: String, index: Int) -> String {
 		"\(documentKey(document))|\(master)|\(bank)|\(index)"

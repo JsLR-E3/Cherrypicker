@@ -5,7 +5,7 @@
 Sin instalador todavía. Compilar y montar la app (este Mac, Xcode 26 / Swift 6.2):
 
 ```
-tools/empaquetar_app.sh        # → build/CherryPicker.app (firma ad hoc, no versionado)
+tools/empaquetar_app.sh        # → build/Midnamer.app (firma ad hoc, no versionado)
 ```
 
 Abrir un `.midnam` con **File ▸ Open…** o arrastrándolo a la app. La app no guarda sola: solo con **Save** (⌘S).
@@ -78,7 +78,7 @@ Abrir un `.midnam` con **File ▸ Open…** o arrastrándolo a la app. La app no
 - **Preview:** el XML exacto que se guardará.
 - **Llevarlo a DP: File ▸ Install in DP… (⌘I).** Copia el fichero a `/Library/Audio/MIDI Devices/MOTU/<Fabricante>/`
   con el nombre que verás en *Master Names* y, si el modelo es nuevo, puede añadirlo a «<Fabricante>
-  (CherryPicker).middev» para que salga en la lista de modelos (sin él también funciona si escribes fabricante y
+  (Midnamer).middev» (o al «(CherryPicker).middev» si ya lo tenías) para que salga en la lista de modelos (sin él también funciona si escribes fabricante y
   modelo exactos en Configuración de Audio MIDI). Pide confirmación, guarda copia de lo que sustituye y dice cómo
   deshacerlo. Después, reiniciar DP o volver a elegir el fichero en *Master Names*.
 - **Ventanas:** la del documento se abre donde la dejaste (también en otra pantalla).

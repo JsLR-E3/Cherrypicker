@@ -17,7 +17,7 @@ final class MIDIOut {
 	private(set) var error: OSStatus = noErr
 
 	private init() {
-		error = MIDIClientCreateWithBlock("CherryPicker" as CFString, &client) { _ in
+		error = MIDIClientCreateWithBlock("Midnamer" as CFString, &client) { _ in
 			DispatchQueue.main.async { NotificationCenter.default.post(name: MIDIOut.destinationsDidChange, object: nil) }
 		}
 		if error == noErr { error = MIDIOutputPortCreate(client, "Audition" as CFString, &port) }

@@ -1011,3 +1011,24 @@ valer un resultado.
   «CP Arbol prueba» (A). Antes salía vacío (EXP-039).
 - **Estado:** COMPLETADO.
 
+## EXP-041 · 2026-10-24 · Midnamer: nombre, icono y textos propios (T-035, D-011)
+
+- **Objetivo:** quitar de la app el nombre, el icono y las frases del original antes de compartirla (D-007).
+- **Entorno:** macOS 15.7.9, Mac del proyecto; Swift de Xcode 26; app de `tools/empaquetar_app.sh` sobre `22a61ac` con
+  el cambio.
+- **Textos:** se compararon los literales de 12 o más caracteres de `src/CherryPickerApp/Sources` con `strings` de los
+  nibs y del ejecutable de `reference/app_3.0` (sin copiar nada de ellos): 71 coincidencias. Casi todas son etiquetas
+  cortas (títulos de hoja, botones, columnas, opciones), nombres del formato (`Manufacturer`, `BankSelectMSB`…, DOCTYPE)
+  o el nombre de la app; se mantienen. Reescritas, por ser frases (tooltips y avisos): los 5 tooltips de la hoja de
+  banco nuevo, la nota de Merge (tecla Opción), «(Add disabled…)» de Device, las dos preguntas y la ayuda del asistente
+  New y el aviso de búsqueda del importador.
+- **Resultado (B):** `swift test` 108/108 (incluye el `.middev` antiguo/nuevo); `tools/empaquetar_app.sh` monta
+  `build/Midnamer.app` con ejecutable `Midnamer`, `Midnamer.icns` (10 tamaños, `iconutil`), `CFBundleIdentifier`
+  `local.midnamer.app` y firma válida (`codesign -v`). La app arranca; CPU en reposo 0,0 % y 13 MB (`top`). El icono a
+  512 y 32 px revisado en PNG.
+- **Falta (usuario, A):** ver el icono en el Dock y el menú «Midnamer», que Device, MIDI (salida y canal de audición) y
+  Categories conservan lo de antes (migración de preferencias) e «Install in DP…» sobre `MOTU/Cherrypicker/` siga
+  escribiendo en `Cherrypicker (CherryPicker).middev`. **Deshacer:** `build/` no se versiona; las preferencias nuevas
+  están en el dominio `local.midnamer.app` (`defaults delete local.midnamer.app`).
+- **Estado:** PENDIENTE-LOCAL.
+

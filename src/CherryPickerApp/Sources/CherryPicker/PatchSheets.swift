@@ -113,7 +113,7 @@ final class RenumberSheet: SheetController {
 /// Renumber. Los ajustes se recuerdan.
 final class CopyFieldsSheet: SheetController, NSTableViewDataSource, NSTableViewDelegate {
 	private static let defaultsKey = "copyFields"
-	private static let rowType = NSPasteboard.PasteboardType("local.cherrypicker.copyfield")
+	private static let rowType = NSPasteboard.PasteboardType("local.midnamer.copyfield")
 
 	private let checks = PatchExport.Field.allCases.map { NSButton(checkboxWithTitle: $0.title, target: nil, action: nil) }
 	private let orderTable = NSTableView()

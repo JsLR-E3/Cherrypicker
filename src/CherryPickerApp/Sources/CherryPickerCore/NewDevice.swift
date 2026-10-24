@@ -99,7 +99,7 @@ public extension MidnamFile {
 		<!DOCTYPE MIDINameDocument PUBLIC "-//MIDI Manufacturers Association//DTD MIDINameDocument 1.0//EN" "http://www.midi.org/dtds/MIDINameDocument10.dtd">
 
 		<MIDINameDocument>
-			<Author>CherryPicker</Author>
+			<Author>Midnamer</Author>
 			<MasterDeviceNames>
 				<Manufacturer>M</Manufacturer>
 				<Model>M</Model>

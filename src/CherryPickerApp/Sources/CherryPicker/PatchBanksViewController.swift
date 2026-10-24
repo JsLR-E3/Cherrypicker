@@ -23,7 +23,7 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		("name", "Patch Bank", 120), ("num", "#", 36), ("channels", "Channel Set", 130),
 	]
 	/// Bancos arrastrados: «documento|dispositivo|banco».
-	private static let rowType = NSPasteboard.PasteboardType("local.cherrypicker.bankrow")
+	private static let rowType = NSPasteboard.PasteboardType("local.midnamer.bankrow")
 
 	private let document: MidnamDocument
 	private var rows: [BankRow] = []
@@ -385,7 +385,7 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		guard refs.count > 1, let w = view.window, let model = document.model else { return }
 		let master = refs[0].master
 		let sheet = AddBankSheet(channelSets: model.channelSets(master: master), selectedSet: refs[0].set,
-		                         title: "Name for Merged Bank", note: "(Use <Option Add> to keep original banks)") { [weak self] name in
+		                         title: "Name for Merged Bank", note: "(Hold Option when clicking Add to also keep the banks being merged)") { [weak self] name in
 			self?.document.model?.isBankNameAvailable(name, master: master) ?? false
 		}
 		sheet.onCommit = { [weak self] set, name, bs0, bs32 in

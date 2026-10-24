@@ -8,7 +8,14 @@ final class InstallInDPTests: XCTestCase {
 	func testNames() {
 		XCTAssertEqual(InstallInDP.folder(manufacturer: "TC Electronic").path, "/Library/Audio/MIDI Devices/MOTU/TC Electronic")
 		XCTAssertEqual(InstallInDP.folder(manufacturer: "A/B:C").lastPathComponent, "A-B-C")
-		XCTAssertEqual(InstallInDP.middevName(manufacturer: "Roland"), "Roland (CherryPicker).middev")
+		XCTAssertEqual(InstallInDP.middevName(manufacturer: "Roland"), "Roland (Midnamer).middev")
+		// D-011: si solo existe el del nombre anterior, se sigue usando; si existe el nuevo (o ninguno), el nuevo.
+		let folder = URL(fileURLWithPath: "/x/Roland")
+		let legacy = folder.appendingPathComponent("Roland (CherryPicker).middev")
+		let current = folder.appendingPathComponent("Roland (Midnamer).middev")
+		XCTAssertEqual(InstallInDP.middevURL(manufacturer: "Roland", in: folder, exists: { $0 == legacy }), legacy)
+		XCTAssertEqual(InstallInDP.middevURL(manufacturer: "Roland", in: folder, exists: { _ in true }), current)
+		XCTAssertEqual(InstallInDP.middevURL(manufacturer: "Roland", in: folder, exists: { _ in false }), current)
 		XCTAssertEqual(InstallInDP.midnamName("Mi módulo.midnam"), "Mi módulo.midnam")
 		XCTAssertEqual(InstallInDP.midnamName(" Banco/1 "), "Banco-1.midnam")
 		XCTAssertEqual(InstallInDP.midnamName(""), "Untitled.midnam")

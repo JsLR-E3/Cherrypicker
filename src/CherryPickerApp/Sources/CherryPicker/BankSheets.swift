@@ -118,10 +118,10 @@ final class AddBankSheet: SheetController, NSTextFieldDelegate {
 			channelSet.lastItem?.tag = s.index
 		}
 		if let sel = selectedSet { channelSet.selectItem(withTag: sel) }
-		channelSet.toolTip = "Set of channels that the new bank will play on"
-		name.toolTip = "Name must be entered and unique"
-		bs0.toolTip = "Bank Select 0 value, or '-' if not used"
-		bs32.toolTip = "Bank Select 32 value, or '-' if not used"
+		channelSet.toolTip = "Channels the new bank plays on"
+		name.toolTip = "Required, and different from the other banks"
+		bs0.toolTip = "CC 0 (MSB) value, or “-” for none"
+		bs32.toolTip = "CC 32 (LSB) value, or “-” for none"
 		// Orden del original (EXP-009): Name; B Sel0 y B Sel32 en una fila; Channel Set.
 		var rows: [[NSView]] = [
 			[Self.label("Name"), name],
@@ -135,7 +135,7 @@ final class AddBankSheet: SheetController, NSTextFieldDelegate {
 			rows.append([l])
 		}
 		super.init(title: title, rows: rows, okTitle: "Add")
-		okButton.toolTip = "Enabled if there is a valid bank name"
+		okButton.toolTip = "Available once the bank has a valid name"
 		name.delegate = self
 		validate()
 	}

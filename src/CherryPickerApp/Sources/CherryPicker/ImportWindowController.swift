@@ -150,7 +150,7 @@ final class ImportWindowController: NSWindowController, NSTableViewDataSource, N
 			return
 		}
 		progress.startAnimation(nil)
-		progressLabel.stringValue = "Searching for compatible files..."
+		progressLabel.stringValue = "Looking for files to import…"
 		let own = midnam.fileURL?.standardizedFileURL
 		DispatchQueue.global(qos: .userInitiated).async {
 			var found: [(URL, String)] = []

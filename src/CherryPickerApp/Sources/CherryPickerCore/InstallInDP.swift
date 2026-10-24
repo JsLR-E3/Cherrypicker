@@ -3,7 +3,8 @@
 // añadirlo a uno propio de la app para que salga en las listas de DP y de Configuración de Audio MIDI. El `.middev` no
 // es imprescindible: con fabricante y modelo escritos a mano, exactos, DP usa el fichero igual (EXP-021).
 // Nunca se modifican los `.middev` de MOTU, Digidesign o Apple: la app solo escribe en el suyo,
-// «<Fabricante> (CherryPicker).middev», que se puede borrar para deshacer.
+// «<Fabricante> (Midnamer).middev», que se puede borrar para deshacer. Los instalados antes del cambio de nombre
+// (D-011) se llaman «<Fabricante> (CherryPicker).middev»: si existe, se sigue usando ese, para no repartir los modelos.
 import Foundation
 import MidnamKit
 
@@ -16,7 +17,15 @@ public enum InstallInDP {
 
 	/// Nombre del `.middev` propio de la app para el fabricante.
 	public static func middevName(manufacturer: String) -> String {
-		"\(safeFileName(manufacturer)) (CherryPicker).middev"
+		"\(safeFileName(manufacturer)) (Midnamer).middev"
+	}
+
+	/// El `.middev` propio en `folder`: el del nombre anterior si ya existe y el nuevo no, si no el nuevo.
+	public static func middevURL(manufacturer: String, in folder: URL,
+	                             exists: (URL) -> Bool = { FileManager.default.fileExists(atPath: $0.path) }) -> URL {
+		let current = folder.appendingPathComponent(middevName(manufacturer: manufacturer))
+		let legacy = folder.appendingPathComponent("\(safeFileName(manufacturer)) (CherryPicker).middev")
+		return !exists(current) && exists(legacy) ? legacy : current
 	}
 
 	/// Nombre del `.midnam`: es lo que DP muestra en *Master Names* (EXP-006).
@@ -53,7 +62,7 @@ public enum InstallInDP {
 		<!DOCTYPE MIDIDeviceTypes PUBLIC "-//MIDI Manufacturers Association//DTD MIDIDeviceTypes 0.3//EN" "http://www.sonosphere.com/dtds/MIDIDeviceTypes.dtd">
 
 		<MIDIDeviceTypes>
-			<Author>CherryPicker</Author>
+			<Author>Midnamer</Author>
 		\(entry)</MIDIDeviceTypes>
 
 		"""

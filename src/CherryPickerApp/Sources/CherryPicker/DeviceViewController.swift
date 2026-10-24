@@ -18,7 +18,7 @@ final class DeviceViewController: NSViewController, NSTableViewDataSource, NSTab
 	private let removeSetButton = NSButton()
 	private let activeChannels = NSTextField(string: "")
 	private let auditionChannel = NSTextField(string: "")
-	private let addDisabledNote = NSTextField(labelWithString: "(Add disabled: No free channels in mode)")
+	private let addDisabledNote = NSTextField(labelWithString: "(Add is off: every channel of the mode is already in a set)")
 	private var modes: [(index: Int, name: String)] = []
 	private var sets: [ChannelSetRow] = []
 

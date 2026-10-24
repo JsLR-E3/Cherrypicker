@@ -6,17 +6,17 @@ enum MainMenu {
 	static func build() -> NSMenu {
 		let main = NSMenu()
 
-		let app = submenu(main, "CherryPicker")
-		app.addItem(withTitle: "About CherryPicker",
+		let app = submenu(main, "Midnamer")
+		app.addItem(withTitle: "About Midnamer",
 		            action: #selector(NSApplication.orderFrontStandardAboutPanel(_:)), keyEquivalent: "")
 		app.addItem(.separator())
-		app.addItem(withTitle: "Hide CherryPicker", action: #selector(NSApplication.hide(_:)), keyEquivalent: "h")
+		app.addItem(withTitle: "Hide Midnamer", action: #selector(NSApplication.hide(_:)), keyEquivalent: "h")
 		let others = app.addItem(withTitle: "Hide Others",
 		                         action: #selector(NSApplication.hideOtherApplications(_:)), keyEquivalent: "h")
 		others.keyEquivalentModifierMask = [.command, .option]
 		app.addItem(withTitle: "Show All", action: #selector(NSApplication.unhideAllApplications(_:)), keyEquivalent: "")
 		app.addItem(.separator())
-		app.addItem(withTitle: "Quit CherryPicker", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+		app.addItem(withTitle: "Quit Midnamer", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
 
 		let file = submenu(main, "File")
 		file.addItem(withTitle: "New", action: #selector(NSDocumentController.newDocument(_:)), keyEquivalent: "n")

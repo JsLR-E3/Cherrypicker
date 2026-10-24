@@ -139,7 +139,7 @@ final class SetupWizardController: NSWindowController, NSComboBoxDelegate, NSCom
 		grid.column(at: 0).xPlacement = .trailing
 		grid.rowSpacing = 8
 		return Self.stack([grid, closeMatchLabel,
-		                   Self.note("Type or select entry from list. Use <tab> <return> or <enter> to set.")])
+		                   Self.note("Choose a name from the list or type a new one; Tab or Return confirms it.")])
 	}
 
 	private func stepMiddev() -> NSView {
@@ -155,9 +155,9 @@ final class SetupWizardController: NSWindowController, NSComboBoxDelegate, NSCom
 		yes.state = .on
 		numSets.widthAnchor.constraint(equalToConstant: 40).isActive = true
 		numSets.delegate = self
-		let count = NSStackView(views: [NSTextField(labelWithString: "How many distinct sets of channels are there?"), numSets])
+		let count = NSStackView(views: [NSTextField(labelWithString: "How many groups of channels are there?"), numSets])
 		return Self.stack([
-			NSTextField(labelWithString: "Do all patch banks play on all channels?"),
+			NSTextField(labelWithString: "Do all the banks play on every channel?"),
 			NSStackView(views: [yes, no]),
 			Self.note("Some synths reserve special channels for specific uses. For example, Roland often uses channel 10 for drums."),
 			count,
@@ -262,7 +262,7 @@ final class SetupWizardController: NSWindowController, NSComboBoxDelegate, NSCom
 		if let e = entries.first(where: { $0.manufacturer == m && $0.model == mo }) {
 			middevLabel.stringValue = "“\(m) \(mo)” is in the middev file:\n\(e.file.path)\n\nDigital Performer will show the patch names for this model."
 		} else {
-			middevLabel.stringValue = "There is no middev entry for “\(m) \(mo)” yet.\n\nDigital Performer only shows patch names for models that are in a middev file. CherryPicker does not change the MIDI Devices folder by itself: the entry has to be added before using the file in Digital Performer."
+			middevLabel.stringValue = "There is no middev entry for “\(m) \(mo)” yet.\n\nDigital Performer only shows patch names for models that are in a middev file. Midnamer does not change the MIDI Devices folder by itself: the entry has to be added before using the file in Digital Performer."
 		}
 	}
 
@@ -285,7 +285,7 @@ final class SetupWizardController: NSWindowController, NSComboBoxDelegate, NSCom
 		}
 		let match = closeMatch(m, in: manufacturers).map { "Manufacturer: \($0)" }
 			?? closeMatch(model.stringValue, in: models).map { "Model: \($0)" }
-		closeMatchLabel.stringValue = match.map { "CherryPicker found a close match (cases were different) — \($0)" } ?? ""
+		closeMatchLabel.stringValue = match.map { "Midnamer found a close match (cases were different) — \($0)" } ?? ""
 		updateNext()
 	}
 

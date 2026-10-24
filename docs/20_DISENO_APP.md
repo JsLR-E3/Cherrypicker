@@ -114,7 +114,7 @@ el bloque «Audition Riff» (§7).
 | Hoja (nib) | Cuándo | Contenido |
 |---|---|---|
 | Add a Single Bank (BankSheet) | + en Patch Banks | «Channel Set», «Name» (único), «B Sel0», «B Sel32» (`-` = no se usa), «Cancel» / «Add» |
-| Name for Merged Bank (MergeSheet) | Merge | Igual; «(Use <Option Add> to keep original banks)» |
+| Name for Merged Bank (MergeSheet) | Merge | Igual; nota con la tecla Opción reescrita (D-011) |
 | Bank Selects (BankSelectSheet) | Doble clic en S0/S32 o en su cabecera con varios bancos | «Apply to all patches» / «Apply ONLY to patches without Bank Selects» / «Apply Only to patches with Bank Selects», «B Sel 0», «B Sel 32» |
 | Channel Set de varios bancos | Clic en la cabecera «Channel Set» | Popup de Channel Set (deducido del manual) |
 | New Channel Set (AddChSet) | + en Channel Sets | «Name», «Channels» (`1-9, 11-16`), «Free:» |

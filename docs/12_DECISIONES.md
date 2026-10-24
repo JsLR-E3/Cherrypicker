@@ -13,6 +13,24 @@ Lo que es solo una propuesta va en la tarea o en `docs/remoto/`, no aquí.
 - **Estado:** vigente · sustituida por D-…
 -->
 
+## D-011 · 2026-10-24 · Nombre Midnamer, icono propio y GPL-3.0
+
+- **Decisión:** la app se llama **Midnamer** (menú, Dock, ejecutable `Midnamer`, `build/Midnamer.app`, identificador
+  `local.midnamer.app`, copias en `~/Library/Application Support/Midnamer/Backups/`, `.middev` propio
+  «<Fabricante> (Midnamer).middev», `<Author>Midnamer</Author>` en los ficheros nuevos). El proyecto, el repositorio y
+  los módulos de Swift (`CherryPickerApp`, `CherryPickerCore`) conservan su nombre: son internos. Si en una carpeta de
+  DP ya existe el `.middev` del nombre anterior «(CherryPicker)», la app sigue escribiendo en ese, para no repartir los
+  modelos en dos ficheros. Las preferencias del identificador anterior se copian una vez al nuevo (Open Recent no).
+  Icono propio dibujado por código (`tools/icono/dibujar_icono.swift`: lista de nombres y conector MIDI DIN de 5
+  pines), generado al empaquetar. Licencia del repositorio: **GPL-3.0** (`LICENSE`, la que ya estaba). Las frases del
+  original que la app usaba como tooltips o avisos se reescriben (EXP-041); las etiquetas cortas (títulos, botones,
+  opciones) se mantienen (regla 10).
+- **Motivo:** D-007 (CherryPicker y su cereza son de Alterspective); elección del usuario entre propuestas de Claude.
+- **Alternativas descartadas:** PatchNamer, «Bank & Patch»; licencia MIT o sin licencia libre; renombrar también los
+  módulos y la carpeta del paquete (cambio grande sin efecto visible).
+- **Quién:** usuario (nombre, icono hecho por Claude, licencia), 2026-10-24.
+- **Estado:** vigente.
+
 ## D-010 · 2026-10-24 · Sub-bancos en árbol en los `.midnam` del usuario
 
 - **Decisión:** al organizar los `.midnam` del usuario, un grupo es un banco con todos sus presets seguido de sus
@@ -74,7 +92,7 @@ Lo que es solo una propuesta va en la tarea o en `docs/remoto/`, no aquí.
 ## D-006 · 2026-10-20 · La app se hace con AppKit (macOS 13 o posterior)
 
 - **Decisión:** app AppKit (NSDocument, NSTableView, hojas), construida en código sin nibs, como paquete Swift
-  (`src/CherryPickerApp`) que depende de MidnamKit; `tools/empaquetar_app.sh` monta `build/CherryPicker.app` con firma
+  (`src/CherryPickerApp`) que depende de MidnamKit; `tools/empaquetar_app.sh` monta `build/CherryPicker.app` (hoy `Midnamer.app`, D-011) con firma
   ad hoc. Versión mínima: macOS 13, igual que MidnamKit.
 - **Motivo:** el original es AppKit (sus 26 nibs), así que las ventanas se traducen casi una a una (regla 10); las
   tablas de AppKit resuelven edición de celdas, arrastrar entre ventanas, clic en cabecera y deshacer, que en SwiftUI
