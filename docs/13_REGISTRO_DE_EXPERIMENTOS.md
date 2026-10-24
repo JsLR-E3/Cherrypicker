@@ -672,7 +672,16 @@ valer un resultado.
     (`dp_menu_insert.png`).
   - «Other Controller…»: diálogo «Enter Controller» que pide un número («Enter controller number for insertion
     (0-121)»), sin lista ni nombres (`dp_other_controller.png`).
+  - *Setup ▸ Legend ▸ MIDI Controller Names*, con la pista en «CP Patches» / «CP Controles»: nombres de la
+    especificación (7 volume, 12 Effect Control 1 (coarse), 13 Effect Control 2 (coarse)…), ninguno del fichero
+    (`dp_legend_controller_names.png`).
+- **Manual** (*Digital Performer User Guide* de DP 11, PDF en el proyecto TASCAM FW1884,
+  `reference/Manuales/DP11/`, leído allí y pasado a texto en el scratchpad para buscar, sin copiarlo): no menciona
+  MIDNAM ni nombres de controladores por dispositivo; los nombres de instrumento solo salen para patches («The patch
+  list», p. 147) y notas (Drum Editor). El menú Insert (p. 400) solo dice que inserta cualquier dato MIDI. La Legend
+  (p. 362) lista los 128 controladores con su nombre de la especificación «y los personalizados», sin decir dónde se
+  personalizan; «Cont. Data Icons» (p. 441) solo trata iconos y colores.
 - **Conclusión:** DP 11.36 lee el fichero, pero no muestra los nombres de `ControlNameList` en el menú de
-  controladores ni en «Other Controller…». Junto con EXP-006, en los sitios mirados DP no usa los controles con
-  nombre. Sin mirar: la lista de controladores del editor de la pista y los lanes de automatización.
+  controladores, en «Other Controller…» ni en la Legend, y el manual no los menciona. Junto con EXP-006, DP no usa los
+  controles con nombre. Sin mirar: los lanes de automatización del editor.
 - **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»).
