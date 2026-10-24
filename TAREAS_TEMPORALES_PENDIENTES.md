@@ -11,10 +11,10 @@
 
 ## ESTADO ACTUAL
 
-- **Fases 1 a 6 del roadmap completadas** (`docs/14`). App AppKit `src/CherryPickerApp` (D-006; `swift test` 92/92;
+- **Fases 1 a 6 del roadmap completadas** (`docs/14`). App AppKit `src/CherryPickerApp` (D-006; `swift test` 94/94;
   `tools/empaquetar_app.sh` → `build/CherryPicker.app`) con todas las pestañas: MIDI (audición y Test Note, D-008),
-  Device, Patch Banks, Controllers (D-009; DP no la usa, EXP-027) y Categories; Patch Names con Find, Copy... y
-  arrastre entre documentos; asistente New; «Install in DP…». Uso en `docs/30`.
+  Device, Patch Banks, Controllers (D-009; DP no la usa, EXP-027) y Categories; Patch Names con Find, Copy...,
+  arrastre entre documentos y banco nuevo desde la selección (P21); asistente New; «Install in DP…». Uso en `docs/30`.
 - Claude ve la app con `tools/capturar_app.sh` (solo ventanas de CherryPicker); el usuario la maneja.
 - **Original** en Snow Leopard (Mac mini) para contrastar (EXP-009, EXP-012); allí queda un `.middev` «Prueba / Prueba».
 - **Instalación de prueba que se deja a propósito:** `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/` (EXP-011 a
@@ -24,7 +24,7 @@
 
 ## EN PROGRESO
 
-- —
+- T-029: uso de la app con los `.midnam` reales del usuario (copias en el scratchpad de la sesión).
 
 ## PENDIENTE DE VALIDACIÓN LOCAL
 
@@ -38,10 +38,17 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
+| T-029 | A | EN PROGRESO | Usar la app con los 6 `.midnam` reales (copias) y anotar fallos y carencias | — | Ficha T-029. Hecho: casilla P, columnas, posición de la lista de patches, P21 (EXP-029). Falta: comprobar «New Bank from Selection» al final y seguir usándola |
 
 ## Fichas
 
-- —
+- **T-029 · Uso real.** Copias de `reference/midnam_usuario/` (6 ficheros) en el scratchpad, VÁLIDAS contra la DTD
+  1.0; la ida y vuelta ya la cubre EXP-003 (la app guarda con el mismo `XMLWriter`). El usuario abre cada copia en
+  `build/CherryPicker.app` y recorre pestañas: Device, Patch Banks (bancos grandes: M3000 1112 presets, PCM-81 900),
+  Patch Names (Find, Copy..., editar un nombre), Categories, MIDI (audición, solo con su permiso, D-008), guardar y
+  volver a abrir. Claude mira con `tools/capturar_app.sh`, valida lo guardado con `tools/validar_midnam.sh` y compara
+  con el original (`diff`, solo recuentos y estructura en el registro, D-004). Criterio: lista de hallazgos en EXP-029,
+  cada uno con tarea propia o descartado con el usuario.
 
 ## SIGUIENTE PASO EXACTO
 

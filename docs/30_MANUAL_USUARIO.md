@@ -29,7 +29,10 @@ Abrir un `.midnam` con **File ▸ Open…** o arrastrándolo a la app. La app no
   («Patch Delimiter»). **−** o Supr borran; **Renumber** numera todos o los seleccionados. Arrastrar reordena; a la
   ventana de otro banco, del mismo fichero o de otro abierto, copia (cada preset sigue sonando con su bank select). **Find** filtra por
   nombre y «Count:» cuenta lo que se ve; en el menú de la lupa, «Select Matches» selecciona los que coinciden sin
-  ocultar el resto (para arrastrarlos todos de una vez a otro banco). El modo elegido se recuerda.
+  ocultar el resto (para arrastrarlos todos de una vez a otro banco). El modo elegido se recuerda. Con el botón
+  derecho (o Edit ▸ «New Bank from Selection…»), los seleccionados se copian a un banco nuevo al final de su Channel
+  Set; también se pueden soltar en la lista de bancos: entre dos bancos crea uno nuevo ahí, encima de un banco los
+  añade al final.
 - **Patch Banks, más botones:** **Merge** (con dos o más bancos) junta sus presets en un banco nuevo y borra los
   originales (con Option al pulsar «Add», los conserva). **Zap Dups** borra los presets repetidos: con bancos
   seleccionados, conserva esos y borra los repetidos de los demás bancos de su Channel Set; sin selección, borra de

@@ -48,6 +48,10 @@ enum MainMenu {
 		edit.addItem(withTitle: "Paste", action: #selector(NSText.paste(_:)), keyEquivalent: "v")
 		edit.addItem(withTitle: "Delete", action: #selector(NSText.delete(_:)), keyEquivalent: "")
 		edit.addItem(withTitle: "Select All", action: #selector(NSText.selectAll(_:)), keyEquivalent: "a")
+		edit.addItem(.separator())
+		// [PROPUESTA P21] Lista de patches: banco nuevo con los seleccionados.
+		edit.addItem(withTitle: "New Bank from Selection…",
+		             action: #selector(PatchWindowController.newBankFromSelection(_:)), keyEquivalent: "")
 
 		let window = submenu(main, "Window")
 		window.addItem(withTitle: "Minimize", action: #selector(NSWindow.performMiniaturize(_:)), keyEquivalent: "m")

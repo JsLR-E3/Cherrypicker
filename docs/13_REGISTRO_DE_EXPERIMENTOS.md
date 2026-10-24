@@ -707,3 +707,27 @@ valer un resultado.
 - **No visto en la app:** el `UsesControlNameList` dentro de «Melodicos» en Preview (fuera de la captura; lo cubre el
   test de posición y la validación DTD).
 - **Conclusión:** la pestaña funciona como se diseñó. **Estado:** COMPLETADO.
+
+## EXP-029 · 2026-10-24 · Uso con los `.midnam` reales del usuario (T-029)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto; árbol de trabajo sobre `0029202`; `build/CherryPicker.app` de
+  `tools/empaquetar_app.sh`. Documentos: copias en el scratchpad de los 6 ficheros de `reference/midnam_usuario/`
+  (privados, D-004; originales sin tocar), los 6 VÁLIDOS contra la DTD 1.0 con `tools/validar_midnam.sh`. Lo maneja
+  el usuario; Claude mira con `tools/capturar_app.sh` (A).
+- **Se abren bien** DSP-128 Plus, PCM-91 y M3000 (bancos, bank select y recuentos coherentes con EXP-003).
+- **Hallazgos del usuario y arreglos:**
+  - Botón **P** demasiado grande: ahora cuadrado de 13 pt centrado; las celdas de Patch Banks se centran en vertical
+    (el texto del popup Channel Set salía más bajo que el resto).
+  - Columna **Channel Set** fuera de la ventana al abrir (había que redimensionar): «Patch Bank» empieza con 120 pt y
+    se ensancha sola.
+  - La lista de patches se abría **encima de la principal** cuando no cabía a la derecha: ahora prueba a la derecha,
+    luego a la izquierda y solo después encima.
+  - Para copiar parte de un banco a uno nuevo había que crearlo antes: **P21** («New Bank from Selection…» y soltar
+    patches en Patch Banks). Primera versión: el banco iba debajo del de origen; el usuario lo prefirió al final del
+    Channel Set, como + y Find.
+- **Tests:** `swift test` → 94/94 (2 nuevos en `TransferTests`: banco nuevo con patches de otro documento, en medio o al
+  final, y nombre ocupado).
+- **Probado por el usuario:** menú contextual (OK; el cambio al final del Channel Set, sin probar aún en la app), arrastre de patches a Patch Banks
+  (OK), Tab al renombrar bancos tras el cambio de celdas (OK).
+- **Estado:** EN CURSO (T-029 sigue: más uso real).
+

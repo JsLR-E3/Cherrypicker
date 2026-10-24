@@ -15,7 +15,7 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 	/// Identificador y cabecera de cada columna, como en el nib; ancho inicial.
 	private static let columns: [(id: String, title: String, width: CGFloat)] = [
 		("open", "P", 24), ("bs0", "S0", 40), ("bs32", "S32", 40),
-		("name", "Patch Bank", 200), ("num", "#", 36), ("channels", "Channel Set", 130),
+		("name", "Patch Bank", 120), ("num", "#", 36), ("channels", "Channel Set", 130),
 	]
 	/// Bancos arrastrados: «documento|dispositivo|banco».
 	private static let rowType = NSPasteboard.PasteboardType("local.cherrypicker.bankrow")
@@ -54,7 +54,7 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		table.delegate = self
 		table.target = self
 		table.doubleAction = #selector(doubleClick(_:))
-		table.registerForDraggedTypes([Self.rowType])
+		table.registerForDraggedTypes([Self.rowType, PatchWindowController.rowType])
 		table.setDraggingSourceOperationMask([.move, .copy], forLocal: true)
 
 		let scroll = NSScrollView()
@@ -158,7 +158,7 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 			field.textColor = Self.color(r.kind)
 			field.delegate = self
 			field.tag = row
-			return field
+			return Self.cell(field)
 		case "channels":
 			let sets = document.model?.channelSets(master: r.ref.master) ?? []
 			let popup = NSPopUpButton()
@@ -172,14 +172,23 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 			popup.tag = row
 			popup.target = self
 			popup.action = #selector(channelSetChanged(_:))
-			return popup
+			return Self.cell(popup)
 		case "open":
-			// Botón cuadrado del original: abre la lista de patches del banco.
+			// Botón cuadrado del original: abre la lista de patches del banco. Pequeño y centrado (T-029: el que
+			// llenaba la celda se veía basto).
 			let b = NSButton(title: "", target: self, action: #selector(openPatches(_:)))
 			b.bezelStyle = .smallSquare
+			b.controlSize = .mini
 			b.tag = row
 			b.isEnabled = r.patchCount != nil
-			return b
+			b.translatesAutoresizingMaskIntoConstraints = false
+			let c = NSView()
+			c.addSubview(b)
+			NSLayoutConstraint.activate([
+				b.widthAnchor.constraint(equalToConstant: 13), b.heightAnchor.constraint(equalToConstant: 13),
+				b.centerXAnchor.constraint(equalTo: c.centerXAnchor), b.centerYAnchor.constraint(equalTo: c.centerYAnchor),
+			])
+			return c
 		default:
 			let text: String
 			switch id {
@@ -192,8 +201,24 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 			let field = NSTextField(labelWithString: text)
 			field.lineBreakMode = .byTruncatingTail
 			if id == "open" { field.textColor = .tertiaryLabelColor }
-			return field
+			return Self.cell(field)
 		}
+	}
+
+	/// Celda con la vista centrada en vertical, para que el texto de todas las columnas quede a la misma altura
+	/// (T-029: el del popup de Channel Set salía más bajo). Un campo de texto queda como `textField` de la celda, que
+	/// es el que edita `editColumn`.
+	private static func cell(_ v: NSView) -> NSView {
+		let c = NSTableCellView()
+		if let field = v as? NSTextField { c.textField = field }
+		v.translatesAutoresizingMaskIntoConstraints = false
+		c.addSubview(v)
+		NSLayoutConstraint.activate([
+			v.leadingAnchor.constraint(equalTo: c.leadingAnchor, constant: 2),
+			v.trailingAnchor.constraint(equalTo: c.trailingAnchor, constant: -2),
+			v.centerYAnchor.constraint(equalTo: c.centerYAnchor),
+		])
+		return c
 	}
 
 	static func color(_ kind: BankKind) -> NSColor {
@@ -443,8 +468,73 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 		return (anchor.master, anchor.set, position)
 	}
 
+	/// [PROPUESTA P21] Patches arrastrados desde listas o el Finder de cualquier documento, con su banco resuelto.
+	private func draggedPatchSources(_ info: NSDraggingInfo)
+		-> (document: MidnamDocument, model: MIDINameDocument, sources: [(bank: BankRef, index: Int)])? {
+		guard let d = PatchWindowController.draggedPatches(info.draggingPasteboard), let model = d.document.model
+		else { return nil }
+		let refs = Dictionary(BankRows.rows(model).filter { $0.ref.master == d.master }.map { ($0.name, $0.ref) },
+		                      uniquingKeysWith: { a, _ in a })
+		let sources = d.patches.compactMap { p in refs[p.bankName].map { (bank: $0, index: p.index) } }
+		guard sources.count == d.patches.count else { return nil }
+		return (d.document, model, sources)
+	}
+
+	/// Patches soltados encima de un banco (se añaden al final) o entre bancos (banco nuevo en ese punto). Dentro del
+	/// mismo documento, solo en su dispositivo; sobre su propio banco, nada (ya están ahí).
+	private func validatePatchDrop(_ info: NSDraggingInfo, row: Int, on: Bool) -> NSDragOperation {
+		guard let d = draggedPatchSources(info) else { return [] }
+		if on {
+			guard rows.indices.contains(row), rows[row].patchCount != nil else { return [] }
+			let target = rows[row].ref
+			if d.document === document,
+			   d.sources.contains(where: { $0.bank.master != target.master || $0.bank == target }) { return [] }
+			return .copy
+		}
+		guard let t = copyTarget(dropRow: row) else { return [] }
+		if d.document === document, d.sources.contains(where: { $0.bank.master != t.master }) { return [] }
+		return .copy
+	}
+
+	private func acceptPatchDrop(_ info: NSDraggingInfo, row: Int, on: Bool) -> Bool {
+		guard validatePatchDrop(info, row: row, on: on) == .copy, let d = draggedPatchSources(info) else { return false }
+		if on {
+			let target = rows[row].ref
+			edit("Copy Patches") { try $0.copyPatches(d.sources, from: d.model, to: target) }
+			return true
+		}
+		guard let t = copyTarget(dropRow: row) else { return false }
+		// La hoja se abre después de terminar el arrastre.
+		DispatchQueue.main.async { [weak self] in self?.addBankWithPatches(d.sources, from: d.model, at: t) }
+		return true
+	}
+
+	/// Hoja «Add a Single Bank» para el banco nuevo con los patches soltados; va al punto donde se soltaron (si se
+	/// elige otro Channel Set, al final de ese).
+	private func addBankWithPatches(_ sources: [(bank: BankRef, index: Int)], from source: MIDINameDocument,
+	                                at t: (master: Int, set: Int, position: Int)) {
+		guard let w = view.window, let model = document.model else { return }
+		let sheet = AddBankSheet(channelSets: model.channelSets(master: t.master), selectedSet: t.set,
+		                         title: "New Bank with Patches",
+		                         note: "\(sources.count) patch(es), each keeps its own bank select.") { [weak self] name in
+			self?.document.model?.isBankNameAvailable(name, master: t.master) ?? false
+		}
+		sheet.name.stringValue = model.freeBankName("New Bank", master: t.master)
+		sheet.onCommit = { [weak self] set, name, bs0, bs32 in
+			try self?.document.edit("New Bank with Patches") {
+				try $0.addBank(name: name, bs0: bs0, bs32: bs32, master: t.master, set: set, withPatches: sources,
+				               from: source, before: set == t.set ? t.position : nil)
+			}
+		}
+		sheet.begin(on: w) { _ in _ = sheet }
+		sheet.controlTextDidChange(Notification(name: NSControl.textDidChangeNotification))
+	}
+
 	func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int,
 	               proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+		if PatchWindowController.draggedPatches(info.draggingPasteboard) != nil {
+			return validatePatchDrop(info, row: row, on: dropOperation == .on)
+		}
 		guard dropOperation == .above else { return [] }
 		if let from = draggedRow(info) { return targetPosition(from: from, to: row) != nil ? .move : [] }
 		if let d = draggedBanks(info), d.document !== document, copyTarget(dropRow: row) != nil { return .copy }
@@ -453,6 +543,9 @@ final class PatchBanksViewController: NSViewController, NSTableViewDataSource, N
 
 	func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int,
 	               dropOperation: NSTableView.DropOperation) -> Bool {
+		if PatchWindowController.draggedPatches(info.draggingPasteboard) != nil {
+			return acceptPatchDrop(info, row: row, on: dropOperation == .on)
+		}
 		if let from = draggedRow(info) {
 			guard let position = targetPosition(from: from, to: row) else { return false }
 			let ref = rows[from].ref

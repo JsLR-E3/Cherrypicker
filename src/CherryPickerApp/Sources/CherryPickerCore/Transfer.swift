@@ -24,6 +24,27 @@ public extension MIDINameDocument {
 		return inserted
 	}
 
+	/// Banco nuevo en el Channel Set `set` con copias de los patches `sources` del documento `source` (este u otro),
+	/// delante del banco `position` de ese Channel Set (nil: al final). Cada patch sigue sonando con su bank select
+	/// (P21: «New Bank from Selection» y soltar patches en la lista de bancos).
+	@discardableResult
+	mutating func addBank(name: String, bs0: String, bs32: String, master: Int, set: Int,
+	                      withPatches sources: [(bank: BankRef, index: Int)], from source: MIDINameDocument,
+	                      before position: Int? = nil) throws -> BankRef {
+		// Primero al final y con sus patches; después a su sitio (las posiciones de `sources` no cambian).
+		var ref = try addBank(name: name, bs0: bs0, bs32: bs32, master: master, set: set)
+		try copyPatches(sources, from: source, to: ref)
+		if let position { ref = try reorderBank(ref, toPosition: position) }
+		return ref
+	}
+
+	/// `base` si está libre como nombre de banco en ese dispositivo; si no, «base 2», «base 3»…
+	func freeBankName(_ base: String, master: Int) -> String {
+		var name = base, n = 2
+		while !isBankNameAvailable(name, master: master) { name = "\(base) \(n)"; n += 1 }
+		return name
+	}
+
 	/// Copias de los bancos `banks` del documento `source` en el Channel Set `set` del dispositivo `master`, delante
 	/// del banco `position` de ese Channel Set (nil: al final), en ese orden. Cada copia lleva el bank select, los
 	/// patches y el resto del banco de origen, con su propia lista (P2); si el nombre está ocupado, «nombre 2»…

@@ -45,6 +45,34 @@ final class TransferTests: XCTestCase {
 		XCTAssertEqual(source, original)
 	}
 
+	/// P21: banco nuevo con patches de otro documento, colocado en medio de su Channel Set.
+	func testAddBankWithPatchesFromOtherDocument() throws {
+		let original = source!
+		let uno = ref(target, "Uno")
+		let name = target.freeBankName("Uno", master: uno.master)
+		XCTAssertEqual(name, "Uno 2")
+		let r = try target.addBank(name: name, bs0: "-", bs32: "-", master: uno.master, set: uno.set,
+		                           withPatches: [(ref(source, "Uno"), 1), (ref(source, "Custom"), 0)], from: source,
+		                           before: 1)
+		XCTAssertEqual(rows(target).map(\.name), ["Uno", "Uno 2", "Custom", "Tres", "Kits"])
+		XCTAssertEqual(r, rows(target)[1].ref)
+		let got = target.patchRows(r)
+		XCTAssertEqual(got.map { "\($0.bankSelect0)/\($0.bankSelect32) \($0.program) \($0.name)" },
+		               ["1/5 1 B", "2/0 7 C"])
+		XCTAssertEqual(target.bank(r)?.usedListName, "Uno 2")
+		XCTAssertEqual(source, original)
+	}
+
+	/// P21: sin posición, al final de su Channel Set; con nombre ocupado no se crea.
+	func testAddBankWithPatchesAtEndAndDuplicateName() throws {
+		let kits = ref(target, "Kits")
+		try target.addBank(name: "Nuevo", bs0: "-", bs32: "-", master: kits.master, set: kits.set,
+		                   withPatches: [(ref(source, "Tres"), 0)], from: source)
+		XCTAssertEqual(rows(target).map(\.name), ["Uno", "Custom", "Tres", "Kits", "Nuevo"])
+		XCTAssertThrowsError(try target.addBank(name: "Kits", bs0: "-", bs32: "-", master: kits.master, set: kits.set,
+		                                        withPatches: [], from: source))
+	}
+
 	func testCopyBanksAtEndAndMissingLists() throws {
 		let uno = ref(source, "Uno")
 		try source.modifyMaster(uno.master) { m in

@@ -97,15 +97,21 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 		}
 		let open = document.windowControllers.filter { $0 is PatchWindowController }.count
 		let step = CGFloat(open % 10) * 22
-		window.setFrameTopLeftPoint(NSPoint(x: main.frame.maxX + 8 + step, y: main.frame.maxY - step))
-		if let screen = main.screen {
-			window.setFrame(window.constrainFrameRect(window.frame, to: screen), display: false)
-			// Si no cabe a la derecha, encima de la principal, algo desplazada.
-			if window.frame.minX < main.frame.maxX {
-				window.setFrameTopLeftPoint(NSPoint(x: main.frame.minX + 40 + step, y: main.frame.maxY - 40 - step))
-			}
+		let width = window.frame.width
+		let right = main.frame.maxX + 8 + step, left = main.frame.minX - 8 - width - step
+		// A la derecha si cabe en la pantalla; si no, a la izquierda (T-029); si tampoco, encima de la principal, algo
+		// desplazada.
+		let visible = main.screen?.visibleFrame ?? .infinite
+		if right + width <= visible.maxX {
+			window.setFrameTopLeftPoint(NSPoint(x: right, y: main.frame.maxY - step))
+		} else if left >= visible.minX {
+			window.setFrameTopLeftPoint(NSPoint(x: left, y: main.frame.maxY - step))
+		} else {
+			window.setFrameTopLeftPoint(NSPoint(x: main.frame.minX + 40 + step, y: main.frame.maxY - 40 - step))
 		}
+		if let screen = main.screen { window.setFrame(window.constrainFrameRect(window.frame, to: screen), display: false) }
 	}
+
 
 	deinit { NotificationCenter.default.removeObserver(self) }
 
@@ -137,6 +143,10 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 		table.registerForDraggedTypes([Self.rowType, .string])
 		table.setDraggingSourceOperationMask([.move, .copy], forLocal: true)
 		table.setDraggingSourceOperationMask(.copy, forLocal: false)
+		// [PROPUESTA P21] Botón derecho: banco nuevo con los patches seleccionados.
+		let menu = NSMenu()
+		menu.addItem(withTitle: "New Bank from Selection…", action: #selector(newBankFromSelection(_:)), keyEquivalent: "")
+		table.menu = menu
 
 		let scroll = NSScrollView()
 		scroll.documentView = table
@@ -508,10 +518,44 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 
 	@objc func delete(_ sender: Any?) { removePatches(sender) }
 
+	/// Patches sobre los que actúa el menú contextual: la selección, o solo la fila pulsada si está fuera de ella.
+	private var contextPatches: IndexSet {
+		let clicked = table.clickedRow
+		if clicked >= 0, !table.selectedRowIndexes.contains(clicked), rows.indices.contains(clicked) {
+			return [rows[clicked].index]
+		}
+		return selectedPatches
+	}
+
+	/// [PROPUESTA P21] Banco nuevo, al final de su Channel Set (como + y Find; el usuario lo prefirió así, T-029), con
+	/// copias de los patches seleccionados (cada uno con su bank select); hoja «Add a Single Bank» con otro título.
+	@objc func newBankFromSelection(_ sender: Any?) {
+		let indices = contextPatches
+		guard !indices.isEmpty, let w = window, let model = midnam.model else { return }
+		let master = master, ref = ref
+		let sources = indices.map { (bank: ref, index: $0) }
+		let sheet = AddBankSheet(channelSets: model.channelSets(master: master), selectedSet: ref.set,
+		                         title: "New Bank from Selection",
+		                         note: "\(indices.count) patch(es), each keeps its own bank select.") { [weak self] name in
+			self?.midnam.model?.isBankNameAvailable(name, master: master) ?? false
+		}
+		sheet.name.stringValue = model.freeBankName("New Bank", master: master)
+		sheet.onCommit = { [weak self] set, name, bs0, bs32 in
+			guard let self, let source = self.midnam.model else { return }
+			try self.midnam.edit("New Bank from Selection") {
+				try $0.addBank(name: name, bs0: bs0, bs32: bs32, master: master, set: set, withPatches: sources,
+				               from: source)
+			}
+		}
+		sheet.begin(on: w) { _ in _ = sheet }
+		sheet.controlTextDidChange(Notification(name: NSControl.textDidChangeNotification))
+	}
+
 	func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
 		switch menuItem.action {
 		case #selector(paste(_:)): return NSPasteboard.general.string(forType: .string) != nil
 		case #selector(delete(_:)): return !table.selectedRowIndexes.isEmpty
+		case #selector(newBankFromSelection(_:)): return !contextPatches.isEmpty
 		default: return true
 		}
 	}
@@ -536,7 +580,13 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 	/// Patches arrastrados desde cualquier documento abierto (todos del mismo documento y dispositivo).
 	private func draggedFromAnyDocument(_ info: NSDraggingInfo)
 		-> (document: MidnamDocument, master: Int, patches: [(bankName: String, index: Int)])? {
-		guard let items = info.draggingPasteboard.pasteboardItems, !items.isEmpty else { return nil }
+		Self.draggedPatches(info.draggingPasteboard)
+	}
+
+	/// Patches de listas o del Finder en lo arrastrado (también los lee la lista de bancos, P21).
+	static func draggedPatches(_ pasteboard: NSPasteboard)
+		-> (document: MidnamDocument, master: Int, patches: [(bankName: String, index: Int)])? {
+		guard let items = pasteboard.pasteboardItems, !items.isEmpty else { return nil }
 		var key: String?, master: Int?
 		var out: [(bankName: String, index: Int)] = []
 		for item in items {
@@ -549,7 +599,7 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 			guard key == String(parts[0]), master == m else { return nil }
 			out.append((String(parts[2][..<sep]), i))
 		}
-		guard let key, let master, let doc = Self.openDocument(key: key) else { return nil }
+		guard let key, let master, let doc = openDocument(key: key) else { return nil }
 		return (doc, master, out)
 	}
 
