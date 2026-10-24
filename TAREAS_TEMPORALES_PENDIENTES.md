@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-24 · local (`main`) · T-035: Midnamer, con icono y textos propios y GPL-3.0 (D-011, EXP-041); T-036: guía en inglés en README y en Help (D-012, EXP-042); T-037: 0.9.0 universal en .zip (D-013, EXP-043).
+> Actualizado: 2026-10-25 · local (`main`) · `.midnam` del usuario optimizados y probados en DP (8 aparatos, EXP-030 a EXP-038 y EXP-044; D-010).
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -11,30 +11,17 @@
 
 ## ESTADO ACTUAL
 
-- **Fases 1 a 6 del roadmap completadas** (`docs/14`). App AppKit `src/CherryPickerApp` (D-006; `swift test` 111/111;
-  `tools/empaquetar_app.sh` → `build/Midnamer.app`; nombre, icono y licencia GPL-3.0 de D-011) con todas las pestañas: MIDI (audición y Test Note, D-008),
-  Device, Patch Banks, Controllers (D-009; DP no la usa, EXP-027) y Categories; Patch Names con Find, Copy...,
-  arrastre entre documentos y banco nuevo desde la selección (P21); árbol de D-010 en Patch Banks (P22, EXP-039: Indent ⌘→, Outdent ⌘←, Mark as All Patches); asistente New; «Install in DP…». Guía en inglés en `README.md` y en Help (D-012; al cambiar la app, actualizarla); detalle en `docs/30`.
-- Claude ve la app con `tools/capturar_app.sh` (solo ventanas de Midnamer); el usuario la maneja.
-- **Original** en Snow Leopard (Mac mini) para contrastar (EXP-009, EXP-012); allí queda un `.middev` «Prueba / Prueba».
-- **Instalación de prueba que se deja a propósito:** `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/` (EXP-011 a
-  EXP-022, EXP-027 y EXP-039, que añadió «CP Arbol» a su `.middev`; cada EXP dice cómo deshacer lo suyo). Deshacer todo: borrar esa carpeta.
-  Además, `MOTU/TC Electronic/M3000 optimizado.midnam` (EXP-030) y
-  `MOTU/Digitech/DSP-128 Plus optimizado.midnam` (EXP-031, con `sudo`),
-  `MOTU/Lexicon/LXP-15 II Presets.midnam` y `LXP-15 I Registers.midnam` (EXP-032/034, con `sudo`),
-  `MOTU/Yamaha/SPX2000 optimizado.midnam` (EXP-034), `MOTU/Lexicon/PCM-81 optimizado.midnam` (EXP-037), `MOTU/Lexicon/PCM-91 optimizado.midnam` (EXP-038), `MOTU/Viscount/EFX 100 optimizado.midnam` (EXP-044, con `sudo`); deshacer: borrar esos ficheros. Los demás de esas
-  carpetas son del usuario.
-- **Permisos de DP cambiados por el usuario** (2026-10-24, con `sudo chown jslr`): las carpetas `MOTU/Digitech`,
-  `MOTU/Lexicon` y `MOTU/Yamaha` son del usuario (antes `root:wheel`, `drwxrwxr-x`; los ficheros de dentro no se tocaron)
-  para copiar sin contraseña; `MOTU/TC Electronic` ya era suya. Los ficheros copiados antes con `sudo` siguen siendo de root:
-  se sustituyen con `cp -f` o desde el Finder. **Deshacer:** `sudo chown root` sobre las tres carpetas. Una
-  actualización de DP podría devolverlas a root.
-- **Copias de trabajo del usuario** en `reference/midnam_trabajo/` (privadas, no versionadas; no se borran ni se
-  sobrescriben sin su permiso): `DSP-128 Plus.midnam` (la sigue optimizando él), `M3000 prueba.midnam` (= la instalada
-  en DP, EXP-023) y `M3000 optimizado.midnam` (T-030) y `DSP-128 Plus optimizado.midnam` (T-031),
-  `LXP-15 II Presets.midnam` y `LXP-15 I Registers.midnam` (T-032), `SPX2000.midnam`
-  (copia del instalado en DP) y `SPX2000 optimizado.midnam` (EXP-034).
-- **Idea para un proyecto futuro:** `docs/40_IDEA_EDITOR_FX_BCR2000.md` (fuera del alcance).
+- **App Midnamer** (antes CherryPicker; D-006, D-011): fases 1–6 completadas (`docs/14`), `swift test` 111/111,
+  `tools/empaquetar_app.sh` → `build/Midnamer.app`, 0.9.0 en `.zip` (D-013). Árbol de D-010 en Patch Banks (P22, EXP-039).
+  Guía en `README.md` y Help (D-012); detalle en `docs/30`. Claude ve la app con `tools/capturar_app.sh`.
+- **`.midnam` del usuario optimizados y probados en DP:** M3000, DSP-128 Plus, LXP-15 I/II, SPX2000, PCM-81, PCM-91 y
+  EFX 100 (EXP-030–038, EXP-044), con la norma D-010 (• y ├ └) y marcas [F]/[M]/[E]/[T]. Copias de trabajo privadas en
+  `reference/midnam_trabajo/`; manuales en `reference/manuales/<modelo>/`.
+- **Instalado en DP a propósito** (cada EXP dice cómo deshacerlo): `MOTU/Cherrypicker/` (pruebas EXP-011–039) y los
+  «… optimizado» / «LXP-15 … Presets|Registers» de `MOTU/TC Electronic`, `Digitech`, `Lexicon`, `Yamaha` y `Viscount`.
+- **Permisos:** `MOTU/Digitech`, `Lexicon` y `Yamaha` son del usuario desde 2026-10-24 (deshacer: `sudo chown root` sobre
+  las tres); `TC Electronic` ya lo era; `Viscount` es del usuario `E3` (hace falta `sudo`).
+- Original en Snow Leopard para contrastar (EXP-009, EXP-012). Idea futura: `docs/40_IDEA_EDITOR_FX_BCR2000.md`.
 
 ## EN PROGRESO
 
@@ -60,7 +47,8 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 ## SIGUIENTE PASO EXACTO
 
-0. Si llega otro `.midnam` del usuario: como en T-030/T-031 (EXP-030, EXP-031); el árbol de D-010 ya se hace en la
+0. Si llega otro `.midnam` del usuario: copiarlo a `reference/midnam_trabajo/`, leer el manual (`swift tools/pdf_a_texto.swift`;
+   si es un escaneo, `swift tools/ocr_pdf.swift`; salida al scratchpad), comparar nombres y Bank Select, decidir con él y aplicar D-010, como en EXP-037/EXP-044; el árbol de D-010 ya se hace en la
    app (Patch Banks: Convert, ⌘→/⌘←, Mark as All Patches; EXP-039). Manuales en `incoming/` → `reference/manuales/<modelo>/`.
 1. **Con el usuario, decidir el siguiente bloque:** repartir `build/Midnamer-0.9.0.zip` (`tools/distribuir.sh`; dónde
    publicarlo y el código fuente que pide la GPL los decide el usuario) y recoger comentarios para la 1.0 o Note Lists (fuera por ahora,
