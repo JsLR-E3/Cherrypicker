@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-24 · local (`main`) · T-033: la app gestiona el árbol de D-010 en Patch Banks, probado en la app y en DP (EXP-039).
+> Actualizado: 2026-10-24 · local (`main`) · T-033: la app gestiona el árbol de D-010 en Patch Banks, probado en la app y en DP (EXP-039); T-034: Open Recent arreglado (EXP-040).
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -53,7 +53,7 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
-| T-034 | C | PENDIENTE | App: File → Open Recent sale vacío (visto en EXP-039) | — | Averiguar por qué `NSDocumentController` no anota los documentos abiertos (¿`Info.plist` de `tools/empaquetar_app.sh`, tipos de documento?) y que salgan; probar abriendo un `.midnam` y mirando el menú |
+| — | — | — | — | — | — |
 
 ## Fichas
 
@@ -63,7 +63,6 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 0. Si llega otro `.midnam` del usuario: como en T-030/T-031 (EXP-030, EXP-031); el árbol de D-010 ya se hace en la
    app (Patch Banks: Convert, ⌘→/⌘←, Mark as All Patches; EXP-039). Manuales en `incoming/` → `reference/manuales/<modelo>/`.
-0b. T-034 (Open Recent vacío), si el usuario la quiere ahora.
 1. **Con el usuario, decidir el siguiente bloque:** preparar la app para compartir (D-007: nombre e icono propios,
    revisar textos cortos de los nibs con `grep -rn '"[A-Z][^"]\{20,\}"' src/CherryPickerApp/Sources/CherryPicker`,
    licencia) o Note Lists (fuera por ahora, docs/20 §7.1). Lo que salga del uso real de la app, como tarea nueva.

@@ -5,7 +5,8 @@ copia. Se consulta por `grep` (p. ej. `grep T-012 docs/15_HISTORIAL.md`), no se 
 
 | ID | Cerrada | Resultado (y cómo se verificó) | Commit · EXP · D |
 |---|---|---|---|
-| T-033 | 2026-10-24 | App: árbol de D-010 en Patch Banks (Indent ⌘→, Outdent ⌘←, Mark as All Patches, prefijos rehechos tras cada cambio, hoja «nombre (padre)» para repetidos, conversión de «- »); `swift test` 108/108, probado por el usuario en la app y en DP | (este commit) · EXP-039 · P22 |
+| T-034 | 2026-10-24 | App: File → Open Recent ya muestra los documentos (el menú sin nib necesitaba el nombre `NSRecentDocumentsMenu`); comprobado por el usuario | (este commit) · EXP-040 |
+| T-033 | 2026-10-24 | App: árbol de D-010 en Patch Banks (Indent ⌘→, Outdent ⌘←, Mark as All Patches, prefijos rehechos tras cada cambio, hoja «nombre (padre)» para repetidos, conversión de «- »); `swift test` 108/108, probado por el usuario en la app y en DP | fa55579 · EXP-039 · P22 |
 | EXP-038 | 2026-10-24 | PCM-91 optimizado: nombres del Preset Menu (el aparato lo sigue, no el fichero de MOTU), grupos de la User Guide, árbol con (Pn), marcas; probado en DP | 251b30f, c1983d9 · EXP-038 |
 | EXP-037 | 2026-10-24 | PCM-81 optimizado: árbol, grupos de la User Guide, bancos «P0»…, erratas, marcas [F]/[M]/[E]/[T], registros AK85; probado en DP | 43e8363, 5874d95, 02b9e1c · EXP-037 |
 | EXP-035 | 2026-10-24 | D-010 también en M3000 (padres Halls, Indoor, Outdoor, Combined) y DSP-128 Plus (• All Programs, Rooms, EQ); probado en DP | 888cb80, 442d093 · EXP-035 |

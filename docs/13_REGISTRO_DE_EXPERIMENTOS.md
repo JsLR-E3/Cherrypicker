@@ -999,3 +999,15 @@ valer un resultado.
   User» en ese orden, con los símbolos bien, y «Studio» abre sus presets 025–032 (A).
 - **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»).
 
+## EXP-040 · 2026-10-24 · File → Open Recent vacío (T-034)
+
+- **Objetivo:** que «Open Recent» muestre los `.midnam` abiertos.
+- **Entorno:** macOS 15.7.9, Mac del proyecto; app de `tools/empaquetar_app.sh` sobre `fa55579` con el cambio.
+- **Causa (deducida, B):** el menú se monta por código (`MainMenu.swift`, sin nib) y AppKit solo rellena el submenú de
+  recientes si lleva el nombre interno que le pone Interface Builder (`NSRecentDocumentsMenu`). Arreglo:
+  `recentMenu.perform(NSSelectorFromString("_setMenuName:"), with: "NSRecentDocumentsMenu")` (API privada, la habitual
+  sin nib).
+- **Resultado (usuario, 2026-10-24):** tras abrir `captures/exp039/CP Arbol prueba.midnam`, File → Open Recent muestra
+  «CP Arbol prueba» (A). Antes salía vacío (EXP-039).
+- **Estado:** COMPLETADO.
+

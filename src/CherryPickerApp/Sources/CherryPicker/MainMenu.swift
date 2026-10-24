@@ -25,6 +25,9 @@ enum MainMenu {
 		let recentMenu = NSMenu(title: "Open Recent")
 		recentMenu.addItem(withTitle: "Clear Menu",
 		                   action: #selector(NSDocumentController.clearRecentDocuments(_:)), keyEquivalent: "")
+		// Sin nib, AppKit solo rellena «Open Recent» si el menú lleva el nombre que le da Interface Builder
+		// (T-034: salía vacío).
+		recentMenu.perform(NSSelectorFromString("_setMenuName:"), with: "NSRecentDocumentsMenu")
 		recent.submenu = recentMenu
 		file.addItem(recent)
 		file.addItem(.separator())
