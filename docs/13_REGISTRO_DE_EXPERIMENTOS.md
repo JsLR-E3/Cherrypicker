@@ -655,3 +655,24 @@ valer un resultado.
   TextEdit Export → portapapeles con la línea del banco y esos 2; `pp.txt` en la carpeta temporal de la app y TextEdit
   abierto con esas tres líneas (lo copia el usuario).
 - **Conclusión:** Copy... funciona como se diseñó (P19). **Estado:** COMPLETADO.
+
+## EXP-027 · 2026-10-24 · ¿Usa DP 11.36 la `ControlNameList` en «Other Controller…»? (T-014)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto; DP 11.36 abierto (usuario). Fichero `captures/exp027/CP Controles.midnam`:
+  `captures/exp013/Prueba patches.midnam` (modelo «CP Patches», ya en `Cherrypicker.middev`) más `UsesControlNameList
+  «CP Controles»` en el Channel Set «Presets» (canales 1–16) y la lista con CC7 «CP Mezcla (CC7)», CC12 «CP Tiempo
+  (CC12)», CC13 «CP Feedback (CC13)» y CC85 «CP Sin definir (CC85)»; VÁLIDO contra la DTD 1.0.
+- **Instalación** (permiso del usuario, 2026-10-24): copiado a `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/CP
+  Controles.midnam` a las 13:52:01, idéntico (`cmp`); no sustituía nada. **Deshacer:** borrar ese fichero.
+- **Resultado (A, capturas del usuario en `captures/exp027/`):**
+  - *MIDI Device Properties* del dispositivo «CP Patches»: Master Names = «CP Controles», bancos «pruebassss» y «pp»
+    (`dp_device_master_names.png`): DP lee el fichero.
+  - Menú Insert de una pista MIDI con salida «CP Patches-1»: tipos de evento y los controladores estándar de DP
+    (1 modulation, 2 breath, 5 porta time, 6 data, 7 volume, 11, 64 Sustain), sin ningún nombre del fichero
+    (`dp_menu_insert.png`).
+  - «Other Controller…»: diálogo «Enter Controller» que pide un número («Enter controller number for insertion
+    (0-121)»), sin lista ni nombres (`dp_other_controller.png`).
+- **Conclusión:** DP 11.36 lee el fichero, pero no muestra los nombres de `ControlNameList` en el menú de
+  controladores ni en «Other Controller…». Junto con EXP-006, en los sitios mirados DP no usa los controles con
+  nombre. Sin mirar: la lista de controladores del editor de la pista y los lanes de automatización.
+- **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»).

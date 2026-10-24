@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MIDINameDocument PUBLIC "-//MIDI Manufacturers Association//DTD MIDINameDocument 1.0//EN" "">
+
+<MIDINameDocument>
+	<Author>CherryPicker</Author>
+	<MasterDeviceNames>
+		<Manufacturer>Cherrypicker</Manufacturer>
+		<Model>CP Patches</Model>
+		<CustomDeviceMode Name="Mode 1" >
+			<ChannelNameSetAssignments>
+				<ChannelNameSetAssign Channel="1" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="2" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="3" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="4" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="5" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="6" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="7" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="8" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="9" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="10" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="11" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="12" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="13" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="14" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="15" NameSet="Presets" />
+				<ChannelNameSetAssign Channel="16" NameSet="Presets" />
+			</ChannelNameSetAssignments>
+		</CustomDeviceMode>
+		<ChannelNameSet Name="Presets" >
+			<AvailableForChannels>
+				<AvailableChannel Channel="1" Available="true" />
+				<AvailableChannel Channel="2" Available="true" />
+				<AvailableChannel Channel="3" Available="true" />
+				<AvailableChannel Channel="4" Available="true" />
+				<AvailableChannel Channel="5" Available="true" />
+				<AvailableChannel Channel="6" Available="true" />
+				<AvailableChannel Channel="7" Available="true" />
+				<AvailableChannel Channel="8" Available="true" />
+				<AvailableChannel Channel="9" Available="true" />
+				<AvailableChannel Channel="10" Available="true" />
+				<AvailableChannel Channel="11" Available="true" />
+				<AvailableChannel Channel="12" Available="true" />
+				<AvailableChannel Channel="13" Available="true" />
+				<AvailableChannel Channel="14" Available="true" />
+				<AvailableChannel Channel="15" Available="true" />
+				<AvailableChannel Channel="16" Available="true" />
+			</AvailableForChannels>
+			<UsesControlNameList Name="CP Controles" />
+			<PatchBank Name="pruebassss" >
+				<UsesPatchNameList Name="pruebassss" />
+			</PatchBank>
+			<PatchBank Name="pp" >
+				<MIDICommands>
+					<ControlChange Control="0" Value="5" />
+					<ControlChange Control="32" Value="5" />
+				</MIDICommands>
+				<UsesPatchNameList Name="pp" />
+			</PatchBank>
+		</ChannelNameSet>
+		<PatchNameList Name="pruebassss" >
+			<Patch Number="001" Name="lkdjflsdj" >
+				<PatchMIDICommands>
+					<ControlChange Control="0" Value="5" />
+					<ControlChange Control="32" Value="5" />
+					<ProgramChange Number="2" />
+				</PatchMIDICommands>
+			</Patch>
+			<Patch Number="006" Name="HOla" >
+				<PatchMIDICommands>
+					<ControlChange Control="0" Value="5" />
+					<ProgramChange Number="5" />
+				</PatchMIDICommands>
+			</Patch>
+			<Patch Number="002" Name="" >
+				<PatchMIDICommands>
+					<ControlChange Control="0" Value="5" />
+					<ControlChange Control="32" Value="0" />
+					<ProgramChange Number="1" />
+				</PatchMIDICommands>
+			</Patch>
+			<Patch Number="003" Name="" ProgramChange="2" />
+			<Patch Number="005" Name="dos" >
+				<PatchMIDICommands>
+					<ProgramChange Number="4" />
+				</PatchMIDICommands>
+			</Patch>
+			<Patch Number="007" Name="jjj" >
+				<PatchMIDICommands>
+					<ControlChange Control="0" Value="5" />
+					<ControlChange Control="32" Value="0" />
+					<ProgramChange Number="6" />
+				</PatchMIDICommands>
+			</Patch>
+			<Patch Number="008" Name="uno" >
+				<PatchMIDICommands>
+					<ControlChange Control="0" Value="1" />
+					<ControlChange Control="32" Value="1" />
+					<ProgramChange Number="7" />
+				</PatchMIDICommands>
+			</Patch>
+			<Patch Number="004" Name="dos" >
+				<PatchMIDICommands>
+					<ControlChange Control="0" Value="1" />
+					<ControlChange Control="32" Value="1" />
+					<ProgramChange Number="3" />
+				</PatchMIDICommands>
+			</Patch>
+			<Patch Number="009" Name="uno" >
+				<PatchMIDICommands>
+					<ProgramChange Number="8" />
+				</PatchMIDICommands>
+			</Patch>
+		</PatchNameList>
+		<PatchNameList Name="pp" >
+			<Patch Number="001" Name="dos" ProgramChange="0" />
+			<Patch Number="002" Name=".kdsjflkgjs" >
+				<PatchMIDICommands>
+					<ControlChange Control="32" Value="5" />
+					<ProgramChange Number="1" />
+				</PatchMIDICommands>
+			</Patch>
+			<Patch Number="003" Name="jjj" ProgramChange="3" />
+			<Patch Number="004" Name="df,fjgsdf" >
+				<PatchMIDICommands>
+					<ControlChange Control="0" Value="5" />
+					<ControlChange Control="32" Value="4" />
+					<ProgramChange Number="3" />
+				</PatchMIDICommands>
+			</Patch>
+			<Patch Number="005" Name="uno" ProgramChange="4" />
+		</PatchNameList>
+		<ControlNameList Name="CP Controles" >
+			<Control Type="7bit" Number="7" Name="CP Mezcla (CC7)" />
+			<Control Type="7bit" Number="12" Name="CP Tiempo (CC12)" />
+			<Control Type="7bit" Number="13" Name="CP Feedback (CC13)" />
+			<Control Type="7bit" Number="85" Name="CP Sin definir (CC85)" />
+		</ControlNameList>
+	</MasterDeviceNames>
+</MIDINameDocument>
