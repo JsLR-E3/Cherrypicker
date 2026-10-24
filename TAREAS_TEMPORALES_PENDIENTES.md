@@ -39,7 +39,7 @@
 
 ## EN PROGRESO
 
-- —
+- EXP-037: `PCM-81 optimizado.midnam` hecho y comprobado; falta instalarlo y probarlo en DP. Después, PCM-91 (sus PDF ya están en `incoming/`).
 
 ## PENDIENTE DE VALIDACIÓN LOCAL
 

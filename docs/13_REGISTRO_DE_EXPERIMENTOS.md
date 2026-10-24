@@ -914,3 +914,25 @@ valer un resultado.
 - **Conclusión:** DP 11.36 no permite un barrido rápido de presets por teclado (Next/Previous Patch solo cambian el
   *Default Patch*, que sale con REC y Play); para probar sonidos se usa la audición de la app y luego se elige en DP.
 - **Estado:** COMPLETADO.
+
+## EXP-037 · 2026-10-24 · PCM-81 optimizado (manual, Preset Menu y D-010)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto, DP 11.36; árbol de trabajo sobre `c464917`.
+- **Fuentes** (`reference/manuales/PCM-81/`): User Guide del PCM 81 (Program Change 0–49 en el banco actual; Bank Select
+  por CC0 o CC32: 0–5 bancos P0–P5, 6 registros, 12–58 tarjeta; *Pgm Chg* On/Off/Map/Chain; **Pgm+ / Pgm–** asignables a
+  footswitch o a un controlador MIDI hasta el 119) y Preset Menu (300 nombres, grupos, «T» = sincronizable a tempo).
+- **Partida:** `reference/midnam_trabajo/PCM-81.midnam`, versión del usuario de 2025 (sha256 `a46505a4276923f0…`; no es la
+  de MOTU de `midnam_usuario/`), con sub-bancos «- » y Bank Select por CC32.
+- **Fichero:** `reference/midnam_trabajo/PCM-81 optimizado.midnam` (sha256 `7662558abfe4ea5e…`; VÁLIDO contra la DTD 1.0):
+  - Árbol de D-010 en los sub-bancos de P0–P5; límites del Preset Menu en P2 (Gain 2.5–3.3, Resonant Chords 3.4–4.9) y
+    P4 (Vocal Shift 0.0–1.6, Vocal Harmony 1.7–1.9).
+  - Nombres: 4 erratas (ADJUpMyEchos, RoughIdle FX, BandEko Rvb, VoxFix Sprno) y 2 leídos en el aparato por el usuario
+    (ChaosImpuls, BowedEchoes); también leídos y sin cambio: Wizz & Wazz, Freez 2 of 8, Freez 2over3, SwrlWholNt (el aparato
+    muestra 12 caracteres). «[T]» en los 108 sincronizables a tempo.
+  - Registros R0: 0.0–0.5 con los nombres que da el usuario (JP PlexDly 1, Circ+PanDlys, CircPanDlyV3, SCF+Ekos 1, AK85
+    350/500, Pitch Across); el resto «User Effect». Tarjeta C0–Ca sin cambios (el usuario tiene tarjeta).
+- **Comprobado con script:** las 900 direcciones (CC32, PC) siguen igual, un solo nombre por dirección, canales iguales;
+  12 nombres cambiados además de las marcas.
+- **Instalación:** pendiente (carpeta `MOTU/Lexicon/`, ya del usuario). **Deshacer:** borrar `PCM-81 optimizado.midnam`.
+- **Resultado:** —
+- **Estado:** EN CURSO.
