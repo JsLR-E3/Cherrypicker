@@ -844,5 +844,10 @@ valer un resultado.
   `181bfd32…`).
 - **Prueba (usuario):** en DP, el árbol en los menús de «LXP-15 II Presets», «LXP-15 I Registers» y «SPX2000
   optimizado»; en el SPX2000, un preset de PRESET, CLASSIC y USER.
-- **Resultado:** —
+- **Resultado (usuario, 2026-10-24, DP 11.36; capturas del menú de los dos LXP-15 en el chat, no versionadas):** el
+  árbol se ve bien y en orden («General», «├ Halls»… «└ Special»; «Studio», «├ Halls»… «└ Delay/Pitch/Mod»), igual que
+  las marcas [F]/[E] (A). El usuario ve **demasiado grande** el «● » de «● All Presets»/«● All Registers».
+- **Cambio:** «● » → «• » (U+2022) en los tres (D-010). Nuevas sha256: `LXP-15 II Presets` `e983a89410e2d14c…`,
+  `LXP-15 I Registers` `c867b02b0dbcb11e…`, `SPX2000 optimizado` `3f16cb4a312611b7…`; VÁLIDOS. Pendiente: que el usuario
+  los vuelva a copiar a DP (Finder) y vea la viñeta.
 - **Estado:** EN CURSO.
