@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-24 · local (`main`) · T-035: la app pasa a llamarse Midnamer, con icono y textos propios y GPL-3.0 (D-011, EXP-041); falta verlo en la app.
+> Actualizado: 2026-10-24 · local (`main`) · T-035: la app pasa a llamarse Midnamer, con icono y textos propios y GPL-3.0 (D-011); comprobado por el usuario (EXP-041).
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -46,13 +46,13 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | Tarea | Qué probar y cómo | Necesita | Rama/commit |
 |---|---|---|---|
-| T-035 | Abrir `build/Midnamer.app`: icono en el Dock y menú «Midnamer»; MIDI, Device y Categories conservan salida, canal de audición y categorías propias; «Install in DP…» de un modelo nuevo en `MOTU/Cherrypicker/` escribe en `Cherrypicker (CherryPicker).middev` (EXP-041) | Mac, usuario | `main` |
+| — | — | — | — |
 
 ## TAREAS
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
-| T-035 | A | PENDIENTE-LOCAL | Nombre (Midnamer), icono y textos propios antes de compartir (D-007, D-011) | — | Prueba del usuario de la tabla de arriba (EXP-041) |
+| — | — | — | — | — | — |
 
 ## Fichas
 
@@ -62,6 +62,5 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 0. Si llega otro `.midnam` del usuario: como en T-030/T-031 (EXP-030, EXP-031); el árbol de D-010 ya se hace en la
    app (Patch Banks: Convert, ⌘→/⌘←, Mark as All Patches; EXP-039). Manuales en `incoming/` → `reference/manuales/<modelo>/`.
-1. **T-035:** que el usuario pruebe Midnamer (tabla de validación local) y cerrar EXP-041.
-2. Después, con el usuario: cómo compartirla (README de uso, versión, firma) o Note Lists (fuera por ahora,
+1. **Con el usuario, decidir el siguiente bloque:** cómo compartir Midnamer (README de uso, versión, firma) o Note Lists (fuera por ahora,
    docs/20 §7.1). Lo que salga del uso real de la app, como tarea nueva.

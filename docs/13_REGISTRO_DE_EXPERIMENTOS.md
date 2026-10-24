@@ -1026,9 +1026,8 @@ valer un resultado.
   `build/Midnamer.app` con ejecutable `Midnamer`, `Midnamer.icns` (10 tamaños, `iconutil`), `CFBundleIdentifier`
   `local.midnamer.app` y firma válida (`codesign -v`). La app arranca; CPU en reposo 0,0 % y 13 MB (`top`). El icono a
   512 y 32 px revisado en PNG.
-- **Falta (usuario, A):** ver el icono en el Dock y el menú «Midnamer», que Device, MIDI (salida y canal de audición) y
-  Categories conservan lo de antes (migración de preferencias) e «Install in DP…» sobre `MOTU/Cherrypicker/` siga
+- **Resultado (usuario, 2026-10-24, A):** icono en el Dock y menú «Midnamer» correctos; las preferencias anteriores
+  (salida MIDI, canal de audición, categorías) se conservan; «Install in DP…» sobre `MOTU/Cherrypicker/` sigue
   escribiendo en `Cherrypicker (CherryPicker).middev`. **Deshacer:** `build/` no se versiona; las preferencias nuevas
   están en el dominio `local.midnamer.app` (`defaults delete local.midnamer.app`).
-- **Estado:** PENDIENTE-LOCAL.
-
+- **Estado:** COMPLETADO.

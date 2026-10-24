@@ -5,6 +5,7 @@ copia. Se consulta por `grep` (p. ej. `grep T-012 docs/15_HISTORIAL.md`), no se 
 
 | ID | Cerrada | Resultado (y cómo se verificó) | Commit · EXP · D |
 |---|---|---|---|
+| T-035 | 2026-10-24 | App renombrada a Midnamer: nombre, icono propio dibujado por código, tooltips y avisos del original reescritos, `.middev` antiguo respetado, preferencias migradas; GPL-3.0 confirmada; `swift test` 108/108, comprobado por el usuario | `99478ae` y este commit · D-011, EXP-041 |
 | T-034 | 2026-10-24 | App: File → Open Recent ya muestra los documentos (el menú sin nib necesitaba el nombre `NSRecentDocumentsMenu`); comprobado por el usuario | (este commit) · EXP-040 |
 | T-033 | 2026-10-24 | App: árbol de D-010 en Patch Banks (Indent ⌘→, Outdent ⌘←, Mark as All Patches, prefijos rehechos tras cada cambio, hoja «nombre (padre)» para repetidos, conversión de «- »); `swift test` 108/108, probado por el usuario en la app y en DP | fa55579 · EXP-039 · P22 |
 | EXP-038 | 2026-10-24 | PCM-91 optimizado: nombres del Preset Menu (el aparato lo sigue, no el fichero de MOTU), grupos de la User Guide, árbol con (Pn), marcas; probado en DP | 251b30f, c1983d9 · EXP-038 |
