@@ -868,7 +868,7 @@ valer un resultado.
 - **Comprobado con script:** M3000, las 904 direcciones de `M3000 prueba` siguen igual (más las 300 de Card), un solo
   nombre por dirección y número mostrado coherente con CC0/PC; DSP-128, los 128 PC con un nombre cada uno; nombres de
   patch sin cambios en los dos.
-- **Instalación (pendiente, el usuario con `sudo`):** sustituir `MOTU/TC Electronic/M3000 optimizado.midnam` (EXP-030) y
+- **Instalación (usuario, 2026-10-24; M3000 con `cp`, DSP-128 con `sudo cp`; idénticos, misma sha256):** sustituir `MOTU/TC Electronic/M3000 optimizado.midnam` (EXP-030) y
   `MOTU/Digitech/DSP-128 Plus optimizado.midnam` (EXP-031); son ficheros de la sesión. **Deshacer:** borrarlos.
 - **Prueba (usuario):** menús en DP; en el M3000, un preset de «Halls» por encima de 128 (p. ej. 130) y uno de «Indoor»
   (p. ej. 300) desde el banco padre.
