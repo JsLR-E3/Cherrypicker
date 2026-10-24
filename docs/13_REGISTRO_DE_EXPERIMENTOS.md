@@ -812,7 +812,7 @@ valer un resultado.
   sha256 `09ea87e9efaa0ffe…`), Lexicon / LXP-15, hecho a partir de `LXP-15 II Presets` (privado, no se versiona).
   Bancos: «All Presets» (1–128) y diez bancos con los presets 1–6, cada uno con un prefijo: `- `, `└ `, `├ `, `› `,
   `▸ `, `→ `, `· `, `— `, tres espacios («(espacios)») y tres espacios duros U+00A0 («(nbsp)»).
-- **Instalación (pendiente, la hace el usuario con `sudo`, la carpeta es de root):** como
+- **Instalación:** hecha por el usuario con `sudo cp -n` (2026-10-24 20:58), idéntica (misma sha256), como
   `/Library/Audio/MIDI Devices/MOTU/Lexicon/CP Prueba simbolos.midnam`. **Deshacer:**
   `sudo rm "/Library/Audio/MIDI Devices/MOTU/Lexicon/CP Prueba simbolos.midnam"`.
 - **Prueba (usuario):** en DP, *Master Names* = «CP Prueba simbolos»; abrir el menú de presets y mirar cómo sale cada
