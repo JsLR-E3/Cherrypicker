@@ -19,6 +19,8 @@
 - **Original** en Snow Leopard (Mac mini) para contrastar (EXP-009, EXP-012); allí queda un `.middev` «Prueba / Prueba».
 - **Instalación de prueba que se deja a propósito:** `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/` (EXP-011 a
   EXP-022 y EXP-027; cada EXP dice cómo deshacer lo suyo). Deshacer todo: borrar esa carpeta.
+  Además, `MOTU/TC Electronic/M3000 optimizado.midnam` (EXP-030; deshacer: borrar ese fichero). Los demás de esa
+  carpeta son del usuario.
 - **Copias de trabajo del usuario** en `reference/midnam_trabajo/` (privadas, no versionadas; no se borran ni se
   sobrescriben sin su permiso): `DSP-128 Plus.midnam` (la sigue optimizando él), `M3000 prueba.midnam` (= la instalada
   en DP, EXP-023) y `M3000 optimizado.midnam` (T-030).
@@ -56,12 +58,13 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
   Nombres dudosos leídos por el usuario en la pantalla del M3000 (2026-10-24) y aplicados: 13 más (53 en total). El
   aparato no siempre coincide con el manual: 249 «Master De-Esser» (manual «Dynamic Lo Cut») y 245 «Slow Phaser»
   (fichero «Standard Phaser»); 453 y 492 se quedan como en el fichero («Atmosph…»), igual que en el aparato.
-  **Falta:** (1) instalarlo en DP con permiso del usuario y probar los bancos nuevos (EXP); (2) archivar los 3 PDF del
+  Instalado en DP como `MOTU/TC Electronic/M3000 optimizado.midnam` (EXP-030, cómo deshacerlo allí).
+  **Falta:** (1) prueba del usuario en DP con el aparato (EXP-030); (2) archivar los 3 PDF del
   M3000 de `incoming/` en `reference/`.
 
 ## SIGUIENTE PASO EXACTO
 
-0. T-030: probar en DP (ficha). Después, mismo
+0. T-030: resultado de la prueba en DP (EXP-030). Después, mismo
    proceso con DSP-128 Plus, LXP-15, LXP-15 II, PCM-81 o PCM-91, con sus manuales en `incoming/`.
 1. **Con el usuario, decidir el siguiente bloque:** preparar la app para compartir (D-007: nombre e icono propios,
    revisar textos cortos de los nibs con `grep -rn '"[A-Z][^"]\{20,\}"' src/CherryPickerApp/Sources/CherryPicker`,

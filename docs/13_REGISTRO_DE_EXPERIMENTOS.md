@@ -735,3 +735,25 @@ valer un resultado.
 - **Resto de ficheros:** el usuario abre los demás y van bien; lo da por bueno por ahora.
 - **Estado:** COMPLETADO. Copia de trabajo de DSP-128 guardada en `reference/midnam_trabajo/` (no versionada).
 
+
+## EXP-030 · 2026-10-24 · M3000 optimizado en DP 11.36 (T-030)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto, DP 11.36; árbol de trabajo sobre `77deec1`. Fichero:
+  `reference/midnam_trabajo/M3000 optimizado.midnam` (privado, D-004; VÁLIDO contra la DTD 1.0; sha256
+  `992c7b15bee0bd75…`), sacado de `M3000 prueba.midnam` con los cambios de la ficha T-030. Fuentes: manual, addendum
+  «Film and Post Production» (rev. 1.3) y «M3000 MIDI specification» v1.01, en `incoming/`.
+- **Comprobado sin aparato (script):** las 904 direcciones (Channel Set, CC0, CC32, PC) de `M3000 prueba` siguen en
+  el mismo sitio; 300 nuevas en Card 1/2 (CC0 6/7) y Combined Card (CC0 3), con PC = (n − 1) mod 128; 53 nombres
+  cambiados. Los 13 dudosos los leyó el usuario en la pantalla del M3000 (A); 249 y 245 no coinciden con el manual.
+- **Estado de la carpeta antes de instalar:** en `/Library/Audio/MIDI Devices/MOTU/TC Electronic/` el usuario había
+  renombrado lo de EXP-023: `M3000.midnam` = «M3000 prueba» (sha256 `ca606485…`) y `M3000 MIO.midnam` = su original
+  (= `reference/midnam_usuario/M3000.midnam`, `1349ddf2…`); también está `M3000.midnam copia` (`7495fced…`). No se tocan.
+- **Instalación** (permiso del usuario, 2026-10-24 19:56): copia como `M3000 optimizado.midnam` en esa carpeta, sin
+  sobrescribir nada. **Deshacer:** borrar `/Library/Audio/MIDI Devices/MOTU/TC Electronic/M3000 optimizado.midnam`.
+- **Prueba pendiente (usuario, DP 11.36 y M3000 con *Program Bank Change = External*; solo CC0/CC32 y Program Change,
+  D-002):** en DP, *Master Names* = «M3000 optimizado». Mirar que salen los bancos nuevos (Halls Natural/Super-natural,
+  Outdoor Medium, Outdoor XXL, Combined Music/Film/Surround, Card 1/2, Combined Card) y elegir, viendo el número en el
+  aparato: 21 y 63 (Halls Natural, ahora sin comandos por patch), 64 y 136 (Super-natural, cruza el 128), 410 y 415
+  (Outdoor Medium), un Combined Film (p. ej. 51) y uno Surround (96) por el canal 3. Card solo si hay tarjeta.
+- **Resultado:** —
+- **Estado:** EN CURSO.
