@@ -19,8 +19,9 @@
 - **Original** en Snow Leopard (Mac mini) para contrastar (EXP-009, EXP-012); allí queda un `.middev` «Prueba / Prueba».
 - **Instalación de prueba que se deja a propósito:** `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/` (EXP-011 a
   EXP-022 y EXP-027; cada EXP dice cómo deshacer lo suyo). Deshacer todo: borrar esa carpeta.
-- **Copia de trabajo del usuario:** `reference/midnam_trabajo/DSP-128 Plus.midnam` (privada, no versionada; la sigue
-  optimizando él; no se borra ni se sobrescribe sin su permiso).
+- **Copias de trabajo del usuario** en `reference/midnam_trabajo/` (privadas, no versionadas; no se borran ni se
+  sobrescriben sin su permiso): `DSP-128 Plus.midnam` (la sigue optimizando él) y `M3000 prueba.midnam` (= la instalada
+  en DP, EXP-023).
 - **Antes de compartir la app** (D-007): nombre e icono propios, revisar textos cortos tomados de los nibs, licencia.
 - **Idea para un proyecto futuro:** `docs/40_IDEA_EDITOR_FX_BCR2000.md` (fuera del alcance).
 
