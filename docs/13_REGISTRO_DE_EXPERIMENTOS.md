@@ -1043,7 +1043,21 @@ valer un resultado.
 - **Resultado (B):** `swift test` 111/111 (3 nuevos, uno lee el README real); empaquetada con `README.md` en
   `Resources`. El usuario abrió Help ▸ Midnamer Help y Claude capturó la ventana (`tools/capturar_app.sh`): títulos,
   listas, negritas y rutas en monoespaciado correctos, en modo oscuro.
-- **Pendiente:** «Requirements» dice Apple silicon porque el ejecutable es solo arm64 (`file`); cambiarlo si se hace
-  universal. Revisar el texto si cambia la app.
+- **Pendiente:** revisar el texto si cambia la app. («Requirements» decía Apple silicon; corregido al hacerla
+  universal, EXP-043.)
+- **Estado:** COMPLETADO.
+
+## EXP-043 · 2026-10-24 · Midnamer 0.9.0 universal en .zip (T-037, D-013)
+
+- **Objetivo:** un fichero para repartir que funcione en Apple silicon e Intel.
+- **Entorno:** macOS 15.7.9, Mac del proyecto (Apple silicon, con Rosetta ya instalada de antes); Swift de Xcode 26;
+  `tools/distribuir.sh` sobre `817f141` con el cambio.
+- **Resultado (B):** `build/Midnamer-0.9.0.zip` (1,8 MB). Descomprimido con `ditto -x -k` en el scratchpad:
+  `lipo -archs` → `x86_64 arm64`; `codesign --verify --strict` correcto; `CFBundleShortVersionString` 0.9.0;
+  `Resources` con `LICENSE`, `README.md` y `Midnamer.icns`. `spctl -a -t exec` → «rejected» (lo esperado sin
+  Developer ID: de ahí «Open Anyway»). La parte Intel arranca con `arch -x86_64` (proceso vivo a los 4 s, 0,0 % de CPU,
+  31 MB) y se cerró. `swift test` 111/111.
+- **No probado:** un Mac Intel de verdad, ni abrirla tras descargarla (cuarentena real y «Open Anyway»). Lo comprobará
+  quien la reciba.
 - **Estado:** COMPLETADO.
 

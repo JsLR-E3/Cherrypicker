@@ -13,6 +13,18 @@ Lo que es solo una propuesta va en la tarea o en `docs/remoto/`, no aquí.
 - **Estado:** vigente · sustituida por D-…
 -->
 
+## D-013 · 2026-10-24 · Primera versión para compartir: 0.9.0, universal, .zip con firma ad hoc
+
+- **Decisión:** `VERSION` 0.9.0 (beta, a la espera de comentarios antes de la 1.0). Para repartir,
+  `tools/distribuir.sh` monta Midnamer.app **universal** (arm64 + x86_64, macOS 13+), con `README.md` y `LICENSE` en
+  `Resources`, y la comprime con `ditto` en `build/Midnamer-<VERSION>.zip`. Firma **ad hoc**, sin notarizar (no hay
+  cuenta de Apple Developer): la primera vez hay que abrirla con «Open Anyway» (README, Installing).
+- **Motivo:** elección del usuario entre propuestas de Claude; DP 11.36 también es universal.
+- **Alternativas descartadas:** 1.0 o seguir con 0.1.0; solo Apple silicon; `.dmg`; Developer ID y notarización
+  (necesitan la cuenta de pago; se puede añadir después).
+- **Quién:** usuario, 2026-10-24.
+- **Estado:** vigente.
+
 ## D-012 · 2026-10-24 · Guía de uso en inglés en el README y en Help
 
 - **Decisión:** la guía para quien recibe Midnamer (usuarios de DP, sin compilar) está en `README.md`, **en inglés**

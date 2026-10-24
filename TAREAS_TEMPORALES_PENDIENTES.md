@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-24 · local (`main`) · T-035: Midnamer, con icono y textos propios y GPL-3.0 (D-011, EXP-041); T-036: guía en inglés en README y en Help (D-012, EXP-042).
+> Actualizado: 2026-10-24 · local (`main`) · T-035: Midnamer, con icono y textos propios y GPL-3.0 (D-011, EXP-041); T-036: guía en inglés en README y en Help (D-012, EXP-042); T-037: 0.9.0 universal en .zip (D-013, EXP-043).
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -62,5 +62,6 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 0. Si llega otro `.midnam` del usuario: como en T-030/T-031 (EXP-030, EXP-031); el árbol de D-010 ya se hace en la
    app (Patch Banks: Convert, ⌘→/⌘←, Mark as All Patches; EXP-039). Manuales en `incoming/` → `reference/manuales/<modelo>/`.
-1. **Con el usuario, decidir el siguiente bloque:** cómo compartir Midnamer (versión, ejecutable universal, firma/notarización, .zip o .dmg) o Note Lists (fuera por ahora,
+1. **Con el usuario, decidir el siguiente bloque:** repartir `build/Midnamer-0.9.0.zip` (`tools/distribuir.sh`; dónde
+   publicarlo y el código fuente que pide la GPL los decide el usuario) y recoger comentarios para la 1.0 o Note Lists (fuera por ahora,
    docs/20 §7.1). Lo que salga del uso real de la app, como tarea nueva.

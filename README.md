@@ -14,14 +14,16 @@ It is inspired by CherryPicker, a discontinued editor that no longer runs on cur
 
 ## Requirements
 
-- A Mac with Apple silicon and macOS 13 Ventura or later.
+- A Mac with macOS 13 Ventura or later, Apple silicon or Intel.
 - Digital Performer. Tested with DP 11.36; other programs that read `.midnam` files may work too.
 
 ## Installing
 
-1. Copy **Midnamer.app** to your Applications folder.
-2. The first time, macOS may refuse to open it because it does not come from the App Store or an identified
-   developer. Try to open it once, then go to **System Settings ▸ Privacy & Security** and click **Open Anyway**.
+1. Unzip **Midnamer-<version>.zip** and move **Midnamer.app** to your Applications folder.
+2. The first time, macOS refuses to open it because it does not come from the App Store or an identified developer.
+   Try to open it once, then go to **System Settings ▸ Privacy & Security** and click **Open Anyway**. You only
+   need to do this once.
+3. To update, replace the old Midnamer.app with the new one. Your settings are kept.
 
 ## Quick start
 
