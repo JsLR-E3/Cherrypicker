@@ -13,6 +13,19 @@ Lo que es solo una propuesta va en la tarea o en `docs/remoto/`, no aquí.
 - **Estado:** vigente · sustituida por D-…
 -->
 
+## D-010 · 2026-10-24 · Sub-bancos en árbol en los `.midnam` del usuario
+
+- **Decisión:** al organizar los `.midnam` del usuario, un grupo es un banco con todos sus presets seguido de sus
+  sub-bancos, cuyo nombre empieza por «├ » (U+251C y espacio) y, el último del grupo, por «└ » (U+2514 y espacio):
+  «Studio», «├ Halls»… «└ Delay/Pitch/Mod». Se aplica a LXP-15 I/II y SPX2000 y es la norma para los siguientes.
+- **Motivo:** DP 11.36 solo muestra un nivel de submenús (EXP-006, EXP-011) y respeta el orden del fichero (EXP-013);
+  muestra bien estos símbolos y los espacios iniciales en los nombres de banco (EXP-033). El árbol deja ver qué cuelga
+  de qué y dónde acaba el grupo.
+- **Alternativas descartadas:** «- » (lo usaba el usuario en el SPX2000; menos claro), sangría con espacios, `›`, `▸`,
+  `→`, `·`, `—` (todos se ven bien en DP, EXP-033).
+- **Quién:** usuario (2026-10-24).
+- **Estado:** vigente.
+
 ## D-009 · 2026-10-24 · Pestaña Controllers sencilla aunque DP no la use
 
 - **Decisión:** la fase 5 se hace con una pestaña Controllers sencilla: listas de controles del dispositivo, sus
