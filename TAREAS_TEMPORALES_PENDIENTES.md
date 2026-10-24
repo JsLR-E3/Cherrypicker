@@ -38,7 +38,7 @@
 
 ## EN PROGRESO
 
-- —
+- EXP-044: `EFX 100 optimizado.midnam` hecho y comprobado; falta instalarlo (carpeta `MOTU/Viscount/` del usuario E3: `sudo` o Finder) y probarlo en DP.
 
 ## PENDIENTE DE VALIDACIÓN LOCAL
 

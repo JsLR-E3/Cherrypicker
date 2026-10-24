@@ -1061,3 +1061,26 @@ valer un resultado.
   quien la reciba.
 - **Estado:** COMPLETADO.
 
+
+## EXP-044 · 2026-10-25 · Viscount EFX 100 optimizado (manual y D-010)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto, DP 11.36; árbol de trabajo sobre `56a3ed0`.
+- **Fuente:** manual del EFX 100 (`reference/manuales/EFX-100/`): 0 = Bypass, 1–99 presets de fábrica en 21 familias
+  (tabla «FX TYPE»), 100–199 de usuario; Bank Select CC0 0 + CC32 0 (Preset) o 1 (User) y Program Change 0–99; CC64
+  hace de pedal remoto, CC80–83 son PARAM.A/B y EQ. El pedal hace bypass salvo en Delay (TAP), Resonator (damper) y Rotary
+  (lento/rápido).
+- **Partida:** `reference/midnam_trabajo/EFX 100.midnam` (del usuario, 2020; igual al instalado en `MOTU/Viscount/`, sha256
+  `11739b64f27212eb…`): bancos Presets y User, 99 nombres «familia - descripción» que coinciden con la tabla del capítulo 5.
+- **Fichero:** `reference/midnam_trabajo/EFX 100 optimizado.midnam` (sha256 `41a79c983b636fd7…`; VÁLIDO contra la DTD 1.0):
+  «• Presets» (0–99, nombre completo), grupos Reverbs, Delays, Modulation, Combos y Rotary con sub-bancos de D-010
+  (├ Hall … └ Non-Linear; ├ Delay └ Multitap; ├ Chorus └ Flanger; ├ Delay+Rev ├ Chorus+Rev └ Chorus+Delay; ├ Clean
+  └ Overdrive), Resonator suelto y User. En los sub-bancos y en Resonator el nombre va sin la familia («Medium Bright Fast
+  Response»); en «• Presets» y en los grupos, completo. 12 nombres arreglados (espacios, «MediumBright», «HugeBright»,
+  «Multi /», «(.7. sec)», «(.5sec)», «Medium- Long», «FAst», «Slow-Hi-Res»). [F] en Delay y Multitap (44–51: la tabla del
+  pedal pone «DELAY» sin separar el multitap), Resonator (84–91) y Rotary (92–99).
+- **Comprobado con script:** las 200 direcciones (CC0, CC32, PC) siguen igual; el nombre corto de cada dirección es el
+  final del completo; canales iguales.
+- **Instalación:** pendiente. `MOTU/Viscount/` es del usuario `E3` (no de `jslr`), así que hay que copiarlo con `sudo` o
+  desde el Finder. **Deshacer:** borrar `MOTU/Viscount/EFX 100 optimizado.midnam`.
+- **Resultado:** —
+- **Estado:** EN CURSO.
