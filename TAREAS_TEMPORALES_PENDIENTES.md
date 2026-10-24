@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-24 · local (`main`) · D-010 («• » y árbol ├ └) en todos los `.midnam` hechos (M3000, DSP-128, LXP-15 I/II, SPX2000), probados en DP (EXP-035).
+> Actualizado: 2026-10-24 · local (`main`) · Todos los `.midnam` del usuario optimizados y probados en DP (EXP-030 a EXP-038, D-010).
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -39,7 +39,7 @@
 
 ## EN PROGRESO
 
-- EXP-038: `PCM-91 optimizado.midnam` instalado en `MOTU/Lexicon/`; falta probarlo en DP.
+- —
 
 ## PENDIENTE DE VALIDACIÓN LOCAL
 

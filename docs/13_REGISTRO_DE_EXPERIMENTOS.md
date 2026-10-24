@@ -966,5 +966,5 @@ valer un resultado.
 - **Comprobado con script:** las 800 direcciones (CC32, PC) siguen igual, un nombre por dirección, canales iguales.
 - **Instalación** (permiso del usuario, 2026-10-24): copiado por Claude con `cp -n` a `MOTU/Lexicon/`, idéntico (misma
   sha256); el `PCM-91.midnam` de MOTU, sin cambios. **Deshacer:** borrar `MOTU/Lexicon/PCM-91 optimizado.midnam`.
-- **Resultado:** —
-- **Estado:** EN CURSO.
+- **Resultado (usuario, 2026-10-24, DP 11.36 con el PCM-91):** funciona bien (A).
+- **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»).
