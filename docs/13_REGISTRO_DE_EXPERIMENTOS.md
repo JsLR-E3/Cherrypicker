@@ -872,5 +872,8 @@ valer un resultado.
   `MOTU/Digitech/DSP-128 Plus optimizado.midnam` (EXP-031); son ficheros de la sesión. **Deshacer:** borrarlos.
 - **Prueba (usuario):** menús en DP; en el M3000, un preset de «Halls» por encima de 128 (p. ej. 130) y uno de «Indoor»
   (p. ej. 300) desde el banco padre.
-- **Resultado:** —
-- **Estado:** EN CURSO.
+- **Resultado (usuario, 2026-10-24, DP 11.36 con los aparatos):** «todo probado, todo OK» (A): menús con viñeta y
+  árbol, y presets elegidos desde los bancos padre nuevos (Halls, Indoor, Outdoor, Combined, Rooms, EQ).
+- **Conclusión:** D-010 aplicada a todos los `.midnam` hechos hasta ahora; los bancos padre con Bank Select por patch
+  (Halls, Indoor) funcionan igual que los de un solo banco.
+- **Estado:** COMPLETADO. Instalaciones sin retirar (ver «Deshacer»).
