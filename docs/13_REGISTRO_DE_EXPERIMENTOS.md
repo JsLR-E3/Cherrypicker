@@ -780,3 +780,23 @@ valer un resultado.
 - **Conclusión:** bancos sin Bank Select para un aparato sin bancos funcionan en DP: cada banco es solo una forma de
   agrupar, y el patch n manda PC n − 1 (P n en el aparato).
 - **Estado:** COMPLETADO. Instalación sin retirar (ver «Deshacer»); los demás ficheros de la carpeta, sin cambios.
+
+## EXP-032 · 2026-10-24 · LXP-15 I/II optimizado en DP 11.36 (T-032)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto, DP 11.36; árbol de trabajo sobre `76e762b`. Ficheros (privados, D-004;
+  VÁLIDOS contra la DTD 1.0): `reference/midnam_trabajo/LXP-15 II Presets.midnam` (sha256 `719b3878bdbddbbc…`, de
+  `LXP-15 II.midnam`) y `LXP-15 I Registers.midnam` (`181bfd321549f22c…`, de `LXP-15.midnam`), con los cambios de la
+  ficha T-032. Fuentes: manuales del LXP-15 y del LXP-15 II en `reference/manuales/LXP-15/`.
+- **Comprobado sin aparato (script):** en los dos, 128 PC 0–127 con un solo nombre cada uno (patch n → PC n − 1, como
+  dicen los manuales: PC 0 = preset 1), bancos sin Bank Select, `CustomDeviceMode` y canales iguales que el original;
+  nombres iguales salvo las marcas [F]/[M]/[E] y I 86 → «Spacious5th^».
+- **Instalación:** `/Library/Audio/MIDI Devices/MOTU/Lexicon/` es de root; la copia la hizo el usuario con `sudo cp -n`
+  (2026-10-24 20:42), idéntica a la de trabajo (misma sha256). `LXP-15 II.midnam` y `LXP-15.midnam` del usuario, sin
+  cambios (`d071c56f…`, `9756ae28…`, = `reference/midnam_usuario/`). **Deshacer:**
+  `sudo rm "/Library/Audio/MIDI Devices/MOTU/Lexicon/LXP-15 II Presets.midnam" "/Library/Audio/MIDI Devices/MOTU/Lexicon/LXP-15 I Registers.midnam"`.
+- **Prueba pendiente (usuario, DP 11.36 y LXP-15 con ROM del II; solo Program Change, D-002):** con *Pgm Chg* = Pre y
+  *Master Names* = «LXP-15 II Presets», bancos y algunos presets (p. ej. 1, 27, 65, 128); con *Pgm Chg* = Reg y «LXP-15 I
+  Registers», lo mismo y el 86 («Spacious5th^»). Mirar si DP muestra bien los corchetes y si los «- » se ven como en el
+  SPX2000.
+- **Resultado:** —
+- **Estado:** EN CURSO.

@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-24 · local (`main`) · T-032: LXP-15 (dos sets: II en presets, I en registros) optimizado en dos ficheros; falta instalarlo y probarlo en DP.
+> Actualizado: 2026-10-24 · local (`main`) · T-032: LXP-15 (dos sets: II en presets, I en registros) en dos ficheros, instalados; falta probarlos en DP.
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -20,7 +20,8 @@
 - **Instalación de prueba que se deja a propósito:** `/Library/Audio/MIDI Devices/MOTU/Cherrypicker/` (EXP-011 a
   EXP-022 y EXP-027; cada EXP dice cómo deshacer lo suyo). Deshacer todo: borrar esa carpeta.
   Además, `MOTU/TC Electronic/M3000 optimizado.midnam` (EXP-030) y
-  `MOTU/Digitech/DSP-128 Plus optimizado.midnam` (EXP-031, con `sudo`); deshacer: borrar esos ficheros. Los demás de esas
+  `MOTU/Digitech/DSP-128 Plus optimizado.midnam` (EXP-031, con `sudo`),
+  `MOTU/Lexicon/LXP-15 II Presets.midnam` y `LXP-15 I Registers.midnam` (EXP-032, con `sudo`); deshacer: borrar esos ficheros. Los demás de esas
   carpetas son del usuario.
 - **Copias de trabajo del usuario** en `reference/midnam_trabajo/` (privadas, no versionadas; no se borran ni se
   sobrescriben sin su permiso): `DSP-128 Plus.midnam` (la sigue optimizando él), `M3000 prueba.midnam` (= la instalada
@@ -63,12 +64,13 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
   [E] nivel de entrada (60 en el II, 44 en el I). Único error: I 86 «RoomChrEnv» (repetido) → «Spacious5th^». Comprobado
   con script: 128 PC, un nombre por PC, canales iguales; el resto de nombres sin cambios. DP solo muestra un nivel de
   submenús (EXP-006, EXP-011).
-  **Falta:** instalarlos en `MOTU/Lexicon/` (de root: los copia el usuario con `sudo`), probarlos en DP (EXP) y ver si
-  DP muestra bien los corchetes y si «- » queda como en el SPX2000.
+  Instalados por el usuario con `sudo` en `MOTU/Lexicon/` (EXP-032, cómo deshacerlo allí). Propuesto (sin aplicar):
+  rango en el nombre del banco («- Halls 1–6»), quitar «Studio» en el II, y probar «└»/«›» en vez de «- ».
+  **Falta:** la prueba del usuario en DP (EXP-032).
 
 ## SIGUIENTE PASO EXACTO
 
-0. T-032: instalar (el usuario, con `sudo`) y probar en DP. Después, otro `.midnam` como en T-030/T-031 (`docs/15`, EXP-030 y EXP-031): PCM-81 o PCM-91, con sus manuales en `incoming/`
+0. T-032: resultado de la prueba en DP (EXP-032). Después, otro `.midnam` como en T-030/T-031 (`docs/15`, EXP-030 y EXP-031): PCM-81 o PCM-91, con sus manuales en `incoming/`
    (se archivan en `reference/manuales/<modelo>/`).
 1. **Con el usuario, decidir el siguiente bloque:** preparar la app para compartir (D-007: nombre e icono propios,
    revisar textos cortos de los nibs con `grep -rn '"[A-Z][^"]\{20,\}"' src/CherryPickerApp/Sources/CherryPicker`,
