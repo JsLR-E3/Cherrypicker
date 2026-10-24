@@ -964,6 +964,7 @@ valer un resultado.
     entre paréntesis para que las listas no se repitan («├ Orchestral (P0)» … «└ "Clean Slate" (P8)»).
   - Marcas de las descripciones, revisadas a mano: [F] 4, [E] 6, [T] 32 (42 presets); ninguno [M].
 - **Comprobado con script:** las 800 direcciones (CC32, PC) siguen igual, un nombre por dirección, canales iguales.
-- **Instalación:** pendiente. **Deshacer:** borrar `MOTU/Lexicon/PCM-91 optimizado.midnam`.
+- **Instalación** (permiso del usuario, 2026-10-24): copiado por Claude con `cp -n` a `MOTU/Lexicon/`, idéntico (misma
+  sha256); el `PCM-91.midnam` de MOTU, sin cambios. **Deshacer:** borrar `MOTU/Lexicon/PCM-91 optimizado.midnam`.
 - **Resultado:** —
 - **Estado:** EN CURSO.
