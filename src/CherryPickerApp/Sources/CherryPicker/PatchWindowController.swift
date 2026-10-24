@@ -6,7 +6,8 @@
 // ocultar el resto, como el original según el manual (así se arrastran todos a la vez; P15, T-025); el modo se recuerda.
 // «Count:» cuenta las filas que se ven o, al seleccionar, las que coinciden.
 // Al seleccionar un solo patch con «Enable MIDI» activo se envía su bank select y Program Change (T-021).
-// Pendiente: Copy..., volcados de GigaStudio/Cakewalk y «n=nombre».
+// «Copy...» abre «Copy Fields To Clipboard» (T-027).
+// Pendiente: volcados de GigaStudio/Cakewalk y «n=nombre».
 import AppKit
 import CherryPickerCore
 import MidnamKit
@@ -142,13 +143,15 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 		scroll.hasVerticalScroller = true
 		scroll.borderType = .bezelBorder
 
+		// «Copy...» arriba a la izquierda, como en el original (manual, «Bank Export»).
+		let copy = NSButton(title: "Copy...", target: self, action: #selector(copyFields(_:)))
 		let renumber = NSButton(title: "Renumber", target: self, action: #selector(renumber(_:)))
 		let add = NSButton(image: NSImage(named: NSImage.addTemplateName)!, target: self, action: #selector(addPatches(_:)))
 		removeButton.image = NSImage(named: NSImage.removeTemplateName)
 		removeButton.bezelStyle = add.bezelStyle
 		removeButton.target = self
 		removeButton.action = #selector(removePatches(_:))
-		let buttons = NSStackView(views: [renumber, add, removeButton])
+		let buttons = NSStackView(views: [copy, renumber, add, removeButton])
 		buttons.spacing = 4
 
 		findField.placeholderString = "Find"
@@ -473,6 +476,26 @@ final class PatchWindowController: NSWindowController, NSWindowDelegate, NSTable
 				try $0.renumberPatches(ref, indices: onlySelection ? indices : nil, midiStart: midiStart,
 				                       displayStart: displayStart)
 			}
+		}
+		sheet.begin(on: w) { _ in _ = sheet }
+	}
+
+	/// «Copy...»: hoja «Copy Fields To Clipboard»; el texto va al portapapeles y, si se pide, a TextEdit.
+	@objc private func copyFields(_ sender: Any?) {
+		guard let w = window else { return }
+		let indices = selectedPatches, all = allRows, bank = bankName
+		let sheet = CopyFieldsSheet(hasSelection: !indices.isEmpty)
+		sheet.onCommit = { export, toTextEdit, onlySelection in
+			let text = export.text(bankName: bank, patches: onlySelection ? all.filter { indices.contains($0.index) } : all)
+			NSPasteboard.general.clearContents()
+			NSPasteboard.general.setString(text, forType: .string)
+			guard toTextEdit else { return }
+			// Fichero temporal propio de la app; TextEdit lo abre como un documento más.
+			let safe = bank.replacingOccurrences(of: "/", with: "-").replacingOccurrences(of: ":", with: "-")
+			let url = FileManager.default.temporaryDirectory.appendingPathComponent("\(safe).txt")
+			try text.write(to: url, atomically: true, encoding: .utf8)
+			guard let app = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.apple.TextEdit") else { return }
+			NSWorkspace.shared.open([url], withApplicationAt: app, configuration: NSWorkspace.OpenConfiguration())
 		}
 		sheet.begin(on: w) { _ in _ = sheet }
 	}

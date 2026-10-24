@@ -5,6 +5,7 @@ copia. Se consulta por `grep` (p. ej. `grep T-012 docs/15_HISTORIAL.md`), no se 
 
 | ID | Cerrada | Resultado (y cómo se verificó) | Commit · EXP · D |
 |---|---|---|---|
+| T-027 | 2026-10-24 | «Copy...» en la lista de presets: hoja «Copy Fields To Clipboard» (campos, orden, delimitador, comillas, banco, TextEdit; All / Selection, P19); al portapapeles. 4 tests (87/87); probado a mano por el usuario (Claude leyó el portapapeles) | 6bc7c72… · EXP-026 |
 | T-026 | 2026-10-24 | Arrastrar bancos (a Patch Banks) y patches (a una lista) entre documentos abiertos: siempre copia, con su bank select y lista propia, «nombre 2» si está ocupado (P18). 4 tests (83/83); probado a mano por el usuario | 32496cc… · EXP-025 |
 | T-025 | 2026-10-24 | Pestaña Categories (juegos GM y E-mu de serie, propios con Dup, Add To Banks; P17), Find de la lista con «Filter» / «Select Matches» (P15) y nota de prueba opcional en la audición (P16, D-008). 7 tests (79/79); probado a mano por el usuario y con el MKS-50 en la Unitor8 (la nota doble al cambiar con la anterior sonando es del MKS-50 y se deja) | 1fa1782…a6809ed · EXP-024 · D-008 |
 | T-024 | 2026-10-23 | «Install in DP…» (File, ⌘I; P3): copia a `MOTU/<Fabricante>/` con confirmación, `.middev` propio opcional, copia de seguridad y cómo deshacer. 3 tests (72/72); probado en la app y en DP 11.36 (el modelo sale en la lista y en Master Names) | 7f55a86…e4ebba6 · EXP-021, EXP-022 |

@@ -66,7 +66,7 @@ Editor de «patchfiles» (`.midnam`, y también OMS, FreeMIDI y Cubase) que:
 | Merge | **Sí** (menor) | Barato con el modelo |
 | Lista de patches: + / −, ordenar, arrastrar, Renumber | **Sí** | |
 | Pegar o soltar texto con delimitador | **Sí** | Uso declarado (T-005) |
-| Copy… (exportar campos al portapapeles) | Más adelante | Útil, no pedido |
+| Copy… (exportar campos al portapapeles) | **Sí** (T-027, P19) | Pedido por el usuario (2026-10-24) |
 | Device: modos y Channel Sets | **Sí** | Estructura del fichero |
 | Controllers (`ControlNameList`) | **Sí** (fase 5) | DP no los muestra en el menú de pista (EXP-006, T-014) |
 | Audición: Bank Select + Program Change al seleccionar un patch | **Sí** (fase 4) | D-002: solo esos mensajes |
@@ -106,8 +106,7 @@ Una por banco, desde el botón **P**. Tabla `B0` · `B32` · `#` · `Patch Name`
 cabecera (reordena la lista del fichero); arrastrar para reordenar o llevar a otra lista (copia). Campo «Find»
 con dos modos en el menú de la lupa (P15): «Filter» (por defecto: filtra la tabla por nombre) y «Select Matches»
 (como el original según el manual: selecciona los que coinciden sin ocultar el resto y se arrastran todos a la vez); el
-modo se recuerda. «Count:» (filas visibles o, al seleccionar, coincidencias). Botones «Renumber» y + / −. «Copy...»
-más adelante (§2). Al seleccionar un patch con «Enable MIDI» activo, se envían Bank Select + Program Change (D-002). Sin
+modo se recuerda. «Count:» (filas visibles o, al seleccionar, coincidencias). Botones «Copy...» (hoja «Copy Fields To Clipboard», P19), «Renumber» y + / −. Al seleccionar un patch con «Enable MIDI» activo, se envían Bank Select + Program Change (D-002). Sin
 el bloque «Audition Riff» (§7).
 
 ### 3.3 Hojas
@@ -186,6 +185,7 @@ se puede borrar ni sacar el último banco de un Channel Set (`PatchBank+`).
 | P16 | Nota de prueba opcional en la audición («Test Note», pestaña MIDI), por dispositivo | Oír módulos de sonido sin teclado; el original lo hacía con «Audition Riff». D-008 (usuario, 2026-10-24) |
 | P17 | Categories: los juegos GM y E-mu no se editan (se duplican con «Dup»); los propios se guardan en la app, para todos los documentos; «Add To Banks» con varios Channel Sets pregunta en cuál y salta (avisando) los nombres que ya son de un banco | El nib no muestra dónde guardaba el original los juegos ni qué hacía con nombres repetidos; nombres de banco únicos (P4). Aceptada por el usuario (2026-10-24), que decide también dejar la lista E-mu tal cual (nombres de categoría, datos; matiza D-007) |
 | P18 | Arrastrar entre documentos siempre copia (el origen no cambia): bancos a Patch Banks (al Channel Set de la fila de encima del punto donde se sueltan, con bank select, patches y lista propia; nombre ocupado → «nombre 2»; aviso si sus patches usan listas de notas o de controles que el destino no tiene) y patches a una lista (cada uno con su bank select, P9) | El manual del original solo dice que se pueden arrastrar bancos y patches de un fichero a otro; copiar es lo seguro con ficheros del usuario. T-026, probada por el usuario (EXP-025) |
+| P19 | «Copy...»: además de toda la lista, «All» / «Selection» como en Renumber; los ajustes de la hoja se recuerdan; «TextEdit Export» abre un `.txt` temporal en TextEdit | Copiar solo unos cuantos sin borrar el resto; el original exportaba siempre la lista entera (manual). T-027, probada por el usuario (EXP-026) |
 
 ## 6. Inventario de los nibs
 
@@ -203,7 +203,7 @@ y no se ha visto la app funcionando. Textos literales entre comillas; columnas c
 | SetupWizard | «Device Setup» · CPSetupWizard | Sí |
 | Preview | «Preview» · CPPreview | Sí |
 | ImportBrowser | «Patchlist Importer» · CPImportBrowser (importa de otros `.midnam`) | Sí |
-| CPPatchExport | «Copy Fields To Clipboard» · CPCopySheet | Más adelante |
+| CPPatchExport | «Copy Fields To Clipboard» · CPCopySheet | Sí |
 | MiddevEditor, CPDuplicates | «Middev Editor», «Duplicate Middev Entries» | No por ahora |
 | NoteWindow | «Note Names» · NoteWindowController | No por ahora (§7.1) |
 | MIDIFileUI | «Audition Files» · RiffPlayerUI | No por ahora |

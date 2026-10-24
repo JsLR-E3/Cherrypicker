@@ -39,6 +39,10 @@ Abrir un `.midnam` con **File ▸ Open…** o arrastrándolo a la app. La app no
   uno («Add as New Bank»). **Find** abre el Finder: busca presets por nombre en todos los bancos; «Add New Bank With
   Patches» crea un banco con los que quedan en la lista, − y «Remove Duplicates» solo quitan filas de la lista, y se
   pueden arrastrar a la lista de un banco.
+- **Copy...** (lista de presets): copia al portapapeles una línea por preset con los campos marcados (Name, Patch
+  Number, Bank Selects, Display Number) en el orden de «Field Order» (se arrastran), separados por coma, tabulador o
+  espacio; «Quote Names» pone los nombres entre comillas, «Print Bank Name» añade antes el nombre del banco, «TextEdit
+  Export» lo abre también en TextEdit y «Selection» copia solo los seleccionados. Para pegarlo, por ejemplo, en Logic.
 - **Patch Banks entre ficheros:** arrastrar uno o varios bancos a la tabla de otro documento abierto los copia (el
   de origen no cambia) al Channel Set de la fila de encima de donde se sueltan, con su bank select y sus presets; si
   el nombre ya existe, llega como «nombre 2».
@@ -69,5 +73,5 @@ Abrir un `.midnam` con **File ▸ Open…** o arrastrándolo a la app. La app no
 ## 3. Diagnóstico y limitaciones
 
 - Solo se lee `.midnam` en UTF-8.
-- Aún no hay: Copy… en la lista de presets, pestaña Controllers, Note Lists.
+- Aún no hay: pestaña Controllers, Note Lists.
 - Un Channel Set no puede quedarse sin bancos (lo exige el formato).

@@ -634,3 +634,24 @@ valer un resultado.
   patches.
 - **No probado en la app:** el aviso de listas de notas o de controles que faltan en el destino (solo en los tests).
 - **Conclusión:** P18 funciona como se diseñó. **Estado:** COMPLETADO.
+
+## EXP-026 · 2026-10-24 · «Copy...» de la lista de patches (T-027)
+
+- **Entorno:** macOS 15.7.9, Mac del proyecto; árbol de trabajo sobre `6bc7c72`; `build/CherryPicker.app` de
+  `tools/empaquetar_app.sh`; Swift 6.2.4 (Xcode, SDK 26.2). Documento: copia en el scratchpad de
+  `captures/exp013/Prueba patches.midnam`, banco «pp» (5 patches, 5/5). Lo maneja el usuario; Claude mira con
+  `tools/capturar_app.sh` y lee el portapapeles con `pbpaste` (texto de prueba, puesto por la app).
+- **Qué hacía el original** (nivel D, nib `CPPatchExport`): hoja «Copy Fields To Clipboard» con casillas Name, Patch
+  Number, Bank Selects, Display Number; «Field Order (Drag to reorder)»; «Delimiter» Comma / Tab / Space; «Quote
+  Names», «Print Bank Name», «TextEdit Export»; Cancel / OK. El manual («Bank Export»): botón «Copy...» arriba a la
+  izquierda de la lista; OK copia al portapapeles; con TextEdit Export abre además TextEdit.
+- **Compilación:** `swift build` (debug) bien, pero `tools/empaquetar_app.sh` (release, `-O`) hacía caer el compilador
+  (`signal 6`, «Owned function parameter without lifetime ending uses!» en `CopyFieldsSheet.init(hasSelection:)`, pase
+  CopyPropagation). Arreglo: la preparación de la hoja va en un método aparte (`setUp`) llamado tras `super.init`.
+- **Tests:** `swift test` → 87/87 (4 nuevos en `PatchExportTests`).
+- **En la app:** la hoja sale con «Name» marcado, Tab, «All» y «Selection» desactivada sin selección. OK → portapapeles
+  con los 5 nombres, uno por línea. Con los cuatro campos, «Display Number» arrastrado arriba, Comma, Quote Names y
+  Print Bank Name → `"pp"` y `001,"dos",0,5,5` … (`"df,fjgsdf"` entre comillas). Con 2 seleccionados, «Selection» y
+  TextEdit Export → portapapeles con la línea del banco y esos 2; `pp.txt` en la carpeta temporal de la app y TextEdit
+  abierto con esas tres líneas (lo copia el usuario).
+- **Conclusión:** Copy... funciona como se diseñó (P19). **Estado:** COMPLETADO.
