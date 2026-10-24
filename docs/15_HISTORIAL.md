@@ -5,6 +5,7 @@ copia. Se consulta por `grep` (p. ej. `grep T-012 docs/15_HISTORIAL.md`), no se 
 
 | ID | Cerrada | Resultado (y cómo se verificó) | Commit · EXP · D |
 |---|---|---|---|
+| EXP-037 | 2026-10-24 | PCM-81 optimizado: árbol, grupos de la User Guide, bancos «P0»…, erratas, marcas [F]/[M]/[E]/[T], registros AK85; probado en DP | 43e8363, 5874d95, 02b9e1c · EXP-037 |
 | EXP-035 | 2026-10-24 | D-010 también en M3000 (padres Halls, Indoor, Outdoor, Combined) y DSP-128 Plus (• All Programs, Rooms, EQ); probado en DP | 888cb80, 442d093 · EXP-035 |
 | D-010 | 2026-10-24 | Prueba de símbolos en nombres de banco (EXP-033) y norma «• » + árbol ├ └ aplicada a LXP-15 I/II y SPX2000 (con «Samplig» → «Sampling»); probado en DP | bd5ce77, c3fb90a, 137c4b1 · EXP-033, EXP-034 |
 | T-032 | 2026-10-24 | LXP-15 con ROM del II: «LXP-15 II Presets» (Pgm Chg = Pre) y «LXP-15 I Registers» (Pgm Chg = Reg), sub-bancos «- » como el SPX2000, marcas [F]/[M]/[E] de los manuales, I 86 corregido; probado en DP | 76e762b, 1a23de2 · EXP-032 |

@@ -942,5 +942,5 @@ valer un resultado.
   del capítulo 4): P2 Gain 2.5–4.0 / Resonant Chords 4.1–4.9 y P4 Vocal Shift 0.0–0.9 / Vocal Harmony 1.0–1.9. El
   usuario elige la User Guide (su fichero tenía P2 igual y P4 con el corte en 1.0/1.1). Bancos renombrados «P0»…«P5»,
   «R0», «C0»…«Ca» (como en la pantalla; los manuales solo dicen «Program Bank 0…5»). Nuevo sha256 `6a629e7daf44a7df…`,
-  VÁLIDO; las 900 direcciones siguen igual. Falta reinstalarlo en DP.
-- **Estado:** EN CURSO.
+  VÁLIDO; las 900 direcciones siguen igual. Reinstalado por Claude con permiso del usuario (`cp -f`, misma sha256).
+- **Estado:** COMPLETADO (la versión con los grupos de la User Guide, sin volver a probar en DP). Instalación sin retirar.
