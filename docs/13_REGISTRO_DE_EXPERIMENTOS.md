@@ -607,8 +607,12 @@ valer un resultado.
   Unitor8, canal 1 (Audition Ch por defecto de «Melodicos»). Device Out = puerto de la Unitor, Enable MIDI, Test Note
   con 60 / 100 / 500. Al seleccionar «Pianos 1–3», el MKS-50 cambia de programa (PC 0–2; no usa CC0/CC32) y toca la
   nota. Con Length 3000 y dos clics rápidos se oyen dos notas seguidas, como dos pulsaciones: la primera se corta al
-  cambiar de patch y no queda ninguna colgada (lo esperado). No se ha comprobado aparte que, sin Test Note, solo cambie
-  de programa (es la audición de EXP-018).
+  cambiar de patch y no queda ninguna colgada. Sin Test Note solo cambia de programa y no suena (usuario).
+- **Observación (usuario):** si al cambiar de patch aún suena la nota anterior, el patch nuevo suena dos veces: una
+  corta y luego la nota con su duración. Sin solapamiento, una sola vez. La app envía Note Off, CC0/CC32 + PC y,
+  150 ms después, un solo Note On. **Hipótesis (C, sin comprobar):** el MKS-50 aplica el patch nuevo a la voz que
+  sigue sonando (release o Note Off ignorado) y eso se oye durante los 150 ms. Para confirmarla: esperar a que acabe la
+  cola antes de cambiar, o cambiar de patch en DP con una tecla pulsada.
 - **CPU** (`top -l 3 -s 2 -pid …`, app abierta y en reposo tras la prueba): 0,0 %, 52 MB.
 - **Conclusión:** Categories, el Find en sus dos modos y la nota de prueba funcionan como se diseñaron (docs/20 §3.1,
   §3.2, P15–P17, D-008).
