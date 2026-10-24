@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-24 · local (`main`) · T-030 completada: M3000 optimizado contra el manual y probado en DP con el aparato (EXP-030).
+> Actualizado: 2026-10-24 · local (`main`) · T-031: `DSP-128 Plus optimizado.midnam` generado (10 familias); falta instalarlo y probarlo en DP.
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -23,7 +23,7 @@
   carpeta son del usuario.
 - **Copias de trabajo del usuario** en `reference/midnam_trabajo/` (privadas, no versionadas; no se borran ni se
   sobrescriben sin su permiso): `DSP-128 Plus.midnam` (la sigue optimizando él), `M3000 prueba.midnam` (= la instalada
-  en DP, EXP-023) y `M3000 optimizado.midnam` (T-030).
+  en DP, EXP-023) y `M3000 optimizado.midnam` (T-030) y `DSP-128 Plus optimizado.midnam` (T-031).
 - **Antes de compartir la app** (D-007): nombre e icono propios, revisar textos cortos tomados de los nibs, licencia.
 - **Idea para un proyecto futuro:** `docs/40_IDEA_EDITOR_FX_BCR2000.md` (fuera del alcance).
 
@@ -43,14 +43,25 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
+| T-031 | A | PENDIENTE-LOCAL | Optimizar el `.midnam` del DSP-128 Plus contra su manual (`reference/manuales/DSP-128 Plus/`) | — | Ver ficha. Aceptación: el usuario lo prueba en DP 11.36 con el aparato (EXP nuevo) |
 
 ## Fichas
 
-- —
+- **T-031 (DSP-128 Plus):** sobre una copia, sin tocar `DSP-128 Plus.midnam` (la de EXP-029):
+  `reference/midnam_trabajo/DSP-128 Plus optimizado.midnam`, VÁLIDO contra la DTD. El manual es un escaneo: texto
+  sacado con OCR (Vision de macOS, sin instalar nada), nivel B con ruido de OCR. Fuentes: el aparato no tiene bancos;
+  responde a Program Change 0–127 = P 1–128 en su canal (1 por defecto). Los 128 nombres del fichero coinciden en orden
+  con «Comments» de Appendix B (desarrollados: «with» por «w/»). Cambios (decisión del usuario): bancos All Programs
+  (1–128) + 10 familias de la referencia rápida (Large/Medium/Small Rooms, Gated, Reverse, Halls, Multi-tap Delays,
+  Parametric EQ, Graphic EQ, Mute & Dry), sin Bank Select; 28 nombres (Parametriq → Parametric ×20, Barroque → Baroque,
+  «Brite Lg Room» → «Bright Large Room», mayúsculas y dobles espacios). Comprobado con script: los 128 PC, un nombre por
+  PC, canales sin cambios. Todos los presets del aparato son de fábrica (usuario).
+  **Falta:** instalarlo en DP (la carpeta `MOTU/Digitech/` es de root: puede que lo tenga que copiar el usuario) y
+  probarlo (EXP).
 
 ## SIGUIENTE PASO EXACTO
 
-0. Optimizar otro `.midnam` como en T-030 (`docs/15` y EXP-030): DSP-128 Plus, LXP-15, LXP-15 II, PCM-81 o PCM-91, con sus manuales en `incoming/`
+0. T-031: instalar y probar en DP. Después, otro `.midnam` como en T-030 (`docs/15` y EXP-030): LXP-15, LXP-15 II, PCM-81 o PCM-91, con sus manuales en `incoming/`
    (se archivan en `reference/manuales/<modelo>/`).
 1. **Con el usuario, decidir el siguiente bloque:** preparar la app para compartir (D-007: nombre e icono propios,
    revisar textos cortos de los nibs con `grep -rn '"[A-Z][^"]\{20,\}"' src/CherryPickerApp/Sources/CherryPicker`,
