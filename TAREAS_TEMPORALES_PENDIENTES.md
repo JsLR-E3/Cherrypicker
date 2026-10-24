@@ -3,7 +3,7 @@
 > Continuidad: **solo el estado vivo.** Reglas en `CLAUDE.md`; procedimientos en `/inicio` y `/cierre`.
 > Al cerrar, lo COMPLETADO sale de aquí a `docs/15_HISTORIAL.md` (una línea por tarea) y ESTADO ACTUAL se reescribe,
 > no se amplía. Objetivo: que este fichero quepa en una lectura (< 150 líneas).
-> Actualizado: 2026-10-24 · local (`main`) · T-031 completada: DSP-128 Plus optimizado (10 familias) probado en DP con el aparato (EXP-031).
+> Actualizado: 2026-10-24 · local (`main`) · T-032: LXP-15 (dos sets: II en presets, I en registros) optimizado en dos ficheros; falta instalarlo y probarlo en DP.
 
 <!-- Estados: PENDIENTE · EN PROGRESO · BLOQUEADA (por qué) · IMPLEMENTADA (sin verificar) ·
      PENDIENTE-LOCAL (hecha; falta probarla en el Mac/aparato) · COMPLETADA (verificada: qué se ejecutó y resultado).
@@ -24,7 +24,8 @@
   carpetas son del usuario.
 - **Copias de trabajo del usuario** en `reference/midnam_trabajo/` (privadas, no versionadas; no se borran ni se
   sobrescriben sin su permiso): `DSP-128 Plus.midnam` (la sigue optimizando él), `M3000 prueba.midnam` (= la instalada
-  en DP, EXP-023) y `M3000 optimizado.midnam` (T-030) y `DSP-128 Plus optimizado.midnam` (T-031).
+  en DP, EXP-023) y `M3000 optimizado.midnam` (T-030) y `DSP-128 Plus optimizado.midnam` (T-031),
+  `LXP-15 II Presets.midnam` y `LXP-15 I Registers.midnam` (T-032).
 - **Antes de compartir la app** (D-007): nombre e icono propios, revisar textos cortos tomados de los nibs, licencia.
 - **Idea para un proyecto futuro:** `docs/40_IDEA_EDITOR_FX_BCR2000.md` (fuera del alcance).
 
@@ -44,14 +45,30 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
+| T-032 | A | PENDIENTE-LOCAL | Optimizar los `.midnam` del LXP-15 convertido a II (presets = set II, registros = set I) contra los dos manuales (`reference/manuales/LXP-15/`) | — | Ver ficha. Aceptación: el usuario los prueba en DP 11.36 con las unidades (EXP nuevo) |
 
 ## Fichas
 
-- —
+- **T-032 (LXP-15 I/II):** caso del usuario: dos LXP-15 con la ROM del II; los 128 presets son los del II y los 128
+  registros guardan los del I. *Pgm Chg* (página Global) decide a qué afecta el Program Change: Pre, Reg u Off, o Map
+  (tabla de 128 entradas que manda cada PC a un preset o registro). Ni Bank Select ni otra forma documentada sin SysEx
+  para cambiarlo: el usuario lo cambia a mano y elige en DP el fichero del set. Idea comentada: una unidad fija en Pre y
+  la otra en Reg. Ficheros nuevos (originales de `reference/midnam_usuario/` sin tocar), VÁLIDOS contra la DTD:
+  `LXP-15 II Presets.midnam` (Pgm Chg = Pre) y `LXP-15 I Registers.midnam` (Pgm Chg = Reg); el nombre del fichero es lo
+  que sale en *Master Names*. Bancos sin Bank Select con el estilo del SPX2000 del usuario (banco general y sub-bancos
+  con «- »): II = All Presets, Studio (- Halls, - Rooms, - Plates, - Gates, - Delay/Pitch/Mod), Stage; I = All
+  Registers, General (- Halls, - Rooms, - Plates, - Gates, - Delay/Pitch, - Chorus/Mod, - Special), Guitar/Bass,
+  Guitar/Keyboard, Keyboards, FX (tipos según el algoritmo de cada preset en los manuales). Marcas al final del nombre,
+  sacadas de la columna «Patch» de los manuales: [F] pedal, [M] controlado por MIDI (rueda, aftertouch, sustain, reloj),
+  [E] nivel de entrada (60 en el II, 44 en el I). Único error: I 86 «RoomChrEnv» (repetido) → «Spacious5th^». Comprobado
+  con script: 128 PC, un nombre por PC, canales iguales; el resto de nombres sin cambios. DP solo muestra un nivel de
+  submenús (EXP-006, EXP-011).
+  **Falta:** instalarlos en `MOTU/Lexicon/` (de root: los copia el usuario con `sudo`), probarlos en DP (EXP) y ver si
+  DP muestra bien los corchetes y si «- » queda como en el SPX2000.
 
 ## SIGUIENTE PASO EXACTO
 
-0. Otro `.midnam` como en T-030/T-031 (`docs/15`, EXP-030 y EXP-031): LXP-15, LXP-15 II, PCM-81 o PCM-91, con sus manuales en `incoming/`
+0. T-032: instalar (el usuario, con `sudo`) y probar en DP. Después, otro `.midnam` como en T-030/T-031 (`docs/15`, EXP-030 y EXP-031): PCM-81 o PCM-91, con sus manuales en `incoming/`
    (se archivan en `reference/manuales/<modelo>/`).
 1. **Con el usuario, decidir el siguiente bloque:** preparar la app para compartir (D-007: nombre e icono propios,
    revisar textos cortos de los nibs con `grep -rn '"[A-Z][^"]\{20,\}"' src/CherryPickerApp/Sources/CherryPicker`,
