@@ -28,7 +28,8 @@ Abrir un `.midnam` con **File ▸ Open…** o arrastrándolo a la app. La app no
   Pegar (⌘V) o soltar texto abre la misma hoja con un preset por línea, coma, tabulador o entre comillas
   («Patch Delimiter»). **−** o Supr borran; **Renumber** numera todos o los seleccionados. Arrastrar reordena; a la
   ventana de otro banco del mismo fichero, copia (cada preset sigue sonando con su bank select). **Find** filtra por
-  nombre y «Count:» cuenta lo que se ve.
+  nombre y «Count:» cuenta lo que se ve; en el menú de la lupa, «Select Matches» selecciona los que coinciden sin
+  ocultar el resto (para arrastrarlos todos de una vez a otro banco). El modo elegido se recuerda.
 - **Patch Banks, más botones:** **Merge** (con dos o más bancos) junta sus presets en un banco nuevo y borra los
   originales (con Option al pulsar «Add», los conserva). **Zap Dups** borra los presets repetidos: con bancos
   seleccionados, conserva esos y borra los repetidos de los demás bancos de su Channel Set; sin selección, borra de
@@ -43,7 +44,14 @@ Abrir un `.midnam` con **File ▸ Open…** o arrastrándolo a la app. La app no
   El + de Channel Sets solo funciona si quedan canales libres; un Channel Set nuevo trae un banco vacío. Al borrar uno
   con presets, pregunta a qué Channel Set pasan sus bancos.
 - **MIDI (audición):** elegir «Device Out» y marcar «Enable MIDI» (se desmarca al abrir). Al seleccionar un preset en
-  su lista se envían su bank select y su Program Change, y nada más (ni notas ni SysEx).
+  su lista se envían su bank select y su Program Change. Con **Test Note** marcado (para módulos de sonido; apagado
+  en multiefectos), además suena una nota corta (Note, Velocity, Length en ms; por defecto C3, 100, 500) poco después
+  del cambio; al cambiar de preset, la anterior se corta. Se recuerda por fabricante y modelo. Nunca se envía SysEx.
+- **Categories:** juegos de nombres de banco. «GM Categories» y «EMU Categories» vienen de serie y no se editan:
+  **Dup** hace una copia tuya que sí (doble clic para renombrar, + / − en las dos tablas). Tus juegos valen para
+  todos los documentos. **Add To Banks** crea en el documento un Custom Bank vacío (sin bank select) por cada nombre
+  seleccionado, o por todos si no hay selección; si hay varios Channel Sets, pregunta en cuál, y los nombres que ya
+  son de un banco no se crean (avisa). Luego se llenan arrastrando presets desde otras listas.
 - **File ▸ New (⌘N):** asistente Device Setup: fabricante y modelo (se autocompletan con los de DP), si todos los
   bancos suenan en todos los canales y, si no, los grupos de canales. Crea un documento sin guardar con un banco vacío
   por grupo.
@@ -58,6 +66,6 @@ Abrir un `.midnam` con **File ▸ Open…** o arrastrándolo a la app. La app no
 ## 3. Diagnóstico y limitaciones
 
 - Solo se lee `.midnam` en UTF-8.
-- Aún no hay: Copy… en la lista de presets, arrastrar presets o bancos entre ficheros, pestañas Controllers y
-  Categories, Note Lists.
+- Aún no hay: Copy… en la lista de presets, arrastrar presets o bancos entre ficheros, pestaña Controllers,
+  Note Lists.
 - Un Channel Set no puede quedarse sin bancos (lo exige el formato).

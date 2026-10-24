@@ -589,6 +589,27 @@ valer un resultado.
   los juegos propios ni de qué hacía con nombres de banco repetidos: decisiones propias en P17.
 - **Tests:** `cd src/CherryPickerApp && swift test` → 79/79 (6 nuevos en `CategoriesTests`, incluida la validación DTD
   de un fichero con los 26 bancos E-mu añadidos; 1 nuevo en `AuditionTests` para la nota de prueba).
-- **App:** abre el documento y muestra la ventana (captura con `tools/capturar_app.sh`). Pendiente: que el usuario
-  pruebe Categories, el Find en los dos modos y la nota de prueba con un módulo de sonido.
-- **Estado:** EN CURSO.
+- **Categories en la app** (A: lo maneja el usuario y Claude mira con `tools/capturar_app.sh`; commit `1fa1782`):
+  - Al abrir: «GM Categories» y «EMU Categories» en gris, sus 16 / 26 nombres, + / − de Bank Names desactivados.
+  - «Dup» de GM → «GM Categories copy» editable con los 16 nombres. En la copia: renombrar «Piano» → «Pianos», + →
+    «Favoritos», − de «Organ», renombrar el juego → «Mis categorías»: todo correcto.
+  - Nombre repetido («Pianos» → «Bass»): aviso «“Bass” is already in this category.» y el nombre se queda. Doble clic
+    en «GM Categories»: pitido y no se edita (lo dice el usuario).
+  - «Add To Banks» con «Pianos» y «Favoritos» en el Channel Set «Melodicos» (el fichero tiene dos y la app pregunta):
+    «1 custom bank added», con el aviso de que «Pianos» ya existía (era un banco del fichero). En Patch Banks,
+    «Favoritos» al final de «Melodicos», en rojo (Empty), S0/S32 «-», # 0. ⌘Z lo quita.
+  - Tras salir sin guardar (⌘Q) y volver a abrir, «Mis categorías» sigue con sus cambios (preferencias de la app).
+- **Find en la lista de patches** (banco «Pianos», patches «Pianos 1–3»): en «Filter», «1» deja solo «Pianos 1» y
+  «Count: 1». En el menú de la lupa, «Select Matches»: se ven los 3, con «pianos» (en minúsculas) quedan los 3
+  seleccionados y «Count: 3». Arrastrar uno de ellos a la lista de «Cuerdas» copia los 3 (Count: 6), cada uno con su
+  bank select 0/0 (P9). El Find de «Cuerdas» abre ya en «Find (select)»: el modo se recuerda.
+- **Nota de prueba** (A, oído por el usuario; permiso del usuario para enviar MIDI, 2026-10-24): Roland MKS-50 en la
+  Unitor8, canal 1 (Audition Ch por defecto de «Melodicos»). Device Out = puerto de la Unitor, Enable MIDI, Test Note
+  con 60 / 100 / 500. Al seleccionar «Pianos 1–3», el MKS-50 cambia de programa (PC 0–2; no usa CC0/CC32) y toca la
+  nota. Con Length 3000 y dos clics rápidos se oyen dos notas seguidas, como dos pulsaciones: la primera se corta al
+  cambiar de patch y no queda ninguna colgada (lo esperado). No se ha comprobado aparte que, sin Test Note, solo cambie
+  de programa (es la audición de EXP-018).
+- **CPU** (`top -l 3 -s 2 -pid …`, app abierta y en reposo tras la prueba): 0,0 %, 52 MB.
+- **Conclusión:** Categories, el Find en sus dos modos y la nota de prueba funcionan como se diseñaron (docs/20 §3.1,
+  §3.2, P15–P17, D-008).
+- **Estado:** COMPLETADO.

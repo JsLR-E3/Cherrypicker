@@ -24,7 +24,8 @@
 
 ## EN PROGRESO
 
-- **T-025** (ficha abajo): código y tests hechos (79/79); falta la prueba del usuario en la app (EXP-024).
+- **T-025** (ficha abajo): hecho y probado en la app y con el MKS-50 (EXP-024 COMPLETADO); faltan dos decisiones
+  del usuario (P17 y la lista E-mu).
 
 ## PENDIENTE DE VALIDACIÓN LOCAL
 
@@ -38,7 +39,7 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
 
 | ID | Pri | Estado | Tarea (objetivo) | Depende de | Siguiente paso / criterio de aceptación |
 |---|---|---|---|---|---|
-| T-025 | A | EN PROGRESO | Pestaña Categories; Find con «Select Matches»; nota de prueba opcional (D-008) | — | Prueba del usuario en la app (EXP-024) y respuesta a P17 |
+| T-025 | A | EN PROGRESO | Pestaña Categories; Find con «Select Matches»; nota de prueba opcional (D-008) | — | Probado (EXP-024); falta que el usuario acepte P17 y decida la lista E-mu |
 | T-014 | C | PENDIENTE | Mirar con el usuario si «Other Controller…» de DP usa la `ControlNameList` | DP abierto (usuario) | EXP registrado; fila `ControlNameList` de `PROTOCOL_INDEX` actualizada |
 
 ## Fichas
@@ -48,15 +49,13 @@ Trabajo hecho (a menudo en la nube) que solo se puede dar por bueno tras probarl
   `CategoriesViewController` (juegos propios en las preferencias, clave `userCategories`); Find con menú «Filter» /
   «Select Matches» (clave `patchFindSelects`); «Test Note» en la pestaña MIDI (`TestNote`, claves `testNoteOn.*` y
   `testNote.*`; 150 ms tras el Program Change). Docs: D-008, regla 4 de CLAUDE.md, docs/20 §3.1, §3.2, P15–P17.
-- Probar con el usuario: (1) Categories: Dup de GM, editar la copia, + / −, Add To Banks con y sin selección y con
-  nombres repetidos, elegir Channel Set; reabrir la app y ver que la copia sigue. (2) Find en los dos modos y arrastrar
-  las coincidencias a otro banco. (3) Test Note con un módulo de sonido (con permiso y el destino que elija).
+- Probado (EXP-024): Categories (Dup, edición, avisos, Add To Banks con Channel Set y nombre repetido, ⌘Z, se guarda
+  al reabrir), Find en los dos modos con arrastre, Test Note con el MKS-50 (Unitor8, canal 1). docs/30 al día.
 - Dudas para el usuario: P17 (comportamiento propio); la lista E-mu coincide con la del recurso del original y D-007
   pide rehacerla: decidir si se deja (nombres de categoría, datos) o se rehace desde la documentación de E-mu.
-- Al terminar: docs/30 (manual de uso), docs/14 si cambia la fase, EXP-024 COMPLETADO.
+- Al terminar: docs/14 si cambia la fase; T-025 a COMPLETADA.
 
 ## SIGUIENTE PASO EXACTO
 
-1. **T-025:** prueba del usuario en la app (lista en la ficha) y registrar el resultado en EXP-024; resolver P17 y
-   la lista E-mu.
+1. **T-025:** que el usuario acepte P17 (o diga qué cambiar) y decida la lista E-mu (dejarla o rehacerla, D-007).
 2. Menor, con el usuario y DP abierto: T-014.
